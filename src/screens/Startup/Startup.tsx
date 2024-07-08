@@ -11,10 +11,10 @@ import { SafeScreen } from '@/components/template';
 import type { RootScreenProps } from '@/types/navigation';
 
 function Startup({ navigation }: RootScreenProps<'Startup'>) {
-	const { layout, gutters, fonts } = useTheme();
+	const { layout, gutters } = useTheme();
 	const { t } = useTranslation(['startup']);
 
-	const { isSuccess, isFetching, isError } = useQuery({
+	const { isSuccess, isFetching } = useQuery({
 		queryKey: ['startup'],
 		queryFn: () => {
 			return Promise.resolve(true);
@@ -45,11 +45,6 @@ function Startup({ navigation }: RootScreenProps<'Startup'>) {
 				<Brand />
 				{isFetching && (
 					<ActivityIndicator size="large" style={[gutters.marginVertical_24]} />
-				)}
-				{isError && (
-					<Text style={[fonts.size_16, fonts.red500]}>
-						{t('startup:error')}
-					</Text>
 				)}
 			</View>
 		</SafeScreen>

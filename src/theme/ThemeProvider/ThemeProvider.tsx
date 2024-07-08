@@ -23,12 +23,12 @@ import { generateBackgrounds } from '@/theme/backgrounds';
 import { generateGutters } from '@/theme/gutters';
 import generateConfig from '@/theme/ThemeProvider/generateConfig';
 
-import type { MMKV } from 'react-native-mmkv';
 import type { ComponentTheme, Theme } from '@/types/theme/theme';
 import type {
 	FulfilledThemeConfiguration,
 	Variant,
 } from '@/types/theme/config';
+import { useStorage } from '@/storage/StorageContext';
 
 // Types
 
@@ -38,12 +38,9 @@ type Context = Theme & {
 
 export const ThemeContext = createContext<Context | undefined>(undefined);
 
-type Props = PropsWithChildren<{
-	storage: MMKV;
-}>;
-
-function ThemeProvider({ children = false, storage }: Props) {
+function ThemeProvider({ children = false }: PropsWithChildren) {
 	// Current theme variant
+	const storage = useStorage();
 	const [variant, setVariant] = useState(
 		(storage.getString('theme') as Variant) || 'default',
 	);

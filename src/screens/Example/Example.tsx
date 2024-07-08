@@ -1,21 +1,11 @@
-import { useEffect, useState } from 'react';
-import {
-	View,
-	ActivityIndicator,
-	Text,
-	TouchableOpacity,
-	ScrollView,
-	Alert,
-} from 'react-native';
+import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
 import i18next from 'i18next';
 import { useTranslation } from 'react-i18next';
-import { useQuery } from '@tanstack/react-query';
 
 import { ImageVariant } from '@/components/atoms';
 import { Brand } from '@/components/molecules';
 import { SafeScreen } from '@/components/template';
 import { useTheme } from '@/theme';
-import { fetchOne } from '@/services/users';
 
 import { isImageSourcePropType } from '@/types/guards/image';
 
@@ -23,9 +13,10 @@ import SendImage from '@/theme/assets/images/send.png';
 import ColorsWatchImage from '@/theme/assets/images/colorswatch.png';
 import TranslateImage from '@/theme/assets/images/translate.png';
 import useRandomQuote from '@/theme/hooks/useRandomQuote';
+import type { RootScreenProps } from '@/types/navigation';
 
-function Example() {
-	const { t } = useTranslation(['example', 'welcome']);
+function Example({ navigation }: RootScreenProps<'Example'>) {
+	const { t } = useTranslation(['welcome']);
 
 	const {
 		colors,
@@ -37,22 +28,6 @@ function Example() {
 		components,
 		backgrounds,
 	} = useTheme();
-
-	const [currentId, setCurrentId] = useState(-1);
-
-	const { isSuccess, data, isFetching } = useQuery({
-		queryKey: ['example', currentId],
-		queryFn: () => {
-			return fetchOne(currentId);
-		},
-		enabled: currentId >= 0,
-	});
-
-	useEffect(() => {
-		if (isSuccess) {
-			Alert.alert(t('example:welcome', data.name));
-		}
-	}, [isSuccess, data]);
 
 	const onChangeTheme = () => {
 		changeTheme(variant === 'default' ? 'dark' : 'default');
@@ -122,16 +97,12 @@ function Example() {
 						<TouchableOpacity
 							testID="fetch-user-button"
 							style={[components.buttonCircle, gutters.marginBottom_16]}
-							onPress={() => setCurrentId(Math.ceil(Math.random() * 10 + 1))}
+							onPress={() => navigation.navigate('Goals')}
 						>
-							{isFetching ? (
-								<ActivityIndicator />
-							) : (
-								<ImageVariant
-									source={SendImage}
-									style={{ tintColor: colors.purple500 }}
-								/>
-							)}
+							<ImageVariant
+								source={SendImage}
+								style={{ tintColor: colors.purple500 }}
+							/>
 						</TouchableOpacity>
 
 						<TouchableOpacity
