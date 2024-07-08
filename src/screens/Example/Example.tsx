@@ -22,6 +22,7 @@ import { isImageSourcePropType } from '@/types/guards/image';
 import SendImage from '@/theme/assets/images/send.png';
 import ColorsWatchImage from '@/theme/assets/images/colorswatch.png';
 import TranslateImage from '@/theme/assets/images/translate.png';
+import useRandomQuote from '@/theme/hooks/useRandomQuote';
 
 function Example() {
 	const { t } = useTranslation(['example', 'welcome']);
@@ -57,7 +58,7 @@ function Example() {
 		changeTheme(variant === 'default' ? 'dark' : 'default');
 	};
 
-	const onChangeLanguage = (lang: 'fr' | 'en') => {
+	const onChangeLanguage = (lang: 'pl' | 'en') => {
 		void i18next.changeLanguage(lang);
 	};
 
@@ -106,7 +107,7 @@ function Example() {
 						<Text
 							style={[fonts.size_16, fonts.gray200, gutters.marginBottom_40]}
 						>
-							{t('welcome:description')}
+							{t(useRandomQuote())}
 						</Text>
 					</View>
 
@@ -148,7 +149,7 @@ function Example() {
 							testID="change-language-button"
 							style={[components.buttonCircle, gutters.marginBottom_16]}
 							onPress={() =>
-								onChangeLanguage(i18next.language === 'fr' ? 'en' : 'fr')
+								onChangeLanguage(i18next.language === 'pl' ? 'en' : 'pl')
 							}
 						>
 							<ImageVariant
