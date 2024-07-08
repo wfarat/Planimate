@@ -1,0 +1,16 @@
+{
+  "appName": {
+    "full": "PlannerApp",
+    "initials": "PA"
+  },
+  "tabs": {
+    "goals": "Cele",
+    "quotes": "Cytaty",
+    "images": "Obrazki"
+  },
+  "settings": {
+    "title": "Ustawienia",
+    "dark": "Tryb Ciemny",
+    "lang": "Język"
+  }
+}

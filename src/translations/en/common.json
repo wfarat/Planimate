@@ -1,6 +1,16 @@
 {
   "appName": {
-    "full": "React Native PlannerApp",
+    "full": "React Native GoalMap",
     "initials": "RNB"
+  },
+  "tabs": {
+    "goals": "Goals",
+    "quotes": "Quotes",
+    "images": "Images"
+  },
+  "settings": {
+    "title": "Settigns",
+    "dark": "Dark Mode",
+    "lang": "Language"
   }
 }
