@@ -1,11 +1,10 @@
 import { useEffect } from 'react';
-import { ActivityIndicator, Text, View } from 'react-native';
+import { ActivityIndicator, View } from 'react-native';
 import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { CommonActions } from '@react-navigation/native';
 
 import { useTheme } from '@/theme';
-import { Brand } from '@/components/molecules';
 import { SafeScreen } from '@/components/template';
 
 import type { RootScreenProps } from '@/types/navigation';
@@ -42,7 +41,6 @@ function Startup({ navigation }: RootScreenProps<'Startup'>) {
 					layout.justifyCenter,
 				]}
 			>
-				<Brand />
 				{isFetching && (
 					<ActivityIndicator size="large" style={[gutters.marginVertical_24]} />
 				)}

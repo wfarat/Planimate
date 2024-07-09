@@ -27,7 +27,7 @@ describe('ThemeProvider', () => {
 
 	it('initializes with the default theme when no theme is defined in storage', () => {
 		const { getByTestId } = render(
-			<ThemeProvider storage={storage}>
+			<ThemeProvider>
 				<TestChildComponent />
 			</ThemeProvider>,
 		);
@@ -41,7 +41,7 @@ describe('ThemeProvider', () => {
 		storage.set('theme', 'dark');
 
 		const { getByTestId } = render(
-			<ThemeProvider storage={storage}>
+			<ThemeProvider>
 				<TestChildComponent />
 			</ThemeProvider>,
 		);
@@ -53,7 +53,7 @@ describe('ThemeProvider', () => {
 
 	it('changes the theme when calling changeTheme', () => {
 		const { getByTestId } = render(
-			<ThemeProvider storage={storage}>
+			<ThemeProvider>
 				<TestChildComponent />
 			</ThemeProvider>,
 		);

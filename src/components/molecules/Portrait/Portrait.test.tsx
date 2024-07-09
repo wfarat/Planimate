@@ -4,9 +4,9 @@ import { MMKV } from 'react-native-mmkv';
 
 import { ThemeProvider } from '@/theme';
 
-import Brand from './Brand';
+import Portrait from './Portrait';
 
-describe('Brand component should render correctly', () => {
+describe('Portrait component should render correctly', () => {
 	let storage: MMKV;
 
 	beforeAll(() => {
@@ -16,7 +16,7 @@ describe('Brand component should render correctly', () => {
 	test('with default props if not precises (height: 200, width: 200, resizeMode: "contain")', () => {
 		const component = (
 			<ThemeProvider storage={storage}>
-				<Brand />
+				<Portrait />
 			</ThemeProvider>
 		);
 
@@ -33,8 +33,8 @@ describe('Brand component should render correctly', () => {
 
 	test('with passed props', () => {
 		const component = (
-			<ThemeProvider storage={storage}>
-				<Brand height={100} width={100} mode="cover" />
+			<ThemeProvider>
+				<Portrait height={100} width={100} mode="cover" />
 			</ThemeProvider>
 		);
 

@@ -3,7 +3,6 @@ import i18next from 'i18next';
 import { useTranslation } from 'react-i18next';
 
 import { ImageVariant } from '@/components/atoms';
-import { Brand } from '@/components/molecules';
 import { SafeScreen } from '@/components/template';
 import { useTheme } from '@/theme';
 
@@ -12,12 +11,14 @@ import { isImageSourcePropType } from '@/types/guards/image';
 import SendImage from '@/theme/assets/images/send.png';
 import ColorsWatchImage from '@/theme/assets/images/colorswatch.png';
 import TranslateImage from '@/theme/assets/images/translate.png';
+
 import useRandomQuote from '@/theme/hooks/useRandomQuote';
 import type { RootScreenProps } from '@/types/navigation';
+import Portrait from '@/components/molecules/Portrait/Portrait';
 
 function Example({ navigation }: RootScreenProps<'Example'>) {
 	const { t } = useTranslation(['welcome']);
-
+	const quote = useRandomQuote();
 	const {
 		colors,
 		variant,
@@ -56,12 +57,13 @@ function Example({ navigation }: RootScreenProps<'Example'>) {
 					]}
 				>
 					<View
-						style={[layout.relative, backgrounds.gray100, components.circle250]}
+						style={[layout.relative, components.circle250]}
 					/>
-
-					<View style={[layout.absolute, gutters.paddingTop_80]}>
-						<Brand height={300} width={300} />
-					</View>
+					{quote && (
+						<View style={[layout.absolute, gutters.paddingTop_80]}>
+							<Portrait height={300} width={300} image={quote[1]} />
+						</View>
+					)}
 				</View>
 
 				<View style={[gutters.paddingHorizontal_32, gutters.marginTop_40]}>
@@ -82,7 +84,7 @@ function Example({ navigation }: RootScreenProps<'Example'>) {
 						<Text
 							style={[fonts.size_16, fonts.gray200, gutters.marginBottom_40]}
 						>
-							{t(useRandomQuote())}
+							{t(quote[0])}
 						</Text>
 					</View>
 

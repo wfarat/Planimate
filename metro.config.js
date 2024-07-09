@@ -9,6 +9,7 @@ const { getDefaultConfig, mergeConfig } = require('@react-native/metro-config');
 const config = {
   resolver: {
     sourceExts: ['js', 'jsx', 'ts', 'tsx', 'cjs', 'mjs', 'json'],
+    assetExts: ['jpg', 'png', 'gif', 'svg'],
   }
 };
 
