@@ -56,9 +56,7 @@ function Example({ navigation }: RootScreenProps<'Example'>) {
 						gutters.marginTop_80,
 					]}
 				>
-					<View
-						style={[layout.relative, components.circle250]}
-					/>
+					<View style={[layout.relative, components.circle250]} />
 					{quote && (
 						<View style={[layout.absolute, gutters.paddingTop_80]}>
 							<Portrait height={300} width={300} image={quote[1]} />
@@ -106,7 +104,16 @@ function Example({ navigation }: RootScreenProps<'Example'>) {
 								style={{ tintColor: colors.purple500 }}
 							/>
 						</TouchableOpacity>
-
+						<TouchableOpacity
+							testID="fetch-user-button"
+							style={[components.buttonCircle, gutters.marginBottom_16]}
+							onPress={() => navigation.navigate('Register')}
+						>
+							<ImageVariant
+								source={SendImage}
+								style={{ tintColor: colors.purple500 }}
+							/>
+						</TouchableOpacity>
 						<TouchableOpacity
 							testID="change-theme-button"
 							style={[components.buttonCircle, gutters.marginBottom_16]}

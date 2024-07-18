@@ -56,7 +56,11 @@ function Goals() {
 	return (
 		<SafeScreen>
 			<View
-				style={[layout.justifyCenter, layout.itemsCenter, gutters.marginTop_120]}
+				style={[
+					layout.justifyCenter,
+					layout.itemsCenter,
+					gutters.marginTop_120,
+				]}
 			>
 				<View style={[gutters.paddingHorizontal_32]}>
 					<View>
