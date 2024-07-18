@@ -1,5 +1,4 @@
 import {
-	ScrollView,
 	Text,
 	TouchableOpacity,
 	View,
@@ -20,7 +19,7 @@ import { Goal } from '@/types/schemas/goal';
 function Goals() {
 	const { t } = useTranslation(['goals']);
 	const storage = useStorage();
-	const { colors, layout, gutters, fonts, components } = useTheme();
+	const { colors, layout, gutters, borders, fonts, components } = useTheme();
 	const [name, setName] = useState<string>('');
 	const [description, setDescription] = useState<string>('');
 	const [goals, setGoals] = useState<Goal[]>([]);
@@ -42,70 +41,81 @@ function Goals() {
 		}
 	};
 	const renderItem: ListRenderItem<Goal> = ({ item }: { item: Goal }) => (
-		<View style={[gutters.marginBottom_16]}>
+		<View
+			style={[
+				gutters.marginBottom_16,
+				borders.gray400,
+				borders.w_1,
+				layout.fullWidth,
+			]}
+		>
 			<Text>{item.name}</Text>
 			<Text>{item.description}</Text>
 		</View>
 	);
 	return (
 		<SafeScreen>
-			<ScrollView>
-				<View
-					style={[
-						layout.justifyCenter,
-						layout.itemsCenter,
-						gutters.marginTop_80,
-					]}
-				>
-					<View style={[gutters.paddingHorizontal_32, gutters.marginTop_40]}>
-						<View style={[gutters.marginTop_40]}>
-							<TextInput
-								style={[fonts.size_40, fonts.gray800, fonts.bold]}
-								value={name}
-								onChangeText={setName}
-								placeholder={t('goals:title')}
-							/>
-
-							<TextInput
-								style={[
-									fonts.gray400,
-									fonts.bold,
-									fonts.size_24,
-									gutters.marginBottom_32,
-								]}
-								value={description}
-								onChangeText={setDescription}
-								placeholder={t('goals:description')}
-							/>
-						</View>
-
-						<View
+			<View
+				style={[layout.justifyCenter, layout.itemsCenter, gutters.marginTop_120]}
+			>
+				<View style={[gutters.paddingHorizontal_32]}>
+					<View>
+						<TextInput
 							style={[
-								layout.row,
-								layout.justifyBetween,
-								layout.fullWidth,
-								gutters.marginTop_16,
+								fonts.size_24,
+								fonts.gray800,
+								fonts.bold,
+								borders.gray800,
+								borders.w_1,
 							]}
+							value={name}
+							onChangeText={setName}
+							placeholder={t('goals:title')}
+						/>
+
+						<TextInput
+							style={[
+								fonts.gray400,
+								fonts.bold,
+								fonts.size_16,
+								borders.gray400,
+								borders.w_1,
+							]}
+							multiline
+							value={description}
+							onChangeText={setDescription}
+							placeholder={t('goals:description')}
+						/>
+					</View>
+
+					<View
+						style={[
+							layout.row,
+							layout.justifyBetween,
+							layout.fullWidth,
+							gutters.marginTop_16,
+						]}
+					>
+						<TouchableOpacity
+							testID="change-language-button"
+							style={[components.buttonCircle, gutters.marginBottom_16]}
+							onPress={() => addGoal()}
 						>
-							<TouchableOpacity
-								testID="change-language-button"
-								style={[components.buttonCircle, gutters.marginBottom_16]}
-								onPress={() => addGoal()}
-							>
-								<ImageVariant
-									source={SendImage}
-									style={{ tintColor: colors.purple500 }}
-								/>
-							</TouchableOpacity>
-						</View>
+							<ImageVariant
+								source={SendImage}
+								style={{ tintColor: colors.purple500 }}
+							/>
+						</TouchableOpacity>
+					</View>
+					<View>
+						<FlatList
+							data={goals}
+							keyExtractor={(item, index) => index.toString()}
+							renderItem={renderItem}
+						/>
 					</View>
 				</View>
-			</ScrollView>
-			<FlatList
-				data={goals}
-				keyExtractor={(item, index) => index.toString()}
-				renderItem={renderItem}
-			/>
+			</View>
 		</SafeScreen>
 	);
 }
