@@ -4,7 +4,7 @@ import type { ComponentTheme } from '@/types/theme/theme';
 interface AllStyle
 	extends Record<string, AllStyle | ImageStyle | TextStyle | ViewStyle> {}
 
-export default ({ layout, backgrounds, fonts }: ComponentTheme) => {
+export default ({ layout, backgrounds, fonts, borders, gutters }: ComponentTheme) => {
 	return {
 		buttonCircle: {
 			...layout.justifyCenter,
@@ -19,6 +19,15 @@ export default ({ layout, backgrounds, fonts }: ComponentTheme) => {
 			borderRadius: 140,
 			height: 250,
 			width: 250,
+		},
+		textInputRounded: {
+			...fonts.size_16,
+			...fonts.gray400,
+			...fonts.bold,
+			...borders.gray400,
+			...borders.w_1,
+			...borders.rounded_16,
+			...gutters.marginBottom_16,
 		},
 	} as const satisfies AllStyle;
 };

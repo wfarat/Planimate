@@ -30,9 +30,10 @@ import owi from '@/theme/assets/images/portraits/owi.jpg';
 import ws from '@/theme/assets/images/portraits/ws.jpg';
 import tr from '@/theme/assets/images/portraits/tr.jpg';
 import jkr from '@/theme/assets/images/portraits/jkr.jpg';
+import { QuoteKeys } from '@/types/schemas/quotes';
 
 export default function useRandomQuote() {
-	const Quotes: [string, ImageSourcePropType][] = [
+	const Quotes: [QuoteKeys, ImageSourcePropType][] = [
 		['quotes:ma1', ma],
 		['quotes:wd1', Disney],
 		['quotes:ow1', ow],

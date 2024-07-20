@@ -19,7 +19,7 @@ import { Goal } from '@/types/schemas/goal';
 function Goals() {
 	const { t } = useTranslation(['goals']);
 	const storage = useStorage();
-	const { colors, layout, gutters, borders, fonts, components } = useTheme();
+	const { colors, layout, gutters, borders, components } = useTheme();
 	const [name, setName] = useState<string>('');
 	const [description, setDescription] = useState<string>('');
 	const [goals, setGoals] = useState<Goal[]>([]);
@@ -65,26 +65,14 @@ function Goals() {
 				<View style={[gutters.paddingHorizontal_32]}>
 					<View>
 						<TextInput
-							style={[
-								fonts.size_24,
-								fonts.gray800,
-								fonts.bold,
-								borders.gray800,
-								borders.w_1,
-							]}
+							style={components.textInputRounded}
 							value={name}
 							onChangeText={setName}
 							placeholder={t('goals:title')}
 						/>
 
 						<TextInput
-							style={[
-								fonts.gray400,
-								fonts.bold,
-								fonts.size_16,
-								borders.gray400,
-								borders.w_1,
-							]}
+							style={components.textInputRounded}
 							multiline
 							value={description}
 							onChangeText={setDescription}

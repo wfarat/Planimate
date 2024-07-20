@@ -16,19 +16,11 @@ import useRandomQuote from '@/theme/hooks/useRandomQuote';
 import type { RootScreenProps } from '@/types/navigation';
 import Portrait from '@/components/molecules/Portrait/Portrait';
 
-function Example({ navigation }: RootScreenProps<'Example'>) {
-	const { t } = useTranslation(['welcome']);
-	const quote = useRandomQuote();
-	const {
-		colors,
-		variant,
-		changeTheme,
-		layout,
-		gutters,
-		fonts,
-		components,
-		backgrounds,
-	} = useTheme();
+function Main({ navigation }: RootScreenProps<'Main'>) {
+	const { t } = useTranslation(['welcome', 'quotes']);
+	const [quote, image] = useRandomQuote();
+	const { colors, variant, changeTheme, layout, gutters, fonts, components } =
+		useTheme();
 
 	const onChangeTheme = () => {
 		changeTheme(variant === 'default' ? 'dark' : 'default');
@@ -59,7 +51,7 @@ function Example({ navigation }: RootScreenProps<'Example'>) {
 					<View style={[layout.relative, components.circle250]} />
 					{quote && (
 						<View style={[layout.absolute, gutters.paddingTop_80]}>
-							<Portrait height={300} width={300} image={quote[1]} />
+							<Portrait height={300} width={300} image={image} />
 						</View>
 					)}
 				</View>
@@ -82,7 +74,7 @@ function Example({ navigation }: RootScreenProps<'Example'>) {
 						<Text
 							style={[fonts.size_16, fonts.gray200, gutters.marginBottom_40]}
 						>
-							{t(quote[0])}
+							{t(quote)}
 						</Text>
 					</View>
 
@@ -144,4 +136,4 @@ function Example({ navigation }: RootScreenProps<'Example'>) {
 	);
 }
 
-export default Example;
+export default Main;

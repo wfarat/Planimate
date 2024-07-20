@@ -13,11 +13,12 @@ import { ImageVariant } from '@/components/atoms';
 import { useState } from 'react';
 import { useStorage } from '@/storage/StorageContext';
 import SendImage from '@/theme/assets/images/send.png';
+import { isImageSourcePropType } from '@/types/guards/image';
 
 function Register() {
 	const { t } = useTranslation(['register']);
 	const storage = useStorage();
-	const { colors, layout, gutters, borders, fonts, components } = useTheme();
+	const { colors, layout, gutters, components } = useTheme();
 	const [name, setName] = useState<string>('');
 	const [password, setPassword] = useState<string>('');
 	const [repeat, setRepeat] = useState<string>('');
@@ -32,7 +33,9 @@ function Register() {
 			setRepeat('');
 		}
 	};
-
+	if (!isImageSourcePropType(SendImage)) {
+		throw new Error('Image source is not valid');
+	}
 	return (
 		<SafeScreen>
 			<View
@@ -45,26 +48,14 @@ function Register() {
 				<View style={[gutters.paddingHorizontal_32]}>
 					<View>
 						<TextInput
-							style={[
-								fonts.size_24,
-								fonts.gray800,
-								fonts.bold,
-								borders.gray800,
-								borders.w_1,
-							]}
+							style={components.textInputRounded}
 							value={name}
 							onChangeText={setName}
 							placeholder={t('register:user')}
 						/>
 
 						<TextInput
-							style={[
-								fonts.gray400,
-								fonts.bold,
-								fonts.size_16,
-								borders.gray400,
-								borders.w_1,
-							]}
+							style={components.textInputRounded}
 							multiline
 							value={password}
 							onChangeText={setPassword}
@@ -72,13 +63,7 @@ function Register() {
 						/>
 					</View>
 					<TextInput
-						style={[
-							fonts.gray400,
-							fonts.bold,
-							fonts.size_16,
-							borders.gray400,
-							borders.w_1,
-						]}
+						style={components.textInputRounded}
 						multiline
 						value={repeat}
 						onChangeText={setRepeat}
