@@ -1,10 +1,4 @@
-import {
-	Text,
-	View,
-	ListRenderItem,
-	FlatList,
-	TouchableOpacity,
-} from 'react-native';
+import { View, ListRenderItem, FlatList, TouchableOpacity } from 'react-native';
 
 import { useTheme } from '@/theme';
 import { useEffect, useState } from 'react';
@@ -12,12 +6,12 @@ import { useStorage } from '@/storage/StorageContext';
 import SendImage from '@/theme/assets/images/send.png';
 import { Goal, NameAndDescription } from '@/types/schemas';
 import { isImageSourcePropType } from '@/types/guards/image';
-import SendButton from '@/components/molecules/SendButton/SendButton';
 import { ListProps } from '@/types/navigation';
+import { ItemCard, SendButton } from '@/components/molecules';
 
 function GoalsList({ navigation, clean }: ListProps<'Goals'>) {
 	const storage = useStorage();
-	const { layout, gutters, borders } = useTheme();
+	const { layout } = useTheme();
 	const [goals, setGoals] = useState<Goal[]>([]);
 	useEffect(() => {
 		const storedGoals = storage.getString('goals');
@@ -38,7 +32,6 @@ function GoalsList({ navigation, clean }: ListProps<'Goals'>) {
 				name,
 				description,
 				id: lastId + 1,
-				tasks: [],
 			};
 			const updatedGoals = [...goals, goal];
 			setGoals(updatedGoals);
@@ -52,23 +45,13 @@ function GoalsList({ navigation, clean }: ListProps<'Goals'>) {
 	const renderItem: ListRenderItem<Goal> = ({ item }: { item: Goal }) => (
 		<TouchableOpacity
 			key={item.id}
-			onPress={() => navigation.navigate('GoalDetails', { goal: item })}
+			onPress={() => navigation.navigate('Tasks', { goal: item })}
 		>
-			<View
-				style={[
-					gutters.marginBottom_16,
-					borders.gray400,
-					borders.w_1,
-					layout.fullWidth,
-				]}
-			>
-				<Text>{item.name}</Text>
-				<Text>{item.description}</Text>
-			</View>
+			<ItemCard name={item.name} description={item.description} />
 		</TouchableOpacity>
 	);
 	return (
-		<View>
+		<View style={layout.flex_1}>
 			<SendButton handlePress={addGoal} />
 			<View>
 				<FlatList

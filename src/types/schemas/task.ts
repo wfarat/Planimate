@@ -4,7 +4,6 @@ type Task = {
 	taskId?: number | undefined;
 	name: string;
 	description: string;
-	tasks: Task[];
 	completed: boolean;
 };
 

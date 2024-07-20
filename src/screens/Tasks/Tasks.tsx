@@ -4,15 +4,15 @@ import { useTranslation } from 'react-i18next';
 import { SafeScreen } from '@/components/template';
 import { useTheme } from '@/theme';
 import { useEffect, useState } from 'react';
-import TasksList from '@/screens/GoalDetails/TasksList';
+import TasksList from '@/screens/Tasks/TasksList';
 import { RootScreenProps } from '@/types/navigation';
 import { useStorage } from '@/storage/StorageContext';
 
-function GoalDetails({ route, navigation }: RootScreenProps<'GoalDetails'>) {
+function Tasks({ route, navigation }: RootScreenProps<'Tasks'>) {
 	const { t } = useTranslation(['goals']);
-	const { goal } = route.params;
+	const { goal, task } = route.params;
 	const storage = useStorage();
-	const { layout, gutters, components } = useTheme();
+	const { layout, fonts, gutters, components } = useTheme();
 	const [name, setName] = useState<string>('');
 	const [description, setDescription] = useState<string>('');
 	useEffect(() => {
@@ -31,7 +31,8 @@ function GoalDetails({ route, navigation }: RootScreenProps<'GoalDetails'>) {
 					gutters.marginTop_120,
 				]}
 			>
-				<Text>{goal.name}</Text>
+				<Text style={fonts.size_24}>{goal.name}</Text>
+				{task && <Text style={fonts.size_24}>{task.name}</Text>}
 				<View style={[gutters.paddingHorizontal_32]}>
 					<View>
 						<TextInput
@@ -40,7 +41,6 @@ function GoalDetails({ route, navigation }: RootScreenProps<'GoalDetails'>) {
 							onChangeText={setName}
 							placeholder={t('goals:title')}
 						/>
-
 						<TextInput
 							style={components.textInputRounded}
 							multiline
@@ -56,4 +56,4 @@ function GoalDetails({ route, navigation }: RootScreenProps<'GoalDetails'>) {
 	);
 }
 
-export default GoalDetails;
+export default Tasks;

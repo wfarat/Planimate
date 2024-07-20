@@ -4,7 +4,6 @@ type Goal = {
 	id: number;
 	name: string;
 	description: string;
-	tasks: Task[];
 };
 
 export default Goal;
