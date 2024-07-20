@@ -22,7 +22,7 @@ describe('ImageVariant component should render correctly', () => {
 		}
 
 		const component = (
-			<ThemeProvider storage={storage}>
+			<ThemeProvider>
 				<ImageVariant source={sourceLight} />
 			</ThemeProvider>
 		);
@@ -41,7 +41,7 @@ describe('ImageVariant component should render correctly', () => {
 		}
 
 		const component = (
-			<ThemeProvider storage={storage}>
+			<ThemeProvider>
 				<ImageVariant source={sourceDark} sourceDark={sourceDark} />
 			</ThemeProvider>
 		);

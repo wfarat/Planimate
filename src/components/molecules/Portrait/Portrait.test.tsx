@@ -15,7 +15,7 @@ describe('Portrait component should render correctly', () => {
 
 	test('with default props if not precises (height: 200, width: 200, resizeMode: "contain")', () => {
 		const component = (
-			<ThemeProvider storage={storage}>
+			<ThemeProvider>
 				<Portrait />
 			</ThemeProvider>
 		);

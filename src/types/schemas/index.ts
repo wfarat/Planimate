@@ -1,0 +1,3 @@
+export type { default as Task } from './task';
+export type { default as Goal } from './goal';
+export type { default as NameAndDescription } from './nameAndDescription';

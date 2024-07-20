@@ -2,7 +2,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
-import { Main, Startup, Goals, Register } from '@/screens';
+import { Main, Startup, Goals, Register, GoalDetails } from '@/screens';
 import { useTheme } from '@/theme';
 
 import type { RootStackParamList } from '@/types/navigation';
@@ -21,6 +21,7 @@ function ApplicationNavigator() {
 					<Stack.Screen name="Main" component={Main} />
 					<Stack.Screen name="Goals" component={Goals} />
 					<Stack.Screen name="Register" component={Register} />
+					<Stack.Screen name="GoalDetails" component={GoalDetails} />
 				</Stack.Navigator>
 			</NavigationContainer>
 		</SafeAreaProvider>

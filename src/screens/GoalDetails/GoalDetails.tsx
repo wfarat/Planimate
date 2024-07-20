@@ -1,30 +1,22 @@
-import { View, TextInput } from 'react-native';
+import { Text, View, TextInput } from 'react-native';
 
 import { useTranslation } from 'react-i18next';
 import { SafeScreen } from '@/components/template';
 import { useTheme } from '@/theme';
 import { useEffect, useState } from 'react';
-import GoalsList from '@/screens/Goals/GoalsList';
+import TasksList from '@/screens/GoalDetails/TasksList';
 import { RootScreenProps } from '@/types/navigation';
 import { useStorage } from '@/storage/StorageContext';
-import { NameAndDescription } from '@/types/schemas';
 
-function Goals({ navigation, route }: RootScreenProps<'Goals'>) {
+function GoalDetails({ route, navigation }: RootScreenProps<'GoalDetails'>) {
 	const { t } = useTranslation(['goals']);
+	const { goal } = route.params;
 	const storage = useStorage();
 	const { layout, gutters, components } = useTheme();
 	const [name, setName] = useState<string>('');
 	const [description, setDescription] = useState<string>('');
 	useEffect(() => {
-		const savedState = storage.getString('goals.state');
-		if (savedState) {
-			const data = JSON.parse(savedState) as NameAndDescription;
-			setName(data.name);
-			setDescription(data.description);
-		}
-	}, []);
-	useEffect(() => {
-		storage.set('goals.state', JSON.stringify({ name, description }));
+		storage.set('tasks.state', JSON.stringify({ name, description }));
 	}, [name, description]);
 	const clean = () => {
 		setDescription('');
@@ -39,6 +31,7 @@ function Goals({ navigation, route }: RootScreenProps<'Goals'>) {
 					gutters.marginTop_120,
 				]}
 			>
+				<Text>{goal.name}</Text>
 				<View style={[gutters.paddingHorizontal_32]}>
 					<View>
 						<TextInput
@@ -56,11 +49,11 @@ function Goals({ navigation, route }: RootScreenProps<'Goals'>) {
 							placeholder={t('goals:description')}
 						/>
 					</View>
-					<GoalsList navigation={navigation} route={route} clean={clean} />
+					<TasksList clean={clean} navigation={navigation} route={route} />
 				</View>
 			</View>
 		</SafeScreen>
 	);
 }
 
-export default Goals;
+export default GoalDetails;
