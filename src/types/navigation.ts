@@ -2,11 +2,11 @@ import type { StackScreenProps } from '@react-navigation/stack';
 import { Goal, Task } from '@/types/schemas';
 
 export type RootStackParamList = {
-	Startup: undefined;
-	Main: undefined;
+	Quotes: undefined;
 	Goals: undefined;
 	Tasks: { goal: Goal; task?: Task };
 	Register: undefined;
+	Settings: undefined;
 };
 
 export type RootScreenProps<

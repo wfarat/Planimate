@@ -12,13 +12,10 @@ import SendImage from '@/theme/assets/images/send.png';
 import ColorsWatchImage from '@/theme/assets/images/colorswatch.png';
 import TranslateImage from '@/theme/assets/images/translate.png';
 
-import useRandomQuote from '@/theme/hooks/useRandomQuote';
 import type { RootScreenProps } from '@/types/navigation';
-import Portrait from '@/components/molecules/Portrait/Portrait';
 
-function Main({ navigation }: RootScreenProps<'Main'>) {
+function Settings({ navigation }: RootScreenProps<'Settings'>) {
 	const { t } = useTranslation(['welcome', 'quotes']);
-	const [quote, image] = useRandomQuote();
 	const { colors, variant, changeTheme, layout, gutters, fonts, components } =
 		useTheme();
 
@@ -48,54 +45,32 @@ function Main({ navigation }: RootScreenProps<'Main'>) {
 						gutters.marginTop_80,
 					]}
 				>
-					<View style={[layout.relative, components.circle250]} />
-					{quote && (
-						<View style={[layout.absolute, gutters.paddingTop_80]}>
-							<Portrait height={300} width={300} image={image} />
+					<View style={[gutters.paddingHorizontal_32, gutters.marginTop_40]}>
+						<View style={[gutters.marginTop_40]}>
+							<Text style={[fonts.size_40, fonts.gray800, fonts.bold]}>
+								{t('welcome:title')}
+							</Text>
+							<Text
+								style={[
+									fonts.gray400,
+									fonts.bold,
+									fonts.size_24,
+									gutters.marginBottom_32,
+								]}
+							>
+								{t('welcome:subtitle')}
+							</Text>
 						</View>
-					)}
-				</View>
-
-				<View style={[gutters.paddingHorizontal_32, gutters.marginTop_40]}>
-					<View style={[gutters.marginTop_40]}>
-						<Text style={[fonts.size_40, fonts.gray800, fonts.bold]}>
-							{t('welcome:title')}
-						</Text>
-						<Text
-							style={[
-								fonts.gray400,
-								fonts.bold,
-								fonts.size_24,
-								gutters.marginBottom_32,
-							]}
-						>
-							{t('welcome:subtitle')}
-						</Text>
-						<Text
-							style={[fonts.size_16, fonts.gray200, gutters.marginBottom_40]}
-						>
-							{t(quote)}
-						</Text>
 					</View>
-
 					<View
 						style={[
 							layout.row,
 							layout.justifyBetween,
 							layout.fullWidth,
 							gutters.marginTop_16,
+							gutters.padding_32,
 						]}
 					>
-						<TouchableOpacity
-							testID="fetch-user-button"
-							style={[components.buttonCircle, gutters.marginBottom_16]}
-							onPress={() => navigation.navigate('Goals')}
-						>
-							<ImageVariant
-								source={SendImage}
-								style={{ tintColor: colors.purple500 }}
-							/>
-						</TouchableOpacity>
 						<TouchableOpacity
 							testID="fetch-user-button"
 							style={[components.buttonCircle, gutters.marginBottom_16]}
@@ -136,4 +111,4 @@ function Main({ navigation }: RootScreenProps<'Main'>) {
 	);
 }
 
-export default Main;
+export default Settings;
