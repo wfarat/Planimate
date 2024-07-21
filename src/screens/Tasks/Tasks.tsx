@@ -6,24 +6,65 @@ import { useTheme } from '@/theme';
 import { useEffect, useState } from 'react';
 import TasksList from '@/screens/Tasks/TasksList';
 import { RootScreenProps } from '@/types/navigation';
+import { SendButton, TaskTopBar } from '@/components/molecules';
+import type { Task } from '@/types/schemas';
 import { useStorage } from '@/storage/StorageContext';
+import { useTaskActions } from '@/controllers/hooks/useTaskActions';
+import { useIsFocused } from '@react-navigation/native';
 
 function Tasks({ route, navigation }: RootScreenProps<'Tasks'>) {
-	const { t } = useTranslation(['goals']);
 	const { goal, task } = route.params;
+	const { t } = useTranslation(['goals']);
 	const storage = useStorage();
 	const { layout, fonts, gutters, components } = useTheme();
 	const [name, setName] = useState<string>('');
 	const [description, setDescription] = useState<string>('');
+	const [tasks, setTasks] = useState<Task[]>([]);
+	const { deleteTask, finishTask, editTask, addTask } = useTaskActions(
+		goal.id,
+		task?.taskId || goal.id,
+		task ? task.id : undefined,
+	);
+	const storageString = task
+		? `goals.${goal.id}.${task.id}`
+		: `goals.${goal.id}`;
+	const isFocused = useIsFocused();
 	useEffect(() => {
-		storage.set('tasks.state', JSON.stringify({ name, description }));
-	}, [name, description]);
-	const clean = () => {
-		setDescription('');
+		if (isFocused) {
+			const storedTasks = storage.getString(storageString);
+			if (storedTasks) {
+				setTasks(JSON.parse(storedTasks) as Task[]);
+			} else {
+				setTasks([]);
+			}
+		}
+	}, [task?.id, isFocused]);
+	const handleAddTask = () => {
+		const updatedTasks = addTask(tasks, name, description);
+		setTasks(updatedTasks);
 		setName('');
+		setDescription('');
+	};
+	const handleDeleteTask = () => {
+		deleteTask();
+		navigation.goBack();
+	};
+	const handleFinishTask = () => {
+		finishTask();
+	};
+
+	const handleEditTask = (newName: string, newDescription: string) => {
+		editTask(newName, newDescription);
 	};
 	return (
 		<SafeScreen>
+			{task && (
+				<TaskTopBar
+					onDelete={() => handleDeleteTask()}
+					onFinish={() => handleFinishTask()}
+					onEdit={() => handleEditTask('New Name', 'New Description')}
+				/>
+			)}
 			<View
 				style={[
 					layout.justifyCenter,
@@ -49,7 +90,8 @@ function Tasks({ route, navigation }: RootScreenProps<'Tasks'>) {
 							placeholder={t('goals:description')}
 						/>
 					</View>
-					<TasksList clean={clean} navigation={navigation} route={route} />
+					<SendButton handlePress={() => handleAddTask()} />
+					<TasksList tasks={tasks} navigation={navigation} route={route} />
 				</View>
 			</View>
 		</SafeScreen>

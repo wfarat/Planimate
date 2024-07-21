@@ -36,7 +36,7 @@ function GoalsList({ navigation, clean }: ListProps<'Goals'>) {
 			const updatedGoals = [...goals, goal];
 			setGoals(updatedGoals);
 			storage.set('goals', JSON.stringify(updatedGoals));
-			clean();
+			if (clean) clean();
 		}
 	};
 	if (!isImageSourcePropType(SendImage)) {

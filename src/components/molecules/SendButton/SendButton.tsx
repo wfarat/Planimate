@@ -17,7 +17,6 @@ function SendButton({ handlePress }: SendButtonProps) {
 	}
 	const handlePressWrapper = (event: GestureResponderEvent) => {
 		if (handlePress) {
-			console.log('button was pressed');
 			handlePress(event);
 		}
 	};

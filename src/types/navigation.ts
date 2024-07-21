@@ -4,7 +4,7 @@ import { Goal, Task } from '@/types/schemas';
 export type RootStackParamList = {
 	Quotes: undefined;
 	Goals: undefined;
-	Tasks: { goal: Goal; task?: Task };
+	Tasks: { goal: Goal; task?: Task; parentId?: number };
 	Register: undefined;
 	Settings: undefined;
 };
@@ -16,5 +16,6 @@ export type RootScreenProps<
 export type ListProps<
 	S extends keyof RootStackParamList = keyof RootStackParamList,
 > = RootScreenProps<S> & {
-	clean: () => void;
+	tasks?: Task[];
+	clean?: () => void;
 };
