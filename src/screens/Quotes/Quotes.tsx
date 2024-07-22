@@ -4,7 +4,7 @@ import { SafeScreen } from '@/components/template';
 import { useTheme } from '@/theme';
 import { isImageSourcePropType } from '@/types/guards/image';
 import SendImage from '@/theme/assets/images/send.png';
-import useRandomQuote from '@/controllers/hooks/useRandomQuote';
+import useRandomQuote from '@/helpers/hooks/useRandomQuote';
 
 import Portrait from '@/components/molecules/Portrait/Portrait';
 

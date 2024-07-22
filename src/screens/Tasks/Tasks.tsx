@@ -9,7 +9,7 @@ import { RootScreenProps } from '@/types/navigation';
 import { SendButton, TaskTopBar } from '@/components/molecules';
 import type { Task } from '@/types/schemas';
 import { useStorage } from '@/storage/StorageContext';
-import { useTaskActions } from '@/controllers/hooks/useTaskActions';
+import { useTaskActions } from '@/helpers/hooks/useTaskActions';
 import { useIsFocused } from '@react-navigation/native';
 
 function Tasks({ route, navigation }: RootScreenProps<'Tasks'>) {
@@ -60,6 +60,7 @@ function Tasks({ route, navigation }: RootScreenProps<'Tasks'>) {
 		<SafeScreen>
 			{task && (
 				<TaskTopBar
+					isCompletionPossible={tasks.every(item => item.completed)}
 					onDelete={() => handleDeleteTask()}
 					onFinish={() => handleFinishTask()}
 					onEdit={() => handleEditTask('New Name', 'New Description')}

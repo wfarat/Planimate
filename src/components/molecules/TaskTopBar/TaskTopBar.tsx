@@ -6,9 +6,15 @@ type TaskTopBarProps = {
 	onDelete: () => void;
 	onFinish: () => void;
 	onEdit: () => void;
+	isCompletionPossible: boolean;
 };
 
-function TaskTopBar({ onDelete, onFinish, onEdit }: TaskTopBarProps) {
+function TaskTopBar({
+	onDelete,
+	onFinish,
+	onEdit,
+	isCompletionPossible,
+}: TaskTopBarProps) {
 	const { layout, gutters } = useTheme();
 
 	return (
@@ -28,8 +34,12 @@ function TaskTopBar({ onDelete, onFinish, onEdit }: TaskTopBarProps) {
 					<MaterialCommunityIcons name="pencil-box" size={20} />
 				</TouchableOpacity>
 
-				<TouchableOpacity onPress={onFinish}>
-					<MaterialCommunityIcons name="check" size={20} />
+				<TouchableOpacity onPress={onFinish} disabled={!isCompletionPossible}>
+					<MaterialCommunityIcons
+						name="check"
+						size={20}
+						color={isCompletionPossible ? 'green' : 'red'}
+					/>
 				</TouchableOpacity>
 			</View>
 		</View>
