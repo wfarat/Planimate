@@ -1,7 +1,5 @@
-import { View, DimensionValue } from 'react-native';
+import { View, DimensionValue, Image } from 'react-native';
 
-
-import { ImageVariant } from '@/components/atoms';
 import { useTheme } from '@/theme';
 import { isImageSourcePropType } from '@/types/guards/image';
 import { ImageSourcePropType } from 'react-native/Libraries/Image/Image';
@@ -27,8 +25,7 @@ function Portrait({
 
 	return (
 		<View testID="brand-img-wrapper" style={{ height, width }}>
-			<ImageVariant
-				testID="brand-img"
+			<Image
 				style={[layout.fullHeight, layout.fullWidth]}
 				source={image}
 				resizeMode={mode}
