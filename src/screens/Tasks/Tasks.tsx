@@ -1,4 +1,4 @@
-import { Text, View, TextInput } from 'react-native';
+import { Text, View, TextInput, Alert } from 'react-native';
 
 import { useTranslation } from 'react-i18next';
 import { SafeScreen } from '@/components/template';
@@ -49,6 +49,19 @@ function Tasks({ route, navigation }: RootScreenProps<'Tasks'>) {
 		deleteTask();
 		navigation.goBack();
 	};
+	const alertDelete = () => {
+		Alert.alert(
+			'Confirmation',
+			`Are you sure you want to delete ${task?.name}?`,
+			[
+				{
+					text: 'Cancel',
+					style: 'cancel',
+				},
+				{ text: 'OK', onPress: () => handleDeleteTask() },
+			],
+		);
+	};
 	const handleFinishTask = () => {
 		finishTask();
 	};
@@ -61,7 +74,7 @@ function Tasks({ route, navigation }: RootScreenProps<'Tasks'>) {
 			{task && (
 				<TaskTopBar
 					isCompletionPossible={tasks.every(item => item.completed)}
-					onDelete={() => handleDeleteTask()}
+					onDelete={alertDelete}
 					onFinish={() => handleFinishTask()}
 					onEdit={() => handleEditTask('New Name', 'New Description')}
 				/>
@@ -73,8 +86,10 @@ function Tasks({ route, navigation }: RootScreenProps<'Tasks'>) {
 					gutters.marginTop_120,
 				]}
 			>
-				<Text style={fonts.size_24}>{goal.name}</Text>
-				{task && <Text style={fonts.size_24}>{task.name}</Text>}
+				<Text style={[fonts.size_24, fonts.gray200]}>{goal.name}</Text>
+				{task && (
+					<Text style={[fonts.size_24, fonts.gray200]}>{task.name}</Text>
+				)}
 				<View style={[gutters.paddingHorizontal_32]}>
 					<View>
 						<TextInput

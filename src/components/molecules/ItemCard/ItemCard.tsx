@@ -1,9 +1,9 @@
 import { Text, View } from 'react-native';
 import { useTheme } from '@/theme';
-import { NameAndDescription } from '@/types/schemas';
+import { ItemCardProps } from '@/types/schemas';
 
-function ItemCard({ name, description }: NameAndDescription) {
-	const { layout, gutters, borders } = useTheme();
+function ItemCard({ name, description, completed }: ItemCardProps) {
+	const { layout, gutters, borders, backgrounds } = useTheme();
 	return (
 		<View
 			style={[
@@ -12,6 +12,7 @@ function ItemCard({ name, description }: NameAndDescription) {
 				borders.w_1,
 				layout.fullWidth,
 				borders.rounded_4,
+				completed ? backgrounds.green400 : backgrounds.gray200,
 			]}
 		>
 			<Text>{name}</Text>

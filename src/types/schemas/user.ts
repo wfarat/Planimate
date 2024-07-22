@@ -9,6 +9,7 @@ export type UserResponse = {
 };
 
 export type RegisterVariables = {
+	email: string;
 	name: string;
 	password: string;
 };

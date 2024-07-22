@@ -2,8 +2,6 @@ import { View, Text, ScrollView } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { SafeScreen } from '@/components/template';
 import { useTheme } from '@/theme';
-import { isImageSourcePropType } from '@/types/guards/image';
-import SendImage from '@/theme/assets/images/send.png';
 import useRandomQuote from '@/helpers/hooks/useRandomQuote';
 
 import Portrait from '@/components/molecules/Portrait/Portrait';
@@ -12,10 +10,6 @@ function Quotes() {
 	const { t } = useTranslation(['welcome', 'quotes']);
 	const [quote, image] = useRandomQuote();
 	const { layout, gutters, fonts, components } = useTheme();
-
-	if (!isImageSourcePropType(SendImage)) {
-		throw new Error('Image source is not valid');
-	}
 
 	return (
 		<SafeScreen>

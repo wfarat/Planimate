@@ -18,7 +18,11 @@ function TasksList({ navigation, route, tasks }: ListProps<'Tasks'>) {
 				key={item.id}
 				onPress={() => navigation.push('Tasks', { goal, task: item })}
 			>
-				<ItemCard name={item.name} description={item.description} />
+				<ItemCard
+					name={item.name}
+					description={item.description}
+					completed={item.completed}
+				/>
 			</TouchableOpacity>
 		);
 	};

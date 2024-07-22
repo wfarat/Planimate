@@ -15,7 +15,7 @@ function TaskTopBar({
 	onEdit,
 	isCompletionPossible,
 }: TaskTopBarProps) {
-	const { layout, gutters } = useTheme();
+	const { layout, gutters, colors } = useTheme();
 
 	return (
 		<View style={[layout.absolute, layout.itemsCenter, layout.top0]}>
@@ -28,10 +28,18 @@ function TaskTopBar({
 				]}
 			>
 				<TouchableOpacity onPress={onDelete}>
-					<MaterialCommunityIcons name="delete" size={20} />
+					<MaterialCommunityIcons
+						name="delete"
+						size={20}
+						color={colors.gray400}
+					/>
 				</TouchableOpacity>
 				<TouchableOpacity onPress={onEdit}>
-					<MaterialCommunityIcons name="pencil-box" size={20} />
+					<MaterialCommunityIcons
+						name="pencil-box"
+						size={20}
+						color={colors.gray400}
+					/>
 				</TouchableOpacity>
 
 				<TouchableOpacity onPress={onFinish} disabled={!isCompletionPossible}>

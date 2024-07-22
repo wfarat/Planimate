@@ -1,7 +1,7 @@
-type NameAndDescription = {
+type ItemCardProps = {
 	name: string;
 	description: string;
 	completed?: boolean;
 };
 
-export default NameAndDescription;
+export default ItemCardProps;

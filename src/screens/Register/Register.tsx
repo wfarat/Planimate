@@ -19,6 +19,7 @@ function Register() {
 	const { t } = useTranslation(['register']);
 	const storage = useStorage();
 	const { colors, layout, gutters, components } = useTheme();
+	const [email, setEmail] = useState<string>('');
 	const [name, setName] = useState<string>('');
 	const [password, setPassword] = useState<string>('');
 	const [repeat, setRepeat] = useState<string>('');
@@ -26,7 +27,7 @@ function Register() {
 
 	const addUser = () => {
 		if (name.trim()) {
-			mutate({ name, password });
+			mutate({ email, name, password });
 			storage.set('user', name);
 			setName('');
 			setPassword('');
@@ -47,6 +48,12 @@ function Register() {
 			>
 				<View style={[gutters.paddingHorizontal_32]}>
 					<View>
+						<TextInput
+							style={components.textInputRounded}
+							value={email}
+							onChangeText={setEmail}
+							placeholder={t('register:email')}
+						/>
 						<TextInput
 							style={components.textInputRounded}
 							value={name}
