@@ -12,5 +12,9 @@
     "title": "Ustawienia",
     "dark": "Tryb Ciemny",
     "lang": "Język"
+  },
+  "edit": {
+    "name": "Wprowadź nową nazwę",
+    "description": "Wprowadź nowy opis"
   }
 }

@@ -12,5 +12,9 @@
     "title": "Settigns",
     "dark": "Dark Mode",
     "lang": "Language"
+  },
+  "edit": {
+    "name": "Enter new name",
+    "description": "Enter new description"
   }
 }

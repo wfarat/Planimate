@@ -3,7 +3,7 @@ import { useStorage } from '@/storage/StorageContext';
 
 export const useTaskActions = (
 	goalId: number,
-	parentId: number,
+	parentId?: number | undefined,
 	taskId?: number | undefined,
 ) => {
 	const storage = useStorage();

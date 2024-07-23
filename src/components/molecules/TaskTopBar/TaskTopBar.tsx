@@ -4,16 +4,16 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 
 type TaskTopBarProps = {
 	onDelete: () => void;
-	onFinish: () => void;
+	onFinish?: () => void;
 	onEdit: () => void;
-	isCompletionPossible: boolean;
+	isCompletionPossible?: boolean;
 };
 
 function TaskTopBar({
 	onDelete,
-	onFinish,
 	onEdit,
-	isCompletionPossible,
+	onFinish = undefined,
+	isCompletionPossible = undefined,
 }: TaskTopBarProps) {
 	const { layout, gutters, colors } = useTheme();
 
@@ -41,14 +41,15 @@ function TaskTopBar({
 						color={colors.gray400}
 					/>
 				</TouchableOpacity>
-
-				<TouchableOpacity onPress={onFinish} disabled={!isCompletionPossible}>
-					<MaterialCommunityIcons
-						name="check"
-						size={20}
-						color={isCompletionPossible ? 'green' : 'red'}
-					/>
-				</TouchableOpacity>
+				{onFinish && isCompletionPossible && (
+					<TouchableOpacity onPress={onFinish} disabled={!isCompletionPossible}>
+						<MaterialCommunityIcons
+							name="check"
+							size={20}
+							color={isCompletionPossible ? 'green' : 'red'}
+						/>
+					</TouchableOpacity>
+				)}
 			</View>
 		</View>
 	);

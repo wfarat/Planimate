@@ -4,7 +4,11 @@ import { Goal, Task } from '@/types/schemas';
 export type RootStackParamList = {
 	Quotes: undefined;
 	Goals: undefined;
-	Tasks: { goal: Goal; task?: Task; parentId?: number };
+	Tasks: {
+		goal: Goal;
+		task?: Task;
+		parentId?: number;
+	};
 	Register: undefined;
 	Settings: undefined;
 };

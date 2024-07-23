@@ -8548,6 +8548,7 @@ __metadata:
     react: 18.2.0
     react-i18next: ^14.1.0
     react-native: 0.74.1
+    react-native-dialog: ^9.3.0
     react-native-gesture-handler: ^2.16.0
     react-native-mmkv: ^2.12.2
     react-native-reanimated: ^3.9.0-rc.1
@@ -8790,6 +8791,15 @@ __metadata:
   version: 17.0.2
   resolution: "react-is@npm:17.0.2"
   checksum: 9d6d111d8990dc98bc5402c1266a808b0459b5d54830bbea24c12d908b536df7883f268a7868cfaedde3dd9d4e0d574db456f84d2e6df9c4526f99bb4b5344d8
+  languageName: node
+  linkType: hard
+
+"react-native-dialog@npm:^9.3.0":
+  version: 9.3.0
+  resolution: "react-native-dialog@npm:9.3.0"
+  peerDependencies:
+    react-native: ">=0.63.0"
+  checksum: 148fcd9e4cb3001a8bbed02f465833329a83bc60efbf763a9bf227ec81208a41e03055e8bc213aea838933878f3cc7c3ca18a15446e819c17509cad75362d7ca
   languageName: node
   linkType: hard
 
