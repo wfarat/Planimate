@@ -11,6 +11,7 @@ export type RootStackParamList = {
 	};
 	Register: undefined;
 	Settings: undefined;
+	Calendar: undefined;
 };
 
 export type RootScreenProps<

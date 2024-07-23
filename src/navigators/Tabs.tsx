@@ -28,7 +28,11 @@ function Tabs() {
 				component={MainStackScreen}
 				options={{
 					tabBarIcon: ({ size, color }) => (
-						<MaterialCommunityIcons name="format-quote-close" size={size} color={color} />
+						<MaterialCommunityIcons
+							name="format-quote-close"
+							size={size}
+							color={color}
+						/>
 					),
 					tabBarShowLabel: false,
 				}}
