@@ -6,7 +6,7 @@ import {
 	CalendarProvider,
 	WeekCalendar,
 } from 'react-native-calendars';
-import { agendaItems, getMarkedDates } from '@/helpers/utils/agendaItems';
+import { agendaItems, getMarkedDates } from '@/helpers/hooks/useAgendaItems';
 import AgendaItem from '@/components/molecules/AgendaItem/AgendaItem';
 import {
 	getTheme,
