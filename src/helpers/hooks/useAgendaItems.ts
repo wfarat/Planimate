@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useStorage } from '@/storage/StorageContext';
 import { AgendaItemType } from '@/types/schemas';
 import { MarkedDates } from 'react-native-calendars/src/types';
@@ -6,11 +6,14 @@ import isEmpty from 'lodash/isEmpty';
 
 export const useAgendaItems = () => {
 	const storage = useStorage();
-	const storedItems = storage.getString('agenda');
+
 	const [agendaItems, setAgendaItems] = useState<AgendaItemType[]>([]);
-	if (storedItems) {
-		setAgendaItems(JSON.parse(storedItems) as AgendaItemType[]);
-	}
+	useEffect(() => {
+		const storedItems = storage.getString('agenda');
+		if (storedItems) {
+			setAgendaItems(JSON.parse(storedItems) as AgendaItemType[]);
+		}
+	}, []);
 
 	const updateItems = (updatedItems: AgendaItemType[]) => {
 		storage.set('agenda', JSON.stringify(updatedItems));

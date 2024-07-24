@@ -7,6 +7,7 @@ type TaskTopBarProps = {
 	onFinish?: () => void;
 	onEdit: () => void;
 	isCompletionPossible?: boolean;
+	addToAgenda?: () => void;
 };
 
 function TaskTopBar({
@@ -14,6 +15,7 @@ function TaskTopBar({
 	onEdit,
 	onFinish = undefined,
 	isCompletionPossible = undefined,
+	addToAgenda = undefined,
 }: TaskTopBarProps) {
 	const { layout, gutters, colors } = useTheme();
 
@@ -41,6 +43,15 @@ function TaskTopBar({
 						color={colors.gray400}
 					/>
 				</TouchableOpacity>
+				{addToAgenda && (
+					<TouchableOpacity onPress={addToAgenda}>
+						<MaterialCommunityIcons
+							name="calendar-check"
+							size={20}
+							color={colors.gray400}
+						/>
+					</TouchableOpacity>
+				)}
 				{onFinish && isCompletionPossible && (
 					<TouchableOpacity onPress={onFinish} disabled={!isCompletionPossible}>
 						<MaterialCommunityIcons

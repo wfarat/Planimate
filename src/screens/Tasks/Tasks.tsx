@@ -84,6 +84,9 @@ function Tasks({ route, navigation }: RootScreenProps<'Tasks'>) {
 		}
 		setVisible(false);
 	};
+	const handleAddToAgenda = () => {
+		if (task) navigation.push('AddToAgendaScreen', {task});
+	}
 	return (
 		<SafeScreen>
 			{task ? (
@@ -92,6 +95,7 @@ function Tasks({ route, navigation }: RootScreenProps<'Tasks'>) {
 					onDelete={handleAlert}
 					onFinish={() => handleFinishTask()}
 					onEdit={() => setVisible(true)}
+					addToAgenda={handleAddToAgenda}
 				/>
 			) : (
 				<TaskTopBar onDelete={handleAlert} onEdit={() => setVisible(true)} />

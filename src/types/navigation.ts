@@ -12,6 +12,7 @@ export type RootStackParamList = {
 	Register: undefined;
 	Settings: undefined;
 	Calendar: undefined;
+	AddToAgendaScreen: { task: Task };
 };
 
 export type RootScreenProps<

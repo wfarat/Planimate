@@ -6,7 +6,7 @@ import {
 	CalendarProvider,
 	WeekCalendar,
 } from 'react-native-calendars';
-import { agendaItems, getMarkedDates } from '@/helpers/hooks/useAgendaItems';
+import { useAgendaItems } from '@/helpers/hooks/useAgendaItems';
 import AgendaItem from '@/components/molecules/AgendaItem/AgendaItem';
 import {
 	getTheme,
@@ -15,13 +15,13 @@ import {
 } from '@/helpers/utils/calendarTheme';
 import testIDs from './testIDs';
 
-const ITEMS: any[] = agendaItems;
 
 interface Props {
 	weekView?: boolean;
 }
 
-function Calendar({ weekView = undefined }: Props) {
+function Calendar({ weekView = false }: Props) {
+	const { agendaItems, getMarkedDates } = useAgendaItems();
 	const marked = useRef(getMarkedDates());
 	const theme = useRef(getTheme());
 	const todayBtnTheme = useRef({
@@ -39,10 +39,10 @@ function Calendar({ weekView = undefined }: Props) {
 	const renderItem = useCallback(({ item }: any) => {
 		return <AgendaItem item={item} />;
 	}, []);
-
+	const today = new Date().toISOString().split('T')[0];
 	return (
 		<CalendarProvider
-			date={ITEMS[1]?.title}
+			date={today}
 			// onDateChanged={onDateChanged}
 			// onMonthChange={onMonthChange}
 			showTodayButton
@@ -76,7 +76,7 @@ function Calendar({ weekView = undefined }: Props) {
 				/>
 			)}
 			<AgendaList
-				sections={ITEMS}
+				sections={agendaItems}
 				renderItem={renderItem}
 				// scrollToNextEvent
 				sectionStyle={styles.section}
