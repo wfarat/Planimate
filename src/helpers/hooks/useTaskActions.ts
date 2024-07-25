@@ -10,8 +10,8 @@ export const useTaskActions = (
 	const storageString = (target?: number) => {
 		return target ? `goals.${goalId}.${target}` : `goals.${goalId}`;
 	};
-	const storedId = storage.getString(`goals.${goalId}.lastId`);
-	const lastId = storedId ? (JSON.parse(storedId) as number) : 0;
+	const storedId = storage.getNumber(`goals.${goalId}.lastId`);
+	const lastId = storedId || 0;
 	const storedTasks = storage.getString(storageString(parentId));
 	let tasks: Task[] = [];
 	if (storedTasks) {

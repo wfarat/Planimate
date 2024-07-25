@@ -9,6 +9,7 @@ import {
 	Button,
 } from 'react-native';
 import testIDs from '@/screens/Calendar/testIDs';
+import alertDelete from '@/helpers/utils/alertDelete';
 
 const styles = StyleSheet.create({
 	item: {
@@ -52,17 +53,18 @@ const styles = StyleSheet.create({
 
 interface ItemProps {
 	item: any;
+	handleDelete: () => void;
 }
 
 function AgendaItem(props: ItemProps) {
-	const { item } = props;
+	const { item, handleDelete } = props;
 
 	const buttonPressed = useCallback(() => {
-		Alert.alert('Show me more');
+		alertDelete(item.title, handleDelete);
 	}, []);
 
 	const itemPressed = useCallback(() => {
-		Alert.alert(item.title);
+		Alert.alert('Coś');
 	}, []);
 
 	if (isEmpty(item)) {
@@ -85,7 +87,7 @@ function AgendaItem(props: ItemProps) {
 			</View>
 			<Text style={styles.itemTitleText}>{item.title}</Text>
 			<View style={styles.itemButtonContainer}>
-				<Button color="grey" title="Info" onPress={buttonPressed} />
+				<Button color="grey" title="X" onPress={buttonPressed} />
 			</View>
 		</TouchableOpacity>
 	);

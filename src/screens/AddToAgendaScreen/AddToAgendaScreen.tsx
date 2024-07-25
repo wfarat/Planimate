@@ -7,6 +7,7 @@ import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/dat
 import { useState } from 'react';
 import { useAgendaItems } from '@/helpers/hooks/useAgendaItems';
 import { AgendaItemType } from '@/types/schemas';
+import { useStorage } from '@/storage/StorageContext';
 
 type AndroidMode = 'date' | 'time';
 
@@ -17,6 +18,7 @@ function AddToAgendaScreen({ route, navigation }: RootScreenProps<'AddToAgendaSc
 	const [date, setDate] = useState(new Date());
 	const [mode, setMode] = useState<AndroidMode>('date');
 	const [show, setShow] = useState(false);
+	const storage = useStorage();
 	const [ duration, setDuration ] = useState('1h');
   const { addAgendaItem } = useAgendaItems();
 	const onChange = (event: DateTimePickerEvent, selectedDate?: Date) => {
@@ -43,11 +45,14 @@ function AddToAgendaScreen({ route, navigation }: RootScreenProps<'AddToAgendaSc
 	const addToAgenda = () => {
 		const title = date.toISOString().split('T')[0];
 		const hour = date.getHours().toString();
+		const storedId = storage.getNumber('agenda.id');
+		const id = storedId? storedId : 0;
 		const newItem:AgendaItemType = {
 			title,
-			data: [{ hour, duration, title: task.name }],
+			data: [{ hour, duration, title: task.name, id: id+1, key: title }],
 		}
 		addAgendaItem(newItem);
+		storage.set('agenda.id', id+1);
 		navigation.goBack();
 	}
 	return (

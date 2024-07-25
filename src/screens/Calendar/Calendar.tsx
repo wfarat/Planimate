@@ -22,6 +22,7 @@ import { MarkedDates } from 'react-native-calendars/src/types';
 import { AgendaItemType } from '@/types/schemas';
 import { useStorage } from '@/storage/StorageContext';
 import { useIsFocused } from '@react-navigation/native';
+import agendaItemType, { AgendaItemData } from '@/types/schemas/agendaItemType';
 
 
 LocaleConfig.locales['pl'] = PL;
@@ -33,7 +34,7 @@ interface Props {
 }
 
 function Calendar({ weekView = false }: Props) {
-	const { getMarkedDates } = useAgendaItems();
+	const { getMarkedDates, deleteAgendaItem } = useAgendaItems();
 	const theme = useRef(getTheme());
 	const storage = useStorage();
 	const todayBtnTheme = useRef({
@@ -64,24 +65,20 @@ function Calendar({ weekView = false }: Props) {
 			i18next.off('languageChanged', handleLanguageChange);
 		};
 	}, [languageKey, agendaItems]);
-	// const onDateChanged = useCallback((date, updateSource) => {
-	//   console.log('ExpandableCalendarScreen onDateChanged: ', date, updateSource);
-	// }, []);
 
-	// const onMonthChange = useCallback(({dateString}) => {
-	//   console.log('ExpandableCalendarScreen onMonthChange: ', dateString);
-	// }, []);
+	const handleDelete = (item: AgendaItemData) => {
+		const newItems = deleteAgendaItem(item);
+		setAgendaItems(newItems);
+	}
 	const calendarKey = `calendar-${languageKey}`;
 	const renderItem = useCallback(({ item }: any) => {
-		return <AgendaItem item={item} />;
+		return <AgendaItem item={item} handleDelete={() => handleDelete(item)} />;
 	}, []);
 	const today = new Date().toISOString().split('T')[0];
 	return (
 		<CalendarProvider
 			key={calendarKey}
 			date={today}
-			// onDateChanged={onDateChanged}
-			// onMonthChange={onMonthChange}
 			showTodayButton
 			// disabledOpacity={0.6}
 			theme={todayBtnTheme.current}
