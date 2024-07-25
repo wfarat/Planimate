@@ -9,7 +9,6 @@ function MainStackScreen() {
 	const { variant } = useTheme();
 	return (
 		<Stack.Navigator key={variant} screenOptions={{ headerShown: false }}>
-			<Stack.Screen name="Calendar" component={Calendar} />
 			<Stack.Screen name="Quotes" component={Quotes} />
 		</Stack.Navigator>
 	);

@@ -1,4 +1,4 @@
-import { useRef, useCallback } from 'react';
+import { useRef, useCallback, useState, useEffect } from 'react';
 import { StyleSheet } from 'react-native';
 import {
 	ExpandableCalendar,
@@ -14,6 +14,14 @@ import {
 	lightThemeColor,
 } from '@/helpers/utils/calendarTheme';
 import testIDs from './testIDs';
+import {LocaleConfig} from 'react-native-calendars';
+import { default as PL } from '@/translations/pl/calendar';
+import { default as EN } from '@/translations/en/calendar';
+import i18next from 'i18next';
+
+
+LocaleConfig.locales['pl'] = PL;
+LocaleConfig.locales['en'] = EN;
 
 
 interface Props {
@@ -27,7 +35,22 @@ function Calendar({ weekView = false }: Props) {
 	const todayBtnTheme = useRef({
 		todayButtonTextColor: themeColor,
 	});
+	const [languageKey, setLanguageKey] = useState(i18next.language);
 
+	useEffect(() => {
+		const handleLanguageChange = (lng: string) => {
+			if (languageKey !== lng) {
+				setLanguageKey(lng);
+				LocaleConfig.defaultLocale = lng;
+			}
+		};
+
+		i18next.on('languageChanged', handleLanguageChange);
+
+		return () => {
+			i18next.off('languageChanged', handleLanguageChange);
+		};
+	}, [languageKey]);
 	// const onDateChanged = useCallback((date, updateSource) => {
 	//   console.log('ExpandableCalendarScreen onDateChanged: ', date, updateSource);
 	// }, []);
@@ -35,13 +58,14 @@ function Calendar({ weekView = false }: Props) {
 	// const onMonthChange = useCallback(({dateString}) => {
 	//   console.log('ExpandableCalendarScreen onMonthChange: ', dateString);
 	// }, []);
-
+	const calendarKey = `calendar-${languageKey}`;
 	const renderItem = useCallback(({ item }: any) => {
 		return <AgendaItem item={item} />;
 	}, []);
 	const today = new Date().toISOString().split('T')[0];
 	return (
 		<CalendarProvider
+			key={calendarKey}
 			date={today}
 			// onDateChanged={onDateChanged}
 			// onMonthChange={onMonthChange}

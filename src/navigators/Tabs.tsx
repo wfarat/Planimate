@@ -3,6 +3,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import GoalsStackScreen from '@/navigators/GoalsStackScreen';
 import MainStackScreen from '@/navigators/MainStackScreen';
 import SettingsStackScreen from '@/navigators/SettingsStackScreen';
+import { Calendar } from '@/screens';
 
 const Tab = createBottomTabNavigator();
 
@@ -30,6 +31,20 @@ function Tabs() {
 					tabBarIcon: ({ size, color }) => (
 						<MaterialCommunityIcons
 							name="format-quote-close"
+							size={size}
+							color={color}
+						/>
+					),
+					tabBarShowLabel: false,
+				}}
+			/>
+			<Tab.Screen
+				name="Calendar"
+				component={Calendar}
+				options={{
+					tabBarIcon: ({ size, color }) => (
+						<MaterialCommunityIcons
+							name="calendar-month"
 							size={size}
 							color={color}
 						/>

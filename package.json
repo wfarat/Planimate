@@ -11,9 +11,7 @@
     "type-check": "tsc",
     "test:report": "jest --collectCoverage --coverageDirectory=\"./coverage\" --ci --reporters=default --reporters=jest-junit --coverage",
     "pod-install": "cd ios && pod install && cd ..",
-    "postinstall": "npx patch-package",
-    "check-dependencies": "rnx-align-deps",
-    "fix-dependencies": "rnx-align-deps --write"
+    "postinstall": "npx patch-package"
   },
   "dependencies": {
     "@react-native-community/datetimepicker": "^8.2.0",
