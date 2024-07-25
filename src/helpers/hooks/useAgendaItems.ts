@@ -3,6 +3,7 @@ import { useStorage } from '@/storage/StorageContext';
 import { AgendaItemType } from '@/types/schemas';
 import { MarkedDates } from 'react-native-calendars/src/types';
 import isEmpty from 'lodash/isEmpty';
+import agendaItemType from '@/types/schemas/agendaItemType';
 
 export const useAgendaItems = () => {
 	const storage = useStorage();
@@ -19,15 +20,28 @@ export const useAgendaItems = () => {
 		storage.set('agenda', JSON.stringify(updatedItems));
 	};
 	const addAgendaItem = (newItem: AgendaItemType) => {
-		const updatedItems = [...agendaItems, newItem];
-		setAgendaItems(updatedItems);
-		updateItems(updatedItems);
+		const index = agendaItems.findIndex(item => item.title === newItem.title);
+		const updatedItems = index !== -1
+			? [
+				...agendaItems.slice(0, index),
+				{
+					...agendaItems[index],
+					data: [
+						...agendaItems[index].data,
+						...newItem.data
+					]
+				},
+				...agendaItems.slice(index + 1)
+			]
+			: [...agendaItems, newItem];
+			setAgendaItems(updatedItems);
+			updateItems(updatedItems)
 	};
 
-	const getMarkedDates = () => {
+	const getMarkedDates = (items: agendaItemType[]) => {
 		const marked: MarkedDates = {};
 
-		agendaItems.forEach(item => {
+		items.forEach(item => {
 			// NOTE: only mark dates with data
 			if (item.data && item.data.length > 0 && !isEmpty(item.data[0])) {
 				marked[item.title] = { marked: true };
@@ -38,5 +52,5 @@ export const useAgendaItems = () => {
 		return marked;
 	};
 
-	return { getMarkedDates, agendaItems, addAgendaItem };
+	return { getMarkedDates, addAgendaItem };
 };

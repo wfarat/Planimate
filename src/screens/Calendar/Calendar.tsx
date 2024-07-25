@@ -18,6 +18,10 @@ import {LocaleConfig} from 'react-native-calendars';
 import { default as PL } from '@/translations/pl/calendar';
 import { default as EN } from '@/translations/en/calendar';
 import i18next from 'i18next';
+import { MarkedDates } from 'react-native-calendars/src/types';
+import { AgendaItemType } from '@/types/schemas';
+import { useStorage } from '@/storage/StorageContext';
+import { useIsFocused } from '@react-navigation/native';
 
 
 LocaleConfig.locales['pl'] = PL;
@@ -29,14 +33,23 @@ interface Props {
 }
 
 function Calendar({ weekView = false }: Props) {
-	const { agendaItems, getMarkedDates } = useAgendaItems();
-	const marked = useRef(getMarkedDates());
+	const { getMarkedDates } = useAgendaItems();
 	const theme = useRef(getTheme());
+	const storage = useStorage();
 	const todayBtnTheme = useRef({
 		todayButtonTextColor: themeColor,
 	});
+	const [markedDates, setMarkedDates] = useState<MarkedDates>();
+	const [agendaItems, setAgendaItems] = useState<AgendaItemType[]>([]);
+	useEffect(() => {
+		const storedItems = storage.getString('agenda');
+		if (storedItems) {
+			const newItems = JSON.parse(storedItems) as AgendaItemType[]
+			setAgendaItems(newItems);
+			setMarkedDates(getMarkedDates(newItems));
+		}
+	}, [useIsFocused()]);
 	const [languageKey, setLanguageKey] = useState(i18next.language);
-
 	useEffect(() => {
 		const handleLanguageChange = (lng: string) => {
 			if (languageKey !== lng) {
@@ -50,7 +63,7 @@ function Calendar({ weekView = false }: Props) {
 		return () => {
 			i18next.off('languageChanged', handleLanguageChange);
 		};
-	}, [languageKey]);
+	}, [languageKey, agendaItems]);
 	// const onDateChanged = useCallback((date, updateSource) => {
 	//   console.log('ExpandableCalendarScreen onDateChanged: ', date, updateSource);
 	// }, []);
@@ -78,7 +91,7 @@ function Calendar({ weekView = false }: Props) {
 				<WeekCalendar
 					testID={testIDs.weekCalendar.CONTAINER}
 					firstDay={1}
-					markedDates={marked.current}
+					markedDates={markedDates}
 				/>
 			) : (
 				<ExpandableCalendar
@@ -94,7 +107,7 @@ function Calendar({ weekView = false }: Props) {
 					theme={theme.current}
 					// disableAllTouchEventsForDisabledDays
 					firstDay={1}
-					markedDates={marked.current}
+					markedDates={markedDates}
 					// animateScroll
 					// closeOnDayPress={false}
 				/>
