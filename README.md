@@ -8,14 +8,24 @@ PlannerApp is a React Native application designed to help users plan their goals
 - **Goal Planning:** Create and manage goals, breaking them down into smaller tasks.
 - **Quote Section:** Get daily inspirational quotes to stay motivated.
 - **Calendar:** Schedule and view tasks and goals on a calendar.
+.
+
+## To-do's:
+- **Styling:** The app needs better styling.
+- **Atomization:** App components will have to be divided into smaller parts.
 - **Future Plans:** Expand the app with social features and AI assistance.
+
+## Screenshots
+| Quotes                                            | Tasks                                           | Calendar                                                |
+|---------------------------------------------------|-------------------------------------------------|---------------------------------------------------------|
+ | ![Quote Screen Screenshot](screenshots/quote.png) | ![Task Screen Screenshot](screenshots/task.png) | ![Calendar Screen Screenshot](screenshots/calendar.png) |
 
 ## Prerequisites
 
 - **Node.js**: Version 18 or higher
 - **Yarn**: Version 3.6.4
 - **Android Studio**: For running the app on Android
-
+- **Environment**: Use this link as reference for setting it up https://reactnative.dev/docs/set-up-your-environment
 ## Installation
 
 1. **Clone the repository:**
@@ -27,12 +37,6 @@ PlannerApp is a React Native application designed to help users plan their goals
 2. **Install dependencies:**
    ```sh
    yarn install
-   ```
-
-3. **Post-install setup:**
-   ```sh
-   yarn pod-install
-   yarn postinstall
    ```
 
 ## Running the App
