@@ -33,7 +33,8 @@ local.properties
 .cxx/
 *.keystore
 !debug.keystore
-
+# config
+.env
 # node.js
 #
 node_modules/
