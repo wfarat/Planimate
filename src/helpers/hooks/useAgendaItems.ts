@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useStorage } from '@/storage/StorageContext';
 import { AgendaItemType } from '@/types/schemas';
 import { MarkedDates } from 'react-native-calendars/src/types';
@@ -9,17 +9,22 @@ export const useAgendaItems = () => {
 	const storage = useStorage();
 
 	const [agendaItems, setAgendaItems] = useState<AgendaItemType[]>([]);
-	useEffect(() => {
+
+	const loadStoredItems = () => {
 		const storedItems = storage.getString('agenda');
 		if (storedItems) {
-			setAgendaItems(JSON.parse(storedItems) as AgendaItemType[]);
+			const items = JSON.parse(storedItems) as AgendaItemType[];
+			setAgendaItems(items);
+			return items;
 		}
-	}, []);
+		return [];
+	};
 
 	const updateItems = (updatedItems: AgendaItemType[]) => {
 		storage.set('agenda', JSON.stringify(updatedItems));
 	};
 	const addAgendaItem = (newItem: AgendaItemType) => {
+		loadStoredItems();
 		const index = agendaItems.findIndex(item => item.title === newItem.title);
 		const updatedItems =
 			index !== -1
@@ -51,27 +56,21 @@ export const useAgendaItems = () => {
 	};
 
 	const deleteAgendaItem = (item: AgendaItemData): AgendaItemType[] => {
-		const storedItems = storage.getString('agenda');
-		if (storedItems) {
-			const oldItems = JSON.parse(storedItems) as AgendaItemType[];
-			console.log(oldItems);
-			const updatedItems = oldItems.map(agendaItem => {
-				if (agendaItem.title === item.key) {
-					console.log('same');
-					return {
-						...agendaItem,
-						data: agendaItem.data.filter(
-							filteredItem => filteredItem.id !== item.id,
-						),
-					};
-				}
-				return agendaItem;
-			});
-			updateItems(updatedItems);
-			return updatedItems;
-		}
-		return [];
+		loadStoredItems();
+		const updatedItems = agendaItems.map(agendaItem => {
+			if (agendaItem.title === item.key) {
+				return {
+					...agendaItem,
+					data: agendaItem.data.filter(
+						filteredItem => filteredItem.id !== item.id,
+					),
+				};
+			}
+			return agendaItem;
+		});
+		updateItems(updatedItems);
+		return updatedItems;
 	};
 
-	return { getMarkedDates, addAgendaItem, deleteAgendaItem };
+	return { getMarkedDates, addAgendaItem, deleteAgendaItem, loadStoredItems };
 };

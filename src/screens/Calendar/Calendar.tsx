@@ -20,9 +20,11 @@ import EN from '@/translations/en/calendar';
 import i18next from 'i18next';
 import { MarkedDates } from 'react-native-calendars/src/types';
 import { AgendaItemType } from '@/types/schemas';
-import { useStorage } from '@/storage/StorageContext';
 import { useIsFocused } from '@react-navigation/native';
-import { AgendaItemData } from '@/types/schemas/agendaItemType';
+import {
+	AgendaItemData,
+	RenderAgendaItemProps,
+} from '@/types/schemas/agendaItemType';
 import testIDs from './testIDs';
 
 LocaleConfig.locales.pl = PL;
@@ -33,33 +35,33 @@ interface Props {
 }
 
 function Calendar({ weekView = false }: Props) {
-	const { getMarkedDates, deleteAgendaItem } = useAgendaItems();
+	const { getMarkedDates, deleteAgendaItem, loadStoredItems } =
+		useAgendaItems();
 	const theme = useRef(getTheme());
-	const storage = useStorage();
+
 	const todayBtnTheme = useRef({
 		todayButtonTextColor: themeColor,
 	});
 	const [markedDates, setMarkedDates] = useState<MarkedDates>();
 	const [agendaItems, setAgendaItems] = useState<AgendaItemType[]>([]);
+
 	useEffect(() => {
-		const storedItems = storage.getString('agenda');
-		if (storedItems) {
-			const newItems = JSON.parse(storedItems) as AgendaItemType[];
+		const newItems = loadStoredItems();
+		if (newItems) {
 			setAgendaItems(newItems);
 			setMarkedDates(getMarkedDates(newItems));
 		}
 	}, [useIsFocused()]);
+
 	const [languageKey, setLanguageKey] = useState(i18next.language);
+	const handleLanguageChange = (lng: string) => {
+		if (languageKey !== lng) {
+			setLanguageKey(lng);
+			LocaleConfig.defaultLocale = lng;
+		}
+	};
 	useEffect(() => {
-		const handleLanguageChange = (lng: string) => {
-			if (languageKey !== lng) {
-				setLanguageKey(lng);
-				LocaleConfig.defaultLocale = lng;
-			}
-		};
-
 		i18next.on('languageChanged', handleLanguageChange);
-
 		return () => {
 			i18next.off('languageChanged', handleLanguageChange);
 		};
@@ -68,12 +70,15 @@ function Calendar({ weekView = false }: Props) {
 	const handleDelete = (item: AgendaItemData) => {
 		const newItems = deleteAgendaItem(item);
 		setAgendaItems(newItems);
+		setMarkedDates(getMarkedDates(newItems));
 	};
-	const calendarKey = `calendar-${languageKey}`;
-	const renderItem = useCallback(({ item }: any) => {
+
+	const renderItem = useCallback(({ item }: RenderAgendaItemProps) => {
 		return <AgendaItem item={item} handleDelete={() => handleDelete(item)} />;
 	}, []);
+
 	const today = new Date().toISOString().split('T')[0];
+	const calendarKey = `calendar-${languageKey}`;
 	return (
 		<CalendarProvider
 			key={calendarKey}
@@ -118,7 +123,6 @@ function Calendar({ weekView = false }: Props) {
 		</CalendarProvider>
 	);
 }
-
 export default Calendar;
 
 const styles = StyleSheet.create({

@@ -15,5 +15,13 @@ export type AgendaItemData = {
 	id: number;
 	key: string;
 };
-
+export type RenderAgendaItemProps = {
+	item: {
+		hour: string;
+		duration: string;
+		title: string;
+		id: number;
+		key: string;
+	};
+};
 export default AgendaItemType;
