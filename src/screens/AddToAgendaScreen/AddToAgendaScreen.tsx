@@ -1,6 +1,6 @@
 import { RootScreenProps } from '@/types/navigation';
 import { SafeScreen } from '@/components/template';
-import { Button, Text, TextInput } from 'react-native';
+import { Button, Text, TextInput, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@/theme';
 import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/datetimepicker';
@@ -13,7 +13,7 @@ type AndroidMode = 'date' | 'time';
 
 function AddToAgendaScreen({ route, navigation }: RootScreenProps<'AddToAgendaScreen'>) {
 	const { task } = route.params;
-	const { fonts } = useTheme();
+	const { fonts, layout,gutters,colors } = useTheme();
 	const { t } = useTranslation(['agenda']);
 	const [date, setDate] = useState(new Date());
 	const [mode, setMode] = useState<AndroidMode>('date');
@@ -57,11 +57,18 @@ function AddToAgendaScreen({ route, navigation }: RootScreenProps<'AddToAgendaSc
 	}
 	return (
 	<SafeScreen>
+		<View
+			style={[
+				layout.justifyCenter,
+				layout.itemsCenter,
+				gutters.marginTop_80,
+			]}
+		>
 		<Text style={[fonts.size_24, fonts.gray200]}>{t('agenda:add')}</Text>
 		{task && <Text style={[fonts.size_24, fonts.gray200]}>{task.name}</Text>}
-		<Button onPress={showDatepicker} title="Show date picker!" />
-		<Button onPress={showTimepicker} title="Show time picker!" />
-		<Text>selected: {date.toLocaleString()}</Text>
+		 <Button color={colors.gray200} onPress={showDatepicker} title={t('agenda:date')} />
+		   <Button onPress={showTimepicker} title={t('agenda:time')} />
+		<Text style={[fonts.size_16, fonts.gray200]}>{t('agenda:selected')} {date.toLocaleString()}</Text>
 		{show && (
 			<DateTimePicker
 				testID="dateTimePicker"
@@ -71,8 +78,9 @@ function AddToAgendaScreen({ route, navigation }: RootScreenProps<'AddToAgendaSc
 				onChange={onChange}
 			/>
 		)}
-		<TextInput value={duration} onChangeText={setDuration}/>
-		<Button onPress={addToAgenda} title="Add to agenda" />
+			<TextInput value={duration} onChangeText={setDuration}/>
+			<Button onPress={addToAgenda} title={t('agenda:add')} />
+		</View>
 	</SafeScreen>
 			);
 }

@@ -1,3 +1,6 @@
 {
-  "add": "Dodaj do terminarza"
+  "add": "Dodaj do terminarza",
+  "date": "Wybierz datę",
+  "time": "Wybierz czas",
+  "selected": "Obecnie wybrano:"
 }
