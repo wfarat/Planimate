@@ -121,14 +121,15 @@ function Tasks({ route, navigation }: RootScreenProps<'Tasks'>) {
 							style={components.textInputRounded}
 							value={name}
 							onChangeText={setName}
-							placeholder={t('goals:title')}
+							placeholder={t('goals:taskName')}
 						/>
 						<TextInput
 							style={components.textInputRounded}
+							numberOfLines={2}
 							multiline
 							value={description}
 							onChangeText={setDescription}
-							placeholder={t('goals:description')}
+							placeholder={t('goals:taskDescription')}
 						/>
 					</View>
 					<SendButton handlePress={() => handleAddTask()} />
