@@ -11,7 +11,7 @@
   "include": [
     "./src/**/*",
     "index.d.ts",
-    ".eslintrc.js",
+    "eslint.config.mjs",
     "jest.setup.js",
     "jest.config.js",
     "babel.config.js",

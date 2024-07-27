@@ -5,6 +5,7 @@ import {
 	AgendaList,
 	CalendarProvider,
 	WeekCalendar,
+	LocaleConfig,
 } from 'react-native-calendars';
 import { useAgendaItems } from '@/helpers/hooks/useAgendaItems';
 import AgendaItem from '@/components/molecules/AgendaItem/AgendaItem';
@@ -13,21 +14,19 @@ import {
 	themeColor,
 	lightThemeColor,
 } from '@/helpers/utils/calendarTheme';
-import testIDs from './testIDs';
-import {LocaleConfig} from 'react-native-calendars';
-import { default as PL } from '@/translations/pl/calendar';
-import { default as EN } from '@/translations/en/calendar';
+
+import PL from '@/translations/pl/calendar';
+import EN from '@/translations/en/calendar';
 import i18next from 'i18next';
 import { MarkedDates } from 'react-native-calendars/src/types';
 import { AgendaItemType } from '@/types/schemas';
 import { useStorage } from '@/storage/StorageContext';
 import { useIsFocused } from '@react-navigation/native';
-import agendaItemType, { AgendaItemData } from '@/types/schemas/agendaItemType';
+import { AgendaItemData } from '@/types/schemas/agendaItemType';
+import testIDs from './testIDs';
 
-
-LocaleConfig.locales['pl'] = PL;
-LocaleConfig.locales['en'] = EN;
-
+LocaleConfig.locales.pl = PL;
+LocaleConfig.locales.en = EN;
 
 interface Props {
 	weekView?: boolean;
@@ -45,7 +44,7 @@ function Calendar({ weekView = false }: Props) {
 	useEffect(() => {
 		const storedItems = storage.getString('agenda');
 		if (storedItems) {
-			const newItems = JSON.parse(storedItems) as AgendaItemType[]
+			const newItems = JSON.parse(storedItems) as AgendaItemType[];
 			setAgendaItems(newItems);
 			setMarkedDates(getMarkedDates(newItems));
 		}
@@ -69,7 +68,7 @@ function Calendar({ weekView = false }: Props) {
 	const handleDelete = (item: AgendaItemData) => {
 		const newItems = deleteAgendaItem(item);
 		setAgendaItems(newItems);
-	}
+	};
 	const calendarKey = `calendar-${languageKey}`;
 	const renderItem = useCallback(({ item }: any) => {
 		return <AgendaItem item={item} handleDelete={() => handleDelete(item)} />;

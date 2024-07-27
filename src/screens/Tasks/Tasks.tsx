@@ -85,8 +85,8 @@ function Tasks({ route, navigation }: RootScreenProps<'Tasks'>) {
 		setVisible(false);
 	};
 	const handleAddToAgenda = () => {
-		if (task) navigation.push('AddToAgendaScreen', {task});
-	}
+		if (task) navigation.push('AddToAgendaScreen', { task });
+	};
 	return (
 		<SafeScreen>
 			{task ? (

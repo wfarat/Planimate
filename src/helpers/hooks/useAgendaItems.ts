@@ -21,21 +21,19 @@ export const useAgendaItems = () => {
 	};
 	const addAgendaItem = (newItem: AgendaItemType) => {
 		const index = agendaItems.findIndex(item => item.title === newItem.title);
-		const updatedItems = index !== -1
-			? [
-				...agendaItems.slice(0, index),
-				{
-					...agendaItems[index],
-					data: [
-						...agendaItems[index].data,
-						...newItem.data
-					]
-				},
-				...agendaItems.slice(index + 1)
-			]
-			: [...agendaItems, newItem];
-			setAgendaItems(updatedItems);
-			updateItems(updatedItems)
+		const updatedItems =
+			index !== -1
+				? [
+						...agendaItems.slice(0, index),
+						{
+							...agendaItems[index],
+							data: [...agendaItems[index].data, ...newItem.data],
+						},
+						...agendaItems.slice(index + 1),
+				  ]
+				: [...agendaItems, newItem];
+		setAgendaItems(updatedItems);
+		updateItems(updatedItems);
 	};
 
 	const getMarkedDates = (items: agendaItemType[]) => {
@@ -55,21 +53,24 @@ export const useAgendaItems = () => {
 	const deleteAgendaItem = (item: AgendaItemData): AgendaItemType[] => {
 		const storedItems = storage.getString('agenda');
 		if (storedItems) {
-			const oldItems = (JSON.parse(storedItems) as AgendaItemType[]);
-			console.log(oldItems)
+			const oldItems = JSON.parse(storedItems) as AgendaItemType[];
+			console.log(oldItems);
 			const updatedItems = oldItems.map(agendaItem => {
 				if (agendaItem.title === item.key) {
 					console.log('same');
 					return {
 						...agendaItem,
-						data: agendaItem.data.filter(filteredItem => filteredItem.id !== item.id)
+						data: agendaItem.data.filter(
+							filteredItem => filteredItem.id !== item.id,
+						),
 					};
 				}
 				return agendaItem;
 			});
 			updateItems(updatedItems);
 			return updatedItems;
-		} else return []
+		}
+		return [];
 	};
 
 	return { getMarkedDates, addAgendaItem, deleteAgendaItem };

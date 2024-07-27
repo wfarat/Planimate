@@ -1,6 +1,4 @@
-
-
- module.exports = {
+export default {
 	monthNames: [
 		'Styczeń',
 		'Luty',
@@ -13,11 +11,31 @@
 		'Wrzesień',
 		'Październik',
 		'Listopad',
-		'Grudzień'
+		'Grudzień',
 	],
-	monthNamesShort: ['Sty', 'Luty', 'Mar', 'Kwi', 'Maj', 'Cze', 'Lip', 'Sie', 'Wrz', 'Paź', 'Lis', 'Gru'],
-	dayNames: ['Niedziela','Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota'],
+	monthNamesShort: [
+		'Sty',
+		'Luty',
+		'Mar',
+		'Kwi',
+		'Maj',
+		'Cze',
+		'Lip',
+		'Sie',
+		'Wrz',
+		'Paź',
+		'Lis',
+		'Gru',
+	],
+	dayNames: [
+		'Niedziela',
+		'Poniedziałek',
+		'Wtorek',
+		'Środa',
+		'Czwartek',
+		'Piątek',
+		'Sobota',
+	],
 	dayNamesShort: ['Pn', 'Wt', 'Śr', 'Czw', 'Pt', 'Sob', 'Niedz'],
-	today: "Dzisiaj"
+	today: 'Dzisiaj',
 };
-
