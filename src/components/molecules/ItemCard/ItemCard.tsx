@@ -1,8 +1,8 @@
 import { Text, View } from 'react-native';
 import { useTheme } from '@/theme';
-import { ItemCardProps } from '@/types/schemas';
+import type ItemCardProps from '@/types/props/itemCardProps';
 
-function ItemCard({ name, description, completed }: ItemCardProps) {
+function ItemCard({ name, description, completed, endDate }: ItemCardProps) {
 	const { layout, gutters, borders, backgrounds } = useTheme();
 	return (
 		<View
@@ -12,11 +12,13 @@ function ItemCard({ name, description, completed }: ItemCardProps) {
 				borders.w_1,
 				layout.fullWidth,
 				borders.rounded_4,
-				completed ? backgrounds.green400 : backgrounds.gray200,
+				completed !== undefined &&
+					(completed ? backgrounds.green400 : backgrounds.gray200),
 			]}
 		>
 			<Text>{name}</Text>
 			<Text>{description}</Text>
+			{endDate && <Text>{endDate}</Text>}
 		</View>
 	);
 }

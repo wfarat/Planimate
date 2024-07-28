@@ -34,7 +34,7 @@ export const useGoalActions = (goalId?: number) => {
 			const goal = {
 				name,
 				description,
-				endDate,
+				endDate: endDate.toLocaleDateString(),
 				id: lastId + 1,
 			};
 			const updatedGoals = [...goals, goal];

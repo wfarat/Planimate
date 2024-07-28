@@ -38,7 +38,11 @@ function GoalsList({ navigation, clean, endDate }: ListProps<'Goals'>) {
 			key={item.id}
 			onPress={() => navigation.navigate('Tasks', { goal: item })}
 		>
-			<ItemCard name={item.name} description={item.description} />
+			<ItemCard
+				name={item.name}
+				description={item.description}
+				endDate={item.endDate}
+			/>
 		</TouchableOpacity>
 	);
 	return (
