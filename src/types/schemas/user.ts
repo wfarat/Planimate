@@ -1,15 +1,21 @@
 import { z } from 'zod';
 
 export const userSchema = z.object({
-	name: z.string(),
+	_id: z.string(),
+	username: z.string(),
+	email: z.string(),
+	password: z.string(),
 });
 
 export type UserResponse = {
+	_id: string;
 	name: string;
+	email: string;
+	password: string;
 };
 
 export type RegisterVariables = {
 	email: string;
-	name: string;
+	username: string;
 	password: string;
 };
