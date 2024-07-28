@@ -9,7 +9,7 @@ export const userSchema = z.object({
 
 export type UserResponse = {
 	_id: string;
-	name: string;
+	username: string;
 	email: string;
 	password: string;
 };

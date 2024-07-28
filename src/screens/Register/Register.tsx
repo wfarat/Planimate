@@ -20,16 +20,16 @@ function Register() {
 	const storage = useStorage();
 	const { colors, layout, gutters, components } = useTheme();
 	const [email, setEmail] = useState<string>('');
-	const [name, setName] = useState<string>('');
+	const [username, setUsername] = useState<string>('');
 	const [password, setPassword] = useState<string>('');
 	const [repeat, setRepeat] = useState<string>('');
 	const { mutate, isPending, isSuccess, error, data } = register();
 
 	const addUser = () => {
-		if (name.trim()) {
-			mutate({ email, name, password });
-			storage.set('user', name);
-			setName('');
+		if (username.trim()) {
+			mutate({ email, username, password });
+			if (isSuccess) storage.set('user', JSON.stringify(data));
+			setUsername('');
 			setPassword('');
 			setRepeat('');
 		}
@@ -56,8 +56,8 @@ function Register() {
 						/>
 						<TextInput
 							style={components.textInputRounded}
-							value={name}
-							onChangeText={setName}
+							value={username}
+							onChangeText={setUsername}
 							placeholder={t('register:user')}
 						/>
 
@@ -103,7 +103,7 @@ function Register() {
 				{isSuccess && (
 					<View>
 						<Text>Registration successful!</Text>
-						<Text>{JSON.stringify(data)}</Text>
+						<Text>Welcome {data.username}!</Text>
 					</View>
 				)}
 				{error && (
