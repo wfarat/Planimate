@@ -1,37 +1,45 @@
-import { View, TextInput } from 'react-native';
+import { View, TextInput, Text, TouchableOpacity } from 'react-native';
 
 import { useTranslation } from 'react-i18next';
 import { SafeScreen } from '@/components/template';
 import { useTheme } from '@/theme';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import GoalsList from '@/screens/Goals/GoalsList';
 import { RootScreenProps } from '@/types/navigation';
-import { useStorage } from '@/storage/StorageContext';
-import { NameAndDescription } from '@/types/schemas';
+import { useStateWithStorage } from '@/helpers/hooks/useStateWithStorage';
+import DateTimePicker, {
+	DateTimePickerEvent,
+} from '@react-native-community/datetimepicker';
 
 function Goals({ navigation, route }: RootScreenProps<'Goals'>) {
 	const { t } = useTranslation(['goals']);
-	const storage = useStorage();
 	const { layout, gutters, components } = useTheme();
-	const [name, setName] = useState<string>('');
-	const [description, setDescription] = useState<string>('');
-	useEffect(() => {
-		const savedState = storage.getString('goals.state');
-		if (savedState) {
-			const data = JSON.parse(savedState) as NameAndDescription;
-			setName(data.name);
-			setDescription(data.description);
-		}
-	}, []);
-	useEffect(() => {
-		storage.set('goals.state', JSON.stringify({ name, description }));
-	}, [name, description]);
+	const name = useStateWithStorage('goals.state.name', '');
+	const description = useStateWithStorage('goals.state.description', '');
+	const [endDate, setEndDate] = useState(new Date());
+	const [show, setShow] = useState(false);
 	const clean = () => {
-		setDescription('');
-		setName('');
+		name.setState('');
+		description.setState('');
+	};
+	const onChange = (event: DateTimePickerEvent, selectedDate?: Date) => {
+		if (selectedDate) {
+			const currentDate = selectedDate;
+			setShow(false);
+			setEndDate(currentDate);
+		}
 	};
 	return (
 		<SafeScreen>
+			{show && (
+				<DateTimePicker
+					testID="dateTimePicker"
+					value={endDate}
+					mode="date"
+					is24Hour
+					onChange={onChange}
+				/>
+			)}
 			<View
 				style={[
 					layout.justifyCenter,
@@ -43,20 +51,30 @@ function Goals({ navigation, route }: RootScreenProps<'Goals'>) {
 					<View>
 						<TextInput
 							style={components.textInputRounded}
-							value={name}
-							onChangeText={setName}
+							value={name.state}
+							onChangeText={name.setState}
 							placeholder={t('goals:title')}
 						/>
 
 						<TextInput
 							style={components.textInputRounded}
 							multiline
-							value={description}
-							onChangeText={setDescription}
+							value={description.state}
+							onChangeText={description.setState}
 							placeholder={t('goals:description')}
 						/>
+						<TouchableOpacity onPress={() => setShow(true)}>
+							<Text style={[components.textInputRounded, gutters.padding_12]}>
+								{t('goals:endDate')} {endDate.toLocaleDateString()}
+							</Text>
+						</TouchableOpacity>
 					</View>
-					<GoalsList navigation={navigation} route={route} clean={clean} />
+					<GoalsList
+						navigation={navigation}
+						route={route}
+						clean={clean}
+						endDate={endDate}
+					/>
 				</View>
 			</View>
 		</SafeScreen>

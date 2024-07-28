@@ -8,8 +8,8 @@ export default (): UseMutationResult<
 	RegisterVariables
 > => {
 	return useMutation({
-		mutationFn: ({ email, name, password }: RegisterVariables) => {
-			return register(email, name, password);
+		mutationFn: ({ email, username, password }: RegisterVariables) => {
+			return register(email, username, password);
 		},
 	});
 };

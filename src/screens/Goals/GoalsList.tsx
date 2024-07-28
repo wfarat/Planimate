@@ -11,7 +11,7 @@ import { ItemCard, SendButton } from '@/components/molecules';
 import { useGoalActions } from '@/helpers/hooks/useGoalActions';
 import { useIsFocused } from '@react-navigation/native';
 
-function GoalsList({ navigation, clean }: ListProps<'Goals'>) {
+function GoalsList({ navigation, clean, endDate }: ListProps<'Goals'>) {
 	const storage = useStorage();
 	const { layout } = useTheme();
 	const [goals, setGoals] = useState<Goal[]>([]);
@@ -24,8 +24,10 @@ function GoalsList({ navigation, clean }: ListProps<'Goals'>) {
 		} else setGoals([]);
 	}, [isFocused]);
 	const handleAddGoal = () => {
-		const updatedGoals = addGoal();
-		setGoals(updatedGoals);
+		if (endDate) {
+			const updatedGoals = addGoal(endDate);
+			setGoals(updatedGoals);
+		}
 		if (clean) clean();
 	};
 	if (!isImageSourcePropType(SendImage)) {

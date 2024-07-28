@@ -1,4 +1,4 @@
-import { Goal, NameAndDescription } from '@/types/schemas';
+import { Goal } from '@/types/schemas';
 import { useStorage } from '@/storage/StorageContext';
 
 export const useGoalActions = (goalId?: number) => {
@@ -26,22 +26,22 @@ export const useGoalActions = (goalId?: number) => {
 		const updatedGoals = goals.filter(g => g.id !== goalId);
 		updateGoals(updatedGoals);
 	};
-	const addGoal = () => {
-		let name = '';
-		let description = '';
-		const storedState = storage.getString('goals.state');
-		if (storedState) {
-			({ name, description } = JSON.parse(storedState) as NameAndDescription);
-		}
+	const addGoal = (endDate: Date) => {
+		const name = storage.getString('goals.state.name');
+		const description = storage.getString('goals.state.description') || '';
 		const lastId = goals.length > 0 ? goals[goals.length - 1].id : 0;
-		const goal = {
-			name,
-			description,
-			id: lastId + 1,
-		};
-		const updatedGoals = [...goals, goal];
-		updateGoals(updatedGoals);
-		return updatedGoals;
+		if (name) {
+			const goal = {
+				name,
+				description,
+				endDate,
+				id: lastId + 1,
+			};
+			const updatedGoals = [...goals, goal];
+			updateGoals(updatedGoals);
+			return updatedGoals;
+		}
+		return goals;
 	};
 	return { editGoal, addGoal, deleteGoal };
 };

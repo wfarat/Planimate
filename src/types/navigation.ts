@@ -24,4 +24,5 @@ export type ListProps<
 > = RootScreenProps<S> & {
 	tasks?: Task[];
 	clean?: () => void;
+	endDate?: Date;
 };

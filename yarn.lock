@@ -8588,6 +8588,7 @@ __metadata:
     react-native-dialog: ^9.3.0
     react-native-flipper: ^0.259.0
     react-native-gesture-handler: ^2.14.0
+    react-native-localize: ^3.2.0
     react-native-mmkv: ^2.12.2
     react-native-reanimated: ^3.6.0
     react-native-safe-area-context: ^4.8.2
@@ -8892,6 +8893,20 @@ __metadata:
     react: "*"
     react-native: "*"
   checksum: 70da4fc51d92899591aadf03396a8e0b78223fbe71da5b10e76232058c1ef5943d54c1dd8da815d5b6a8b41f259ea9d50457680e2ef7878c88d7396771170ae3
+  languageName: node
+  linkType: hard
+
+"react-native-localize@npm:^3.2.0":
+  version: 3.2.0
+  resolution: "react-native-localize@npm:3.2.0"
+  peerDependencies:
+    react: ">=18.1.0"
+    react-native: ">=0.70.0"
+    react-native-macos: ">=0.70.0"
+  peerDependenciesMeta:
+    react-native-macos:
+      optional: true
+  checksum: a7493203638535253abfab65631372cbdb064d5af4c321d2b67e7f244a2a4063b57f236e22bb3a8288c987219d9e87271116f0b5fb96824c7effd267f0f0fde7
   languageName: node
   linkType: hard
 
