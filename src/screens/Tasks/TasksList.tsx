@@ -29,7 +29,7 @@ function TasksList({ navigation, route, tasks }: ListProps<'Tasks'>) {
 
 	return (
 		<View style={layout.flex_1}>
-			<View>
+			<View style={layout.fullWidth}>
 				<FlatList
 					data={tasks}
 					keyExtractor={(item, index) => index.toString()}

@@ -18,7 +18,7 @@ function ItemCard({ name, description, completed, dueDate }: ItemCardProps) {
 		>
 			<Text>{name}</Text>
 			<Text>{description}</Text>
-			{dueDate && <Text>{dueDate.toLocaleDateString()}</Text>}
+			{dueDate && <Text>{new Date(dueDate).toLocaleDateString()}</Text>}
 		</View>
 	);
 }

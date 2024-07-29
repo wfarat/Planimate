@@ -1,4 +1,4 @@
-import { AddToAgendaScreen, Goals, Tasks } from '@/screens';
+import { AddGoalScreen, AddToAgendaScreen, Goals, Tasks } from '@/screens';
 import { createStackNavigator } from '@react-navigation/stack';
 import type { RootStackParamList } from '@/types/navigation';
 import { useTheme } from '@/theme';
@@ -12,6 +12,7 @@ function GoalsStackScreen() {
 			<Stack.Screen name="Goals" component={Goals} />
 			<Stack.Screen name="Tasks" component={Tasks} />
 			<Stack.Screen name="AddToAgendaScreen" component={AddToAgendaScreen} />
+			<Stack.Screen name="AddGoalScreen" component={AddGoalScreen} />
 		</Stack.Navigator>
 	);
 }

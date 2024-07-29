@@ -38,7 +38,7 @@ function GoalsList({ navigation }: ListProps<'Goals'>) {
 		</TouchableOpacity>
 	);
 	return (
-		<View style={layout.flex_1}>
+		<View>
 			<View>
 				<FlatList
 					data={goals}

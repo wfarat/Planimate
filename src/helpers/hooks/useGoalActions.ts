@@ -26,9 +26,7 @@ export const useGoalActions = (goalId?: number) => {
 		const updatedGoals = goals.filter(g => g.id !== goalId);
 		updateGoals(updatedGoals);
 	};
-	const addGoal = (dueDate?: Date) => {
-		const name = storage.getString('goals.state.name');
-		const description = storage.getString('goals.state.description') || '';
+	const addGoal = (name: string, description: string, dueDate?: Date) => {
 		const lastId = goals.length > 0 ? goals[goals.length - 1].id : 0;
 		if (name) {
 			const goal = {
@@ -37,6 +35,7 @@ export const useGoalActions = (goalId?: number) => {
 				dueDate,
 				id: lastId + 1,
 			};
+			console.log('adding goal');
 			const updatedGoals = [...goals, goal];
 			updateGoals(updatedGoals);
 			return updatedGoals;

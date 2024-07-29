@@ -11,7 +11,7 @@ import DateTimePicker, {
 import { SendButton } from '@/components/molecules';
 import { useGoalActions } from '@/helpers/hooks/useGoalActions';
 
-function AddGoalScreen({ navigation }: RootScreenProps<'Goals'>) {
+function AddGoalScreen({ navigation }: RootScreenProps<'AddGoalScreen'>) {
 	const { t } = useTranslation(['goals']);
 	const { layout, gutters, components } = useTheme();
 	const [name, setName] = useState<string>('');
@@ -29,10 +29,10 @@ function AddGoalScreen({ navigation }: RootScreenProps<'Goals'>) {
 	};
 	const handleAddGoal = () => {
 		if (dueDate) {
-			addGoal(dueDate);
+			addGoal(name, description, dueDate);
 			navigation.goBack();
 		} else {
-			addGoal();
+			addGoal(name, description);
 			navigation.goBack();
 		}
 	};
