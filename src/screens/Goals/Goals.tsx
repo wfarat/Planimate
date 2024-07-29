@@ -10,6 +10,7 @@ import { useStateWithStorage } from '@/helpers/hooks/useStateWithStorage';
 import DateTimePicker, {
 	DateTimePickerEvent,
 } from '@react-native-community/datetimepicker';
+import { resetStates } from '@/helpers/utils/resetStates';
 
 function Goals({ navigation, route }: RootScreenProps<'Goals'>) {
 	const { t } = useTranslation(['goals']);
@@ -19,8 +20,7 @@ function Goals({ navigation, route }: RootScreenProps<'Goals'>) {
 	const [endDate, setEndDate] = useState(new Date());
 	const [show, setShow] = useState(false);
 	const clean = () => {
-		name.setState('');
-		description.setState('');
+		resetStates(name.setState, description.setState);
 	};
 	const onChange = (event: DateTimePickerEvent, selectedDate?: Date) => {
 		if (selectedDate) {

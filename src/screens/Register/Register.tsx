@@ -13,6 +13,7 @@ import { ImageVariant } from '@/components/atoms';
 import { useState } from 'react';
 import { useStorage } from '@/storage/StorageContext';
 import SendImage from '@/theme/assets/images/send.png';
+import { resetStates } from '@/helpers/utils/resetStates';
 import { isImageSourcePropType } from '@/types/guards/image';
 
 function Register() {
@@ -29,13 +30,11 @@ function Register() {
 	const addUser = () => {
 		if (password !== repeat) {
 			setMismatch(true);
+			resetStates(setPassword, setRepeat);
 		} else if (username.trim()) {
 			mutate({ email, username, password });
 			if (isSuccess) storage.set('user', JSON.stringify(data));
-			setEmail('');
-			setUsername('');
-			setPassword('');
-			setRepeat('');
+			resetStates(setEmail, setUsername, setPassword, setRepeat);
 		}
 	};
 	if (!isImageSourcePropType(SendImage)) {

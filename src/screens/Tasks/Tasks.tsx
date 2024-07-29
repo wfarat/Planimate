@@ -13,6 +13,7 @@ import { useTaskActions } from '@/helpers/hooks/useTaskActions';
 import { useIsFocused } from '@react-navigation/native';
 import alertDelete from '@/helpers/utils/alertDelete';
 import { useGoalActions } from '@/helpers/hooks/useGoalActions';
+import { resetStates } from '@/helpers/utils/resetStates';
 
 function Tasks({ route, navigation }: RootScreenProps<'Tasks'>) {
 	const { goal, task } = route.params;
@@ -48,8 +49,7 @@ function Tasks({ route, navigation }: RootScreenProps<'Tasks'>) {
 	const handleAddTask = () => {
 		const updatedTasks = addTask(tasks, name, description);
 		setTasks(updatedTasks);
-		setName('');
-		setDescription('');
+		resetStates(setName, setDescription);
 	};
 	const handleDelete = () => {
 		if (task) deleteTask();
