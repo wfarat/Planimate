@@ -2,7 +2,7 @@ type Goal = {
 	id: number;
 	name: string;
 	description: string;
-	endDate: string;
+	dueDate?: Date;
 };
 
 export default Goal;

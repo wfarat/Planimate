@@ -48,6 +48,7 @@ export const useTaskActions = (
 			goalId,
 			id: lastId + 1,
 			taskId,
+			minutesToComplete: 120,
 			completed: false,
 		};
 		storage.set(`goals.${goalId}.lastId`, JSON.stringify(lastId + 1));

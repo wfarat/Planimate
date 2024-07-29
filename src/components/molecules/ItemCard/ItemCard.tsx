@@ -2,7 +2,7 @@ import { Text, View } from 'react-native';
 import { useTheme } from '@/theme';
 import type ItemCardProps from '@/types/props/itemCardProps';
 
-function ItemCard({ name, description, completed, endDate }: ItemCardProps) {
+function ItemCard({ name, description, completed, dueDate }: ItemCardProps) {
 	const { layout, gutters, borders, backgrounds } = useTheme();
 	return (
 		<View
@@ -18,7 +18,7 @@ function ItemCard({ name, description, completed, endDate }: ItemCardProps) {
 		>
 			<Text>{name}</Text>
 			<Text>{description}</Text>
-			{endDate && <Text>{endDate}</Text>}
+			{dueDate && <Text>{dueDate.toLocaleDateString()}</Text>}
 		</View>
 	);
 }

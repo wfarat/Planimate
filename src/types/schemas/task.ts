@@ -4,6 +4,7 @@ type Task = {
 	taskId?: number | undefined;
 	name: string;
 	description: string;
+	minutesToComplete: number;
 	completed: boolean;
 };
 

@@ -23,6 +23,4 @@ export type ListProps<
 	S extends keyof RootStackParamList = keyof RootStackParamList,
 > = RootScreenProps<S> & {
 	tasks?: Task[];
-	clean?: () => void;
-	endDate?: Date;
 };

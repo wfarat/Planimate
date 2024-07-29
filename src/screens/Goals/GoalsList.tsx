@@ -7,15 +7,13 @@ import SendImage from '@/theme/assets/images/send.png';
 import { Goal } from '@/types/schemas';
 import { isImageSourcePropType } from '@/types/guards/image';
 import { ListProps } from '@/types/navigation';
-import { ItemCard, SendButton } from '@/components/molecules';
-import { useGoalActions } from '@/helpers/hooks/useGoalActions';
+import { ItemCard } from '@/components/molecules';
 import { useIsFocused } from '@react-navigation/native';
 
-function GoalsList({ navigation, clean, endDate }: ListProps<'Goals'>) {
+function GoalsList({ navigation }: ListProps<'Goals'>) {
 	const storage = useStorage();
 	const { layout } = useTheme();
 	const [goals, setGoals] = useState<Goal[]>([]);
-	const { addGoal } = useGoalActions();
 	const isFocused = useIsFocused();
 	useEffect(() => {
 		const storedGoals = storage.getString('goals');
@@ -23,13 +21,7 @@ function GoalsList({ navigation, clean, endDate }: ListProps<'Goals'>) {
 			setGoals(JSON.parse(storedGoals) as Goal[]);
 		} else setGoals([]);
 	}, [isFocused]);
-	const handleAddGoal = () => {
-		if (endDate) {
-			const updatedGoals = addGoal(endDate);
-			setGoals(updatedGoals);
-		}
-		if (clean) clean();
-	};
+
 	if (!isImageSourcePropType(SendImage)) {
 		throw new Error('Image source is not valid');
 	}
@@ -41,13 +33,12 @@ function GoalsList({ navigation, clean, endDate }: ListProps<'Goals'>) {
 			<ItemCard
 				name={item.name}
 				description={item.description}
-				endDate={item.endDate}
+				dueDate={item.dueDate}
 			/>
 		</TouchableOpacity>
 	);
 	return (
 		<View style={layout.flex_1}>
-			<SendButton handlePress={handleAddGoal} />
 			<View>
 				<FlatList
 					data={goals}

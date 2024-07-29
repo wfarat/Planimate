@@ -66,14 +66,14 @@ function Register() {
 							/>
 							<TextInput
 								style={components.textInputRounded}
-								multiline
+								secureTextEntry
 								value={password}
 								onChangeText={setPassword}
 								placeholder={t('register:password')}
 							/>
 							<TextInput
 								style={components.textInputRounded}
-								multiline
+								secureTextEntry
 								value={repeat}
 								onChangeText={setRepeat}
 								placeholder={t('register:repeat')}
