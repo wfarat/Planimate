@@ -23,12 +23,16 @@ function Register() {
 	const [username, setUsername] = useState<string>('');
 	const [password, setPassword] = useState<string>('');
 	const [repeat, setRepeat] = useState<string>('');
+	const [mismatch, setMismatch] = useState<boolean>(false);
 	const { mutate, isPending, isSuccess, error, data } = register();
 
 	const addUser = () => {
-		if (username.trim()) {
+		if (password !== repeat) {
+			setMismatch(true);
+		} else if (username.trim()) {
 			mutate({ email, username, password });
 			if (isSuccess) storage.set('user', JSON.stringify(data));
+			setEmail('');
 			setUsername('');
 			setPassword('');
 			setRepeat('');
@@ -47,35 +51,36 @@ function Register() {
 				]}
 			>
 				<View style={[gutters.paddingHorizontal_32]}>
-					<View>
-						<TextInput
-							style={components.textInputRounded}
-							value={email}
-							onChangeText={setEmail}
-							placeholder={t('register:email')}
-						/>
-						<TextInput
-							style={components.textInputRounded}
-							value={username}
-							onChangeText={setUsername}
-							placeholder={t('register:user')}
-						/>
-
-						<TextInput
-							style={components.textInputRounded}
-							multiline
-							value={password}
-							onChangeText={setPassword}
-							placeholder={t('register:password')}
-						/>
-					</View>
-					<TextInput
-						style={components.textInputRounded}
-						multiline
-						value={repeat}
-						onChangeText={setRepeat}
-						placeholder={t('register:repeat')}
-					/>
+					{!isSuccess && (
+						<View>
+							<TextInput
+								style={components.textInputRounded}
+								value={email}
+								onChangeText={setEmail}
+								placeholder={t('register:email')}
+							/>
+							<TextInput
+								style={components.textInputRounded}
+								value={username}
+								onChangeText={setUsername}
+								placeholder={t('register:user')}
+							/>
+							<TextInput
+								style={components.textInputRounded}
+								multiline
+								value={password}
+								onChangeText={setPassword}
+								placeholder={t('register:password')}
+							/>
+							<TextInput
+								style={components.textInputRounded}
+								multiline
+								value={repeat}
+								onChangeText={setRepeat}
+								placeholder={t('register:repeat')}
+							/>
+						</View>
+					)}
 				</View>
 				<View
 					style={[
@@ -100,6 +105,11 @@ function Register() {
 						)}
 					</TouchableOpacity>
 				</View>
+				{mismatch && (
+					<Text style={components.errorText}>
+						{t('register:passwordMismatch')}
+					</Text>
+				)}
 				{isSuccess && (
 					<View>
 						<Text>Registration successful!</Text>

@@ -35,5 +35,10 @@ export default ({
 			...borders.rounded_16,
 			...gutters.marginBottom_16,
 		},
+		errorText: {
+			...fonts.size_16,
+			...fonts.red500,
+			...gutters.margin_12,
+		},
 	} as const satisfies AllStyle;
 };
