@@ -3,5 +3,6 @@
   "description": "Describe what it means to you to achieve this goal",
   "taskName": "What will you do to achieve it?",
   "taskDescription": "Describe in detail what action will you take",
-  "endDate": "Target date:"
+  "endDate": "Target date:",
+  "enterDate": "Press to pick"
 }

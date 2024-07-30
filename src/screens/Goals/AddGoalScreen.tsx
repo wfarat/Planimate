@@ -17,7 +17,7 @@ function AddGoalScreen({ navigation }: RootScreenProps<'AddGoalScreen'>) {
 	const [name, setName] = useState<string>('');
 	const [description, setDescription] = useState<string>('');
 	const { addGoal } = useGoalActions();
-	const [dueDate, setDueDate] = useState(new Date());
+	const [dueDate, setDueDate] = useState<Date>();
 	const [show, setShow] = useState(false);
 
 	const onChange = (event: DateTimePickerEvent, selectedDate?: Date) => {
@@ -41,7 +41,7 @@ function AddGoalScreen({ navigation }: RootScreenProps<'AddGoalScreen'>) {
 			{show && (
 				<DateTimePicker
 					testID="dateTimePicker"
-					value={dueDate}
+					value={dueDate || new Date()}
 					mode="date"
 					is24Hour
 					onChange={onChange}
@@ -72,7 +72,8 @@ function AddGoalScreen({ navigation }: RootScreenProps<'AddGoalScreen'>) {
 						/>
 						<TouchableOpacity onPress={() => setShow(true)}>
 							<Text style={[components.textInputRounded, gutters.padding_12]}>
-								{t('goals:endDate')} {dueDate.toLocaleDateString()}
+								{t('goals:endDate')}{' '}
+								{dueDate ? dueDate.toLocaleDateString() : t('goals:enterDate')}
 							</Text>
 						</TouchableOpacity>
 					</View>
