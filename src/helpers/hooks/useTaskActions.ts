@@ -51,7 +51,8 @@ export const useTaskActions = (
 			minutesToComplete: 120,
 			completed: false,
 		};
-		storage.set(`goals.${goalId}.lastId`, JSON.stringify(lastId + 1));
+		console.log(newTask);
+		storage.set(`goals.${goalId}.lastId`, lastId + 1);
 		const updatedTasks = [...oldTasks, newTask];
 		updateTasks(updatedTasks, taskId);
 		return updatedTasks;

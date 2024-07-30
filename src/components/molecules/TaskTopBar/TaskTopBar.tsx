@@ -52,7 +52,7 @@ function TaskTopBar({
 						/>
 					</TouchableOpacity>
 				)}
-				{onFinish && isCompletionPossible && (
+				{onFinish && (
 					<TouchableOpacity onPress={onFinish} disabled={!isCompletionPossible}>
 						<MaterialCommunityIcons
 							name="check"

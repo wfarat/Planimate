@@ -1,35 +1,31 @@
-import { Text, View, TextInput } from 'react-native';
+import { Text, View, TouchableOpacity } from 'react-native';
 
-import { useTranslation } from 'react-i18next';
 import { SafeScreen } from '@/components/template';
 import { useTheme } from '@/theme';
 import { useEffect, useState } from 'react';
 import TasksList from '@/screens/Tasks/TasksList';
 import { RootScreenProps } from '@/types/navigation';
-import { EditDialog, SendButton, TaskTopBar } from '@/components/molecules';
+import { EditDialog, TaskTopBar } from '@/components/molecules';
 import type { Task } from '@/types/schemas';
 import { useStorage } from '@/storage/StorageContext';
 import { useTaskActions } from '@/helpers/hooks/useTaskActions';
 import { useIsFocused } from '@react-navigation/native';
 import alertDelete from '@/helpers/utils/alertDelete';
 import { useGoalActions } from '@/helpers/hooks/useGoalActions';
-import { resetStates } from '@/helpers/utils/resetStates';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 function Tasks({ route, navigation }: RootScreenProps<'Tasks'>) {
 	const { goal, task } = route.params;
-	const { t } = useTranslation(['goals']);
 	const storage = useStorage();
-	const { layout, fonts, gutters, components } = useTheme();
-	const [name, setName] = useState<string>('');
-	const [description, setDescription] = useState<string>('');
+	const { layout, fonts, gutters, colors, borders } = useTheme();
 	const [tasks, setTasks] = useState<Task[]>([]);
 	const [visible, setVisible] = useState(false);
 	const [goalName, setGoalName] = useState(goal.name);
 	const [taskName, setTaskName] = useState(task?.name || '');
-	const { deleteTask, finishTask, editTask, addTask } = useTaskActions(
+	const { deleteTask, finishTask, editTask } = useTaskActions(
 		goal.id,
 		task?.taskId,
-		task ? task.id : undefined,
+		task?.id,
 	);
 	const { deleteGoal, editGoal } = useGoalActions(goal.id);
 	const storageString = task
@@ -46,11 +42,6 @@ function Tasks({ route, navigation }: RootScreenProps<'Tasks'>) {
 			}
 		}
 	}, [task?.id, isFocused]);
-	const handleAddTask = () => {
-		const updatedTasks = addTask(tasks, name, description);
-		setTasks(updatedTasks);
-		resetStates(setName, setDescription);
-	};
 	const handleDelete = () => {
 		if (task) deleteTask();
 		else deleteGoal();
@@ -87,6 +78,9 @@ function Tasks({ route, navigation }: RootScreenProps<'Tasks'>) {
 	const handleAddToAgenda = () => {
 		if (task) navigation.push('AddToAgendaScreen', { task });
 	};
+	const handlePress = () => {
+		navigation.push('AddTaskScreen', { tasks, task, goal });
+	};
 	return (
 		<SafeScreen>
 			{task ? (
@@ -110,30 +104,36 @@ function Tasks({ route, navigation }: RootScreenProps<'Tasks'>) {
 				style={[
 					layout.justifyCenter,
 					layout.itemsCenter,
-					gutters.marginTop_120,
+					gutters.marginTop_80,
+					gutters.padding_16,
 				]}
 			>
 				<Text style={[fonts.size_24, fonts.gray200]}>{goalName}</Text>
 				{task && <Text style={[fonts.size_24, fonts.gray200]}>{taskName}</Text>}
-				<View style={[gutters.paddingHorizontal_32]}>
-					<View>
-						<TextInput
-							style={components.textInputRounded}
-							value={name}
-							onChangeText={setName}
-							placeholder={t('goals:taskName')}
+				<View
+					style={[layout.itemsCenter, layout.fullWidth, gutters.padding_16]}
+				>
+					<TouchableOpacity
+						onPress={handlePress}
+						style={[
+							layout.row,
+							borders.w_1,
+							borders.gray400,
+							borders.rounded_4,
+						]}
+					>
+						<Text style={[fonts.gray400, fonts.size_24]}>Add Task</Text>
+						<MaterialCommunityIcons
+							name="plus-box"
+							color={colors.gray400}
+							size={36}
 						/>
-						<TextInput
-							style={components.textInputRounded}
-							numberOfLines={2}
-							multiline
-							value={description}
-							onChangeText={setDescription}
-							placeholder={t('goals:taskDescription')}
-						/>
+					</TouchableOpacity>
+					<View
+						style={[gutters.marginTop_16, layout.fullWidth, gutters.padding_16]}
+					>
+						<TasksList tasks={tasks} navigation={navigation} route={route} />
 					</View>
-					<SendButton handlePress={() => handleAddTask()} />
-					<TasksList tasks={tasks} navigation={navigation} route={route} />
 				</View>
 			</View>
 		</SafeScreen>

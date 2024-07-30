@@ -39,13 +39,11 @@ function GoalsList({ navigation }: ListProps<'Goals'>) {
 	);
 	return (
 		<View>
-			<View>
-				<FlatList
-					data={goals}
-					keyExtractor={(item, index) => index.toString()}
-					renderItem={renderItem}
-				/>
-			</View>
+			<FlatList
+				data={goals}
+				keyExtractor={(item, index) => index.toString()}
+				renderItem={renderItem}
+			/>
 		</View>
 	);
 }

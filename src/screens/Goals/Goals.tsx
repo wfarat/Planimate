@@ -43,7 +43,9 @@ function Goals({ navigation, route }: RootScreenProps<'Goals'>) {
 							size={36}
 						/>
 					</TouchableOpacity>
-					<View style={[gutters.marginTop_16, layout.fullWidth]}>
+					<View
+						style={[gutters.marginTop_16, layout.fullWidth, gutters.padding_16]}
+					>
 						<GoalsList navigation={navigation} route={route} />
 					</View>
 				</View>

@@ -1,5 +1,4 @@
 import { View, ListRenderItem, FlatList, TouchableOpacity } from 'react-native';
-import { useTheme } from '@/theme';
 import SendImage from '@/theme/assets/images/send.png';
 import type { Task } from '@/types/schemas';
 import { isImageSourcePropType } from '@/types/guards/image';
@@ -8,7 +7,6 @@ import { ItemCard } from '@/components/molecules';
 
 function TasksList({ navigation, route, tasks }: ListProps<'Tasks'>) {
 	const { goal } = route.params;
-	const { layout } = useTheme();
 	if (!isImageSourcePropType(SendImage)) {
 		throw new Error('Image source is not valid');
 	}
@@ -28,14 +26,12 @@ function TasksList({ navigation, route, tasks }: ListProps<'Tasks'>) {
 	};
 
 	return (
-		<View style={layout.flex_1}>
-			<View style={layout.fullWidth}>
-				<FlatList
-					data={tasks}
-					keyExtractor={(item, index) => index.toString()}
-					renderItem={renderItem}
-				/>
-			</View>
+		<View>
+			<FlatList
+				data={tasks}
+				keyExtractor={(item, index) => index.toString()}
+				renderItem={renderItem}
+			/>
 		</View>
 	);
 }
