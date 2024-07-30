@@ -1,14 +1,11 @@
-import { View, TextInput, Text, TouchableOpacity } from 'react-native';
+import { View, TextInput } from 'react-native';
 
 import { useTranslation } from 'react-i18next';
 import { SafeScreen } from '@/components/template';
 import { useTheme } from '@/theme';
 import { useState } from 'react';
 import { RootScreenProps } from '@/types/navigation';
-import DateTimePicker, {
-	DateTimePickerEvent,
-} from '@react-native-community/datetimepicker';
-import { SendButton } from '@/components/molecules';
+import { InputDate, SendButton } from '@/components/molecules';
 import { useGoalActions } from '@/helpers/hooks/useGoalActions';
 
 function AddGoalScreen({ navigation }: RootScreenProps<'AddGoalScreen'>) {
@@ -18,30 +15,12 @@ function AddGoalScreen({ navigation }: RootScreenProps<'AddGoalScreen'>) {
 	const [description, setDescription] = useState<string>('');
 	const { addGoal } = useGoalActions();
 	const [dueDate, setDueDate] = useState<Date>();
-	const [show, setShow] = useState(false);
-
-	const onChange = (event: DateTimePickerEvent, selectedDate?: Date) => {
-		if (selectedDate) {
-			const currentDate = selectedDate;
-			setShow(false);
-			setDueDate(currentDate);
-		}
-	};
 	const handleAddGoal = () => {
 		addGoal(name, description, dueDate);
 		navigation.goBack();
 	};
 	return (
 		<SafeScreen>
-			{show && (
-				<DateTimePicker
-					testID="dateTimePicker"
-					value={dueDate || new Date()}
-					mode="date"
-					is24Hour
-					onChange={onChange}
-				/>
-			)}
 			<View
 				style={[
 					layout.justifyCenter,
@@ -65,12 +44,7 @@ function AddGoalScreen({ navigation }: RootScreenProps<'AddGoalScreen'>) {
 							onChangeText={setDescription}
 							placeholder={t('goals:description')}
 						/>
-						<TouchableOpacity onPress={() => setShow(true)}>
-							<Text style={[components.textInputRounded, gutters.padding_12]}>
-								{t('goals:endDate')}{' '}
-								{dueDate ? dueDate.toLocaleDateString() : t('goals:enterDate')}
-							</Text>
-						</TouchableOpacity>
+						<InputDate dueDate={dueDate} setDueDate={setDueDate} />
 					</View>
 					<SendButton handlePress={handleAddGoal} />
 				</View>
