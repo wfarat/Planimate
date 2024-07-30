@@ -11,6 +11,7 @@ PlannerApp is a React Native application designed to help users plan their goals
 .
 
 ## To-do's:
+- **Styling:** Implementing remaining functionality listed in "Our vision"
 - **Styling:** The app needs better styling.
 - **Atomization:** App components will have to be divided into smaller parts.
 - **Future Plans:** Expand the app with social features and AI assistance.
@@ -81,32 +82,27 @@ Generate a test coverage report:
 yarn test:report
 ```
 
-## Linting and Type Checking
+## Our vision
 
-- **Lint the code:**
-  ```sh
-  yarn lint
-  ```
-
-- **Type check the code:**
-  ```sh
-  yarn type-check
-  ```
-
-## Folder Structure
-
-- **/src**: Contains the source code for the app.
-- **/assets**: Contains static assets like images and fonts.
-- **/ios**: Contains iOS-specific code and configuration.
-- **/android**: Contains Android-specific code and configuration.
-
-## Future Plans
-
-- **Social Features:** Enable users to share goals and progress with friends.
-- **AI Assistance:** Integrate AI to provide personalized goal recommendations and progress tracking.
-
+### Major Use Cases
+1. **Goal Management**: Users can create, edit, and delete their personal, unique goals. They can view their goals in a clear and organized manner.
+2. **Task Management**: Under each goal, users can create, edit, and delete tasks. Hierarchical organization in the form of parent tasks (e.g., research, development, testing) and subtasks (e.g., data collection, testing phase 1) allows clear tracking of work.
+3. **Time Estimation and Logging:** Users assign expected completion times to tasks/subtasks. They can log actual time spent, allowing comparison between estimated and actual time. This fosters realistic future planning.
+4. **Progress Tracking**: Progress bars show completion status of tasks and goals, providing a quick visual representation of the user's progress.
+5. **Task Dependencies**: Users set dependencies between tasks. This enforces a logical order of task completion, especially important for complex projects.
+6. **Prioritization**: Users have the ability to prioritize tasks. This helps them focus their efforts on pressing or high-value tasks first.
+7. **Reminders and Notifications**: The app sends prompts and alerts for task deadlines and changes in task status. This ensures users are always aware of their current task demands.
+8. **Collaboration**: The app facilitates shared goals and tasks, enabling teamwork. Users can leave comments and notes on tasks enhancing communication between team members.
+### Additional Features
+In addition to these primary use cases, the app might also include features for:
+1. **Flexible Views**: Users can switch between different task view modes. For example, a list view for simple task lists, a calendar view for understanding task deadlines in the context of their calendar, or even a Gantt chart view for understanding task dependencies and project timelines.
+2. **Daily Motivation**: A "Quote of the day" feature provides users with daily motivation, promoting a positive mindset and productive environment.
+### Sustainable Innovation
+Future version releases might involve developments such as introducing AI for:
+1. **Automatic Prioritization**: Using machine learning, the app could learn a user's behavior and automatically prioritize future tasks based on their habits.
+2. **Smart Time Estimation**: Based on past tasks and their actual completion times, the app could provide users with more accurate time estimates for future tasks.
+By executing these use cases, your app will provide immense value to users, supporting them in achieving their goals through effective planning and time management.
 ## Contributing
-
 Contributions are welcome! Please fork the repository and submit a pull request.
 
 1. **Fork the repository**
