@@ -28,13 +28,8 @@ function AddGoalScreen({ navigation }: RootScreenProps<'AddGoalScreen'>) {
 		}
 	};
 	const handleAddGoal = () => {
-		if (dueDate) {
-			addGoal(name, description, dueDate);
-			navigation.goBack();
-		} else {
-			addGoal(name, description);
-			navigation.goBack();
-		}
+		addGoal(name, description, dueDate);
+		navigation.goBack();
 	};
 	return (
 		<SafeScreen>
