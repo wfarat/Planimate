@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { SafeScreen } from '@/components/template';
 import { useTheme } from '@/theme';
 import { useState } from 'react';
-import { InputDate, SendButton } from '@/components/molecules';
+import { InputDate, InputDuration, SendButton } from '@/components/molecules';
 import { RootScreenProps } from '@/types/navigation';
 import { useTaskActions } from '@/helpers/hooks/useTaskActions';
 
@@ -18,6 +18,7 @@ function AddTaskScreen({
 	const [name, setName] = useState<string>('');
 	const [description, setDescription] = useState<string>('');
 	const [dueDate, setDueDate] = useState<Date>();
+	const [duration, setDuration] = useState<number>();
 	const { addTask } = useTaskActions(goal.id, task?.taskId, task?.id);
 	const handleAddTask = () => {
 		addTask(tasks, name, description);
@@ -51,6 +52,7 @@ function AddTaskScreen({
 							placeholder={t('goals:taskDescription')}
 						/>
 						<InputDate dueDate={dueDate} setDueDate={setDueDate} />
+						<InputDuration duration={duration} setDuration={setDuration} />
 					</View>
 					<SendButton handlePress={() => handleAddTask()} />
 				</View>

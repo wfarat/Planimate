@@ -4,5 +4,7 @@
   "taskName": "What will you do to achieve it?",
   "taskDescription": "Describe in detail what action will you take",
   "endDate": "Target date:",
-  "enterDate": "Press to pick"
+  "enterDate": "Press to pick",
+  "duration": "Total time to complete:",
+  "enterDuration": "Press to set"
 }

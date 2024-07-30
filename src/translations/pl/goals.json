@@ -4,5 +4,7 @@
   "taskName": "Co zrobisz by osiągnąć ten cel?",
   "taskDescription": "Opisz dokładniej jakie działania podejmiesz",
   "endDate": "Termin docelowy:",
-  "enterDate": "Dotknij by wybrać"
+  "enterDate": "Dotknij by wybrać",
+  "duration": "Całkowity czas do ukończenia:",
+  "enterDuration": "Dotknij by ustawić"
 }
