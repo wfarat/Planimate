@@ -77,10 +77,8 @@ export const useAgendaItems = () => {
 			}
 			return agendaItem;
 		});
-		console.log(item.taskStorageKey);
 		const storedTasks = storage.getString(item.taskStorageKey);
 		if (storedTasks) {
-			console.log(storedTasks);
 			const tasks = JSON.parse(storedTasks) as Task[];
 			const task = tasks.find(current => current.id === item.taskId);
 			if (task) {
@@ -95,7 +93,6 @@ export const useAgendaItems = () => {
 									: 0,
 						},
 					};
-					console.log(updatedTask);
 					storage.set(
 						item.taskStorageKey,
 						JSON.stringify(
