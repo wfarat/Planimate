@@ -11,7 +11,7 @@ PlannerApp is a React Native application designed to help users plan their goals
 .
 
 ## To-do's:
-- **Styling:** Implementing remaining functionality listed in "Our vision"
+- **Functionality:** Implementing remaining functionality listed in "Our vision"
 - **Styling:** The app needs better styling.
 - **Atomization:** App components will have to be divided into smaller parts.
 - **Future Plans:** Expand the app with social features and AI assistance.
