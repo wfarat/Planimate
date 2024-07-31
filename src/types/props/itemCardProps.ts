@@ -3,6 +3,10 @@ type ItemCardProps = {
 	description: string;
 	completed?: boolean;
 	dueDate?: Date;
+	duration?: {
+		base: number;
+		remaining: number;
+	};
 };
 
 export default ItemCardProps;

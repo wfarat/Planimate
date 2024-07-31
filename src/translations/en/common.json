@@ -16,5 +16,9 @@
   "edit": {
     "name": "Enter new name",
     "description": "Enter new description"
+  },
+  "abr": {
+    "hour": "g",
+    "min": "m"
   }
 }

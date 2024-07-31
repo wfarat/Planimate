@@ -21,7 +21,7 @@ function AddTaskScreen({
 	const [duration, setDuration] = useState<number>();
 	const { addTask } = useTaskActions(goal.id, task?.taskId, task?.id);
 	const handleAddTask = () => {
-		addTask(tasks, name, description);
+		addTask(tasks, name, description, duration, dueDate);
 		navigation.goBack();
 	};
 	return (

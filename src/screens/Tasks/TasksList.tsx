@@ -20,6 +20,8 @@ function TasksList({ navigation, route, tasks }: ListProps<'Tasks'>) {
 					name={item.name}
 					description={item.description}
 					completed={item.completed}
+					dueDate={item.dueDate}
+					duration={item.duration}
 				/>
 			</TouchableOpacity>
 		);

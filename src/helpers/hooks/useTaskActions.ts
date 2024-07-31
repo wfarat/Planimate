@@ -41,17 +41,23 @@ export const useTaskActions = (
 		);
 		updateTasks(updatedTasks, parentId);
 	};
-	const addTask = (oldTasks: Task[], name: string, description: string) => {
+	const addTask = (
+		oldTasks: Task[],
+		name: string,
+		description: string,
+		duration?: number,
+		dueDate?: Date,
+	) => {
 		const newTask = {
 			name,
 			description,
 			goalId,
 			id: lastId + 1,
 			taskId,
-			minutesToComplete: 120,
+			duration: { base: duration, remaining: duration },
+			dueDate,
 			completed: false,
 		};
-		console.log(newTask);
 		storage.set(`goals.${goalId}.lastId`, lastId + 1);
 		const updatedTasks = [...oldTasks, newTask];
 		updateTasks(updatedTasks, taskId);

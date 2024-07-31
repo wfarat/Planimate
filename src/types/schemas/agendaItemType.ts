@@ -6,6 +6,8 @@ type AgendaItemType = {
 		title: string;
 		id: number;
 		key: string;
+		taskStorageKey: string;
+		taskId: number;
 	}[];
 };
 export type AgendaItemData = {
@@ -14,6 +16,8 @@ export type AgendaItemData = {
 	title: string;
 	id: number;
 	key: string;
+	taskStorageKey: string;
+	taskId: number;
 };
 export type RenderAgendaItemProps = {
 	item: {
@@ -22,6 +26,8 @@ export type RenderAgendaItemProps = {
 		title: string;
 		id: number;
 		key: string;
+		taskStorageKey: string;
+		taskId: number;
 	};
 };
 export default AgendaItemType;

@@ -4,7 +4,11 @@ type Task = {
 	taskId?: number | undefined;
 	name: string;
 	description: string;
-	minutesToComplete: number;
+	duration?: {
+		base?: number;
+		remaining?: number;
+	};
+	dueDate?: Date;
 	completed: boolean;
 };
 

@@ -57,6 +57,7 @@ function AgendaItem(props: ItemProps) {
 	const { item, handleDelete } = props;
 	const date = new Date(item.date);
 	const buttonPressed = useCallback(() => {
+		console.log('here');
 		alertDelete(item.title, handleDelete);
 	}, []);
 	const itemPressed = useCallback(() => {

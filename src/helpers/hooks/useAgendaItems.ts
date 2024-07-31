@@ -1,5 +1,5 @@
 import { useStorage } from '@/storage/StorageContext';
-import { AgendaItemType } from '@/types/schemas';
+import { AgendaItemType, Task } from '@/types/schemas';
 import { MarkedDates } from 'react-native-calendars/src/types';
 import isEmpty from 'lodash/isEmpty';
 import agendaItemType, { AgendaItemData } from '@/types/schemas/agendaItemType';
@@ -20,7 +20,6 @@ export const useAgendaItems = () => {
 	};
 	const addAgendaItem = (newItem: AgendaItemType) => {
 		const oldItems = loadStoredItems();
-		console.log(newItem);
 		const index = oldItems.findIndex(item => item.title === newItem.title);
 		const updatedItems =
 			index !== -1
@@ -65,6 +64,58 @@ export const useAgendaItems = () => {
 		updateItems(updatedItems);
 		return updatedItems;
 	};
+	const closeAgendaItem = (item: AgendaItemData): AgendaItemType[] => {
+		const agendaItems = loadStoredItems();
+		const updatedItems = agendaItems.map(agendaItem => {
+			if (agendaItem.title === item.key) {
+				return {
+					...agendaItem,
+					data: agendaItem.data.map(currentItem =>
+						currentItem.id === item.id ? item : currentItem,
+					),
+				};
+			}
+			return agendaItem;
+		});
+		console.log(item.taskStorageKey);
+		const storedTasks = storage.getString(item.taskStorageKey);
+		if (storedTasks) {
+			console.log(storedTasks);
+			const tasks = JSON.parse(storedTasks) as Task[];
+			const task = tasks.find(current => current.id === item.taskId);
+			if (task) {
+				if (task.duration && task.duration.remaining) {
+					const updatedTask = {
+						...task,
+						duration: {
+							...task.duration,
+							remaining:
+								task.duration.remaining >= item.duration
+									? task.duration.remaining - item.duration
+									: 0,
+						},
+					};
+					console.log(updatedTask);
+					storage.set(
+						item.taskStorageKey,
+						JSON.stringify(
+							tasks.map(current =>
+								current.id === task.id ? updatedTask : current,
+							),
+						),
+					);
+				}
+			}
+		}
+		updateItems(updatedItems);
+		return updatedItems;
+	};
 
-	return { getMarkedDates, addAgendaItem, deleteAgendaItem, loadStoredItems };
+	return {
+		getMarkedDates,
+		addAgendaItem,
+		deleteAgendaItem,
+		loadStoredItems,
+		closeAgendaItem,
+	};
 };

@@ -35,7 +35,7 @@ interface Props {
 }
 
 function Calendar({ weekView = false }: Props) {
-	const { getMarkedDates, deleteAgendaItem, loadStoredItems } =
+	const { getMarkedDates, deleteAgendaItem, loadStoredItems, closeAgendaItem } =
 		useAgendaItems();
 	const theme = useRef(getTheme());
 
@@ -68,7 +68,8 @@ function Calendar({ weekView = false }: Props) {
 	}, [languageKey, agendaItems]);
 
 	const handleDelete = (item: AgendaItemData) => {
-		const newItems = deleteAgendaItem(item);
+		console.log('here');
+		const newItems = closeAgendaItem(item);
 		setAgendaItems(newItems);
 		setMarkedDates(getMarkedDates(newItems));
 	};

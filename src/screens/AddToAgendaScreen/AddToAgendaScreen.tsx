@@ -1,6 +1,6 @@
 import { RootScreenProps } from '@/types/navigation';
 import { SafeScreen } from '@/components/template';
-import { Button, Text, TextInput, View } from 'react-native';
+import { Button, Text, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@/theme';
 import DateTimePicker, {
@@ -53,7 +53,17 @@ function AddToAgendaScreen({
 		const id = storedId || 0;
 		const newItem: AgendaItemType = {
 			title,
-			data: [{ date, duration, title: task.name, id: id + 1, key: title }],
+			data: [
+				{
+					date,
+					duration,
+					title: task.name,
+					id: id + 1,
+					key: title,
+					taskStorageKey: `goals.${task.goalId}.${task.taskId}`,
+					taskId: task.id,
+				},
+			],
 		};
 		addAgendaItem(newItem);
 		storage.set('agenda.id', id + 1);
