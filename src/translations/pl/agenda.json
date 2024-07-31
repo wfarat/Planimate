@@ -2,5 +2,7 @@
   "add": "Dodaj do terminarza",
   "date": "Wybierz datę",
   "time": "Wybierz czas",
-  "selected": "Obecnie wybrano:"
+  "selected": "Obecnie wybrano:",
+  "hour": "g",
+  "min": "m"
 }

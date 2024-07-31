@@ -10,6 +10,7 @@ import { useState } from 'react';
 import { useAgendaItems } from '@/helpers/hooks/useAgendaItems';
 import { AgendaItemType } from '@/types/schemas';
 import { useStorage } from '@/storage/StorageContext';
+import { InputDuration } from '@/components/molecules';
 
 type AndroidMode = 'date' | 'time';
 
@@ -24,7 +25,7 @@ function AddToAgendaScreen({
 	const [mode, setMode] = useState<AndroidMode>('date');
 	const [show, setShow] = useState(false);
 	const storage = useStorage();
-	const [duration, setDuration] = useState('1h');
+	const [duration, setDuration] = useState(0);
 	const { addAgendaItem } = useAgendaItems();
 	const onChange = (event: DateTimePickerEvent, selectedDate?: Date) => {
 		if (selectedDate) {
@@ -86,7 +87,7 @@ function AddToAgendaScreen({
 						onChange={onChange}
 					/>
 				)}
-				<TextInput value={duration} onChangeText={setDuration} />
+				<InputDuration duration={duration} setDuration={setDuration} />
 				<Button onPress={addToAgenda} title={t('agenda:add')} />
 			</View>
 		</SafeScreen>

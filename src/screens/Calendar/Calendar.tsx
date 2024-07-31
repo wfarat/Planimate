@@ -29,7 +29,7 @@ import testIDs from './testIDs';
 
 LocaleConfig.locales.pl = PL;
 LocaleConfig.locales.en = EN;
-
+LocaleConfig.defaultLocale = i18next.language;
 interface Props {
 	weekView?: boolean;
 }

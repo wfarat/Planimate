@@ -24,19 +24,19 @@ export const useAgendaItems = () => {
 		storage.set('agenda', JSON.stringify(updatedItems));
 	};
 	const addAgendaItem = (newItem: AgendaItemType) => {
-		loadStoredItems();
-		const index = agendaItems.findIndex(item => item.title === newItem.title);
+		const oldItems = loadStoredItems();
+		const index = oldItems.findIndex(item => item.title === newItem.title);
 		const updatedItems =
 			index !== -1
 				? [
-						...agendaItems.slice(0, index),
+						...oldItems.slice(0, index),
 						{
-							...agendaItems[index],
-							data: [...agendaItems[index].data, ...newItem.data],
+							...oldItems[index],
+							data: [...oldItems[index].data, ...newItem.data],
 						},
-						...agendaItems.slice(index + 1),
+						...oldItems.slice(index + 1),
 				  ]
-				: [...agendaItems, newItem];
+				: [...oldItems, newItem];
 		setAgendaItems(updatedItems);
 		updateItems(updatedItems);
 	};
