@@ -49,12 +49,11 @@ function AddToAgendaScreen({
 	};
 	const addToAgenda = () => {
 		const title = date.toISOString().split('T')[0];
-		const hour = date.getHours().toString();
 		const storedId = storage.getNumber('agenda.id');
 		const id = storedId || 0;
 		const newItem: AgendaItemType = {
 			title,
-			data: [{ hour, duration, title: task.name, id: id + 1, key: title }],
+			data: [{ date, duration, title: task.name, id: id + 1, key: title }],
 		};
 		addAgendaItem(newItem);
 		storage.set('agenda.id', id + 1);

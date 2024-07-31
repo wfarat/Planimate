@@ -1,7 +1,7 @@
 type AgendaItemType = {
 	title: string;
 	data: {
-		hour: string;
+		date: Date;
 		duration: number;
 		title: string;
 		id: number;
@@ -9,7 +9,7 @@ type AgendaItemType = {
 	}[];
 };
 export type AgendaItemData = {
-	hour: string;
+	date: Date;
 	duration: number;
 	title: string;
 	id: number;
@@ -17,7 +17,7 @@ export type AgendaItemData = {
 };
 export type RenderAgendaItemProps = {
 	item: {
-		hour: string;
+		date: Date;
 		duration: number;
 		title: string;
 		id: number;
