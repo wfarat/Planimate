@@ -11,6 +11,7 @@ import {
 import testIDs from '@/screens/Calendar/testIDs';
 import alertDelete from '@/helpers/utils/alertDelete';
 import type { AgendaItemData } from '@/types/schemas/agendaItemType';
+import { hoursAndMinutes } from '@/helpers/utils/formatTime';
 
 const styles = StyleSheet.create({
 	item: {
@@ -51,14 +52,7 @@ interface ItemProps {
 	item: AgendaItemData;
 	handleDelete: () => void;
 }
-function renderTime(time: number) {
-	return time > 9 ? time : `0${time}`;
-}
-function hoursAndMinutes(dateInput: Date) {
-	return `${renderTime(dateInput.getHours())} : ${renderTime(
-		dateInput.getMinutes(),
-	)}`;
-}
+
 function AgendaItem(props: ItemProps) {
 	const { item, handleDelete } = props;
 	const date = new Date(item.date);

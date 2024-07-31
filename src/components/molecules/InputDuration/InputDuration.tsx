@@ -5,6 +5,7 @@ import DateTimePicker, {
 import { useState } from 'react';
 import { useTheme } from '@/theme';
 import { useTranslation } from 'react-i18next';
+import { hoursAndMinutes } from '@/helpers/utils/formatTime';
 
 function getStartOfDay(date: Date): Date {
 	const newDate = new Date(date);
@@ -44,9 +45,7 @@ function InputDuration({ duration, setDuration }: InputDateProps) {
 			<TouchableOpacity onPress={() => setShow(true)}>
 				<Text style={[components.textInputRounded, gutters.padding_12]}>
 					{t('goals:duration')}
-					{duration
-						? `${date.getHours()}:${date.getMinutes()}`
-						: t('goals:enterDuration')}
+					{duration ? hoursAndMinutes(date) : t('goals:enterDuration')}
 				</Text>
 			</TouchableOpacity>
 		</View>
