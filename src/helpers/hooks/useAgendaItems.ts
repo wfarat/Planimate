@@ -64,55 +64,69 @@ export const useAgendaItems = () => {
 		updateItems(updatedItems);
 		return updatedItems;
 	};
-	const closeAgendaItem = (item: AgendaItemData): AgendaItemType[] => {
+
+	// Extracted utility function to update task duration
+	function updateTaskDuration(
+		tasks: Task[],
+		task: Task,
+		duration: number,
+		storageKey: string,
+	): void {
+		if (task.duration?.remaining) {
+			const updatedTaskRemainingTime =
+				task.duration.remaining >= duration
+					? task.duration.remaining - duration
+					: 0;
+			const updatedTask = {
+				...task,
+				duration: { ...task.duration, remaining: updatedTaskRemainingTime },
+			};
+			storage.set(
+				storageKey,
+				JSON.stringify(
+					tasks.map(current =>
+						current.id === task.id ? updatedTask : current,
+					),
+				),
+			);
+		}
+	}
+
+	const completeAgendaItem = (item: AgendaItemData): AgendaItemType[] => {
 		const agendaItems = loadStoredItems();
 		const updatedItems = agendaItems.map(agendaItem => {
-			if (agendaItem.title === item.key) {
-				return {
-					...agendaItem,
-					data: agendaItem.data.map(currentItem =>
-						currentItem.id === item.id ? item : currentItem,
-					),
-				};
-			}
-			return agendaItem;
-		});
-		const storedTasks = storage.getString(item.taskStorageKey);
-		if (storedTasks) {
-			const tasks = JSON.parse(storedTasks) as Task[];
-			const task = tasks.find(current => current.id === item.taskId);
-			if (task) {
-				if (task.duration && task.duration.remaining) {
-					const updatedTask = {
-						...task,
-						duration: {
-							...task.duration,
-							remaining:
-								task.duration.remaining >= item.duration
-									? task.duration.remaining - item.duration
-									: 0,
-						},
-					};
-					storage.set(
-						item.taskStorageKey,
-						JSON.stringify(
-							tasks.map(current =>
-								current.id === task.id ? updatedTask : current,
-							),
+			return agendaItem.title === item.key
+				? {
+						...agendaItem,
+						data: agendaItem.data.map(currentItem =>
+							currentItem.id === item.id ? item : currentItem,
 						),
-					);
-				}
+				  }
+				: agendaItem;
+		});
+
+		const storedTasksString = storage.getString(item.taskStorageKey);
+		if (storedTasksString) {
+			const tasks = JSON.parse(storedTasksString) as Task[];
+			const targetTask = tasks.find(current => current.id === item.taskId);
+			if (targetTask) {
+				updateTaskDuration(
+					tasks,
+					targetTask,
+					item.duration,
+					item.taskStorageKey,
+				);
 			}
 		}
+
 		updateItems(updatedItems);
 		return updatedItems;
 	};
-
 	return {
 		getMarkedDates,
 		addAgendaItem,
 		deleteAgendaItem,
 		loadStoredItems,
-		closeAgendaItem,
+		completeAgendaItem,
 	};
 };

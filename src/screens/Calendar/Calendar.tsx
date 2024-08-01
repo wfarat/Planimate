@@ -35,8 +35,12 @@ interface Props {
 }
 
 function Calendar({ weekView = false }: Props) {
-	const { getMarkedDates, deleteAgendaItem, loadStoredItems, closeAgendaItem } =
-		useAgendaItems();
+	const {
+		getMarkedDates,
+		deleteAgendaItem,
+		loadStoredItems,
+		completeAgendaItem,
+	} = useAgendaItems();
 	const theme = useRef(getTheme());
 
 	const todayBtnTheme = useRef({
@@ -68,14 +72,23 @@ function Calendar({ weekView = false }: Props) {
 	}, [languageKey, agendaItems]);
 
 	const handleDelete = (item: AgendaItemData) => {
-		console.log('here');
-		const newItems = closeAgendaItem(item);
+		const newItems = deleteAgendaItem(item);
 		setAgendaItems(newItems);
 		setMarkedDates(getMarkedDates(newItems));
 	};
-
+	const handleComplete = (item: AgendaItemData) => {
+		const newItems = completeAgendaItem(item);
+		setAgendaItems(newItems);
+		setMarkedDates(getMarkedDates(newItems));
+	};
 	const renderItem = useCallback(({ item }: RenderAgendaItemProps) => {
-		return <AgendaItem item={item} handleDelete={() => handleDelete(item)} />;
+		return (
+			<AgendaItem
+				item={item}
+				handleDelete={() => handleDelete(item)}
+				handleComplete={() => handleComplete(item)}
+			/>
+		);
 	}, []);
 
 	const today = new Date().toISOString().split('T')[0];

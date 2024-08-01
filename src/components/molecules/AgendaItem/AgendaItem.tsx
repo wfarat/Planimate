@@ -12,6 +12,7 @@ import testIDs from '@/screens/Calendar/testIDs';
 import alertDelete from '@/helpers/utils/alertDelete';
 import type { AgendaItemData } from '@/types/schemas/agendaItemType';
 import { hoursAndMinutes } from '@/helpers/utils/formatTime';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const styles = StyleSheet.create({
 	item: {
@@ -51,13 +52,13 @@ const styles = StyleSheet.create({
 interface ItemProps {
 	item: AgendaItemData;
 	handleDelete: () => void;
+	handleComplete: () => void;
 }
 
 function AgendaItem(props: ItemProps) {
-	const { item, handleDelete } = props;
+	const { item, handleDelete, handleComplete } = props;
 	const date = new Date(item.date);
 	const buttonPressed = useCallback(() => {
-		console.log('here');
 		alertDelete(item.title, handleDelete);
 	}, []);
 	const itemPressed = useCallback(() => {
@@ -91,6 +92,12 @@ function AgendaItem(props: ItemProps) {
 			<View style={styles.itemButtonContainer}>
 				<Button color="grey" title="X" onPress={buttonPressed} />
 			</View>
+			<TouchableOpacity
+				style={styles.itemButtonContainer}
+				onPress={handleComplete}
+			>
+				<MaterialCommunityIcons name="check" size={20} />
+			</TouchableOpacity>
 		</TouchableOpacity>
 	);
 }
