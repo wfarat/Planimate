@@ -10,7 +10,7 @@ import type { Task } from '@/types/schemas';
 import { useStorage } from '@/storage/StorageContext';
 import { useTaskActions } from '@/helpers/hooks/useTaskActions';
 import { useIsFocused } from '@react-navigation/native';
-import alertDelete from '@/helpers/utils/alertDelete';
+import alertAction from '@/helpers/utils/alertAction';
 import { useGoalActions } from '@/helpers/hooks/useGoalActions';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
@@ -57,7 +57,7 @@ function Tasks({ route, navigation }: RootScreenProps<'Tasks'>) {
 		setVisible(false);
 	};
 	const handleAlert = () => {
-		alertDelete(task ? task.name : goal.name, handleDelete);
+		alertAction('delete', task ? task.name : goal.name, handleDelete);
 	};
 	const handleEdit = (newName: string, newDescription: string) => {
 		if (task) {
@@ -87,7 +87,7 @@ function Tasks({ route, navigation }: RootScreenProps<'Tasks'>) {
 				<TaskTopBar
 					isCompletionPossible={tasks.every(item => item.completed)}
 					onDelete={handleAlert}
-					onFinish={() => handleFinishTask()}
+					onFinish={() => alertAction('complete', task.name, handleFinishTask)}
 					onEdit={() => setVisible(true)}
 					addToAgenda={handleAddToAgenda}
 				/>

@@ -9,10 +9,10 @@ import {
 	Button,
 } from 'react-native';
 import testIDs from '@/screens/Calendar/testIDs';
-import alertDelete from '@/helpers/utils/alertDelete';
 import type { AgendaItemData } from '@/types/schemas/agendaItemType';
 import { hoursAndMinutes } from '@/helpers/utils/formatTime';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import alertAction from '@/helpers/utils/alertAction';
 
 const styles = StyleSheet.create({
 	item: {
@@ -58,9 +58,6 @@ interface ItemProps {
 function AgendaItem(props: ItemProps) {
 	const { item, handleDelete, handleComplete } = props;
 	const date = new Date(item.date);
-	const buttonPressed = useCallback(() => {
-		alertDelete(item.title, handleDelete);
-	}, []);
 	const itemPressed = useCallback(() => {
 		Alert.alert('Coś');
 	}, []);
@@ -90,14 +87,17 @@ function AgendaItem(props: ItemProps) {
 			</View>
 			<Text style={styles.itemTitleText}>{item.title}</Text>
 			<View style={styles.itemButtonContainer}>
-				<Button color="grey" title="X" onPress={buttonPressed} />
+				<TouchableOpacity
+					onPress={() => alertAction('complete', item.title, handleComplete)}
+				>
+					<MaterialCommunityIcons name="check" size={20} color="green" />
+				</TouchableOpacity>
+				<TouchableOpacity
+					onPress={() => alertAction('delete', item.title, handleDelete)}
+				>
+					<MaterialCommunityIcons color="red" name="delete" size={20} />
+				</TouchableOpacity>
 			</View>
-			<TouchableOpacity
-				style={styles.itemButtonContainer}
-				onPress={handleComplete}
-			>
-				<MaterialCommunityIcons name="check" size={20} />
-			</TouchableOpacity>
 		</TouchableOpacity>
 	);
 }
