@@ -5,10 +5,11 @@ import { useTheme } from '@/theme';
 import GoalsList from '@/screens/Goals/GoalsList';
 import { RootScreenProps } from '@/types/navigation';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import { useTranslation } from 'react-i18next';
 
 function Goals({ navigation, route }: RootScreenProps<'Goals'>) {
 	const { fonts, borders, colors, layout, gutters } = useTheme();
-
+	const { t } = useTranslation(['goals']);
 	const handlePress = () => {
 		navigation.push('AddGoalScreen');
 	};
@@ -22,7 +23,7 @@ function Goals({ navigation, route }: RootScreenProps<'Goals'>) {
 					gutters.padding_16,
 				]}
 			>
-				<Text style={[fonts.gray400, fonts.size_24]}>Goals List</Text>
+				<Text style={[fonts.gray400, fonts.size_24]}>{t('goals:header')}</Text>
 
 				<View
 					style={[layout.itemsCenter, layout.fullWidth, gutters.padding_16]}
@@ -36,7 +37,7 @@ function Goals({ navigation, route }: RootScreenProps<'Goals'>) {
 							borders.rounded_4,
 						]}
 					>
-						<Text style={[fonts.gray400, fonts.size_24]}>Add Goal</Text>
+						<Text style={[fonts.gray400, fonts.size_24]}>{t('goals:add')}</Text>
 						<MaterialCommunityIcons
 							name="plus-box"
 							color={colors.gray400}

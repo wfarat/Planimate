@@ -12,7 +12,8 @@ const colorsLight = {
 	purple500: '#44427D',
 	purple100: '#E1E1EF',
 	purple50: '#1B1A23',
-	green400: '#62DE10',
+	green400: '#4CAF50',
+	blue50: '#03A9F4',
 } as const;
 
 const colorsDark = {
@@ -20,12 +21,13 @@ const colorsDark = {
 	gray800: '#E0E0E0',
 	gray400: '#969696',
 	gray200: '#BABABA',
-	gray100: '#000000',
+	gray100: '#969696',
 	gray50: '#EFEFEF',
 	purple500: '#A6A4F0',
 	purple100: '#252732',
 	purple50: '#1B1A23',
-	green400: '#62DE10',
+	green400: '#8BC34A',
+	blue50: '#8a2be2',
 } as const;
 
 const sizes = [12, 16, 24, 32, 40, 80, 120] as const;

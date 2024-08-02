@@ -20,13 +20,16 @@ function ItemCard({
 				borders.w_1,
 				layout.fullWidth,
 				borders.rounded_4,
-				completed !== undefined &&
-					(completed ? backgrounds.green400 : backgrounds.gray200),
+				completed ? backgrounds.green400 : backgrounds.purple100,
 			]}
 		>
-			<Text>{name}</Text>
-			<Text>{description}</Text>
-			{dueDate && <Text>{new Date(dueDate).toLocaleDateString()}</Text>}
+			<Text style={fonts.gray400}>{name}</Text>
+			<Text style={fonts.gray400}>{description}</Text>
+			{dueDate && (
+				<Text style={fonts.gray400}>
+					{new Date(dueDate).toLocaleDateString()}
+				</Text>
+			)}
 			{!isEmpty(duration) && (
 				<View style={[layout.absolute, layout.top0, layout.right0]}>
 					<Progress.Pie
