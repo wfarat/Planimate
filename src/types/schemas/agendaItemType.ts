@@ -8,6 +8,7 @@ type AgendaItemType = {
 		key: string;
 		taskStorageKey: string;
 		taskId: number;
+		completed: boolean;
 	}[];
 };
 export type AgendaItemData = {
@@ -18,6 +19,7 @@ export type AgendaItemData = {
 	key: string;
 	taskStorageKey: string;
 	taskId: number;
+	completed: boolean;
 };
 export type RenderAgendaItemProps = {
 	item: {
@@ -28,6 +30,7 @@ export type RenderAgendaItemProps = {
 		key: string;
 		taskStorageKey: string;
 		taskId: number;
+		completed: boolean;
 	};
 };
 export default AgendaItemType;

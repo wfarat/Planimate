@@ -99,7 +99,9 @@ export const useAgendaItems = () => {
 				? {
 						...agendaItem,
 						data: agendaItem.data.map(currentItem =>
-							currentItem.id === item.id ? item : currentItem,
+							currentItem.id === item.id
+								? { ...item, completed: true }
+								: currentItem,
 						),
 				  }
 				: agendaItem;

@@ -1,23 +1,16 @@
 import isEmpty from 'lodash/isEmpty';
 import React, { useCallback } from 'react';
-import {
-	StyleSheet,
-	Alert,
-	View,
-	Text,
-	TouchableOpacity,
-	Button,
-} from 'react-native';
+import { StyleSheet, Alert, View, Text, TouchableOpacity } from 'react-native';
 import testIDs from '@/screens/Calendar/testIDs';
 import type { AgendaItemData } from '@/types/schemas/agendaItemType';
 import { hoursAndMinutes } from '@/helpers/utils/formatTime';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import alertAction from '@/helpers/utils/alertAction';
+import { useTheme } from '@/theme';
 
 const styles = StyleSheet.create({
 	item: {
 		padding: 20,
-		backgroundColor: 'white',
 		borderBottomWidth: 1,
 		borderBottomColor: 'lightgrey',
 		flexDirection: 'row',
@@ -58,6 +51,7 @@ interface ItemProps {
 function AgendaItem(props: ItemProps) {
 	const { item, handleDelete, handleComplete } = props;
 	const date = new Date(item.date);
+	const { backgrounds } = useTheme();
 	const itemPressed = useCallback(() => {
 		Alert.alert('Coś');
 	}, []);
@@ -76,7 +70,10 @@ function AgendaItem(props: ItemProps) {
 	return (
 		<TouchableOpacity
 			onPress={itemPressed}
-			style={styles.item}
+			style={[
+				styles.item,
+				item.completed ? backgrounds.green400 : backgrounds.purple100,
+			]}
 			testID={testIDs.agenda.ITEM}
 		>
 			<View>
@@ -87,11 +84,13 @@ function AgendaItem(props: ItemProps) {
 			</View>
 			<Text style={styles.itemTitleText}>{item.title}</Text>
 			<View style={styles.itemButtonContainer}>
-				<TouchableOpacity
-					onPress={() => alertAction('complete', item.title, handleComplete)}
-				>
-					<MaterialCommunityIcons name="check" size={20} color="green" />
-				</TouchableOpacity>
+				{!item.completed && (
+					<TouchableOpacity
+						onPress={() => alertAction('complete', item.title, handleComplete)}
+					>
+						<MaterialCommunityIcons name="check" size={20} color="green" />
+					</TouchableOpacity>
+				)}
 				<TouchableOpacity
 					onPress={() => alertAction('delete', item.title, handleDelete)}
 				>

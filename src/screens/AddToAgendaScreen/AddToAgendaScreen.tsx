@@ -62,6 +62,7 @@ function AddToAgendaScreen({
 					key: title,
 					taskStorageKey: `goals.${task.goalId}.${task.taskId}`,
 					taskId: task.id,
+					completed: false,
 				},
 			],
 		};
