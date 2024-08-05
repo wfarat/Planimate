@@ -12,7 +12,7 @@ const colorsLight = {
 	purple500: '#44427D',
 	purple100: '#E1E1EF',
 	purple50: '#1B1A23',
-	green400: '#4CAF50',
+	green400: '#2E8B57',
 	blue50: '#03A9F4',
 } as const;
 
@@ -26,7 +26,7 @@ const colorsDark = {
 	purple500: '#A6A4F0',
 	purple100: '#252732',
 	purple50: '#1B1A23',
-	green400: '#8BC34A',
+	green400: '#228B22',
 	blue50: '#8a2be2',
 } as const;
 

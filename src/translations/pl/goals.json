@@ -8,5 +8,6 @@
   "endDate": "Termin docelowy:",
   "enterDate": "Dotknij by wybrać",
   "duration": "Całkowity czas do ukończenia:",
-  "enterDuration": "Dotknij by ustawić"
+  "enterDuration": "Dotknij by ustawić",
+  "daysLeft": "pozostało dni"
 }

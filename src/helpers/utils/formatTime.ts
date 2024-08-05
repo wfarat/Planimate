@@ -6,3 +6,10 @@ export function hoursAndMinutes(dateInput: Date) {
 		dateInput.getMinutes(),
 	)}`;
 }
+
+export function daysBetween(date: Date) {
+	const today = new Date();
+	const diffTime = date.getTime() - today.getTime();
+	if (diffTime < 0) return 0;
+	return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+}

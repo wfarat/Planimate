@@ -8,5 +8,6 @@
   "endDate": "Target date:",
   "enterDate": "Press to pick",
   "duration": "Total time to complete:",
-  "enterDuration": "Press to set"
+  "enterDuration": "Press to set",
+  "daysLeft": "days left"
 }

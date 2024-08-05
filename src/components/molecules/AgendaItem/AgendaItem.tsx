@@ -9,22 +9,6 @@ import alertAction from '@/helpers/utils/alertAction';
 import { useTheme } from '@/theme';
 
 const styles = StyleSheet.create({
-	item: {
-		padding: 20,
-		borderBottomWidth: 1,
-		borderBottomColor: 'lightgrey',
-		flexDirection: 'row',
-	},
-	itemHourText: {
-		color: 'black',
-	},
-
-	itemTitleText: {
-		color: 'black',
-		marginLeft: 16,
-		fontWeight: 'bold',
-		fontSize: 16,
-	},
 	itemButtonContainer: {
 		flex: 1,
 		alignItems: 'flex-end',
@@ -51,7 +35,7 @@ interface ItemProps {
 function AgendaItem(props: ItemProps) {
 	const { item, handleDelete, handleComplete } = props;
 	const date = new Date(item.date);
-	const { backgrounds } = useTheme();
+	const { backgrounds, fonts, layout, gutters, borders } = useTheme();
 	const itemPressed = useCallback(() => {
 		Alert.alert('Coś');
 	}, []);
@@ -71,18 +55,28 @@ function AgendaItem(props: ItemProps) {
 		<TouchableOpacity
 			onPress={itemPressed}
 			style={[
-				styles.item,
+				layout.row,
+				gutters.padding_16,
+				borders.gray100,
+				borders.w_1,
 				item.completed ? backgrounds.green400 : backgrounds.purple100,
 			]}
 			testID={testIDs.agenda.ITEM}
 		>
 			<View>
-				<Text style={styles.itemHourText}>{startTime}</Text>
-				{startTime !== endTime && (
-					<Text style={styles.itemHourText}>{endTime}</Text>
-				)}
+				<Text style={fonts.gray200}>{startTime}</Text>
+				{startTime !== endTime && <Text style={fonts.gray200}>{endTime}</Text>}
 			</View>
-			<Text style={styles.itemTitleText}>{item.title}</Text>
+			<Text
+				style={[
+					fonts.gray200,
+					fonts.size_16,
+					fonts.bold,
+					gutters.marginLeft_16,
+				]}
+			>
+				{item.title}
+			</Text>
 			<View style={styles.itemButtonContainer}>
 				{!item.completed && (
 					<TouchableOpacity
