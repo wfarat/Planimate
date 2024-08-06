@@ -25,16 +25,14 @@ import {
 	AgendaItemData,
 	RenderAgendaItemProps,
 } from '@/types/schemas/agendaItemType';
+import { CalendarProps } from '@/types/props/calendarProps';
 import testIDs from './testIDs';
 
 LocaleConfig.locales.pl = PL;
 LocaleConfig.locales.en = EN;
 LocaleConfig.defaultLocale = i18next.language;
-interface Props {
-	weekView?: boolean;
-}
 
-function Calendar({ weekView = false }: Props) {
+function Calendar({ weekView }: CalendarProps) {
 	const {
 		getMarkedDates,
 		deleteAgendaItem,

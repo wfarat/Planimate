@@ -20,5 +20,13 @@
   "abr": {
     "hour": "g",
     "min": "m"
+  },
+  "picker": {
+    "endDate": "Target date:",
+    "enterDate": "Press to pick",
+    "agendaDate": "Day in the agenda:",
+    "duration": "Total time to complete:",
+    "enterTime": "Press to set",
+    "time": "Time of the day:"
   }
 }

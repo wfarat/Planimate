@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Animated, Text, View } from 'react-native';
 import { useTheme } from '@/theme';
 import type ItemCardProps from '@/types/props/itemCardProps';

@@ -20,5 +20,13 @@
   "abr": {
     "hour": "h",
     "min": "m"
+  },
+  "common": {
+    "endDate": "Termin docelowy:",
+    "enterDate": "Dotknij by wybrać",
+    "agendaDate": "Dzień w terminarzu:",
+    "duration": "Całkowity czas do ukończenia:",
+    "enterTime": "Dotknij by ustawić",
+    "time": "Czas dnia:"
   }
 }

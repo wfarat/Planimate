@@ -5,33 +5,33 @@ import DateTimePicker, {
 import { useState } from 'react';
 import { useTheme } from '@/theme';
 import { useTranslation } from 'react-i18next';
+import { hoursAndMinutes, getStartOfDay } from '@/helpers/utils/formatTime';
+import { InputTimeProps } from '@/types/props/inputTimeProps';
 
-type InputDateProps = {
-	date: Date | undefined;
-	setDate: (date: Date) => void;
-	message: DatePickerMessages;
-};
-type DatePickerMessages = 'endDate' | 'agendaDate';
-
-function InputDate({ date, setDate, message }: InputDateProps) {
+function InputTime({ message, setTime, setDuration, time }: InputTimeProps) {
 	const { t } = useTranslation(['common']);
 	const [show, setShow] = useState(false);
+	const [date, setDate] = useState<Date>();
 	const { gutters, components } = useTheme();
+	const display = time || date;
 	const onChange = (event: DateTimePickerEvent, selectedDate?: Date) => {
 		if (selectedDate) {
-			if (date) {
-				const updatedDate = new Date(
-					selectedDate.getFullYear(),
-					selectedDate.getMonth(),
-					selectedDate.getDate(),
-					date.getHours(),
-					date.getMinutes(),
-				);
-				setDate(updatedDate);
-			} else {
-				setDate(selectedDate);
-			}
 			setShow(false);
+			setDate(selectedDate);
+			if (setDuration) {
+				const minutes =
+					selectedDate.getMinutes() + selectedDate.getHours() * 60;
+				setDuration(minutes);
+			} else if (setTime && time) {
+				const updatedDate = new Date(
+					time.getFullYear(),
+					time.getMonth(),
+					time.getDate(),
+					selectedDate.getHours(),
+					selectedDate.getMinutes(),
+				);
+				setTime(updatedDate);
+			}
 		}
 	};
 
@@ -40,8 +40,8 @@ function InputDate({ date, setDate, message }: InputDateProps) {
 			{show && (
 				<DateTimePicker
 					testID="dateTimePicker"
-					value={date || new Date()}
-					mode="date"
+					value={date || getStartOfDay(new Date())}
+					mode="time"
 					is24Hour
 					onChange={onChange}
 				/>
@@ -49,11 +49,11 @@ function InputDate({ date, setDate, message }: InputDateProps) {
 			<TouchableOpacity onPress={() => setShow(true)}>
 				<Text style={[components.textInputRounded, gutters.padding_12]}>
 					{t(`common:picker.${message}`)}{' '}
-					{date ? date.toLocaleDateString() : t('common:picker.enterDate')}
+					{display ? hoursAndMinutes(display) : t('common:picker.enterTime')}
 				</Text>
 			</TouchableOpacity>
 		</View>
 	);
 }
 
-export default InputDate;
+export default InputTime;

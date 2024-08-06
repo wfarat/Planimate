@@ -44,7 +44,7 @@ function AddGoalScreen({ navigation }: RootScreenProps<'AddGoalScreen'>) {
 							onChangeText={setDescription}
 							placeholder={t('goals:description')}
 						/>
-						<InputDate dueDate={dueDate} setDueDate={setDueDate} />
+						<InputDate date={dueDate} setDate={setDueDate} message="endDate" />
 					</View>
 					<SendButton handlePress={handleAddGoal} />
 				</View>
