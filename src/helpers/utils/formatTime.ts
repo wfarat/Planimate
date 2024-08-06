@@ -13,3 +13,8 @@ export function daysBetween(date: Date) {
 	if (diffTime < 0) return 0;
 	return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 }
+export function getStartOfDay(date: Date): Date {
+	const newDate = new Date(date);
+	newDate.setHours(0, 0, 0, 0);
+	return newDate;
+}
