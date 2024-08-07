@@ -14,8 +14,8 @@ import {
 	themeColor,
 	lightThemeColor,
 } from '@/helpers/utils/calendarTheme';
-import PreviousArrow from '@/theme/assets/images/previous@2x.png';
-import NextArrow from '@/theme/assets/images/next@2x.png';
+import PreviousArrow from '@/theme/assets/images/previousArrow.png';
+import NextArrow from '@/theme/assets/images/nextArrow.png';
 import PL from '@/translations/pl/calendar';
 import EN from '@/translations/en/calendar';
 import i18next from 'i18next';

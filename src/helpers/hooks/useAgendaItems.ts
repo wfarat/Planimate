@@ -61,8 +61,11 @@ export const useAgendaItems = () => {
 			}
 			return agendaItem;
 		});
-		updateItems(updatedItems);
-		return updatedItems;
+		const filteredItems = updatedItems.filter(
+			agendaItem => agendaItem.data.length > 0,
+		);
+		updateItems(filteredItems);
+		return filteredItems;
 	};
 
 	// Extracted utility function to update task duration
