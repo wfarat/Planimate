@@ -8684,6 +8684,7 @@ __metadata:
     react-native: ^0.74.3
     react-native-calendars: ^1.1306.0
     react-native-dialog: ^9.3.0
+    react-native-draglist: ^3.6.1
     react-native-flipper: ^0.259.0
     react-native-gesture-handler: ^2.14.0
     react-native-localize: ^3.2.0
@@ -8958,6 +8959,16 @@ __metadata:
   peerDependencies:
     react-native: ">=0.63.0"
   checksum: 148fcd9e4cb3001a8bbed02f465833329a83bc60efbf763a9bf227ec81208a41e03055e8bc213aea838933878f3cc7c3ca18a15446e819c17509cad75362d7ca
+  languageName: node
+  linkType: hard
+
+"react-native-draglist@npm:^3.6.1":
+  version: 3.6.1
+  resolution: "react-native-draglist@npm:3.6.1"
+  peerDependencies:
+    react: ">=17.0.1"
+    react-native: ">=0.64.0"
+  checksum: 86f6a3f7c8957684ab96126f8a1c120f3650fc1ae9e155775471e56b7d7943e1519924947c5f4635018802fbfb5c86f34df0170e5d52beaaa997a7cc29da5fc8
   languageName: node
   linkType: hard
 

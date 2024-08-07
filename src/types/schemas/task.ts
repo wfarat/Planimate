@@ -5,8 +5,8 @@ type Task = {
 	name: string;
 	description: string;
 	duration?: {
-		base?: number;
-		remaining?: number;
+		base: number;
+		remaining: number;
 	};
 	dueDate?: Date;
 	completed: boolean;

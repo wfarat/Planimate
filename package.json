@@ -28,6 +28,7 @@
     "react-native": "^0.74.3",
     "react-native-calendars": "^1.1306.0",
     "react-native-dialog": "^9.3.0",
+    "react-native-draglist": "^3.6.1",
     "react-native-gesture-handler": "^2.14.0",
     "react-native-localize": "^3.2.0",
     "react-native-mmkv": "^2.12.2",

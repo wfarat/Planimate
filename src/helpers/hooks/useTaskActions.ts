@@ -41,20 +41,24 @@ export const useTaskActions = (
 		);
 		updateTasks(updatedTasks, parentId);
 	};
+
 	const addTask = (
 		oldTasks: Task[],
 		name: string,
 		description: string,
-		duration?: number,
+		durationTime?: number,
 		dueDate?: Date,
 	) => {
+		const duration = durationTime
+			? { base: durationTime, remaining: 0 }
+			: undefined;
 		const newTask = {
 			name,
 			description,
 			goalId,
 			id: lastId + 1,
 			taskId,
-			duration: { base: duration, remaining: duration },
+			duration,
 			dueDate,
 			completed: false,
 		};
@@ -63,5 +67,5 @@ export const useTaskActions = (
 		updateTasks(updatedTasks, taskId);
 		return updatedTasks;
 	};
-	return { deleteTask, finishTask, editTask, addTask };
+	return { deleteTask, finishTask, editTask, addTask, updateTasks };
 };

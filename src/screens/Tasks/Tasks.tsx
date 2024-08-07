@@ -22,7 +22,7 @@ function Tasks({ route, navigation }: RootScreenProps<'Tasks'>) {
 	const [visible, setVisible] = useState(false);
 	const [goalName, setGoalName] = useState(goal.name);
 	const [taskName, setTaskName] = useState(task?.name || '');
-	const { deleteTask, finishTask, editTask } = useTaskActions(
+	const { deleteTask, finishTask, editTask, updateTasks } = useTaskActions(
 		goal.id,
 		task?.taskId,
 		task?.id,
@@ -81,6 +81,10 @@ function Tasks({ route, navigation }: RootScreenProps<'Tasks'>) {
 	const handlePress = () => {
 		navigation.push('AddTaskScreen', { tasks, task, goal });
 	};
+	const handleSetTasks = (newTasks: Task[]) => {
+		setTasks(newTasks);
+		updateTasks(newTasks, task ? task.taskId : undefined);
+	};
 	return (
 		<SafeScreen>
 			{task ? (
@@ -132,7 +136,12 @@ function Tasks({ route, navigation }: RootScreenProps<'Tasks'>) {
 					<View
 						style={[gutters.marginTop_16, layout.fullWidth, gutters.padding_16]}
 					>
-						<TasksList tasks={tasks} navigation={navigation} route={route} />
+						<TasksList
+							tasks={tasks}
+							navigation={navigation}
+							route={route}
+							setTasks={handleSetTasks}
+						/>
 					</View>
 				</View>
 			</View>
