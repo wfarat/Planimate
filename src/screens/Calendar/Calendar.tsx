@@ -14,7 +14,8 @@ import {
 	themeColor,
 	lightThemeColor,
 } from '@/helpers/utils/calendarTheme';
-
+import PreviousArrow from '@/theme/assets/images/previous@2x.png';
+import NextArrow from '@/theme/assets/images/next@2x.png';
 import PL from '@/translations/pl/calendar';
 import EN from '@/translations/en/calendar';
 import i18next from 'i18next';
@@ -26,6 +27,7 @@ import {
 	RenderAgendaItemProps,
 } from '@/types/schemas/agendaItemType';
 import { CalendarProps } from '@/types/props/calendarProps';
+import { isImageSourcePropType } from '@/types/guards/image';
 import testIDs from './testIDs';
 
 LocaleConfig.locales.pl = PL;
@@ -88,7 +90,12 @@ function Calendar({ weekView }: CalendarProps) {
 			/>
 		);
 	}, []);
-
+	if (
+		!isImageSourcePropType(PreviousArrow) ||
+		!isImageSourcePropType(NextArrow)
+	) {
+		throw new Error('Image source is not valid');
+	}
 	const today = new Date().toISOString().split('T')[0];
 	const calendarKey = `calendar-${languageKey}`;
 	return (
@@ -111,6 +118,8 @@ function Calendar({ weekView }: CalendarProps) {
 					testID={testIDs.expandableCalendar.CONTAINER}
 					// horizontal={false}
 					// hideArrows
+					leftArrowImageSource={PreviousArrow}
+					rightArrowImageSource={NextArrow}
 					// disablePan
 					// hideKnob
 					// initialPosition={ExpandableCalendar.positions.OPEN}
