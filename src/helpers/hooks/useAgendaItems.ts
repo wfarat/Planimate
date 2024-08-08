@@ -75,7 +75,7 @@ export const useAgendaItems = () => {
 		duration: number,
 		storageKey: string,
 	): void {
-		if (task.duration?.elapsed) {
+		if (task.duration?.elapsed !== undefined) {
 			const updatedTaskElapsedTime = task.duration.elapsed
 				? task.duration.elapsed + duration
 				: duration;
