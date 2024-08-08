@@ -5,7 +5,7 @@ type ItemCardProps = {
 	dueDate?: Date;
 	duration?: {
 		base: number;
-		remaining: number;
+		elapsed: number;
 	};
 };
 

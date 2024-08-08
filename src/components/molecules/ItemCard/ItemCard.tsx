@@ -22,7 +22,10 @@ function ItemCard({
 	useEffect(() => {
 		if (duration) {
 			const animation = Animated.timing(progress, {
-				toValue: (duration.base - duration.remaining) / duration.base,
+				toValue:
+					duration.elapsed > duration.base
+						? 1
+						: duration.elapsed / duration.base,
 				duration: 1000,
 				useNativeDriver: false,
 			});

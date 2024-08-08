@@ -2,11 +2,16 @@ import { View, TouchableOpacity } from 'react-native';
 import SendImage from '@/theme/assets/images/send.png';
 import type { Task } from '@/types/schemas';
 import { isImageSourcePropType } from '@/types/guards/image';
-import { ListProps } from '@/types/navigation';
+import { TaskListProps } from '@/types/navigation';
 import { ItemCard } from '@/components/molecules';
 import DragList, { DragListRenderItemInfo } from 'react-native-draglist';
 
-function TasksList({ navigation, route, tasks, setTasks }: ListProps<'Tasks'>) {
+function TasksList({
+	navigation,
+	route,
+	tasks,
+	setTasks,
+}: TaskListProps<'Tasks'>) {
 	const { goal } = route.params;
 	if (!isImageSourcePropType(SendImage)) {
 		throw new Error('Image source is not valid');

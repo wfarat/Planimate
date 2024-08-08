@@ -52,11 +52,7 @@ function AddTaskScreen({
 							placeholder={t('goals:taskDescription')}
 						/>
 						<InputDate date={dueDate} setDate={setDueDate} message="endDate" />
-						<InputTime
-							time={duration}
-							setTime={setDuration}
-							message="duration"
-						/>
+						<InputTime setDuration={setDuration} message="duration" />
 					</View>
 					<SendButton handlePress={() => handleAddTask()} />
 				</View>

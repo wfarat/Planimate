@@ -6,7 +6,7 @@ type Task = {
 	description: string;
 	duration?: {
 		base: number;
-		remaining: number;
+		elapsed: number;
 	};
 	dueDate?: Date;
 	completed: boolean;

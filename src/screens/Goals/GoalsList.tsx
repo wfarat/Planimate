@@ -1,18 +1,16 @@
 import { View, ListRenderItem, FlatList, TouchableOpacity } from 'react-native';
 
-import { useTheme } from '@/theme';
 import { useEffect, useState } from 'react';
 import { useStorage } from '@/storage/StorageContext';
 import SendImage from '@/theme/assets/images/send.png';
 import { Goal } from '@/types/schemas';
 import { isImageSourcePropType } from '@/types/guards/image';
-import { ListProps } from '@/types/navigation';
+import { RootScreenProps } from '@/types/navigation';
 import { ItemCard } from '@/components/molecules';
 import { useIsFocused } from '@react-navigation/native';
 
-function GoalsList({ navigation }: ListProps<'Goals'>) {
+function GoalsList({ navigation }: RootScreenProps<'Goals'>) {
 	const storage = useStorage();
-	const { layout } = useTheme();
 	const [goals, setGoals] = useState<Goal[]>([]);
 	const isFocused = useIsFocused();
 	useEffect(() => {

@@ -75,14 +75,13 @@ export const useAgendaItems = () => {
 		duration: number,
 		storageKey: string,
 	): void {
-		if (task.duration?.remaining) {
-			const updatedTaskRemainingTime =
-				task.duration.remaining >= duration
-					? task.duration.remaining - duration
-					: 0;
+		if (task.duration?.elapsed) {
+			const updatedTaskElapsedTime = task.duration.elapsed
+				? task.duration.elapsed + duration
+				: duration;
 			const updatedTask = {
 				...task,
-				duration: { ...task.duration, remaining: updatedTaskRemainingTime },
+				duration: { ...task.duration, elapsed: updatedTaskElapsedTime },
 			};
 			storage.set(
 				storageKey,

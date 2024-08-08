@@ -50,7 +50,7 @@ export const useTaskActions = (
 		dueDate?: Date,
 	) => {
 		const duration = durationTime
-			? { base: durationTime, remaining: 0 }
+			? { base: durationTime, elapsed: 0 }
 			: undefined;
 		const newTask = {
 			name,
