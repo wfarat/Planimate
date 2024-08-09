@@ -5,7 +5,7 @@ import {
 	Text,
 	ActivityIndicator,
 } from 'react-native';
-import { register } from '@/controllers/users';
+import { register, login } from '@/controllers/users';
 import { useTranslation } from 'react-i18next';
 import { SafeScreen } from '@/components/template';
 import { useTheme } from '@/theme';
@@ -26,15 +26,20 @@ function Register() {
 	const [repeat, setRepeat] = useState<string>('');
 	const [mismatch, setMismatch] = useState<boolean>(false);
 	const { mutate, isPending, isSuccess, error, data } = register();
-
+	const mutation = login();
 	const addUser = () => {
 		if (password !== repeat) {
 			setMismatch(true);
 			resetStates(setPassword, setRepeat);
 		} else if (username.trim()) {
 			mutate({ email, username, password });
-			if (isSuccess) storage.set('user', JSON.stringify(data));
 			resetStates(setEmail, setUsername, setPassword, setRepeat);
+		}
+	};
+
+	const loginUser = () => {
+		if (username.trim()) {
+			mutation.mutate({ username, password });
 		}
 	};
 	if (!isImageSourcePropType(SendImage)) {
@@ -103,6 +108,20 @@ function Register() {
 							/>
 						)}
 					</TouchableOpacity>
+					<TouchableOpacity
+						testID="change-language-button"
+						style={[components.buttonCircle, gutters.marginBottom_16]}
+						onPress={() => loginUser()}
+					>
+						{isPending ? (
+							<ActivityIndicator />
+						) : (
+							<ImageVariant
+								source={SendImage}
+								style={{ tintColor: colors.green400 }}
+							/>
+						)}
+					</TouchableOpacity>
 				</View>
 				{mismatch && (
 					<Text style={components.errorText}>
@@ -111,8 +130,7 @@ function Register() {
 				)}
 				{isSuccess && (
 					<View>
-						<Text>Registration successful!</Text>
-						<Text>Welcome {data.username}!</Text>
+						<Text>{data?.message}!</Text>
 					</View>
 				)}
 				{error && (

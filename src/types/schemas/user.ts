@@ -8,14 +8,21 @@ export const userSchema = z.object({
 });
 
 export type UserResponse = {
-	_id: string;
-	username: string;
-	email: string;
-	password: string;
+	message: string;
 };
 
 export type RegisterVariables = {
 	email: string;
 	username: string;
 	password: string;
+};
+
+export type LoginVariables = {
+	username: string;
+	password: string;
+};
+
+export type LoginResponse = {
+	access_token: string;
+	token_type: string;
 };
