@@ -5,45 +5,27 @@ import {
 	Text,
 	ActivityIndicator,
 } from 'react-native';
-import { register, login } from '@/controllers/users';
+import { login } from '@/controllers/users';
 import { useTranslation } from 'react-i18next';
 import { SafeScreen } from '@/components/template';
 import { useTheme } from '@/theme';
 import { ImageVariant } from '@/components/atoms';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import SendImage from '@/theme/assets/images/send.png';
-import { resetStates } from '@/helpers/utils/resetStates';
 import { isImageSourcePropType } from '@/types/guards/image';
 
-function Register() {
+function Login() {
 	const { t } = useTranslation(['register']);
 	const { colors, layout, gutters, components } = useTheme();
-	const [email, setEmail] = useState<string>('');
 	const [username, setUsername] = useState<string>('');
 	const [password, setPassword] = useState<string>('');
-	const [repeat, setRepeat] = useState<string>('');
-	const [mismatch, setMismatch] = useState<boolean>(false);
-	const { mutate, isPending, isSuccess, error, data } = register();
-	const mutation = login();
-	const addUser = () => {
-		if (password !== repeat) {
-			setMismatch(true);
-			resetStates(setPassword, setRepeat);
-		} else if (username.trim()) {
-			mutate({ email, username, password });
-		}
-	};
-	useEffect(() => {
-		if (isSuccess) {
-			resetStates(setEmail, setUsername, setPassword, setRepeat);
-		}
-	}, [isSuccess]);
+	const { mutate, isSuccess, isPending, error } = login();
 	const loginUser = () => {
 		if (username.trim()) {
 			const formData = new FormData();
 			formData.append('username', username);
 			formData.append('password', password);
-			mutation.mutate({ formData });
+			mutate({ formData });
 		}
 	};
 	if (!isImageSourcePropType(SendImage)) {
@@ -59,14 +41,8 @@ function Register() {
 				]}
 			>
 				<View style={[gutters.paddingHorizontal_32]}>
-					{!mutation.isSuccess && (
+					{!isSuccess && (
 						<View>
-							<TextInput
-								style={components.textInputRounded}
-								value={email}
-								onChangeText={setEmail}
-								placeholder={t('register:email')}
-							/>
 							<TextInput
 								style={components.textInputRounded}
 								value={username}
@@ -79,13 +55,6 @@ function Register() {
 								value={password}
 								onChangeText={setPassword}
 								placeholder={t('register:password')}
-							/>
-							<TextInput
-								style={components.textInputRounded}
-								secureTextEntry
-								value={repeat}
-								onChangeText={setRepeat}
-								placeholder={t('register:repeat')}
 							/>
 						</View>
 					)}
@@ -101,20 +70,6 @@ function Register() {
 					<TouchableOpacity
 						testID="change-language-button"
 						style={[components.buttonCircle, gutters.marginBottom_16]}
-						onPress={() => addUser()}
-					>
-						{isPending ? (
-							<ActivityIndicator />
-						) : (
-							<ImageVariant
-								source={SendImage}
-								style={{ tintColor: colors.purple500 }}
-							/>
-						)}
-					</TouchableOpacity>
-					<TouchableOpacity
-						testID="change-language-button"
-						style={[components.buttonCircle, gutters.marginBottom_16]}
 						onPress={() => loginUser()}
 					>
 						{isPending ? (
@@ -127,15 +82,10 @@ function Register() {
 						)}
 					</TouchableOpacity>
 				</View>
-				<View style={layout.flex_1}>
-					{mismatch && (
-						<Text style={components.errorText}>
-							{t('register:passwordMismatch')}
-						</Text>
-					)}
+				<View>
 					{isSuccess && (
 						<View>
-							<Text>{data?.message}!</Text>
+							<Text>Login successful!</Text>
 						</View>
 					)}
 					{error && (
@@ -149,4 +99,4 @@ function Register() {
 	);
 }
 
-export default Register;
+export default Login;
