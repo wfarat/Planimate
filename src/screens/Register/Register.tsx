@@ -10,15 +10,13 @@ import { useTranslation } from 'react-i18next';
 import { SafeScreen } from '@/components/template';
 import { useTheme } from '@/theme';
 import { ImageVariant } from '@/components/atoms';
-import { useState } from 'react';
-import { useStorage } from '@/storage/StorageContext';
+import { useEffect, useState } from 'react';
 import SendImage from '@/theme/assets/images/send.png';
 import { resetStates } from '@/helpers/utils/resetStates';
 import { isImageSourcePropType } from '@/types/guards/image';
 
 function Register() {
 	const { t } = useTranslation(['register']);
-	const storage = useStorage();
 	const { colors, layout, gutters, components } = useTheme();
 	const [email, setEmail] = useState<string>('');
 	const [username, setUsername] = useState<string>('');
@@ -33,13 +31,19 @@ function Register() {
 			resetStates(setPassword, setRepeat);
 		} else if (username.trim()) {
 			mutate({ email, username, password });
-			resetStates(setEmail, setUsername, setPassword, setRepeat);
 		}
 	};
-
+	useEffect(() => {
+		if (isSuccess) {
+			resetStates(setEmail, setUsername, setPassword, setRepeat);
+		}
+	}, [isSuccess]);
 	const loginUser = () => {
 		if (username.trim()) {
-			mutation.mutate({ username, password });
+			const formData = new FormData();
+			formData.append('username', username);
+			formData.append('password', password);
+			mutation.mutate({ formData });
 		}
 	};
 	if (!isImageSourcePropType(SendImage)) {
@@ -55,7 +59,7 @@ function Register() {
 				]}
 			>
 				<View style={[gutters.paddingHorizontal_32]}>
-					{!isSuccess && (
+					{!mutation.isSuccess && (
 						<View>
 							<TextInput
 								style={components.textInputRounded}
@@ -123,21 +127,23 @@ function Register() {
 						)}
 					</TouchableOpacity>
 				</View>
-				{mismatch && (
-					<Text style={components.errorText}>
-						{t('register:passwordMismatch')}
-					</Text>
-				)}
-				{isSuccess && (
-					<View>
-						<Text>{data?.message}!</Text>
-					</View>
-				)}
-				{error && (
-					<View>
-						<Text>Error: {error.message}</Text>
-					</View>
-				)}
+				<View style={layout.flex_1}>
+					{mismatch && (
+						<Text style={components.errorText}>
+							{t('register:passwordMismatch')}
+						</Text>
+					)}
+					{isSuccess && (
+						<View>
+							<Text>{data?.message}!</Text>
+						</View>
+					)}
+					{error && (
+						<View>
+							<Text>Error: {error.message}</Text>
+						</View>
+					)}
+				</View>
 			</View>
 		</SafeScreen>
 	);

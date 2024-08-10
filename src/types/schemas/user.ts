@@ -18,8 +18,7 @@ export type RegisterVariables = {
 };
 
 export type LoginVariables = {
-	username: string;
-	password: string;
+	formData: FormData;
 };
 
 export type LoginResponse = {
