@@ -15,7 +15,7 @@ import TranslateImage from '@/theme/assets/images/translate.png';
 import type { RootScreenProps } from '@/types/navigation';
 
 function Settings({ navigation }: RootScreenProps<'Settings'>) {
-	const { t } = useTranslation(['welcome', 'quotes']);
+	const { t } = useTranslation(['welcome', 'settings']);
 	const { colors, variant, changeTheme, layout, gutters, fonts, components } =
 		useTheme();
 
@@ -60,6 +60,15 @@ function Settings({ navigation }: RootScreenProps<'Settings'>) {
 							>
 								{t('welcome:subtitle')}
 							</Text>
+							<TouchableOpacity
+								testID="fetch-user-button"
+								style={[gutters.marginBottom_16]}
+								onPress={() => navigation.navigate('Register')}
+							>
+								<Text style={[components.textInputRounded, gutters.padding_12]}>
+									{t('settings:register')}
+								</Text>
+							</TouchableOpacity>
 						</View>
 					</View>
 					<View
@@ -71,16 +80,6 @@ function Settings({ navigation }: RootScreenProps<'Settings'>) {
 							gutters.padding_32,
 						]}
 					>
-						<TouchableOpacity
-							testID="fetch-user-button"
-							style={[components.buttonCircle, gutters.marginBottom_16]}
-							onPress={() => navigation.navigate('Register')}
-						>
-							<ImageVariant
-								source={SendImage}
-								style={{ tintColor: colors.purple500 }}
-							/>
-						</TouchableOpacity>
 						<TouchableOpacity
 							testID="change-theme-button"
 							style={[components.buttonCircle, gutters.marginBottom_16]}

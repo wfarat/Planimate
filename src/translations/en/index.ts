@@ -4,3 +4,4 @@ export { default as quotes } from './quotes.json';
 export { default as welcome } from './welcome.json';
 export { default as register } from './register.json';
 export { default as agenda } from './agenda.json';
+export { default as settings } from './settings.json';

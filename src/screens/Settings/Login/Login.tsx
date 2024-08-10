@@ -10,16 +10,18 @@ import { useTranslation } from 'react-i18next';
 import { SafeScreen } from '@/components/template';
 import { useTheme } from '@/theme';
 import { ImageVariant } from '@/components/atoms';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import SendImage from '@/theme/assets/images/send.png';
 import { isImageSourcePropType } from '@/types/guards/image';
+import { useStorage } from '@/storage/StorageContext';
 
 function Login() {
 	const { t } = useTranslation(['register']);
 	const { colors, layout, gutters, components } = useTheme();
 	const [username, setUsername] = useState<string>('');
 	const [password, setPassword] = useState<string>('');
-	const { mutate, isSuccess, isPending, error } = login();
+	const storage = useStorage();
+	const { mutate, isSuccess, isPending, error, data } = login();
 	const loginUser = () => {
 		if (username.trim()) {
 			const formData = new FormData();
@@ -28,6 +30,9 @@ function Login() {
 			mutate({ formData });
 		}
 	};
+	useEffect(() => {
+		if (data?.access_token) storage.set('token', data.access_token);
+	}, [isSuccess]);
 	if (!isImageSourcePropType(SendImage)) {
 		throw new Error('Image source is not valid');
 	}
