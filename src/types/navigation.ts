@@ -10,6 +10,7 @@ export type RootStackParamList = {
 		parentId?: number;
 	};
 	Register: undefined;
+	Login: undefined;
 	Settings: undefined;
 	Calendar: undefined;
 	AddToAgendaScreen: { task: Task };

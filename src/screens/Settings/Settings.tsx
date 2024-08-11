@@ -61,12 +61,21 @@ function Settings({ navigation }: RootScreenProps<'Settings'>) {
 								{t('welcome:subtitle')}
 							</Text>
 							<TouchableOpacity
-								testID="fetch-user-button"
+								testID="register-button"
 								style={[gutters.marginBottom_16]}
 								onPress={() => navigation.navigate('Register')}
 							>
 								<Text style={[components.textInputRounded, gutters.padding_12]}>
 									{t('settings:register')}
+								</Text>
+							</TouchableOpacity>
+							<TouchableOpacity
+								testID="login-button"
+								style={[gutters.marginBottom_16]}
+								onPress={() => navigation.navigate('Login')}
+							>
+								<Text style={[components.textInputRounded, gutters.padding_12]}>
+									{t('settings:login')}
 								</Text>
 							</TouchableOpacity>
 						</View>
