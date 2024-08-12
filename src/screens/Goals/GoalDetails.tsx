@@ -33,6 +33,30 @@ function GoalDetails({ route, navigation }: RootScreenProps<'GoalDetails'>) {
 			}
 		}
 	}, [isFocused]);
+	const findMostImportantTask = (): Task | null => {
+		const traverseTasks = (list: Task[]): Task | null => {
+			return list.reduce<Task | null>((result, task) => {
+				if (result) {
+					return result;
+				}
+				if (!task.completed) {
+					const data = storage.getString(`goals.${goal.id}.${task.id}`);
+					if (data) {
+						const subTasks = JSON.parse(data) as Task[];
+						if (subTasks.length === 0) {
+							return task;
+						}
+						return traverseTasks(subTasks) || task;
+					}
+					return task;
+				}
+				return null;
+			}, null);
+		};
+		return traverseTasks(tasks);
+	};
+
+	const mostImportantTask = findMostImportantTask();
 
 	const handleDelete = () => {
 		deleteGoal();
@@ -96,6 +120,16 @@ function GoalDetails({ route, navigation }: RootScreenProps<'GoalDetails'>) {
 				>
 					<Text style={[fonts.gray400]}>Go to Tasks List</Text>
 				</TouchableOpacity>
+				{mostImportantTask && (
+					<View style={[gutters.marginTop_16]}>
+						<Text style={[fonts.size_16, fonts.bold, fonts.gray200]}>
+							Next tasks to do:
+						</Text>
+						<Text style={[fonts.size_16, fonts.gray200, gutters.marginTop_12]}>
+							{mostImportantTask.name}
+						</Text>
+					</View>
+				)}
 			</View>
 		</SafeScreen>
 	);
