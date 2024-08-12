@@ -26,7 +26,7 @@ function GoalsList({ navigation }: RootScreenProps<'Goals'>) {
 	const renderItem: ListRenderItem<Goal> = ({ item }: { item: Goal }) => (
 		<TouchableOpacity
 			key={item.id}
-			onPress={() => navigation.navigate('Tasks', { goal: item })}
+			onPress={() => navigation.navigate('GoalDetails', { goal: item })}
 		>
 			<ItemCard
 				name={item.name}

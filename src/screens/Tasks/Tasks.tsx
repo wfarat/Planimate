@@ -11,7 +11,6 @@ import { useStorage } from '@/storage/StorageContext';
 import { useTaskActions } from '@/helpers/hooks/useTaskActions';
 import { useIsFocused } from '@react-navigation/native';
 import alertAction from '@/helpers/utils/alertAction';
-import { useGoalActions } from '@/helpers/hooks/useGoalActions';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 function Tasks({ route, navigation }: RootScreenProps<'Tasks'>) {
@@ -20,14 +19,12 @@ function Tasks({ route, navigation }: RootScreenProps<'Tasks'>) {
 	const { layout, fonts, gutters, colors, borders } = useTheme();
 	const [tasks, setTasks] = useState<Task[]>([]);
 	const [visible, setVisible] = useState(false);
-	const [goalName, setGoalName] = useState(goal.name);
 	const [taskName, setTaskName] = useState(task?.name || '');
 	const { deleteTask, finishTask, editTask, updateTasks } = useTaskActions(
 		goal.id,
 		task?.taskId,
 		task?.id,
 	);
-	const { deleteGoal, editGoal } = useGoalActions(goal.id);
 	const storageString = task
 		? `goals.${goal.id}.${task.id}`
 		: `goals.${goal.id}`;
@@ -43,8 +40,7 @@ function Tasks({ route, navigation }: RootScreenProps<'Tasks'>) {
 		}
 	}, [task?.id, isFocused]);
 	const handleDelete = () => {
-		if (task) deleteTask();
-		else deleteGoal();
+		deleteTask();
 		navigation.goBack();
 	};
 
@@ -66,12 +62,6 @@ function Tasks({ route, navigation }: RootScreenProps<'Tasks'>) {
 			navigation.setParams({
 				task: { ...task, name: newName, description: newDescription },
 			});
-		} else {
-			editGoal(newName, newDescription);
-			setGoalName(newName); // Update goal name state
-			navigation.setParams({
-				goal: { ...goal, name: newName, description: newDescription },
-			});
 		}
 		setVisible(false);
 	};
@@ -87,7 +77,7 @@ function Tasks({ route, navigation }: RootScreenProps<'Tasks'>) {
 	};
 	return (
 		<SafeScreen>
-			{task ? (
+			{task && (
 				<TaskTopBar
 					isCompletionPossible={tasks.every(item => item.completed)}
 					onDelete={handleAlert}
@@ -95,8 +85,6 @@ function Tasks({ route, navigation }: RootScreenProps<'Tasks'>) {
 					onEdit={() => setVisible(true)}
 					addToAgenda={handleAddToAgenda}
 				/>
-			) : (
-				<TaskTopBar onDelete={handleAlert} onEdit={() => setVisible(true)} />
 			)}
 			<EditDialog
 				onEdit={handleEdit}
@@ -112,7 +100,7 @@ function Tasks({ route, navigation }: RootScreenProps<'Tasks'>) {
 					gutters.padding_16,
 				]}
 			>
-				<Text style={[fonts.size_24, fonts.gray200]}>{goalName}</Text>
+				<Text style={[fonts.size_24, fonts.gray200]}>{goal.name}</Text>
 				{task && <Text style={[fonts.size_24, fonts.gray200]}>{taskName}</Text>}
 				<View
 					style={[layout.itemsCenter, layout.fullWidth, gutters.padding_16]}

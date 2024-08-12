@@ -20,6 +20,9 @@ export type RootStackParamList = {
 		goal: Goal;
 		tasks: Task[];
 	};
+	GoalDetails: {
+		goal: Goal;
+	};
 };
 
 export type RootScreenProps<

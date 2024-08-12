@@ -4,6 +4,7 @@ import {
 	AddToAgendaScreen,
 	Goals,
 	Tasks,
+	GoalDetails,
 } from '@/screens';
 import { createStackNavigator } from '@react-navigation/stack';
 import type { RootStackParamList } from '@/types/navigation';
@@ -20,6 +21,7 @@ function GoalsStackScreen() {
 			<Stack.Screen name="AddToAgendaScreen" component={AddToAgendaScreen} />
 			<Stack.Screen name="AddGoalScreen" component={AddGoalScreen} />
 			<Stack.Screen name="AddTaskScreen" component={AddTaskScreen} />
+			<Stack.Screen name="GoalDetails" component={GoalDetails} />
 		</Stack.Navigator>
 	);
 }

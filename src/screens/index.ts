@@ -8,3 +8,4 @@ export { default as AddToAgendaScreen } from '@/screens/AddToAgendaScreen/AddToA
 export { default as AddGoalScreen } from '@/screens/Goals/AddGoalScreen';
 export { default as AddTaskScreen } from '@/screens/Tasks/AddTaskScreen';
 export { default as Login } from '@/screens/Settings/Login/Login';
+export { default as GoalDetails } from '@/screens/Goals/GoalDetails';
