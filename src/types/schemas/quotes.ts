@@ -51,4 +51,8 @@ export type QuoteKeys =
 	| 'quotes:te2'
 	| 'quotes:tr1'
 	| 'quotes:tr2'
-	| 'quotes:tr3';
+	| 'quotes:tr3'
+	| 'quotes:mw2'
+	| 'quotes:tr4'
+	| 'quotes:fn3'
+	| 'quotes:mj2';

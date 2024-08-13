@@ -8,5 +8,6 @@
   "daysLeft": "days left",
   "endDate": "Due:",
   "nextTask": "Next task to do",
-  "addTask": "Add Task"
+  "addTask": "Add Task",
+  "tasksLeft": "Tasks left"
 }

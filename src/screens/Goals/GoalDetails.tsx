@@ -106,8 +106,8 @@ function GoalDetails({ route, navigation }: RootScreenProps<'GoalDetails'>) {
 					{goalDescription}
 				</Text>
 				<Text style={[fonts.size_16, fonts.gray400, gutters.marginTop_16]}>
-					Tasks left: {tasks.filter(task => !task.completed).length}/
-					{tasks.length}
+					{t('goals:tasksLeft')}: {tasks.filter(task => !task.completed).length}
+					/{tasks.length}
 				</Text>
 				<TouchableOpacity
 					onPress={handleNavigateToTasks}
@@ -131,6 +131,7 @@ function GoalDetails({ route, navigation }: RootScreenProps<'GoalDetails'>) {
 							onPress={() =>
 								navigation.push('Tasks', { goal, task: mostImportantTask })
 							}
+							style={gutters.marginTop_12}
 						>
 							<ItemCard
 								name={mostImportantTask.name}

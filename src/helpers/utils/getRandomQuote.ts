@@ -87,6 +87,10 @@ export default function getRandomQuote() {
 		['quotes:tr1', tr],
 		['quotes:tr2', tr],
 		['quotes:tr3', tr],
+		['quotes:tr4', tr],
+		['quotes:mw2', mw],
+		['quotes:fn3', Nietzsche],
+		['quotes:mj2', mj],
 	];
 
 	const random = Math.floor(Math.random() * Quotes.length);
