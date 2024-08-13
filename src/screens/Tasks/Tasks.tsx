@@ -12,10 +12,12 @@ import { useTaskActions } from '@/helpers/hooks/useTaskActions';
 import { useIsFocused } from '@react-navigation/native';
 import alertAction from '@/helpers/utils/alertAction';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import { useTranslation } from 'react-i18next';
 
 function Tasks({ route, navigation }: RootScreenProps<'Tasks'>) {
 	const { goal, task } = route.params;
 	const storage = useStorage();
+	const { t } = useTranslation(['goals']);
 	const { layout, fonts, gutters, colors, borders } = useTheme();
 	const [tasks, setTasks] = useState<Task[]>([]);
 	const [visible, setVisible] = useState(false);
@@ -114,7 +116,9 @@ function Tasks({ route, navigation }: RootScreenProps<'Tasks'>) {
 							borders.rounded_4,
 						]}
 					>
-						<Text style={[fonts.gray400, fonts.size_24]}>Add Task</Text>
+						<Text style={[fonts.gray400, fonts.size_24]}>
+							{t('goals:addTask')}
+						</Text>
 						<MaterialCommunityIcons
 							name="plus-box"
 							color={colors.gray400}

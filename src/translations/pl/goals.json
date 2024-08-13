@@ -6,5 +6,7 @@
   "taskName": "Co zrobisz by osiągnąć ten cel?",
   "taskDescription": "Opisz dokładniej jakie działania podejmiesz",
   "daysLeft": "pozostało dni",
-  "endDate": "Termin:"
+  "endDate": "Termin:",
+  "nextTask": "Kolejne zadanie do wykonania",
+  "addTask": "Dodaj Zadanie"
 }

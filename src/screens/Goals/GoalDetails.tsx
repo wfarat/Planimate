@@ -4,16 +4,18 @@ import { SafeScreen } from '@/components/template';
 import { useTheme } from '@/theme';
 import { useEffect, useState } from 'react';
 import { RootScreenProps } from '@/types/navigation';
-import { EditDialog, TaskTopBar } from '@/components/molecules';
+import { EditDialog, ItemCard, TaskTopBar } from '@/components/molecules';
 import type { Task } from '@/types/schemas';
 import { useStorage } from '@/storage/StorageContext';
 import { useGoalActions } from '@/helpers/hooks/useGoalActions';
 import { useIsFocused } from '@react-navigation/native';
 import alertAction from '@/helpers/utils/alertAction';
+import { useTranslation } from 'react-i18next';
 
 function GoalDetails({ route, navigation }: RootScreenProps<'GoalDetails'>) {
 	const { goal } = route.params;
 	const storage = useStorage();
+	const { t } = useTranslation(['goals']);
 	const { layout, fonts, gutters, borders } = useTheme();
 	const [tasks, setTasks] = useState<Task[]>([]);
 	const [visible, setVisible] = useState(false);
@@ -123,11 +125,18 @@ function GoalDetails({ route, navigation }: RootScreenProps<'GoalDetails'>) {
 				{mostImportantTask && (
 					<View style={[gutters.marginTop_16]}>
 						<Text style={[fonts.size_16, fonts.bold, fonts.gray200]}>
-							Next tasks to do:
+							{t('goals:nextTask')}
 						</Text>
-						<Text style={[fonts.size_16, fonts.gray200, gutters.marginTop_12]}>
-							{mostImportantTask.name}
-						</Text>
+						<TouchableOpacity
+							onPress={() =>
+								navigation.push('Tasks', { goal, task: mostImportantTask })
+							}
+						>
+							<ItemCard
+								name={mostImportantTask.name}
+								description={mostImportantTask.description}
+							/>
+						</TouchableOpacity>
 					</View>
 				)}
 			</View>
