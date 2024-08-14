@@ -67,5 +67,35 @@ export const useTaskActions = (
 		updateTasks(updatedTasks, taskId);
 		return updatedTasks;
 	};
-	return { deleteTask, finishTask, editTask, addTask, updateTasks };
+	const findMostImportantTask = (): Task | null => {
+		const traverseTasks = (list: Task[]): Task | null => {
+			return list.reduce<Task | null>((result, task) => {
+				if (result) {
+					return result;
+				}
+				if (!task.completed) {
+					const data = storage.getString(`goals.${goalId}.${task.id}`);
+					if (data) {
+						const subTasks = JSON.parse(data) as Task[];
+						if (subTasks.length === 0) {
+							return task;
+						}
+						return traverseTasks(subTasks) || task;
+					}
+					return task;
+				}
+				return null;
+			}, null);
+		};
+		return traverseTasks(tasks);
+	};
+
+	return {
+		deleteTask,
+		finishTask,
+		editTask,
+		addTask,
+		updateTasks,
+		findMostImportantTask,
+	};
 };

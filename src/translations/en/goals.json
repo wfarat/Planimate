@@ -9,5 +9,6 @@
   "endDate": "Due:",
   "nextTask": "Next task to do",
   "addTask": "Add Task",
-  "tasksLeft": "Tasks left"
+  "tasksLeft": "Tasks left",
+  "goToTasks": "Go to Tasks List"
 }

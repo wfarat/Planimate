@@ -11,6 +11,7 @@ import { useGoalActions } from '@/helpers/hooks/useGoalActions';
 import { useIsFocused } from '@react-navigation/native';
 import alertAction from '@/helpers/utils/alertAction';
 import { useTranslation } from 'react-i18next';
+import { useTaskActions } from '@/helpers/hooks/useTaskActions';
 
 function GoalDetails({ route, navigation }: RootScreenProps<'GoalDetails'>) {
 	const { goal } = route.params;
@@ -22,8 +23,10 @@ function GoalDetails({ route, navigation }: RootScreenProps<'GoalDetails'>) {
 	const [goalName, setGoalName] = useState(goal.name);
 	const [goalDescription, setGoalDescription] = useState(goal.description);
 	const { deleteGoal, editGoal } = useGoalActions(goal.id);
-	const storageString = `goals.${goal.id}`;
+	const { findMostImportantTask } = useTaskActions(goal.id);
 	const isFocused = useIsFocused();
+	const mostImportantTask = findMostImportantTask();
+	const storageString = `goals.${goal.id}`;
 
 	useEffect(() => {
 		if (isFocused) {
@@ -35,30 +38,6 @@ function GoalDetails({ route, navigation }: RootScreenProps<'GoalDetails'>) {
 			}
 		}
 	}, [isFocused]);
-	const findMostImportantTask = (): Task | null => {
-		const traverseTasks = (list: Task[]): Task | null => {
-			return list.reduce<Task | null>((result, task) => {
-				if (result) {
-					return result;
-				}
-				if (!task.completed) {
-					const data = storage.getString(`goals.${goal.id}.${task.id}`);
-					if (data) {
-						const subTasks = JSON.parse(data) as Task[];
-						if (subTasks.length === 0) {
-							return task;
-						}
-						return traverseTasks(subTasks) || task;
-					}
-					return task;
-				}
-				return null;
-			}, null);
-		};
-		return traverseTasks(tasks);
-	};
-
-	const mostImportantTask = findMostImportantTask();
 
 	const handleDelete = () => {
 		deleteGoal();
@@ -120,7 +99,7 @@ function GoalDetails({ route, navigation }: RootScreenProps<'GoalDetails'>) {
 						gutters.padding_12,
 					]}
 				>
-					<Text style={[fonts.gray400]}>Go to Tasks List</Text>
+					<Text style={[fonts.gray400]}>{t('goals:goToTasks')}</Text>
 				</TouchableOpacity>
 				{mostImportantTask && (
 					<View style={[gutters.marginTop_16]}>
