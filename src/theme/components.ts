@@ -35,6 +35,17 @@ export default ({
 			...borders.rounded_16,
 			...gutters.marginBottom_16,
 		},
+		buttonRoundedGreen: {
+			...backgrounds.green500,
+			...layout.row,
+			...layout.fullWidth,
+			...layout.itemsCenter,
+			...layout.justifyCenter,
+			...borders.w_1,
+			...borders.rounded_8,
+			...gutters.padding_12,
+			...gutters.margin_16,
+		},
 		errorText: {
 			...fonts.size_16,
 			...fonts.red500,

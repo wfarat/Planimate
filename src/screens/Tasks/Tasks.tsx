@@ -18,7 +18,7 @@ function Tasks({ route, navigation }: RootScreenProps<'Tasks'>) {
 	const { goal, task } = route.params;
 	const storage = useStorage();
 	const { t } = useTranslation(['goals']);
-	const { layout, fonts, gutters, colors, borders } = useTheme();
+	const { layout, fonts, gutters, colors, components } = useTheme();
 	const [tasks, setTasks] = useState<Task[]>([]);
 	const [visible, setVisible] = useState(false);
 	const [taskName, setTaskName] = useState(task?.name || '');
@@ -109,25 +109,18 @@ function Tasks({ route, navigation }: RootScreenProps<'Tasks'>) {
 				>
 					<TouchableOpacity
 						onPress={handlePress}
-						style={[
-							layout.row,
-							borders.w_1,
-							borders.gray400,
-							borders.rounded_4,
-						]}
+						style={[components.buttonRoundedGreen]}
 					>
-						<Text style={[fonts.gray400, fonts.size_24]}>
+						<Text style={[fonts.white, fonts.size_24, gutters.marginRight_12]}>
 							{t('goals:addTask')}
 						</Text>
 						<MaterialCommunityIcons
 							name="plus-box"
-							color={colors.gray400}
+							color={colors.white}
 							size={36}
 						/>
 					</TouchableOpacity>
-					<View
-						style={[gutters.marginTop_16, layout.fullWidth, gutters.padding_16]}
-					>
+					<View style={[gutters.marginTop_16, layout.fullWidth]}>
 						<TasksList
 							tasks={tasks}
 							navigation={navigation}
