@@ -1,6 +1,5 @@
 {
   "header": "Lista Celów",
-  "add": "Dodaj Cel",
   "title": "Napisz co chcesz osiągnąć",
   "description": "Opisz krótko co dla Ciebie oznacza osiągnięcie tego celu",
   "taskName": "Co zrobisz by osiągnąć ten cel?",
@@ -8,7 +7,5 @@
   "daysLeft": "pozostało dni",
   "endDate": "Termin:",
   "nextTask": "Kolejne zadanie do wykonania",
-  "addTask": "Dodaj Zadanie",
   "tasksLeft": "Pozostało zadań",
-  "goToTasks": "Przejdź do Listy Zadań"
 }

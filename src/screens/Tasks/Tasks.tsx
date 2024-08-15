@@ -13,6 +13,7 @@ import { useIsFocused } from '@react-navigation/native';
 import alertAction from '@/helpers/utils/alertAction';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useTranslation } from 'react-i18next';
+import { GreenRoundedButton } from '@/components/atoms';
 
 function Tasks({ route, navigation }: RootScreenProps<'Tasks'>) {
 	const { goal, task } = route.params;
@@ -107,19 +108,7 @@ function Tasks({ route, navigation }: RootScreenProps<'Tasks'>) {
 				<View
 					style={[layout.itemsCenter, layout.fullWidth, gutters.padding_16]}
 				>
-					<TouchableOpacity
-						onPress={handlePress}
-						style={[components.buttonRoundedGreen]}
-					>
-						<Text style={[fonts.white, fonts.size_24, gutters.marginRight_12]}>
-							{t('goals:addTask')}
-						</Text>
-						<MaterialCommunityIcons
-							name="plus-box"
-							color={colors.white}
-							size={36}
-						/>
-					</TouchableOpacity>
+					<GreenRoundedButton handlePress={handlePress} text="addTask" />
 					<View style={[gutters.marginTop_16, layout.fullWidth]}>
 						<TasksList
 							tasks={tasks}

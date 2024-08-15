@@ -12,6 +12,7 @@ import { useIsFocused } from '@react-navigation/native';
 import alertAction from '@/helpers/utils/alertAction';
 import { useTranslation } from 'react-i18next';
 import { useTaskActions } from '@/helpers/hooks/useTaskActions';
+import { GreenRoundedButton } from '@/components/atoms';
 
 function GoalDetails({ route, navigation }: RootScreenProps<'GoalDetails'>) {
 	const { goal } = route.params;
@@ -77,7 +78,7 @@ function GoalDetails({ route, navigation }: RootScreenProps<'GoalDetails'>) {
 					layout.justifyCenter,
 					layout.itemsCenter,
 					gutters.marginTop_80,
-					gutters.padding_16,
+					gutters.padding_32,
 				]}
 			>
 				<Text style={[fonts.size_24, fonts.gray200]}>{goalName}</Text>
@@ -88,21 +89,12 @@ function GoalDetails({ route, navigation }: RootScreenProps<'GoalDetails'>) {
 					{t('goals:tasksLeft')}: {tasks.filter(task => !task.completed).length}
 					/{tasks.length}
 				</Text>
-				<TouchableOpacity
-					onPress={handleNavigateToTasks}
-					style={[
-						layout.row,
-						borders.w_1,
-						borders.gray400,
-						borders.rounded_4,
-						gutters.marginTop_16,
-						gutters.padding_12,
-					]}
-				>
-					<Text style={[fonts.gray400]}>{t('goals:goToTasks')}</Text>
-				</TouchableOpacity>
+				<GreenRoundedButton
+					handlePress={handleNavigateToTasks}
+					text="goToTasks"
+				/>
 				{mostImportantTask && (
-					<View style={[gutters.marginTop_16]}>
+					<View style={[gutters.marginTop_16, layout.fullWidth]}>
 						<Text style={[fonts.size_16, fonts.bold, fonts.gray200]}>
 							{t('goals:nextTask')}
 						</Text>
@@ -110,7 +102,7 @@ function GoalDetails({ route, navigation }: RootScreenProps<'GoalDetails'>) {
 							onPress={() =>
 								navigation.push('Tasks', { goal, task: mostImportantTask })
 							}
-							style={gutters.marginTop_12}
+							style={[gutters.marginTop_12, layout.fullWidth]}
 						>
 							<ItemCard
 								name={mostImportantTask.name}

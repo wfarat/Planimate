@@ -28,5 +28,10 @@
     "duration": "Total time to complete:",
     "enterTime": "Press to set",
     "time": "Time of the day:"
+  },
+  "buttonText": {
+    "addTask": "Add Task",
+    "addGoal": "Add Goal",
+    "goToTasks": "Go to Tasks List"
   }
 }

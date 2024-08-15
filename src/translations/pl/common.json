@@ -28,5 +28,10 @@
     "duration": "Całkowity czas do ukończenia:",
     "enterTime": "Dotknij by ustawić",
     "time": "Czas dnia:"
+  },
+  "buttonText": {
+    "addTask": "Dodaj Zadanie",
+    "addGoal": "Dodaj Cel",
+    "goToTasks": "Przejdź do Listy Zadań"
   }
 }
