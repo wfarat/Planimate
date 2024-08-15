@@ -32,6 +32,8 @@
   "buttonText": {
     "addTask": "Add Task",
     "addGoal": "Add Goal",
-    "goToTasks": "Go to Tasks List"
+    "goToTasks": "Go to Tasks List",
+    "register": "Create an account",
+    "login": "Sign in"
   }
 }

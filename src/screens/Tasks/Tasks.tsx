@@ -95,14 +95,7 @@ function Tasks({ route, navigation }: RootScreenProps<'Tasks'>) {
 				visible={visible}
 				oldName={task ? task.name : goal.name}
 			/>
-			<View
-				style={[
-					layout.justifyCenter,
-					layout.itemsCenter,
-					gutters.marginTop_80,
-					gutters.padding_16,
-				]}
-			>
+			<View style={components.mainContainer}>
 				<Text style={[fonts.size_24, fonts.gray200]}>{goal.name}</Text>
 				{task && <Text style={[fonts.size_24, fonts.gray200]}>{taskName}</Text>}
 				<View

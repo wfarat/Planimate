@@ -16,14 +16,7 @@ function Goals({ navigation, route }: RootScreenProps<'Goals'>) {
 	};
 	return (
 		<SafeScreen>
-			<View
-				style={[
-					layout.justifyCenter,
-					layout.itemsCenter,
-					gutters.marginTop_80,
-					gutters.padding_16,
-				]}
-			>
+			<View style={components.mainContainer}>
 				<Text style={[fonts.gray400, fonts.size_24]}>{t('goals:header')}</Text>
 
 				<View

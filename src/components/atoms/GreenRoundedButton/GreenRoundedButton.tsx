@@ -4,10 +4,10 @@ import { useTheme } from '@/theme';
 
 type Props = {
 	handlePress: () => void;
-	text: 'addGoal' | 'addTask' | 'goToTasks';
+	text: 'addGoal' | 'addTask' | 'goToTasks' | 'register' | 'login';
 };
 function GreenRoundedButton({ handlePress, text }: Props) {
-	const { components, fonts, gutters, colors } = useTheme();
+	const { components, fonts, gutters } = useTheme();
 	const { t } = useTranslation(['common']);
 	return (
 		<TouchableOpacity

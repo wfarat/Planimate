@@ -32,6 +32,8 @@
   "buttonText": {
     "addTask": "Dodaj Zadanie",
     "addGoal": "Dodaj Cel",
-    "goToTasks": "Przejdź do Listy Zadań"
+    "goToTasks": "Przejdź do Listy Zadań",
+    "register": "Załóż konto",
+    "login": "Zaloguj się"
   }
 }

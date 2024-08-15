@@ -51,5 +51,11 @@ export default ({
 			...fonts.red500,
 			...gutters.margin_12,
 		},
+		mainContainer: {
+			...layout.justifyCenter,
+			...layout.itemsCenter,
+			...gutters.marginTop_80,
+			...gutters.padding_16,
+		},
 	} as const satisfies AllStyle;
 };
