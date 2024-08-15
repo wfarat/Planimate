@@ -28,12 +28,14 @@ export default ({
 		},
 		textInputRounded: {
 			...fonts.size_16,
-			...fonts.gray400,
+			...fonts.gray200,
 			...fonts.bold,
 			...borders.gray400,
 			...borders.w_1,
 			...borders.rounded_16,
 			...gutters.marginBottom_16,
+			...layout.fullWidth,
+			...gutters.padding_16,
 		},
 		buttonRoundedGreen: {
 			...backgrounds.green500,
@@ -55,6 +57,11 @@ export default ({
 			...layout.justifyCenter,
 			...layout.itemsCenter,
 			...gutters.marginTop_80,
+			...gutters.padding_16,
+		},
+		inputContainer: {
+			...layout.itemsCenter,
+			...layout.fullWidth,
 			...gutters.padding_16,
 		},
 	} as const satisfies AllStyle;

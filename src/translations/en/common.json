@@ -35,5 +35,11 @@
     "goToTasks": "Go to Tasks List",
     "register": "Create an account",
     "login": "Sign in"
+  },
+  "textInput": {
+    "email": "E-mail address",
+    "username": "Username",
+    "password": "Password",
+    "repeat": "Repeat password"
   }
 }

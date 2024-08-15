@@ -1,23 +1,17 @@
-import {
-	TouchableOpacity,
-	View,
-	TextInput,
-	Text,
-	ActivityIndicator,
-} from 'react-native';
+import { View, TextInput, Text, ActivityIndicator } from 'react-native';
 import { register } from '@/controllers/users';
 import { useTranslation } from 'react-i18next';
 import { SafeScreen } from '@/components/template';
 import { useTheme } from '@/theme';
-import { ImageVariant } from '@/components/atoms';
 import { useEffect, useState } from 'react';
 import SendImage from '@/theme/assets/images/send.png';
 import { resetStates } from '@/helpers/utils/resetStates';
 import { isImageSourcePropType } from '@/types/guards/image';
+import { GreenRoundedButton, TextInputRounded } from '@/components/atoms';
 
 function Register() {
 	const { t } = useTranslation(['register']);
-	const { colors, layout, gutters, components } = useTheme();
+	const { components } = useTheme();
 	const [email, setEmail] = useState<string>('');
 	const [username, setUsername] = useState<string>('');
 	const [password, setPassword] = useState<string>('');
@@ -43,65 +37,31 @@ function Register() {
 	}
 	return (
 		<SafeScreen>
-			<View
-				style={[
-					layout.justifyCenter,
-					layout.itemsCenter,
-					gutters.marginTop_120,
-				]}
-			>
-				<View style={[gutters.paddingHorizontal_32]}>
-					<View>
-						<TextInput
-							style={components.textInputRounded}
-							value={email}
-							onChangeText={setEmail}
-							placeholder={t('register:email')}
-						/>
-						<TextInput
-							style={components.textInputRounded}
-							value={username}
-							onChangeText={setUsername}
-							placeholder={t('register:user')}
-						/>
-						<TextInput
-							style={components.textInputRounded}
-							secureTextEntry
-							value={password}
-							onChangeText={setPassword}
-							placeholder={t('register:password')}
-						/>
-						<TextInput
-							style={components.textInputRounded}
-							secureTextEntry
-							value={repeat}
-							onChangeText={setRepeat}
-							placeholder={t('register:repeat')}
-						/>
-					</View>
-				</View>
-				<View
-					style={[
-						layout.row,
-						layout.justifyBetween,
-						layout.fullWidth,
-						gutters.marginTop_16,
-					]}
-				>
-					<TouchableOpacity
-						testID="change-language-button"
-						style={[components.buttonCircle, gutters.marginBottom_16]}
-						onPress={() => addUser()}
-					>
-						{isPending ? (
-							<ActivityIndicator />
-						) : (
-							<ImageVariant
-								source={SendImage}
-								style={{ tintColor: colors.purple500 }}
-							/>
-						)}
-					</TouchableOpacity>
+			<View style={components.mainContainer}>
+				<View style={components.inputContainer}>
+					<TextInputRounded
+						onChangeText={setEmail}
+						value={email}
+						text="email"
+					/>
+					<TextInputRounded
+						onChangeText={setUsername}
+						value={username}
+						text="username"
+					/>
+					<TextInputRounded
+						onChangeText={setPassword}
+						value={password}
+						secure
+						text="password"
+					/>
+					<TextInputRounded
+						onChangeText={setRepeat}
+						value={repeat}
+						secure
+						text="repeat"
+					/>
+					<GreenRoundedButton handlePress={addUser} text="register" />
 				</View>
 				<View>
 					{mismatch && (

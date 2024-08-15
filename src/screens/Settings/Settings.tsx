@@ -38,9 +38,7 @@ function Settings({ navigation }: RootScreenProps<'Settings'>) {
 	return (
 		<SafeScreen>
 			<View style={components.mainContainer}>
-				<View
-					style={[layout.itemsCenter, layout.fullWidth, gutters.padding_16]}
-				>
+				<View style={components.inputContainer}>
 					<GreenRoundedButton
 						handlePress={() => navigation.push('Register')}
 						text="register"

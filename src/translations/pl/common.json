@@ -35,5 +35,11 @@
     "goToTasks": "Przejdź do Listy Zadań",
     "register": "Załóż konto",
     "login": "Zaloguj się"
+  },
+  "textInput": {
+    "email": "Adres e-mail",
+    "username": "Nazwa użytkownika",
+    "password": "Hasło",
+    "repeat": "Powtórz hasło"
   }
 }
