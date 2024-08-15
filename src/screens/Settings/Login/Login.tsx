@@ -1,23 +1,15 @@
-import {
-	TouchableOpacity,
-	View,
-	TextInput,
-	Text,
-	ActivityIndicator,
-} from 'react-native';
+import { View, Text, ActivityIndicator } from 'react-native';
 import { login } from '@/controllers/users';
-import { useTranslation } from 'react-i18next';
 import { SafeScreen } from '@/components/template';
 import { useTheme } from '@/theme';
-import { ImageVariant } from '@/components/atoms';
+import { GreenRoundedButton, TextInputRounded } from '@/components/atoms';
 import { useEffect, useState } from 'react';
 import SendImage from '@/theme/assets/images/send.png';
 import { isImageSourcePropType } from '@/types/guards/image';
 import { useStorage } from '@/storage/StorageContext';
 
 function Login() {
-	const { t } = useTranslation(['register']);
-	const { colors, layout, gutters, components } = useTheme();
+	const { components, layout } = useTheme();
 	const [username, setUsername] = useState<string>('');
 	const [password, setPassword] = useState<string>('');
 	const storage = useStorage();
@@ -38,54 +30,28 @@ function Login() {
 	}
 	return (
 		<SafeScreen>
-			<View
-				style={[
-					layout.justifyCenter,
-					layout.itemsCenter,
-					gutters.marginTop_120,
-				]}
-			>
-				<View style={[gutters.paddingHorizontal_32]}>
+			<View style={components.mainContainer}>
+				<View style={components.inputContainer}>
 					{!isSuccess && (
-						<View>
-							<TextInput
-								style={components.textInputRounded}
-								value={username}
+						<View style={layout.fullWidth}>
+							<TextInputRounded
 								onChangeText={setUsername}
-								placeholder={t('register:user')}
+								value={username}
+								text="username"
 							/>
-							<TextInput
-								style={components.textInputRounded}
-								secureTextEntry
-								value={password}
+							<TextInputRounded
 								onChangeText={setPassword}
-								placeholder={t('register:password')}
+								value={password}
+								secure
+								text="password"
 							/>
 						</View>
 					)}
-				</View>
-				<View
-					style={[
-						layout.row,
-						layout.justifyBetween,
-						layout.fullWidth,
-						gutters.marginTop_16,
-					]}
-				>
-					<TouchableOpacity
-						testID="change-language-button"
-						style={[components.buttonCircle, gutters.marginBottom_16]}
-						onPress={() => loginUser()}
-					>
-						{isPending ? (
-							<ActivityIndicator />
-						) : (
-							<ImageVariant
-								source={SendImage}
-								style={{ tintColor: colors.green400 }}
-							/>
-						)}
-					</TouchableOpacity>
+					{isPending ? (
+						<ActivityIndicator />
+					) : (
+						<GreenRoundedButton handlePress={loginUser} text="login" />
+					)}
 				</View>
 				<View>
 					{isSuccess && (

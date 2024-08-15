@@ -1,4 +1,4 @@
-import { View, TextInput, Text, ActivityIndicator } from 'react-native';
+import { View, Text, ActivityIndicator } from 'react-native';
 import { register } from '@/controllers/users';
 import { useTranslation } from 'react-i18next';
 import { SafeScreen } from '@/components/template';
@@ -61,7 +61,11 @@ function Register() {
 						secure
 						text="repeat"
 					/>
-					<GreenRoundedButton handlePress={addUser} text="register" />
+					{isPending ? (
+						<ActivityIndicator />
+					) : (
+						<GreenRoundedButton handlePress={addUser} text="register" />
+					)}
 				</View>
 				<View>
 					{mismatch && (
