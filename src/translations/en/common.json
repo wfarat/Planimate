@@ -40,6 +40,8 @@
     "email": "E-mail address",
     "username": "Username",
     "password": "Password",
-    "repeat": "Repeat password"
+    "repeat": "Repeat password",
+    "title": "Write what's your goal",
+    "description": "Describe what it means to you to achieve this goal"
   }
 }

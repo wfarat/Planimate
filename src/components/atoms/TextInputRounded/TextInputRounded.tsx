@@ -5,10 +5,15 @@ import { useTheme } from '@/theme';
 type Props = {
 	onChangeText: (value: string) => void;
 	value: string;
-	text: 'email' | 'password' | 'repeat' | 'username';
+	text: 'email' | 'password' | 'repeat' | 'username' | 'title' | 'description';
 	secure?: boolean;
 };
-function TextInputRounded({ value, onChangeText, text, secure }: Props) {
+function TextInputRounded({
+	value,
+	onChangeText,
+	text,
+	secure = false,
+}: Props) {
 	const { components, colors } = useTheme();
 	const { t } = useTranslation(['common']);
 	return (

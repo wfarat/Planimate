@@ -1,7 +1,5 @@
 {
   "header": "Goals List",
-  "title": "Write what's your goal",
-  "description": "Describe what it means to you to achieve this goal",
   "taskName": "What will you do to achieve it?",
   "taskDescription": "Describe in detail what action will you take",
   "daysLeft": "days left",

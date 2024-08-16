@@ -1,6 +1,5 @@
-import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
+import { View, TouchableOpacity } from 'react-native';
 import i18next from 'i18next';
-import { useTranslation } from 'react-i18next';
 
 import { GreenRoundedButton, ImageVariant } from '@/components/atoms';
 import { SafeScreen } from '@/components/template';
@@ -8,14 +7,12 @@ import { useTheme } from '@/theme';
 
 import { isImageSourcePropType } from '@/types/guards/image';
 
-import SendImage from '@/theme/assets/images/send.png';
 import ColorsWatchImage from '@/theme/assets/images/colorswatch.png';
 import TranslateImage from '@/theme/assets/images/translate.png';
 
 import type { RootScreenProps } from '@/types/navigation';
 
 function Settings({ navigation }: RootScreenProps<'Settings'>) {
-	const { t } = useTranslation(['welcome']);
 	const { colors, variant, changeTheme, layout, gutters, components } =
 		useTheme();
 
@@ -28,7 +25,6 @@ function Settings({ navigation }: RootScreenProps<'Settings'>) {
 	};
 
 	if (
-		!isImageSourcePropType(SendImage) ||
 		!isImageSourcePropType(ColorsWatchImage) ||
 		!isImageSourcePropType(TranslateImage)
 	) {

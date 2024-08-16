@@ -40,6 +40,8 @@
     "email": "Adres e-mail",
     "username": "Nazwa użytkownika",
     "password": "Hasło",
-    "repeat": "Powtórz hasło"
+    "repeat": "Powtórz hasło",
+    "title": "Napisz co chcesz osiągnąć",
+    "description": "Opisz krótko co dla Ciebie oznacza osiągnięcie tego celu"
   }
 }
