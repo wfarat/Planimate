@@ -12,7 +12,7 @@ function InputTime({ message, setTime, setDuration, time }: InputTimeProps) {
 	const { t } = useTranslation(['common']);
 	const [show, setShow] = useState(false);
 	const [date, setDate] = useState<Date>();
-	const { gutters, components } = useTheme();
+	const { layout, components } = useTheme();
 	const display = time || date;
 	const onChange = (event: DateTimePickerEvent, selectedDate?: Date) => {
 		if (selectedDate) {
@@ -36,7 +36,7 @@ function InputTime({ message, setTime, setDuration, time }: InputTimeProps) {
 	};
 
 	return (
-		<View>
+		<View style={layout.fullWidth}>
 			{show && (
 				<DateTimePicker
 					testID="dateTimePicker"
@@ -47,7 +47,7 @@ function InputTime({ message, setTime, setDuration, time }: InputTimeProps) {
 				/>
 			)}
 			<TouchableOpacity onPress={() => setShow(true)}>
-				<Text style={[components.textInputRounded, gutters.padding_12]}>
+				<Text style={components.textInputRounded}>
 					{t(`common:picker.${message}`)}{' '}
 					{display ? hoursAndMinutes(display) : t('common:picker.enterTime')}
 				</Text>

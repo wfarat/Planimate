@@ -42,6 +42,8 @@
     "password": "Hasło",
     "repeat": "Powtórz hasło",
     "title": "Napisz co chcesz osiągnąć",
-    "description": "Opisz krótko co dla Ciebie oznacza osiągnięcie tego celu"
+    "description": "Opisz krótko co dla Ciebie oznacza osiągnięcie tego celu",
+    "taskName": "Co zrobisz by osiągnąć ten cel?",
+    "taskDescription": "Opisz dokładniej jakie działania podejmiesz"
   }
 }

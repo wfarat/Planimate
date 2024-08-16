@@ -3,7 +3,15 @@ import { useTranslation } from 'react-i18next';
 import { useTheme } from '@/theme';
 
 type Props = TextInputProps & {
-	text: 'email' | 'password' | 'repeat' | 'username' | 'title' | 'description';
+	text:
+		| 'email'
+		| 'password'
+		| 'repeat'
+		| 'username'
+		| 'title'
+		| 'description'
+		| 'taskName'
+		| 'taskDescription';
 };
 function TextInputRounded(props: Props) {
 	const { text } = props;
