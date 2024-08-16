@@ -1,6 +1,6 @@
 import { RootScreenProps } from '@/types/navigation';
 import { SafeScreen } from '@/components/template';
-import { Button, Text, View } from 'react-native';
+import { Text, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@/theme';
 import { useState } from 'react';

@@ -15,7 +15,8 @@
   },
   "edit": {
     "name": "Wprowadź nową nazwę",
-    "description": "Wprowadź nowy opis"
+    "description": "Wprowadź nowy opis",
+    "edit": "Edytuj"
   },
   "abr": {
     "hour": "h",

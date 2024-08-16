@@ -19,7 +19,9 @@ function EditDialog({ onEdit, onCancel, visible, oldName }: EditDialogProps) {
 
 	return (
 		<Dialog.Container visible={visible}>
-			<Dialog.Title>Edit {oldName}</Dialog.Title>
+			<Dialog.Title>
+				{t('common:edit.edit')} {oldName}
+			</Dialog.Title>
 			<Dialog.Input
 				placeholder={t('common:edit.name')}
 				value={name}
