@@ -8,13 +8,14 @@ import { useAgendaItems } from '@/helpers/hooks/useAgendaItems';
 import { AgendaItemType } from '@/types/schemas';
 import { useStorage } from '@/storage/StorageContext';
 import { InputDate, InputTime } from '@/components/molecules';
+import { GreenRoundedButton } from '@/components/atoms';
 
 function AddToAgendaScreen({
 	route,
 	navigation,
 }: RootScreenProps<'AddToAgendaScreen'>) {
 	const { task } = route.params;
-	const { fonts, layout, gutters } = useTheme();
+	const { components } = useTheme();
 	const { t } = useTranslation(['agenda']);
 	const [date, setDate] = useState(new Date());
 	const storage = useStorage();
@@ -48,14 +49,12 @@ function AddToAgendaScreen({
 	};
 	return (
 		<SafeScreen>
-			<View
-				style={[layout.justifyCenter, layout.itemsCenter, gutters.marginTop_80]}
-			>
-				<Text style={[fonts.size_24, fonts.gray200]}>{t('agenda:add')}</Text>
+			<View style={components.mainContainer}>
+				<Text style={components.header}>{t('agenda:newItem')}</Text>
 				<InputDate date={date} setDate={setDate} message="agendaDate" />
 				<InputTime time={date} setTime={setDate} message="time" />
 				<InputTime setDuration={setDuration} message="duration" />
-				<Button onPress={addToAgenda} title={t('agenda:add')} />
+				<GreenRoundedButton handlePress={addToAgenda} text="addAgendaItem" />
 			</View>
 		</SafeScreen>
 	);

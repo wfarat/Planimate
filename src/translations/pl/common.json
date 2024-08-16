@@ -34,7 +34,8 @@
     "addGoal": "Dodaj Cel",
     "goToTasks": "Przejdź do Listy Zadań",
     "register": "Załóż konto",
-    "login": "Zaloguj się"
+    "login": "Zaloguj się",
+    "addAgendaItem": "Dodaj do terminarza"
   },
   "textInput": {
     "email": "Adres e-mail",

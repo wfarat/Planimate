@@ -4,7 +4,13 @@ import { useTheme } from '@/theme';
 
 type Props = {
 	handlePress: () => void;
-	text: 'addGoal' | 'addTask' | 'goToTasks' | 'register' | 'login';
+	text:
+		| 'addGoal'
+		| 'addTask'
+		| 'goToTasks'
+		| 'register'
+		| 'login'
+		| 'addAgendaItem';
 };
 function GreenRoundedButton({ handlePress, text }: Props) {
 	const { components, fonts, gutters } = useTheme();

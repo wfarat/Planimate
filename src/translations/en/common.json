@@ -34,7 +34,8 @@
     "addGoal": "Add Goal",
     "goToTasks": "Go to Tasks List",
     "register": "Create an account",
-    "login": "Sign in"
+    "login": "Sign in",
+    "addAgendaItem": "Add to agenda"
   },
   "textInput": {
     "email": "E-mail address",
