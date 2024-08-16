@@ -89,12 +89,36 @@ export const useTaskActions = (
 		};
 		return traverseTasks(tasks);
 	};
+	interface TaskCount {
+		completed: number;
+		total: number;
+	}
+	const countTasks = (taskArray: Task[]) => {
+		const counts: TaskCount = { completed: 0, total: 0 };
+
+		taskArray.forEach(task => {
+			counts.total += 1;
+			if (task.completed) {
+				counts.completed += 1;
+			}
+			const data = storage.getString(`goals.${goalId}.${task.id}`);
+			if (data) {
+				const subTasks = JSON.parse(data) as Task[];
+				const subtaskCounts = countTasks(subTasks);
+				counts.completed += subtaskCounts.completed;
+				counts.total += subtaskCounts.total;
+			}
+		});
+
+		return counts;
+	};
 
 	return {
 		deleteTask,
 		finishTask,
 		editTask,
 		addTask,
+		countTasks,
 		updateTasks,
 		findMostImportantTask,
 	};

@@ -24,9 +24,10 @@ function GoalDetails({ route, navigation }: RootScreenProps<'GoalDetails'>) {
 	const [goalName, setGoalName] = useState(goal.name);
 	const [goalDescription, setGoalDescription] = useState(goal.description);
 	const { deleteGoal, editGoal } = useGoalActions(goal.id);
-	const { findMostImportantTask } = useTaskActions(goal.id);
+	const { findMostImportantTask, countTasks } = useTaskActions(goal.id);
 	const isFocused = useIsFocused();
 	const mostImportantTask = findMostImportantTask();
+	const taskCount = countTasks(tasks);
 	const storageString = `goals.${goal.id}`;
 
 	useEffect(() => {
@@ -77,8 +78,7 @@ function GoalDetails({ route, navigation }: RootScreenProps<'GoalDetails'>) {
 				<Text style={components.header}>{goalName}</Text>
 				<Text style={[fonts.size_16, fonts.gray200]}>{goalDescription}</Text>
 				<Text style={[fonts.size_16, fonts.gray400, gutters.marginTop_16]}>
-					{t('goals:tasksLeft')}: {tasks.filter(task => !task.completed).length}
-					/{tasks.length}
+					{t('goals:tasksLeft')}: {taskCount.completed}/{taskCount.total}
 				</Text>
 				<GreenRoundedButton
 					handlePress={handleNavigateToTasks}
