@@ -48,13 +48,7 @@ function Quotes() {
 		<SafeScreen>
 			<ScrollView>
 				<QuoteTopBar onShare={() => onShare()} onNext={() => onNext()} />
-				<View
-					style={[
-						layout.justifyCenter,
-						layout.itemsCenter,
-						gutters.marginTop_80,
-					]}
-				>
+				<View style={components.mainContainer}>
 					<View style={[layout.relative, components.circle250]} />
 
 					<View style={[layout.absolute, gutters.paddingTop_80]}>

@@ -16,7 +16,7 @@ type DatePickerMessages = 'endDate' | 'agendaDate';
 function InputDate({ date, setDate, message }: InputDateProps) {
 	const { t } = useTranslation(['common']);
 	const [show, setShow] = useState(false);
-	const { gutters, components } = useTheme();
+	const { components, layout } = useTheme();
 	const onChange = (event: DateTimePickerEvent, selectedDate?: Date) => {
 		if (selectedDate) {
 			if (date) {
@@ -36,7 +36,7 @@ function InputDate({ date, setDate, message }: InputDateProps) {
 	};
 
 	return (
-		<View>
+		<View style={layout.fullWidth}>
 			{show && (
 				<DateTimePicker
 					testID="dateTimePicker"
@@ -47,7 +47,7 @@ function InputDate({ date, setDate, message }: InputDateProps) {
 				/>
 			)}
 			<TouchableOpacity onPress={() => setShow(true)}>
-				<Text style={[components.textInputRounded, gutters.padding_12]}>
+				<Text style={components.textInputRounded}>
 					{t(`common:picker.${message}`)}{' '}
 					{date ? date.toLocaleDateString() : t('common:picker.enterDate')}
 				</Text>

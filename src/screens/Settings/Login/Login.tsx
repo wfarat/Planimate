@@ -42,7 +42,7 @@ function Login() {
 							<TextInputRounded
 								onChangeText={setPassword}
 								value={password}
-								secure
+								secureTextEntry
 								text="password"
 							/>
 						</View>

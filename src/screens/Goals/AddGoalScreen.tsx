@@ -25,6 +25,7 @@ function AddGoalScreen({ navigation }: RootScreenProps<'AddGoalScreen'>) {
 					<TextInputRounded
 						onChangeText={setDescription}
 						value={description}
+						multiline
 						text="description"
 					/>
 					<InputDate date={dueDate} setDate={setDueDate} message="endDate" />

@@ -52,13 +52,13 @@ function Register() {
 					<TextInputRounded
 						onChangeText={setPassword}
 						value={password}
-						secure
+						secureTextEntry
 						text="password"
 					/>
 					<TextInputRounded
 						onChangeText={setRepeat}
 						value={repeat}
-						secure
+						secureTextEntry
 						text="repeat"
 					/>
 					{isPending ? (
