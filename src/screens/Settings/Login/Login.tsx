@@ -31,40 +31,38 @@ function Login() {
 	return (
 		<SafeScreen>
 			<View style={components.mainContainer}>
-				<View style={components.inputContainer}>
-					{!isSuccess && (
-						<View style={layout.fullWidth}>
-							<TextInputRounded
-								onChangeText={setUsername}
-								value={username}
-								text="username"
-							/>
-							<TextInputRounded
-								onChangeText={setPassword}
-								value={password}
-								secureTextEntry
-								text="password"
-							/>
-						</View>
-					)}
-					{isPending ? (
-						<ActivityIndicator />
-					) : (
-						<GreenRoundedButton handlePress={loginUser} text="login" />
-					)}
-				</View>
-				<View>
-					{isSuccess && (
-						<View>
-							<Text>Login successful!</Text>
-						</View>
-					)}
-					{error && (
-						<View>
-							<Text>Error: {error.message}</Text>
-						</View>
-					)}
-				</View>
+				{!isSuccess && (
+					<View style={layout.fullWidth}>
+						<TextInputRounded
+							onChangeText={setUsername}
+							value={username}
+							text="username"
+						/>
+						<TextInputRounded
+							onChangeText={setPassword}
+							value={password}
+							secureTextEntry
+							text="password"
+						/>
+					</View>
+				)}
+				{isPending ? (
+					<ActivityIndicator />
+				) : (
+					<GreenRoundedButton handlePress={loginUser} text="login" />
+				)}
+			</View>
+			<View>
+				{isSuccess && (
+					<View>
+						<Text>Login successful!</Text>
+					</View>
+				)}
+				{error && (
+					<View>
+						<Text>Error: {error.message}</Text>
+					</View>
+				)}
 			</View>
 		</SafeScreen>
 	);

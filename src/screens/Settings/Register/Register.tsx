@@ -38,52 +38,46 @@ function Register() {
 	return (
 		<SafeScreen>
 			<View style={components.mainContainer}>
-				<View style={components.inputContainer}>
-					<TextInputRounded
-						onChangeText={setEmail}
-						value={email}
-						text="email"
-					/>
-					<TextInputRounded
-						onChangeText={setUsername}
-						value={username}
-						text="username"
-					/>
-					<TextInputRounded
-						onChangeText={setPassword}
-						value={password}
-						secureTextEntry
-						text="password"
-					/>
-					<TextInputRounded
-						onChangeText={setRepeat}
-						value={repeat}
-						secureTextEntry
-						text="repeat"
-					/>
-					{isPending ? (
-						<ActivityIndicator />
-					) : (
-						<GreenRoundedButton handlePress={addUser} text="register" />
-					)}
-				</View>
-				<View>
-					{mismatch && (
-						<Text style={components.errorText}>
-							{t('register:passwordMismatch')}
-						</Text>
-					)}
-					{isSuccess && (
-						<View>
-							<Text>{data?.message}!</Text>
-						</View>
-					)}
-					{error && (
-						<View>
-							<Text>Error: {error.message}</Text>
-						</View>
-					)}
-				</View>
+				<TextInputRounded onChangeText={setEmail} value={email} text="email" />
+				<TextInputRounded
+					onChangeText={setUsername}
+					value={username}
+					text="username"
+				/>
+				<TextInputRounded
+					onChangeText={setPassword}
+					value={password}
+					secureTextEntry
+					text="password"
+				/>
+				<TextInputRounded
+					onChangeText={setRepeat}
+					value={repeat}
+					secureTextEntry
+					text="repeat"
+				/>
+				{isPending ? (
+					<ActivityIndicator />
+				) : (
+					<GreenRoundedButton handlePress={addUser} text="register" />
+				)}
+			</View>
+			<View>
+				{mismatch && (
+					<Text style={components.errorText}>
+						{t('register:passwordMismatch')}
+					</Text>
+				)}
+				{isSuccess && (
+					<View>
+						<Text>{data?.message}!</Text>
+					</View>
+				)}
+				{error && (
+					<View>
+						<Text>Error: {error.message}</Text>
+					</View>
+				)}
 			</View>
 		</SafeScreen>
 	);

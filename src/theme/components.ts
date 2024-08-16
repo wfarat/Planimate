@@ -56,13 +56,14 @@ export default ({
 		mainContainer: {
 			...layout.justifyCenter,
 			...layout.itemsCenter,
-			...gutters.marginTop_80,
-			...gutters.padding_16,
-		},
-		inputContainer: {
-			...layout.itemsCenter,
 			...layout.fullWidth,
-			...gutters.padding_16,
+			...gutters.marginTop_80,
+			...gutters.padding_32,
+		},
+		header: {
+			...fonts.size_24,
+			...fonts.gray200,
+			...gutters.marginBottom_12,
 		},
 	} as const satisfies AllStyle;
 };

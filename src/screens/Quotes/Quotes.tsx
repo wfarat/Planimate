@@ -57,7 +57,7 @@ function Quotes() {
 				</View>
 
 				<View style={[gutters.paddingHorizontal_32, gutters.marginTop_120]}>
-					<Text style={[fonts.size_16, fonts.gray200, gutters.marginBottom_40]}>
+					<Text style={[fonts.size_24, fonts.gray200, gutters.marginBottom_40]}>
 						{quote && t(quote)}
 					</Text>
 				</View>

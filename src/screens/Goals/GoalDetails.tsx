@@ -18,7 +18,7 @@ function GoalDetails({ route, navigation }: RootScreenProps<'GoalDetails'>) {
 	const { goal } = route.params;
 	const storage = useStorage();
 	const { t } = useTranslation(['goals']);
-	const { layout, fonts, gutters, borders } = useTheme();
+	const { layout, fonts, gutters, components } = useTheme();
 	const [tasks, setTasks] = useState<Task[]>([]);
 	const [visible, setVisible] = useState(false);
 	const [goalName, setGoalName] = useState(goal.name);
@@ -73,18 +73,9 @@ function GoalDetails({ route, navigation }: RootScreenProps<'GoalDetails'>) {
 				visible={visible}
 				oldName={goal.name}
 			/>
-			<View
-				style={[
-					layout.justifyCenter,
-					layout.itemsCenter,
-					gutters.marginTop_80,
-					gutters.padding_32,
-				]}
-			>
-				<Text style={[fonts.size_24, fonts.gray200]}>{goalName}</Text>
-				<Text style={[fonts.size_16, fonts.gray200, gutters.marginTop_12]}>
-					{goalDescription}
-				</Text>
+			<View style={components.mainContainer}>
+				<Text style={components.header}>{goalName}</Text>
+				<Text style={[fonts.size_16, fonts.gray200]}>{goalDescription}</Text>
 				<Text style={[fonts.size_16, fonts.gray400, gutters.marginTop_16]}>
 					{t('goals:tasksLeft')}: {tasks.filter(task => !task.completed).length}
 					/{tasks.length}

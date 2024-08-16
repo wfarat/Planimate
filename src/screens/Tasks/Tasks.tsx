@@ -98,18 +98,14 @@ function Tasks({ route, navigation }: RootScreenProps<'Tasks'>) {
 			<View style={components.mainContainer}>
 				<Text style={[fonts.size_24, fonts.gray200]}>{goal.name}</Text>
 				{task && <Text style={[fonts.size_24, fonts.gray200]}>{taskName}</Text>}
-				<View
-					style={[layout.itemsCenter, layout.fullWidth, gutters.padding_16]}
-				>
-					<GreenRoundedButton handlePress={handlePress} text="addTask" />
-					<View style={[gutters.marginTop_16, layout.fullWidth]}>
-						<TasksList
-							tasks={tasks}
-							navigation={navigation}
-							route={route}
-							setTasks={handleSetTasks}
-						/>
-					</View>
+				<GreenRoundedButton handlePress={handlePress} text="addTask" />
+				<View style={[gutters.marginTop_16, layout.fullWidth]}>
+					<TasksList
+						tasks={tasks}
+						navigation={navigation}
+						route={route}
+						setTasks={handleSetTasks}
+					/>
 				</View>
 			</View>
 		</SafeScreen>

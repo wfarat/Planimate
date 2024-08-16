@@ -20,17 +20,15 @@ function AddGoalScreen({ navigation }: RootScreenProps<'AddGoalScreen'>) {
 	return (
 		<SafeScreen>
 			<View style={components.mainContainer}>
-				<View style={components.inputContainer}>
-					<TextInputRounded onChangeText={setName} value={name} text="title" />
-					<TextInputRounded
-						onChangeText={setDescription}
-						value={description}
-						multiline
-						text="description"
-					/>
-					<InputDate date={dueDate} setDate={setDueDate} message="endDate" />
-					<GreenRoundedButton handlePress={handleAddGoal} text="addGoal" />
-				</View>
+				<TextInputRounded onChangeText={setName} value={name} text="title" />
+				<TextInputRounded
+					onChangeText={setDescription}
+					value={description}
+					multiline
+					text="description"
+				/>
+				<InputDate date={dueDate} setDate={setDueDate} message="endDate" />
+				<GreenRoundedButton handlePress={handleAddGoal} text="addGoal" />
 			</View>
 		</SafeScreen>
 	);
