@@ -4,8 +4,6 @@ import { SafeScreen } from '@/components/template';
 import { useTheme } from '@/theme';
 import { GreenRoundedButton, TextInputRounded } from '@/components/atoms';
 import { useEffect, useState } from 'react';
-import SendImage from '@/theme/assets/images/send.png';
-import { isImageSourcePropType } from '@/types/guards/image';
 import { useStorage } from '@/storage/StorageContext';
 
 function Login() {
@@ -25,9 +23,7 @@ function Login() {
 	useEffect(() => {
 		if (data?.access_token) storage.set('token', data.access_token);
 	}, [isSuccess]);
-	if (!isImageSourcePropType(SendImage)) {
-		throw new Error('Image source is not valid');
-	}
+
 	return (
 		<SafeScreen>
 			<View style={components.mainContainer}>

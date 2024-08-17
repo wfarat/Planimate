@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next';
 import { SafeScreen } from '@/components/template';
 import { useTheme } from '@/theme';
 import { useEffect, useState } from 'react';
-import SendImage from '@/theme/assets/images/send.png';
 import { resetStates } from '@/helpers/utils/resetStates';
 import { isImageSourcePropType } from '@/types/guards/image';
 import { GreenRoundedButton, TextInputRounded } from '@/components/atoms';
@@ -32,9 +31,6 @@ function Register() {
 		}
 	}, [isSuccess]);
 
-	if (!isImageSourcePropType(SendImage)) {
-		throw new Error('Image source is not valid');
-	}
 	return (
 		<SafeScreen>
 			<View style={components.mainContainer}>

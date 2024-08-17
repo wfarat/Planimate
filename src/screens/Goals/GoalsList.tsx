@@ -2,9 +2,7 @@ import { View, ListRenderItem, FlatList, TouchableOpacity } from 'react-native';
 
 import { useEffect, useState } from 'react';
 import { useStorage } from '@/storage/StorageContext';
-import SendImage from '@/theme/assets/images/send.png';
 import { Goal } from '@/types/schemas';
-import { isImageSourcePropType } from '@/types/guards/image';
 import { RootScreenProps } from '@/types/navigation';
 import { ItemCard } from '@/components/molecules';
 import { useIsFocused } from '@react-navigation/native';
@@ -20,9 +18,6 @@ function GoalsList({ navigation }: RootScreenProps<'Goals'>) {
 		} else setGoals([]);
 	}, [isFocused]);
 
-	if (!isImageSourcePropType(SendImage)) {
-		throw new Error('Image source is not valid');
-	}
 	const renderItem: ListRenderItem<Goal> = ({ item }: { item: Goal }) => (
 		<TouchableOpacity
 			key={item.id}

@@ -1,14 +1,9 @@
 import { View, TouchableOpacity } from 'react-native';
 import i18next from 'i18next';
 
-import { GreenRoundedButton, ImageVariant, Switch } from '@/components/atoms';
+import { GreenRoundedButton, Switch } from '@/components/atoms';
 import { SafeScreen } from '@/components/template';
 import { useTheme } from '@/theme';
-
-import { isImageSourcePropType } from '@/types/guards/image';
-
-import ColorsWatchImage from '@/theme/assets/images/colorswatch.png';
-import TranslateImage from '@/theme/assets/images/translate.png';
 
 import type { RootScreenProps } from '@/types/navigation';
 
@@ -23,13 +18,6 @@ function Settings({ navigation }: RootScreenProps<'Settings'>) {
 	const onChangeLanguage = () => {
 		void i18next.changeLanguage(i18next.language === 'en' ? 'pl' : 'en');
 	};
-
-	if (
-		!isImageSourcePropType(ColorsWatchImage) ||
-		!isImageSourcePropType(TranslateImage)
-	) {
-		throw new Error('Image source is not valid');
-	}
 
 	return (
 		<SafeScreen>
