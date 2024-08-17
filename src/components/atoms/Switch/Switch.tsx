@@ -1,38 +1,38 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 
-function SwitchComponent() {
-	const [isLeftOn, setIsLeftOn] = useState(true);
-
+type Props = {
+	leftText: string;
+	rightText: string;
+	handleChange: () => void;
+	startPosition: boolean;
+};
+function Switch({ leftText, rightText, handleChange, startPosition }: Props) {
+	const [isLeftOn, setIsLeftOn] = useState(startPosition);
+	const handlePress = () => {
+		setIsLeftOn(!isLeftOn);
+		handleChange();
+	};
 	return (
-		<View style={styles.container}>
-			<TouchableOpacity
-				style={styles.switchContainer}
-				onPress={() => setIsLeftOn(!isLeftOn)}
-			>
-				<View style={[styles.switch, isLeftOn && styles.switchOn]}>
-					<Text style={styles.text}>Left</Text>
-				</View>
-				<View style={[styles.switch, !isLeftOn && styles.switchOn]}>
-					<Text style={styles.text}>Right</Text>
-				</View>
-			</TouchableOpacity>
-		</View>
+		<TouchableOpacity style={styles.switchContainer} onPress={handlePress}>
+			<View style={[styles.switch, isLeftOn && styles.switchOn]}>
+				<Text style={styles.text}>{leftText}</Text>
+			</View>
+			<View style={[styles.switch, !isLeftOn && styles.switchOn]}>
+				<Text style={styles.text}>{rightText}</Text>
+			</View>
+		</TouchableOpacity>
 	);
 }
 
 const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		justifyContent: 'center',
-		alignItems: 'center',
-	},
 	switchContainer: {
 		flexDirection: 'row',
 		borderWidth: 2,
 		borderColor: '#007AFF',
 		borderRadius: 25,
 		overflow: 'hidden',
+		margin: 16,
 		width: 200,
 		height: 50,
 	},
@@ -51,4 +51,4 @@ const styles = StyleSheet.create({
 	},
 });
 
-export default SwitchComponent;
+export default Switch;

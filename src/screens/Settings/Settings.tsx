@@ -1,7 +1,7 @@
 import { View, TouchableOpacity } from 'react-native';
 import i18next from 'i18next';
 
-import { GreenRoundedButton, ImageVariant } from '@/components/atoms';
+import { GreenRoundedButton, ImageVariant, Switch } from '@/components/atoms';
 import { SafeScreen } from '@/components/template';
 import { useTheme } from '@/theme';
 
@@ -20,8 +20,8 @@ function Settings({ navigation }: RootScreenProps<'Settings'>) {
 		changeTheme(variant === 'default' ? 'dark' : 'default');
 	};
 
-	const onChangeLanguage = (lang: 'pl' | 'en') => {
-		void i18next.changeLanguage(lang);
+	const onChangeLanguage = () => {
+		void i18next.changeLanguage(i18next.language === 'en' ? 'pl' : 'en');
 	};
 
 	if (
@@ -44,37 +44,20 @@ function Settings({ navigation }: RootScreenProps<'Settings'>) {
 				/>
 			</View>
 			<View
-				style={[
-					layout.row,
-					layout.justifyBetween,
-					layout.fullWidth,
-					gutters.marginTop_16,
-					gutters.padding_32,
-				]}
+				style={[layout.justifyCenter, layout.itemsCenter, gutters.padding_32]}
 			>
-				<TouchableOpacity
-					testID="change-theme-button"
-					style={[components.buttonCircle, gutters.marginBottom_16]}
-					onPress={() => onChangeTheme()}
-				>
-					<ImageVariant
-						source={ColorsWatchImage}
-						style={{ tintColor: colors.purple500 }}
-					/>
-				</TouchableOpacity>
-
-				<TouchableOpacity
-					testID="change-language-button"
-					style={[components.buttonCircle, gutters.marginBottom_16]}
-					onPress={() =>
-						onChangeLanguage(i18next.language === 'pl' ? 'en' : 'pl')
-					}
-				>
-					<ImageVariant
-						source={TranslateImage}
-						style={{ tintColor: colors.purple500 }}
-					/>
-				</TouchableOpacity>
+				<Switch
+					leftText="light"
+					rightText="dark"
+					handleChange={onChangeTheme}
+					startPosition={variant === 'default'}
+				/>
+				<Switch
+					leftText="PL"
+					rightText="EN"
+					handleChange={onChangeLanguage}
+					startPosition={i18next.language === 'pl'}
+				/>
 			</View>
 		</SafeScreen>
 	);
