@@ -65,5 +65,10 @@ export default ({
 			...fonts.gray200,
 			...gutters.marginBottom_12,
 		},
+		section: {
+			...fonts.size_16,
+			...fonts.gray200,
+			...backgrounds.purple100,
+		},
 	} as const satisfies AllStyle;
 };

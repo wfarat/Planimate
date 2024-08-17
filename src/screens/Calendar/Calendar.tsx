@@ -1,5 +1,5 @@
 import { useRef, useCallback, useState, useEffect } from 'react';
-import { StyleSheet } from 'react-native';
+
 import {
 	ExpandableCalendar,
 	AgendaList,
@@ -9,11 +9,7 @@ import {
 } from 'react-native-calendars';
 import { useAgendaItems } from '@/helpers/hooks/useAgendaItems';
 import AgendaItem from '@/components/molecules/AgendaItem/AgendaItem';
-import {
-	getTheme,
-	themeColor,
-	lightThemeColor,
-} from '@/helpers/utils/calendarTheme';
+import { getTheme } from '@/helpers/utils/calendarTheme';
 import PreviousArrow from '@/theme/assets/images/previousArrow.png';
 import NextArrow from '@/theme/assets/images/nextArrow.png';
 import PL from '@/translations/pl/calendar';
@@ -22,6 +18,7 @@ import i18next from 'i18next';
 import { MarkedDates } from 'react-native-calendars/src/types';
 import { AgendaItemType } from '@/types/schemas';
 import { useIsFocused } from '@react-navigation/native';
+import { useTheme } from '@/theme';
 import {
 	AgendaItemData,
 	RenderAgendaItemProps,
@@ -42,13 +39,9 @@ function Calendar({ weekView }: CalendarProps) {
 		completeAgendaItem,
 	} = useAgendaItems();
 	const theme = useRef(getTheme());
-
-	const todayBtnTheme = useRef({
-		todayButtonTextColor: themeColor,
-	});
 	const [markedDates, setMarkedDates] = useState<MarkedDates>();
 	const [agendaItems, setAgendaItems] = useState<AgendaItemType[]>([]);
-
+	const { components } = useTheme();
 	useEffect(() => {
 		const newItems = loadStoredItems();
 		if (newItems) {
@@ -99,14 +92,7 @@ function Calendar({ weekView }: CalendarProps) {
 	const today = new Date().toISOString().split('T')[0];
 	const calendarKey = `calendar-${languageKey}`;
 	return (
-		<CalendarProvider
-			key={calendarKey}
-			date={today}
-			showTodayButton
-			// disabledOpacity={0.6}
-			theme={todayBtnTheme.current}
-			// todayBottomMargin={16}
-		>
+		<CalendarProvider key={calendarKey} date={today}>
 			{weekView ? (
 				<WeekCalendar
 					testID={testIDs.weekCalendar.CONTAINER}
@@ -138,25 +124,10 @@ function Calendar({ weekView }: CalendarProps) {
 				sections={agendaItems}
 				renderItem={renderItem}
 				// scrollToNextEvent
-				sectionStyle={styles.section}
+				sectionStyle={components.section}
 				// dayFormat={'yyyy-MM-d'}
 			/>
 		</CalendarProvider>
 	);
 }
 export default Calendar;
-
-const styles = StyleSheet.create({
-	calendar: {
-		paddingLeft: 20,
-		paddingRight: 20,
-	},
-	header: {
-		backgroundColor: 'lightgrey',
-	},
-	section: {
-		backgroundColor: lightThemeColor,
-		color: 'grey',
-		textTransform: 'capitalize',
-	},
-});
