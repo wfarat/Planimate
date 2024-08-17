@@ -16,7 +16,8 @@
   "edit": {
     "name": "Wprowadź nową nazwę",
     "description": "Wprowadź nowy opis",
-    "edit": "Edytuj"
+    "edit": "Edytuj",
+    "editTime": "Edit time and duration"
   },
   "abr": {
     "hour": "h",

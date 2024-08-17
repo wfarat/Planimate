@@ -18,3 +18,9 @@ export function getStartOfDay(date: Date): Date {
 	newDate.setHours(0, 0, 0, 0);
 	return newDate;
 }
+
+export function getMinutesAfterMidnight(minutes: number) {
+	const newDate = getStartOfDay(new Date());
+	newDate.setMinutes(minutes);
+	return newDate;
+}
