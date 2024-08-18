@@ -13,7 +13,6 @@ function InputTime({ message, setTime, setDuration, time }: InputTimeProps) {
 	const [show, setShow] = useState(false);
 	const [date, setDate] = useState<Date>();
 	const { layout, components } = useTheme();
-	const display = time || date;
 	const onChange = (event: DateTimePickerEvent, selectedDate?: Date) => {
 		if (selectedDate) {
 			setShow(false);
@@ -49,7 +48,7 @@ function InputTime({ message, setTime, setDuration, time }: InputTimeProps) {
 			<TouchableOpacity onPress={() => setShow(true)}>
 				<Text style={components.textInputRounded}>
 					{t(`common:picker.${message}`)}{' '}
-					{display ? hoursAndMinutes(display) : t('common:picker.enterTime')}
+					{date ? hoursAndMinutes(date) : t('common:picker.enterTime')}
 				</Text>
 			</TouchableOpacity>
 		</View>

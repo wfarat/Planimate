@@ -4,7 +4,6 @@ import {
 	ExpandableCalendar,
 	AgendaList,
 	CalendarProvider,
-	WeekCalendar,
 	LocaleConfig,
 } from 'react-native-calendars';
 import { useAgendaItems } from '@/helpers/hooks/useAgendaItems';
@@ -23,15 +22,17 @@ import {
 	AgendaItemData,
 	RenderAgendaItemProps,
 } from '@/types/schemas/agendaItemType';
-import { CalendarProps } from '@/types/props/calendarProps';
 import { isImageSourcePropType } from '@/types/guards/image';
+import { GreenRoundedButton } from '@/components/atoms';
+import { View } from 'react-native';
+import { RootScreenProps } from '@/types/navigation';
 import testIDs from './testIDs';
 
 LocaleConfig.locales.pl = PL;
 LocaleConfig.locales.en = EN;
 LocaleConfig.defaultLocale = i18next.language;
 
-function Calendar({ weekView }: CalendarProps) {
+function Calendar({ navigation }: RootScreenProps<'Calendar'>) {
 	const {
 		getMarkedDates,
 		deleteAgendaItem,
@@ -41,7 +42,7 @@ function Calendar({ weekView }: CalendarProps) {
 	const theme = useRef(getTheme());
 	const [markedDates, setMarkedDates] = useState<MarkedDates>();
 	const [agendaItems, setAgendaItems] = useState<AgendaItemType[]>([]);
-	const { components } = useTheme();
+	const { components, layout, gutters } = useTheme();
 	useEffect(() => {
 		const newItems = loadStoredItems();
 		if (newItems) {
@@ -91,35 +92,30 @@ function Calendar({ weekView }: CalendarProps) {
 	}
 	const today = new Date().toISOString().split('T')[0];
 	const calendarKey = `calendar-${languageKey}`;
+	const handlePress = () => {
+		navigation.push('FillAgendaWeek');
+	};
 	return (
 		<CalendarProvider key={calendarKey} date={today}>
-			{weekView ? (
-				<WeekCalendar
-					testID={testIDs.weekCalendar.CONTAINER}
-					firstDay={1}
-					markedDates={markedDates}
-				/>
-			) : (
-				<ExpandableCalendar
-					testID={testIDs.expandableCalendar.CONTAINER}
-					// horizontal={false}
-					// hideArrows
-					leftArrowImageSource={PreviousArrow}
-					rightArrowImageSource={NextArrow}
-					// disablePan
-					// hideKnob
-					// initialPosition={ExpandableCalendar.positions.OPEN}
-					// calendarStyle={styles.calendar}
-					// headerStyle={styles.header} // for horizontal only
-					// disableWeekScroll
-					theme={theme.current}
-					// disableAllTouchEventsForDisabledDays
-					firstDay={1}
-					markedDates={markedDates}
-					// animateScroll
-					// closeOnDayPress={false}
-				/>
-			)}
+			<ExpandableCalendar
+				testID={testIDs.expandableCalendar.CONTAINER}
+				// horizontal={false}
+				// hideArrows
+				leftArrowImageSource={PreviousArrow}
+				rightArrowImageSource={NextArrow}
+				// disablePan
+				// hideKnob
+				// initialPosition={ExpandableCalendar.positions.OPEN}
+				// calendarStyle={styles.calendar}
+				// headerStyle={styles.header} // for horizontal only
+				// disableWeekScroll
+				theme={theme.current}
+				// disableAllTouchEventsForDisabledDays
+				firstDay={1}
+				markedDates={markedDates}
+				// animateScroll
+				// closeOnDayPress={false}
+			/>
 			<AgendaList
 				sections={agendaItems}
 				renderItem={renderItem}
@@ -127,6 +123,16 @@ function Calendar({ weekView }: CalendarProps) {
 				sectionStyle={components.section}
 				// dayFormat={'yyyy-MM-d'}
 			/>
+			<View
+				style={[
+					layout.absolute,
+					layout.bottom0,
+					gutters.marginLeft_60,
+					gutters.marginRight_12,
+				]}
+			>
+				<GreenRoundedButton handlePress={handlePress} text="fillWeek" />
+			</View>
 		</CalendarProvider>
 	);
 }

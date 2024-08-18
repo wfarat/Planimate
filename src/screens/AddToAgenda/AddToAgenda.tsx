@@ -15,6 +15,7 @@ function AddToAgenda({ route, navigation }: RootScreenProps<'AddToAgenda'>) {
 	const { components } = useTheme();
 	const { t } = useTranslation(['agenda']);
 	const [date, setDate] = useState(new Date());
+	const [time, setTime] = useState<Date>();
 	const storage = useStorage();
 	const [duration, setDuration] = useState(0);
 	const { addAgendaItem } = useAgendaItems();
@@ -27,7 +28,7 @@ function AddToAgenda({ route, navigation }: RootScreenProps<'AddToAgenda'>) {
 			title,
 			data: [
 				{
-					date,
+					time,
 					duration,
 					title: task.name,
 					id: id + 1,
@@ -49,7 +50,7 @@ function AddToAgenda({ route, navigation }: RootScreenProps<'AddToAgenda'>) {
 			<View style={components.mainContainer}>
 				<Text style={components.header}>{t('agenda:newItem')}</Text>
 				<InputDate date={date} setDate={setDate} message="agendaDate" />
-				<InputTime time={date} setTime={setDate} message="time" />
+				<InputTime time={date} setTime={setTime} message="time" />
 				<InputTime setDuration={setDuration} message="duration" />
 				<GreenRoundedButton handlePress={addToAgenda} text="addAgendaItem" />
 			</View>

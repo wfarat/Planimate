@@ -8,6 +8,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import alertAction from '@/helpers/utils/alertAction';
 import { useTheme } from '@/theme';
 import { SetTimeDialog } from '@/components/molecules';
+import { useTranslation } from 'react-i18next';
 
 const styles = StyleSheet.create({
 	itemButtonContainer: {
@@ -35,23 +36,48 @@ interface ItemProps {
 
 function AgendaItem(props: ItemProps) {
 	const { item, handleDelete, handleComplete } = props;
-	const [duration, setDuration] = useState(item.duration);
 	const { backgrounds, fonts, layout, gutters, borders } = useTheme();
-	const [date, setDate] = useState(new Date(item.date));
+	const { t } = useTranslation(['common']);
+	const [duration, setDuration] = useState(item.duration);
+	const [date, setDate] = useState<Date | undefined>(
+		item.time ? new Date(item.time) : undefined,
+	);
 	const [showDialog, setShowDialog] = useState(false);
 	const itemPressed = useCallback(() => {
 		setShowDialog(true);
 	}, []);
-	const changeTime = (newDate: Date, newDuration: number) => {
+	const changeTime = (newDuration: number, newDate?: Date) => {
 		setDate(newDate);
 		setDuration(newDuration);
 		setShowDialog(false);
 	};
-	const startTime = hoursAndMinutes(date);
-	const timeInMillis = date.getTime();
-	const newTimeInMillis = timeInMillis + duration * 60000;
-	const newDate = new Date(newTimeInMillis);
-	const endTime = hoursAndMinutes(newDate);
+
+	const renderTime = () => {
+		if (date) {
+			const startTime = hoursAndMinutes(date);
+			const timeInMillis = date.getTime();
+			const newTimeInMillis = timeInMillis + duration * 60000;
+			const newDate = new Date(newTimeInMillis);
+			const endTime = hoursAndMinutes(newDate);
+			return (
+				<View>
+					<Text style={fonts.gray200}>{startTime}</Text>
+					{startTime !== endTime && (
+						<Text style={fonts.gray200}>{endTime}</Text>
+					)}
+				</View>
+			);
+		}
+		const hours = Math.floor(duration / 60);
+		const minutes = duration % 60;
+		return (
+			<Text style={fonts.gray200}>
+				{hours}
+				{t('common:abr.hour')} {minutes}
+				{t('common:abr.min')}
+			</Text>
+		);
+	};
 	if (isEmpty(item))
 		return (
 			<View style={styles.emptyItem}>
@@ -79,12 +105,7 @@ function AgendaItem(props: ItemProps) {
 				]}
 				testID={testIDs.agenda.ITEM}
 			>
-				<View>
-					<Text style={fonts.gray200}>{startTime}</Text>
-					{startTime !== endTime && (
-						<Text style={fonts.gray200}>{endTime}</Text>
-					)}
-				</View>
+				{renderTime()}
 				<Text
 					style={[
 						fonts.gray200,

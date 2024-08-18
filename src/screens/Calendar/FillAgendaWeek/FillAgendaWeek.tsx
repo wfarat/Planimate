@@ -21,13 +21,13 @@ function FillAgendaWeek() {
 	const [weekFreeTime, setWeekFreeTime] = useState([0, 0, 0, 0, 0, 0, 0]);
 
 	const daysOfWeek = [
+		'Sunday',
 		'Monday',
 		'Tuesday',
 		'Wednesday',
 		'Thursday',
 		'Friday',
 		'Saturday',
-		'Sunday',
 	];
 
 	const handleSetDuration = (index: number, duration: number) => {
@@ -53,10 +53,7 @@ function FillAgendaWeek() {
 					/>
 				))}
 
-				<GreenRoundedButton
-					handlePress={addAgendaItems}
-					text={t('agenda:addItems')}
-				/>
+				<GreenRoundedButton handlePress={addAgendaItems} text="fillWeek" />
 			</View>
 		</SafeScreen>
 	);

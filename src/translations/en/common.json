@@ -44,7 +44,8 @@
     "goToTasks": "Go to Tasks List",
     "register": "Create an account",
     "login": "Sign in",
-    "addAgendaItem": "Add to agenda"
+    "addAgendaItem": "Add to agenda",
+    "fillWeek": "Fill week"
   },
   "textInput": {
     "email": "E-mail address",

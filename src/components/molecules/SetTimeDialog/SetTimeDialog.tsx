@@ -5,24 +5,24 @@ import InputTime from '@/components/molecules/InputTime/InputTime';
 import { getMinutesAfterMidnight } from '@/helpers/utils/formatTime';
 
 type EditDialogProps = {
-	onEdit: (newDate: Date, newDuration: number) => void;
+	onEdit: (newDuration: number, newDate?: Date) => void;
 	onCancel: () => void;
 	visible: boolean;
-	oldDate: Date;
+	oldDate?: Date;
 	oldDuration: number;
 };
 function SetTimeDialog({
 	onEdit,
 	onCancel,
 	visible,
-	oldDate,
+	oldDate = new Date(),
 	oldDuration,
 }: EditDialogProps) {
 	const { t } = useTranslation(['common']);
 	const [date, setDate] = useState(oldDate);
 	const [duration, setDuration] = useState(oldDuration);
 	const handleEdit = () => {
-		onEdit(date, duration);
+		onEdit(duration, date);
 	};
 
 	return (
