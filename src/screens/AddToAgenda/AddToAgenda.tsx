@@ -10,10 +10,7 @@ import { useStorage } from '@/storage/StorageContext';
 import { InputDate, InputTime } from '@/components/molecules';
 import { GreenRoundedButton } from '@/components/atoms';
 
-function AddToAgendaScreen({
-	route,
-	navigation,
-}: RootScreenProps<'AddToAgendaScreen'>) {
+function AddToAgenda({ route, navigation }: RootScreenProps<'AddToAgenda'>) {
 	const { task } = route.params;
 	const { components } = useTheme();
 	const { t } = useTranslation(['agenda']);
@@ -60,4 +57,4 @@ function AddToAgendaScreen({
 	);
 }
 
-export default AddToAgendaScreen;
+export default AddToAgenda;

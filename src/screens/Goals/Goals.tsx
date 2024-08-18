@@ -1,18 +1,17 @@
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text } from 'react-native';
 
 import { SafeScreen } from '@/components/template';
 import { useTheme } from '@/theme';
 import GoalsList from '@/screens/Goals/GoalsList';
 import { RootScreenProps } from '@/types/navigation';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useTranslation } from 'react-i18next';
 import { GreenRoundedButton } from '@/components/atoms';
 
 function Goals({ navigation, route }: RootScreenProps<'Goals'>) {
-	const { fonts, borders, colors, layout, gutters, components } = useTheme();
+	const { fonts, layout, gutters, components } = useTheme();
 	const { t } = useTranslation(['goals']);
 	const handlePress = () => {
-		navigation.push('AddGoalScreen');
+		navigation.push('AddGoal');
 	};
 	return (
 		<SafeScreen>

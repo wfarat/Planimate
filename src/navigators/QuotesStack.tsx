@@ -1,11 +1,11 @@
-import { Calendar, Quotes } from '@/screens';
+import { Quotes } from '@/screens';
 import { createStackNavigator } from '@react-navigation/stack';
 import type { RootStackParamList } from '@/types/navigation';
 import { useTheme } from '@/theme';
 
 const Stack = createStackNavigator<RootStackParamList>();
 
-function MainStackScreen() {
+function QuotesStack() {
 	const { variant } = useTheme();
 	return (
 		<Stack.Navigator key={variant} screenOptions={{ headerShown: false }}>
@@ -14,4 +14,4 @@ function MainStackScreen() {
 	);
 }
 
-export default MainStackScreen;
+export default QuotesStack;

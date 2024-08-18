@@ -15,7 +15,7 @@ type DayOfWeek =
 	| 'Friday'
 	| 'Saturday'
 	| 'Sunday';
-function FillAgendaWeekScreen() {
+function FillAgendaWeek() {
 	const { components } = useTheme();
 	const { t } = useTranslation(['agenda']);
 	const [weekFreeTime, setWeekFreeTime] = useState([0, 0, 0, 0, 0, 0, 0]);
@@ -62,4 +62,4 @@ function FillAgendaWeekScreen() {
 	);
 }
 
-export default FillAgendaWeekScreen;
+export default FillAgendaWeek;

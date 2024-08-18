@@ -1,9 +1,9 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import GoalsStackScreen from '@/navigators/GoalsStackScreen';
-import MainStackScreen from '@/navigators/MainStackScreen';
-import SettingsStackScreen from '@/navigators/SettingsStackScreen';
-import { Calendar } from '@/screens';
+import GoalsStack from '@/navigators/GoalsStack';
+import QuotesStack from '@/navigators/QuotesStack';
+import SettingsStack from '@/navigators/SettingsStack';
+import CalendarStack from '@/navigators/CalendarStack';
 
 const Tab = createBottomTabNavigator();
 
@@ -16,7 +16,7 @@ function Tabs() {
 		>
 			<Tab.Screen
 				name="GoalsStackScreen"
-				component={GoalsStackScreen}
+				component={GoalsStack}
 				options={{
 					tabBarIcon: ({ size, color }) => (
 						<MaterialCommunityIcons name="target" size={size} color={color} />
@@ -26,7 +26,7 @@ function Tabs() {
 			/>
 			<Tab.Screen
 				name="MainStackScreen"
-				component={MainStackScreen}
+				component={QuotesStack}
 				options={{
 					tabBarIcon: ({ size, color }) => (
 						<MaterialCommunityIcons
@@ -40,7 +40,7 @@ function Tabs() {
 			/>
 			<Tab.Screen
 				name="Calendar"
-				component={Calendar}
+				component={CalendarStack}
 				options={{
 					tabBarIcon: ({ size, color }) => (
 						<MaterialCommunityIcons
@@ -54,7 +54,7 @@ function Tabs() {
 			/>
 			<Tab.Screen
 				name="SettingsStackScreen"
-				component={SettingsStackScreen}
+				component={SettingsStack}
 				options={{
 					tabBarIcon: ({ size, color }) => (
 						<MaterialCommunityIcons name="cog" size={size} color={color} />

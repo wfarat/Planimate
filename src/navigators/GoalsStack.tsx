@@ -1,7 +1,7 @@
 import {
-	AddGoalScreen,
-	AddTaskScreen,
-	AddToAgendaScreen,
+	AddGoal,
+	AddTask,
+	AddToAgenda,
 	Goals,
 	Tasks,
 	GoalDetails,
@@ -12,18 +12,18 @@ import { useTheme } from '@/theme';
 
 const Stack = createStackNavigator<RootStackParamList>();
 
-function GoalsStackScreen() {
+function GoalsStack() {
 	const { variant } = useTheme();
 	return (
 		<Stack.Navigator key={variant} screenOptions={{ headerShown: false }}>
 			<Stack.Screen name="Goals" component={Goals} />
 			<Stack.Screen name="Tasks" component={Tasks} />
-			<Stack.Screen name="AddToAgendaScreen" component={AddToAgendaScreen} />
-			<Stack.Screen name="AddGoalScreen" component={AddGoalScreen} />
-			<Stack.Screen name="AddTaskScreen" component={AddTaskScreen} />
+			<Stack.Screen name="AddToAgenda" component={AddToAgenda} />
+			<Stack.Screen name="AddGoal" component={AddGoal} />
+			<Stack.Screen name="AddTask" component={AddTask} />
 			<Stack.Screen name="GoalDetails" component={GoalDetails} />
 		</Stack.Navigator>
 	);
 }
 
-export default GoalsStackScreen;
+export default GoalsStack;

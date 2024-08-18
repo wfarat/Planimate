@@ -7,7 +7,7 @@ import { InputDate } from '@/components/molecules';
 import { useGoalActions } from '@/helpers/hooks/useGoalActions';
 import { GreenRoundedButton, TextInputRounded } from '@/components/atoms';
 
-function AddGoalScreen({ navigation }: RootScreenProps<'AddGoalScreen'>) {
+function AddGoal({ navigation }: RootScreenProps<'AddGoal'>) {
 	const { components } = useTheme();
 	const [name, setName] = useState<string>('');
 	const [description, setDescription] = useState<string>('');
@@ -34,4 +34,4 @@ function AddGoalScreen({ navigation }: RootScreenProps<'AddGoalScreen'>) {
 	);
 }
 
-export default AddGoalScreen;
+export default AddGoal;

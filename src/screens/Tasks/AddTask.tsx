@@ -9,10 +9,7 @@ import { useTaskActions } from '@/helpers/hooks/useTaskActions';
 import { GreenRoundedButton, TextInputRounded } from '@/components/atoms';
 import { useTranslation } from 'react-i18next';
 
-function AddTaskScreen({
-	navigation,
-	route,
-}: RootScreenProps<'AddTaskScreen'>) {
+function AddTask({ navigation, route }: RootScreenProps<'AddTask'>) {
 	const { task, goal, tasks } = route.params;
 	const { fonts, components } = useTheme();
 	const { t } = useTranslation(['goals']);
@@ -47,4 +44,4 @@ function AddTaskScreen({
 	);
 }
 
-export default AddTaskScreen;
+export default AddTask;

@@ -13,9 +13,9 @@ export type RootStackParamList = {
 	Login: undefined;
 	Settings: undefined;
 	Calendar: undefined;
-	AddToAgendaScreen: { task: Task };
-	AddGoalScreen: undefined;
-	AddTaskScreen: {
+	AddToAgenda: { task: Task };
+	AddGoal: undefined;
+	AddTask: {
 		task?: Task;
 		goal: Goal;
 		tasks: Task[];
@@ -23,6 +23,7 @@ export type RootStackParamList = {
 	GoalDetails: {
 		goal: Goal;
 	};
+	FillAgendaWeek: undefined;
 };
 
 export type RootScreenProps<

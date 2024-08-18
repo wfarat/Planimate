@@ -69,10 +69,10 @@ function Tasks({ route, navigation }: RootScreenProps<'Tasks'>) {
 		setVisible(false);
 	};
 	const handleAddToAgenda = () => {
-		if (task) navigation.push('AddToAgendaScreen', { task });
+		if (task) navigation.push('AddToAgenda', { task });
 	};
 	const handlePress = () => {
-		navigation.push('AddTaskScreen', { tasks, task, goal });
+		navigation.push('AddTask', { tasks, task, goal });
 	};
 	const handleSetTasks = (newTasks: Task[]) => {
 		setTasks(newTasks);

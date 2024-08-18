@@ -5,7 +5,7 @@ import { useTheme } from '@/theme';
 
 const Stack = createStackNavigator<RootStackParamList>();
 
-function SettingsStackScreen() {
+function SettingsStack() {
 	const { variant } = useTheme();
 	return (
 		<Stack.Navigator key={variant} screenOptions={{ headerShown: false }}>
@@ -16,4 +16,4 @@ function SettingsStackScreen() {
 	);
 }
 
-export default SettingsStackScreen;
+export default SettingsStack;
