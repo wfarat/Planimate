@@ -29,7 +29,14 @@
     "agendaDate": "Dzień w terminarzu:",
     "duration": "Całkowity czas do ukończenia:",
     "enterTime": "Dotknij by ustawić",
-    "time": "Czas dnia:"
+    "time": "Czas dnia:",
+    "Monday": "Poniedziałek:" ,
+    "Tuesday": "Wtorek:" ,
+    "Wednesday": "Środa:",
+    "Thursday": "Czwartek:",
+    "Friday":  "Piątek:",
+    "Saturday": "Sobota:",
+    "Sunday": "Niedziela:"
   },
   "buttonText": {
     "addTask": "Dodaj Zadanie",

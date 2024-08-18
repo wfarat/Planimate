@@ -4,5 +4,7 @@
   "time": "Select time",
   "selected": "Current selection:",
   "hour": "h",
-  "min": "m"
+  "min": "m",
+  "addItems": "Add Tasks",
+  "fillAgendaWeek": "Fill in free hours:"
 }

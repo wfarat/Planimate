@@ -2,5 +2,7 @@
   "newItem": "Nowa pozycja w terminarzu",
   "date": "Wybierz datę",
   "time": "Wybierz czas",
-  "selected": "Obecnie wybrano:"
+  "selected": "Obecnie wybrano:",
+  "addItems": "Dodaj zadania",
+  "fillAgendaWeek": "Wypełnij wolne godziny:"
 }

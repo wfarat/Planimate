@@ -29,7 +29,14 @@
     "agendaDate": "Day in the agenda:",
     "duration": "Total time to complete:",
     "enterTime": "Press to set",
-    "time": "Time of the day:"
+    "time": "Time of the day:",
+    "Monday": "Monday:" ,
+    "Tuesday": "Tuesday:" ,
+    "Wednesday": "Wednesday:",
+    "Thursday": "Thursday:",
+    "Friday":  "Friday:",
+    "Saturday": "Saturday:",
+    "Sunday": "Sunday:"
   },
   "buttonText": {
     "addTask": "Add Task",
