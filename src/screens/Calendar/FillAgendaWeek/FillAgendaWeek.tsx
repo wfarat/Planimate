@@ -6,6 +6,7 @@ import { useTheme } from '@/theme';
 
 import { InputTime } from '@/components/molecules';
 import { GreenRoundedButton } from '@/components/atoms';
+import { useTaskActions } from '@/helpers/hooks/useTaskActions';
 
 type DayOfWeek =
 	| 'Monday'
@@ -19,7 +20,8 @@ function FillAgendaWeek() {
 	const { components } = useTheme();
 	const { t } = useTranslation(['agenda']);
 	const [weekFreeTime, setWeekFreeTime] = useState([0, 0, 0, 0, 0, 0, 0]);
-
+	const [goalId, setGoalId] = useState(1);
+	const { findImportantTasks } = useTaskActions(goalId);
 	const daysOfWeek = [
 		'Sunday',
 		'Monday',
@@ -37,7 +39,8 @@ function FillAgendaWeek() {
 	};
 
 	const addAgendaItems = () => {
-		// Implement functionality to add agenda items here
+		const totalFreeHours = weekFreeTime.reduce((acc, hours) => acc + hours, 0);
+		const importantTasks = findImportantTasks(totalFreeHours);
 	};
 
 	return (
