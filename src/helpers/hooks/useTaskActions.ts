@@ -89,38 +89,37 @@ export const useTaskActions = (
 		};
 		return traverseTasks(tasks);
 	};
-	const findImportantTasks = (freeHours: number): Task[] => {
+	const findImportantTasks = (freeMinutes: number): Task[] => {
 		const allocatedTaskIds = new Set<number>();
 		const traverseTasks = (list: Task[]): Task | null => {
 			return list.reduce<Task | null>((result, task) => {
 				if (result) return result;
 
-				if (
-					!task.completed &&
-					task.duration &&
-					task.duration.elapsed < task.duration.base &&
-					!allocatedTaskIds.has(task.id)
-				) {
+				if (!task.completed && !allocatedTaskIds.has(task.id)) {
 					const data = storage.getString(`goals.${task.goalId}.${task.id}`);
 					if (data) {
 						const subTasks = JSON.parse(data) as Task[];
 						if (subTasks.length === 0) return task;
 						return traverseTasks(subTasks) || task;
 					}
-					return task;
+
+					if (!task.duration || task.duration.elapsed < task.duration.base) {
+						return task;
+					}
 				}
+
 				return null;
 			}, null);
 		};
 
 		const importantTasks = [];
 		let task = traverseTasks(tasks);
-		let remainingHours = freeHours;
-		while (task && remainingHours > 0) {
+		let remainingMinutes = freeMinutes;
+		while (task && remainingMinutes > 0) {
 			importantTasks.push(task);
 			allocatedTaskIds.add(task.id);
 			if (task.duration)
-				remainingHours -= task.duration.base - task.duration.elapsed;
+				remainingMinutes -= task.duration.base - task.duration.elapsed;
 			task = traverseTasks(tasks);
 		}
 

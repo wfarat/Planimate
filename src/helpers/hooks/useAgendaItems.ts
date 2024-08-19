@@ -34,7 +34,35 @@ export const useAgendaItems = () => {
 				: [...oldItems, newItem];
 		updateItems(updatedItems);
 	};
-
+	const createAgendaItem = (
+		date: Date,
+		task: Task,
+		duration: number,
+		time?: Date,
+	) => {
+		const title = date.toISOString().split('T')[0];
+		const storedId = storage.getNumber('agenda.id');
+		const id = storedId || 0;
+		const newItem: AgendaItemType = {
+			title,
+			data: [
+				{
+					time,
+					duration,
+					title: task.name,
+					id: id + 1,
+					key: title,
+					taskStorageKey: task.taskId
+						? `goals.${task.goalId}.${task.taskId}`
+						: `goals.${task.goalId}`,
+					taskId: task.id,
+					completed: false,
+				},
+			],
+		};
+		addAgendaItem(newItem);
+		storage.set('agenda.id', id + 1);
+	};
 	const getMarkedDates = (items: agendaItemType[]) => {
 		const marked: MarkedDates = {};
 
@@ -68,7 +96,6 @@ export const useAgendaItems = () => {
 		return filteredItems;
 	};
 
-	// Extracted utility function to update task duration
 	function updateTaskDuration(
 		tasks: Task[],
 		task: Task,
@@ -132,5 +159,6 @@ export const useAgendaItems = () => {
 		deleteAgendaItem,
 		loadStoredItems,
 		completeAgendaItem,
+		createAgendaItem,
 	};
 };

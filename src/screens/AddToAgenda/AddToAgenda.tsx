@@ -5,8 +5,6 @@ import { useTranslation } from 'react-i18next';
 import { useTheme } from '@/theme';
 import { useState } from 'react';
 import { useAgendaItems } from '@/helpers/hooks/useAgendaItems';
-import { AgendaItemType } from '@/types/schemas';
-import { useStorage } from '@/storage/StorageContext';
 import { InputDate, InputTime } from '@/components/molecules';
 import { GreenRoundedButton } from '@/components/atoms';
 
@@ -16,33 +14,11 @@ function AddToAgenda({ route, navigation }: RootScreenProps<'AddToAgenda'>) {
 	const { t } = useTranslation(['agenda']);
 	const [date, setDate] = useState(new Date());
 	const [time, setTime] = useState<Date>();
-	const storage = useStorage();
 	const [duration, setDuration] = useState(0);
-	const { addAgendaItem } = useAgendaItems();
+	const { createAgendaItem } = useAgendaItems();
 
 	const addToAgenda = () => {
-		const title = date.toISOString().split('T')[0];
-		const storedId = storage.getNumber('agenda.id');
-		const id = storedId || 0;
-		const newItem: AgendaItemType = {
-			title,
-			data: [
-				{
-					time,
-					duration,
-					title: task.name,
-					id: id + 1,
-					key: title,
-					taskStorageKey: task.taskId
-						? `goals.${task.goalId}.${task.taskId}`
-						: `goals.${task.goalId}`,
-					taskId: task.id,
-					completed: false,
-				},
-			],
-		};
-		addAgendaItem(newItem);
-		storage.set('agenda.id', id + 1);
+		createAgendaItem(date, task, duration, time);
 		navigation.goBack();
 	};
 	return (

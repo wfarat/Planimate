@@ -39,7 +39,7 @@ function Tabs() {
 				}}
 			/>
 			<Tab.Screen
-				name="Calendar"
+				name="CalendarStack"
 				component={CalendarStack}
 				options={{
 					tabBarIcon: ({ size, color }) => (

@@ -35,12 +35,11 @@ export const useGoalActions = (goalId?: number) => {
 				dueDate,
 				id: lastId + 1,
 			};
-			console.log('adding goal');
 			const updatedGoals = [...goals, goal];
 			updateGoals(updatedGoals);
 			return updatedGoals;
 		}
 		return goals;
 	};
-	return { editGoal, addGoal, deleteGoal };
+	return { editGoal, getGoals, addGoal, deleteGoal };
 };
