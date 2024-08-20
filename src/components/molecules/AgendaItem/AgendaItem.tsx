@@ -9,6 +9,7 @@ import alertAction from '@/helpers/utils/alertAction';
 import { useTheme } from '@/theme';
 import { SetTimeDialog } from '@/components/molecules';
 import { useTranslation } from 'react-i18next';
+import { useAgendaItems } from '@/helpers/hooks/useAgendaItems';
 
 const styles = StyleSheet.create({
 	itemButtonContainer: {
@@ -43,6 +44,7 @@ function AgendaItem(props: ItemProps) {
 		item.time ? new Date(item.time) : undefined,
 	);
 	const [showDialog, setShowDialog] = useState(false);
+	const { updateAgendaItem } = useAgendaItems();
 	const itemPressed = useCallback(() => {
 		setShowDialog(true);
 	}, []);
@@ -50,6 +52,7 @@ function AgendaItem(props: ItemProps) {
 		setDate(newDate);
 		setDuration(newDuration);
 		setShowDialog(false);
+		updateAgendaItem({ ...item, time: newDate, duration: newDuration });
 	};
 
 	const renderTime = () => {

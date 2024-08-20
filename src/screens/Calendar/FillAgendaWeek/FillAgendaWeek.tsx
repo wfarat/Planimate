@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { SafeScreen } from '@/components/template';
-import { Text, View } from 'react-native';
+import { Alert, Text, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@/theme';
 import SelectDropdown from 'react-native-select-dropdown';
@@ -26,7 +26,7 @@ function FillAgendaWeek({ navigation }: RootScreenProps<'FillAgendaWeek'>) {
 		useTheme();
 	const { t } = useTranslation(['agenda']);
 	const [weekFreeTime, setWeekFreeTime] = useState([0, 0, 0, 0, 0, 0, 0]);
-	const [goalId, setGoalId] = useState(1);
+	const [goalId, setGoalId] = useState(0);
 	const { findImportantTasks } = useTaskActions(goalId);
 	const { getGoals } = useGoalActions();
 	const { createAgendaItem } = useAgendaItems();
@@ -51,6 +51,7 @@ function FillAgendaWeek({ navigation }: RootScreenProps<'FillAgendaWeek'>) {
 	};
 
 	const addAgendaItems = () => {
+		if (!goalId) return Alert.alert('Please choose goal');
 		const totalFreeTime = weekFreeTime.reduce(
 			(acc, minutes) => acc + minutes,
 			0,
@@ -84,7 +85,7 @@ function FillAgendaWeek({ navigation }: RootScreenProps<'FillAgendaWeek'>) {
 				}
 			}
 		});
-		navigation.goBack();
+		return navigation.goBack();
 	};
 
 	return (

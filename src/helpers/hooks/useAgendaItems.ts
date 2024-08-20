@@ -120,22 +120,23 @@ export const useAgendaItems = () => {
 			);
 		}
 	}
-
-	const completeAgendaItem = (item: AgendaItemData): AgendaItemType[] => {
+	const updateAgendaItem = (item: AgendaItemData): AgendaItemType[] => {
 		const agendaItems = loadStoredItems();
 		const updatedItems = agendaItems.map(agendaItem => {
 			return agendaItem.title === item.key
 				? {
 						...agendaItem,
 						data: agendaItem.data.map(currentItem =>
-							currentItem.id === item.id
-								? { ...item, completed: true }
-								: currentItem,
+							currentItem.id === item.id ? item : currentItem,
 						),
 				  }
 				: agendaItem;
 		});
-
+		updateItems(updatedItems);
+		return updatedItems;
+	};
+	const completeAgendaItem = (item: AgendaItemData): AgendaItemType[] => {
+		const updatedItems = updateAgendaItem({ ...item, completed: true });
 		const storedTasksString = storage.getString(item.taskStorageKey);
 		if (storedTasksString) {
 			const tasks = JSON.parse(storedTasksString) as Task[];
@@ -160,5 +161,6 @@ export const useAgendaItems = () => {
 		loadStoredItems,
 		completeAgendaItem,
 		createAgendaItem,
+		updateAgendaItem,
 	};
 };

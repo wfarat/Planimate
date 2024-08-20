@@ -78,7 +78,7 @@ function GoalDetails({ route, navigation }: RootScreenProps<'GoalDetails'>) {
 				<Text style={components.header}>{goalName}</Text>
 				<Text style={[fonts.size_16, fonts.gray200]}>{goalDescription}</Text>
 				<Text style={[fonts.size_16, fonts.gray400, gutters.marginTop_16]}>
-					{t('goals:tasksLeft')}: {taskCount.completed}/{taskCount.total}
+					{t('goals:tasksCompleted')}: {taskCount.completed}/{taskCount.total}
 				</Text>
 				<GreenRoundedButton
 					handlePress={handleNavigateToTasks}
