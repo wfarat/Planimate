@@ -16,6 +16,7 @@ const colorsLight = {
 	green400: '#2E8B57',
 	green500: '#9ACD32',
 	blue50: '#03A9F4',
+	blue100: '#00B7EB',
 } as const;
 
 const colorsDark = {
@@ -32,6 +33,7 @@ const colorsDark = {
 	green400: '#228B22',
 	green500: '#32CD32',
 	blue50: '#8a2be2',
+	blue100: '#007FFF',
 } as const;
 
 const sizes = [12, 16, 24, 32, 40, 60, 80, 120] as const;

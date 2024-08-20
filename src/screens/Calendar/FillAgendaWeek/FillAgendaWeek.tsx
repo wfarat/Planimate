@@ -22,7 +22,8 @@ type DayOfWeek =
 	| 'Saturday'
 	| 'Sunday';
 function FillAgendaWeek({ navigation }: RootScreenProps<'FillAgendaWeek'>) {
-	const { components, fonts, layout, gutters, backgrounds } = useTheme();
+	const { components, fonts, layout, gutters, backgrounds, borders } =
+		useTheme();
 	const { t } = useTranslation(['agenda']);
 	const [weekFreeTime, setWeekFreeTime] = useState([0, 0, 0, 0, 0, 0, 0]);
 	const [goalId, setGoalId] = useState(1);
@@ -108,10 +109,12 @@ function FillAgendaWeek({ navigation }: RootScreenProps<'FillAgendaWeek'>) {
 									gutters.padding_16,
 									layout.itemsCenter,
 									layout.fullWidth,
-									isSelected && backgrounds.gray400,
+									borders.w_1,
+									borders.gray100,
+									isSelected && backgrounds.blue100,
 								]}
 							>
-								<Text style={[fonts.gray200, fonts.size_16]}>{item.name}</Text>
+								<Text style={[fonts.gray400, fonts.size_16]}>{item.name}</Text>
 							</View>
 						);
 					}}
