@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { SafeScreen } from '@/components/template';
-import { StyleSheet, Text, View } from 'react-native';
+import { Text, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@/theme';
 import SelectDropdown from 'react-native-select-dropdown';
@@ -22,7 +22,7 @@ type DayOfWeek =
 	| 'Saturday'
 	| 'Sunday';
 function FillAgendaWeek({ navigation }: RootScreenProps<'FillAgendaWeek'>) {
-	const { components } = useTheme();
+	const { components, fonts, layout, gutters, backgrounds } = useTheme();
 	const { t } = useTranslation(['agenda']);
 	const [weekFreeTime, setWeekFreeTime] = useState([0, 0, 0, 0, 0, 0, 0]);
 	const [goalId, setGoalId] = useState(1);
@@ -38,7 +38,11 @@ function FillAgendaWeek({ navigation }: RootScreenProps<'FillAgendaWeek'>) {
 		'Friday',
 		'Saturday',
 	];
-
+	const today = new Date().getDay();
+	const reorderedDaysOfWeek = [
+		...daysOfWeek.slice(today),
+		...daysOfWeek.slice(0, today),
+	];
 	const handleSetDuration = (index: number, duration: number) => {
 		const updatedWeekFreeTime = [...weekFreeTime];
 		updatedWeekFreeTime[index] = duration;
@@ -52,8 +56,8 @@ function FillAgendaWeek({ navigation }: RootScreenProps<'FillAgendaWeek'>) {
 		);
 		const importantTasks = findImportantTasks(totalFreeTime);
 		let taskIndex = 0;
-		daysOfWeek.forEach((day, index) => {
-			let freeHours = weekFreeTime[index];
+		weekFreeTime.forEach((time, index) => {
+			let freeHours = time;
 			const date = new Date(); // Assuming you set the date correctly for each day
 			date.setDate(date.getDate() + index);
 
@@ -87,7 +91,7 @@ function FillAgendaWeek({ navigation }: RootScreenProps<'FillAgendaWeek'>) {
 			<View style={components.mainContainer}>
 				<Text style={components.header}>{t('agenda:fillAgendaWeek')}</Text>
 
-				{daysOfWeek.map((day, index) => (
+				{reorderedDaysOfWeek.map((day, index) => (
 					<InputTime
 						key={day}
 						setDuration={duration => handleSetDuration(index, duration)}
@@ -100,24 +104,26 @@ function FillAgendaWeek({ navigation }: RootScreenProps<'FillAgendaWeek'>) {
 					renderItem={(item: Goal, index, isSelected) => {
 						return (
 							<View
-								style={{
-									...styles.dropdownItemStyle,
-									...(isSelected && { backgroundColor: '#D2D9DF' }),
-								}}
+								style={[
+									gutters.padding_16,
+									layout.itemsCenter,
+									layout.fullWidth,
+									isSelected && backgrounds.gray400,
+								]}
 							>
-								<Text style={styles.dropdownItemTxtStyle}>{item.name}</Text>
+								<Text style={[fonts.gray200, fonts.size_16]}>{item.name}</Text>
 							</View>
 						);
 					}}
 					renderButton={(selectedItem: Goal, isOpened) => {
 						return (
-							<View style={styles.dropdownButtonStyle}>
-								<Text style={styles.dropdownButtonTxtStyle}>
+							<View style={[components.textInputRounded, layout.row]}>
+								<Text style={[layout.flex_1, fonts.gray200, fonts.size_16]}>
 									{(selectedItem && selectedItem.name) || 'Select goal'}
 								</Text>
 								<MaterialCommunityIcons
 									name={isOpened ? 'chevron-up' : 'chevron-down'}
-									style={styles.dropdownButtonArrowStyle}
+									size={20}
 								/>
 							</View>
 						);
@@ -128,51 +134,4 @@ function FillAgendaWeek({ navigation }: RootScreenProps<'FillAgendaWeek'>) {
 		</SafeScreen>
 	);
 }
-const styles = StyleSheet.create({
-	dropdownButtonStyle: {
-		width: 200,
-		height: 50,
-		backgroundColor: '#E9ECEF',
-		borderRadius: 12,
-		flexDirection: 'row',
-		justifyContent: 'center',
-		alignItems: 'center',
-		paddingHorizontal: 12,
-	},
-	dropdownButtonTxtStyle: {
-		flex: 1,
-		fontSize: 18,
-		fontWeight: '500',
-		color: '#151E26',
-	},
-	dropdownButtonArrowStyle: {
-		fontSize: 28,
-	},
-	dropdownButtonIconStyle: {
-		fontSize: 28,
-		marginRight: 8,
-	},
-	dropdownMenuStyle: {
-		backgroundColor: '#E9ECEF',
-		borderRadius: 8,
-	},
-	dropdownItemStyle: {
-		width: '100%',
-		flexDirection: 'row',
-		paddingHorizontal: 12,
-		justifyContent: 'center',
-		alignItems: 'center',
-		paddingVertical: 8,
-	},
-	dropdownItemTxtStyle: {
-		flex: 1,
-		fontSize: 18,
-		fontWeight: '500',
-		color: '#151E26',
-	},
-	dropdownItemIconStyle: {
-		fontSize: 28,
-		marginRight: 8,
-	},
-});
 export default FillAgendaWeek;
