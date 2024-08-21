@@ -27,7 +27,7 @@ export const useGoalActions = (goalId?: number) => {
 		updateGoals(updatedGoals);
 	};
 	const addGoal = (name: string, description: string, dueDate?: Date) => {
-		const lastId = goals.length > 0 ? goals[goals.length - 1].id : 0;
+		const lastId = storage.getNumber('goals.lastId') || 0;
 		if (name) {
 			const goal = {
 				name,
@@ -39,6 +39,7 @@ export const useGoalActions = (goalId?: number) => {
 			updateGoals(updatedGoals);
 			return updatedGoals;
 		}
+		storage.set('goals.lastId', lastId + 1);
 		return goals;
 	};
 	return { editGoal, getGoals, addGoal, deleteGoal };
