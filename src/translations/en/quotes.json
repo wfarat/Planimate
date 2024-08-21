@@ -1,59 +1,214 @@
 {
-"ma1": "When you arise in the morning, think of what a precious privilege it is to be alive – to breathe, to think, to enjoy, to love. - Marcus Aurelius",
-  "wd1": "The way to get started is to quit talking and begin doing. – Walt Disney",
-  "sj1": "Your time is limited, so don’t waste it living someone else’s life. Don’t be trapped by dogma – which is living with the results of other people’s thinking. – Steve Jobs",
-  "ow1": "If you look at what you have in life, you’ll always have more. If you look at what you don’t have in life, you’ll never have enough. – Oprah Winfrey",
-  "te1": "Many of life’s failures are people who did not realize how close they were to success when they gave up. – Thomas A. Edison",
-  "q1": "Life is really simple, but we insist on making it complicated. – Confucius",
-  "hdt1": "Success usually comes to those who are too busy to be looking for it. – Henry David Thoreau",
-  "ae1": "Life is like riding a bicycle. To keep your balance you must keep moving. - Albert Einstein",
-  "mg1": "Live as if you were to die tomorrow. Learn as if you were to live forever. - Mahatma Gandhi",
-  "mg2": "Be the change that you wish to see in the world. - Mahatma Gandhi",
-  "wwp1": "You've gotta dance like there's nobody watching, Love like you'll never be hurt. Sing like there's nobody listening; And live like it's heaven on earth. - William W. Purkey",
-  "mj1": "I can accept failure, everyone fails at something. But I can’t accept not trying. - Michael Jordan",
-  "gbs1": "Life isn't about finding yourself. Life is about creating yourself. - George Bernard Shaw",
-  "wj1": "The greatest discovery of any generation is that a human can alter his life by altering his attitude. - William James",
-  "wj2": "Action may not always bring happiness, but there is no happiness without action. - William James",
-  "wsc1": "Success is not final, failure is not fatal: it is the courage to continue that counts. - Winston S. Churchill",
-  "er1": "Do what you feel in your heart to be right – for you’ll be criticized anyway. - Eleanor Roosevelt",
-  "ma2": "Dwell on the beauty of life. Watch the stars, and see yourself running with them. - Marcus Aurelius",
-  "ma3": "The happiness of your life depends upon the quality of your thoughts. - Marcus Aurelius",
-  "hf1": "Whether you think you can, or you think you can’t, you’re right. - Henry Ford",
-  "rn1": "God, grant me the serenity to accept the things I cannot change, the courage to change the things I can, and the wisdom to know the difference. Reinhold Niebuhr",
-  "rc1": "Success is the sum of small efforts – repeated day in and day out. - Robert Collier",
-  "wsc2": "Success consists of going from failure to failure without loss of enthusiasm. - Winston S. Churchill",
-  "fn1": "That which does not kill us makes us stronger. - Friedrich Nietzsche",
-  "fn2": "We should consider every day lost on which we have not danced at least once. - Friedrich Nietzsche",
-  "er2": "Life was meant to be lived, and curiosity must be kept alive. One must never, for whatever reason, turn his back on life. - Eleanor Roosevelt",
-  "er3": "No one can make you feel inferior without your consent. - Eleanor Roosevelt",
-  "er4": "Do one thing every day that scares you. - Eleanor Roosevelt",
-  "mt1": "The secret of getting ahead is getting started. The secret of getting started is breaking your complex, overwhelming tasks into small manageable tasks, and then starting on the first one. - Mark Twain",
-  "wj3": "Act as if what you do makes a difference. It does. - William James",
-  "wj4": "To change one's life: 1. Start immediately. 2. Do it flamboyantly. 3. No exceptions. - William James",
-  "e1": "There is only one way to happiness and that is to cease worrying about things which are beyond the power or our will. - Epictetus",
-  "e2": "First say to yourself what you would be; and then do what you have to do. - Epictetus",
-  "e3": "If you want to improve, be content to be thought foolish and stupid with regard to external things. Don't wish to be thought to know anything; and even if you appear to be somebody important to others, distrust yourself. - Epictetus",
-  "jwg1": "As soon as you trust yourself, you will know how to live. - Johann Wolfgang von Goethe",
-  "jwg2": "One ought, every day at least, to hear a little song, read a good poem, see a fine picture, and, if it were possible, to speak a few reasonable words. - Johann Wolfgang von Goethe",
-  "s1": "Luck is what happens when preparation meets opportunity. - Seneca",
-  "s2": "There is no easy way from the earth to the stars. - Seneca",
-  "s3": "If a man knows not to which port he sails, no wind is favorable. - Seneca the Younger",
-  "cc1": "If you were born without wings, do nothing to prevent them from growing. - Coco Chanel",
-  "cc2": "You live but once; you might as well be amusing. - Coco Chanel",
-  "cc3": "Don't spend time beating on a wall, hoping to transform it into a door. - Coco Chanel",
-  "ma4": "You have power over your mind - not outside events. Realize this, and you will find strength. - Marcus Aurelius",
-  "lt1": "The journey of a thousand miles begins with a single step. - Lao Tzu",
-  "mw1": "You only live once, but if you do it right, once is enough. - Mae West",
-  "bmb1": "Be who you are and say what you feel, because those who mind don't matter, and those who matter don't mind. - Bernard M. Baruch",
-  "jkr1": "It does not do to dwell on dreams and forget to live. - J.K. Rowling",
-  "owi1": "We are all in the gutter, but some of us are looking at the stars. - Oscar Wilde",
-  "ws1": "Love all, trust a few, do wrong to none. - William Shakespeare",
-  "te2": "I have not failed. I've just found 10,000 ways that won't work. - Thomas A. Edison",
-  "tr1": "Do what you can, with what you have, where you are. - Theodore Roosevelt",
-  "tr2": "The joy of life is won in its deepest and truest sense only by those who have not shirked life's burdens. - Theodore Roosevelt",
-  "tr3": "It is hard to fail, but it is worse never to have tried to succeed. - Theodore Roosevelt",
-  "mw2": "Anything worth doing is worth doing slowly - Mae West",
-  "tr4": "The only man who makes no mistakes is the man who never does anything. - Theodore Roosevelt",
-  "fn3": "You have your way. I have my way. As for the right way, the correct way, and the only way, it does not exist. - Friedrich Nietzsche",
-  "mj2": "I set another goal … a reasonable, manageable goal that I could realistically achieve if I worked hard enough. I approached everything step by step. - Michael Jordan"
+  "MarcusAurelius": {
+    "quotes": {
+      "1": "When you arise in the morning, think of what a precious privilege it is to be alive – to breathe, to think, to enjoy, to love.",
+      "2": "Dwell on the beauty of life. Watch the stars, and see yourself running with them.",
+      "3": "The happiness of your life depends upon the quality of your thoughts.",
+      "4": "You have power over your mind - not outside events. Realize this, and you will find strength."
+    },
+    "name": "Marcus Aurelius"
+  },
+  "WaltDisney": {
+    "quotes": {
+      "1": "The way to get started is to quit talking and begin doing."
+    },
+    "name": "Walt Disney"
+  },
+  "SteveJobs": {
+    "quotes": {
+      "1": "Your time is limited, so don’t waste it living someone else’s life. Don’t be trapped by dogma – which is living with the results of other people’s thinking."
+    },
+    "name": "Steve Jobs"
+  },
+  "OprahWinfrey": {
+    "quotes": {
+      "1": "If you look at what you have in life, you’ll always have more. If you look at what you don’t have in life, you’ll never have enough."
+    },
+    "name": "Oprah Winfrey"
+  },
+  "ThomasA.Edison": {
+    "quotes": {
+      "1": "Many of life’s failures are people who did not realize how close they were to success when they gave up.",
+      "2": "I have not failed. I've just found 10,000 ways that won't work."
+    },
+    "name": "Thomas A. Edison"
+  },
+  "Confucius": {
+    "quotes": {
+      "1": "Life is really simple, but we insist on making it complicated."
+    },
+    "name": "Confucius"
+  },
+  "HenryDavidThoreau": {
+    "quotes": {
+      "1": "Success usually comes to those who are too busy to be looking for it."
+    },
+    "name": "Henry David Thoreau"
+  },
+  "AlbertEinstein": {
+    "quotes": {
+      "1": "Life is like riding a bicycle. To keep your balance you must keep moving."
+    },
+    "name": "Albert Einstein"
+  },
+  "MahatmaGandhi": {
+    "quotes": {
+      "1": "Live as if you were to die tomorrow. Learn as if you were to live forever.",
+      "2": "Be the change that you wish to see in the world."
+    },
+    "name": "Mahatma Gandhi"
+  },
+  "WilliamW.Purkey": {
+    "quotes": {
+      "1": "You've gotta dance like there's nobody watching, Love like you'll never be hurt. Sing like there's nobody listening; And live like it's heaven on earth."
+    },
+    "name": "William W. Purkey"
+  },
+  "MichaelJordan": {
+    "quotes": {
+      "1": "I can accept failure, everyone fails at something. But I can’t accept not trying.",
+      "2": "I set another goal … a reasonable, manageable goal that I could realistically achieve if I worked hard enough. I approached everything step by step."
+    },
+    "name": "Michael Jordan"
+  },
+  "GeorgeBernardShaw": {
+    "quotes": {
+      "1": "Life isn't about finding yourself. Life is about creating yourself."
+    },
+    "name": "George Bernard Shaw"
+  },
+  "WilliamJames": {
+    "quotes": {
+      "1": "The greatest discovery of any generation is that a human can alter his life by altering his attitude.",
+      "2": "Action may not always bring happiness, but there is no happiness without action.",
+      "3": "Act as if what you do makes a difference. It does.",
+      "4": "To change one's life:\n1. Start immediately.\n2. Do it flamboyantly.\n3. No exceptions."
+    },
+    "name": "William James"
+  },
+  "WinstonS.Churchill": {
+    "quotes": {
+      "1": "Success is not final, failure is not fatal: it is the courage to continue that counts.",
+      "2": "Success consists of going from failure to failure without loss of enthusiasm."
+    },
+    "name": "Winston S. Churchill"
+  },
+  "EleanorRoosevelt": {
+    "quotes": {
+      "1": "Do what you feel in your heart to be right – for you’ll be criticized anyway.",
+      "2": "Life was meant to be lived, and curiosity must be kept alive. One must never, for whatever reason, turn his back on life.",
+      "3": "No one can make you feel inferior without your consent.",
+      "4": "Do one thing every day that scares you."
+    },
+    "name": "Eleanor Roosevelt"
+  },
+  "HenryFord": {
+    "quotes": {
+      "1": "Whether you think you can, or you think you can’t, you’re right."
+    },
+    "name": "Henry Ford"
+  },
+  "ReinholdNiebuhr": {
+    "quotes": {
+      "1": "God, grant me the serenity to accept the things I cannot change, the courage to change the things I can, and the wisdom to know the difference."
+    },
+    "name": "Reinhold Niebuhr"
+  },
+  "RobertCollier": {
+    "quotes": {
+      "1": "Success is the sum of small efforts – repeated day in and day out."
+    },
+    "name": "Robert Collier"
+  },
+  "FriedrichNietzsche": {
+    "quotes": {
+      "1": "That which does not kill us makes us stronger.",
+      "2": "We should consider every day lost on which we have not danced at least once.",
+      "3": "You have your way. I have my way. As for the right way, the correct way, and the only way, it does not exist."
+    },
+    "name": "Friedrich Nietzsche"
+  },
+  "MarkTwain": {
+    "quotes": {
+      "1": "The secret of getting ahead is getting started. The secret of getting started is breaking your complex, overwhelming tasks into small manageable tasks, and then starting on the first one."
+    },
+    "name": "Mark Twain"
+  },
+  "Epictetus": {
+    "quotes": {
+      "1": "There is only one way to happiness and that is to cease worrying about things which are beyond the power or our will.",
+      "2": "First say to yourself what you would be; and then do what you have to do.",
+      "3": "If you want to improve, be content to be thought foolish and stupid with regard to external things. Don't wish to be thought to know anything; and even if you appear to be somebody important to others, distrust yourself."
+    },
+    "name": "Epictetus"
+  },
+  "JohannWolfgangvonGoethe": {
+    "quotes": {
+      "1": "As soon as you trust yourself, you will know how to live.",
+      "2": "One ought, every day at least, to hear a little song, read a good poem, see a fine picture, and, if it were possible, to speak a few reasonable words."
+    },
+    "name": "Johann Wolfgang von Goethe"
+  },
+  "Seneca": {
+    "quotes": {
+      "1": "Luck is what happens when preparation meets opportunity.",
+      "2": "There is no easy way from the earth to the stars.",
+      "3": "If a man knows not to which port he sails, no wind is favorable."
+    },
+    "name": "Seneca"
+  },
+  "CocoChanel": {
+    "quotes": {
+      "1": "If you were born without wings, do nothing to prevent them from growing.",
+      "2": "You live but once; you might as well be amusing.",
+      "3": "Don't spend time beating on a wall, hoping to transform it into a door."
+    },
+    "name": "Coco Chanel"
+  },
+  "LaoTzu": {
+    "quotes": {
+      "1": "The journey of a thousand miles begins with a single step."
+    },
+    "name": "Lao Tzu"
+  },
+  "MaeWest": {
+    "quotes": {
+      "1": "You only live once, but if you do it right, once is enough.",
+      "2": "Anything worth doing is worth doing slowly."
+    },
+    "name": "Mae West"
+  },
+  "BernardM.Baruch": {
+    "quotes": {
+      "1": "Be who you are and say what you feel, because those who mind don't matter, and those who matter don't mind."
+    },
+    "name": "Bernard M. Baruch"
+  },
+  "J.K.Rowling": {
+    "quotes": {
+      "1": "It does not do to dwell on dreams and forget to live."
+    },
+    "name": "J.K. Rowling"
+  },
+  "OscarWilde": {
+    "quotes": {
+      "1": "We are all in the gutter, but some of us are looking at the stars."
+    },
+    "name": "Oscar Wilde"
+  },
+  "WilliamShakespeare": {
+    "quotes": {
+      "1": "Love all, trust a few, do wrong to none."
+    },
+    "name": "William Shakespeare"
+  },
+  "TheodoreRoosevelt": {
+    "quotes": {
+      "1": "Do what you can, with what you have, where you are.",
+      "2": "The joy of life is won in its deepest and truest sense only by those who have not shirked life's burdens.",
+      "3": "It is hard to fail, but it is worse never to have tried to succeed.",
+      "4": "The only man who makes no mistakes is the man who never does anything."
+    },
+    "name": "Theodore Roosevelt"
+  }
 }

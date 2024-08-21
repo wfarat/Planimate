@@ -1,59 +1,213 @@
 {
-"wj3": "Zachowuj się tak, jakby to co robisz robiło różnicę. Bo robi. - William James",
-"wj4": "Aby zmienić swoje życie: 1. Zacznij natychmiast. 2.  Zrób to z rozmachem. 3. Bez wyjątków. - William James",
-"e1": "Jest tylko jedna droga do szczęścia – przestać się martwić rzeczami, na które nie masz wpływu. - Epiktet",
-"e2": "Najpierw powiedz sobie, kim będziesz. Później rób to, co musisz robić. - Epiktet",
-"e3": "Jeśli chcesz stać się lepszy, ciesz się gdy myślą, że jesteś głupi. - Epiktet",
-"jwg1": "Jak tylko zaufasz sobie, będziesz wiedzieć, jak żyć. - Johann Wolfgang von Goethe",
-"jwg2": "Należy każdego dnia posłuchać krótkiej pieśni, przeczytać dobry wiersz, zobaczyć wspaniały obraz i jeśli byłoby to możliwe - wypowiedzieć kilka rozsądnych słów. - Johann Wolfgang von Goethe",
-"s1": "Szczęście jest tym, co dzieje się, gdy przygotowanie spotyka się z okazją. – Seneka",
-"s2": "Nie ma łatwej drogi z ziemi do gwiazd. - Seneka",
-"s3": "Gdy nie wiesz do którego portu zmierzasz, żaden wiatr nie jest przychylny. - Seneka Młodszy",
-"cc1": "Może się zdarzyć, że urodziłaś/eś się bez skrzydeł, ale najważniejsze, żebyś nie przeszkadzał/a im wyrosnąć. - Coco Chanel",
-"cc2": "Żyjesz tylko raz; równie dobrze możesz być zabawna/y - Coco Chanel",
-"cc3": "Nie marnuj czasu na uderzanie w mur, z nadzieją, że zamieni się on w drzwi. - Coco Chanel",
-"ma4": "Masz władzę nad swoim umysłem – nie nad wydarzeniami zewnętrznymi. Uświadom to sobie, a znajdziesz siłę. - Marek Aureliusz",
-"lt1": "Podróż tysiąca mil zaczyna się od jednego kroku. - Laozi",
-"mw1": "Żyjemy tylko raz, ale jeżeli robimy to jak należy, raz w zupełności wystarczy. — Mae West",
-"bmb1": "Bądź sobą i mów to co czujesz, ponieważ Ci, którym to przeszkadza nie liczą się, a tym którzy się liczą, to nie przeszkadza. - Bernard M. Baruch",
-"jkr1": "Nie wystarczy rozwodzić się nad marzeniami i zapomnieć o życiu. - J.K Rowling",
-"owi1": "Wszyscy jesteśmy w rynsztoku, ale niektórzy z nas patrzą w gwiazdy. - Oscar Wilde",
-"ws1": "Kochaj wszystkich, ufaj niewielu, nie czyń krzywdy nikomu. - William Shakespeare",
-"te2": "Nie odniosłem porażki. Po prostu odkryłem 10.000 błędnych rozwiązań. - Thomas A. Edison",
-"tr1": "Rób to, co możesz, tym, co posiadasz, i tam, gdzie jesteś. - Theodore Roosevelt",
-"tr2": "Radość życia zdobywają w najgłębszym i najprawdziwszym tego słowa znaczeniu tylko ci, którzy nie uchylają się od ciężarów życia. - Theodore Roosevelt",
-"tr3": "Poniesienie porażki jest ciężkie, ale jeszcze gorsze jest nigdy nie spróbować odnieść sukcesu. - Theodore Roosevelt",
-"ma1": "Budząc się rano, pomyśl jaki to wspaniały skarb żyć, oddychać i móc się radować – Marek Aureliusz",
-"wd1": "Sposobem, by zacząć, jest przestać mówić i zacząć działać. – Walt Disney",
-"sj1": "Twój czas jest ograniczony, więc nie marnuj go, żyjąc życiem kogoś innego. Nie daj się złapać w pułapkę dogmatu – czyli życia rezultatami myślenia innych ludzi. - Steve Jobs",
-"ow1": "Jeśli będziesz patrzeć na to, co masz w życiu, zawsze będziesz mieć więcej. Jeśli będziesz patrzeć na to, czego w życiu nie masz, nigdy nie będziesz mieć dosyć. - Oprah Winfrey",
-"te1": "Wiele z życiowych porażek odnieśli ludzie, którzy nie zdawali sobie sprawy, jak blisko byli sukcesu, gdy się poddali. - Thomas A. Edison",
-"q1": "Życie jest naprawdę proste, ale my upieramy się, by je komplikować. – Konfucjusz",
-"hdt1": "Sukces zwykle przychodzi do tych, którzy są zbyt zajęci, by go szukać. – Henry David Thoreau",
-"ae1": "Życie jest jak jazda na rowerze. Żeby utrzymać równowagę, musisz być w ciągłym ruchu. - Albert Einstein",
-"mg1": "Żyj tak, jakbyś miał umrzeć jutro. Ucz się tak, jakbyś miał żyć wiecznie. - Mahatma Gandhi",
-"mg2": "Bądź zmianą, którą pragniejsz ujrzeć w świecie. - Mahatma Gandhi",
-"wwp1": "Tańcz jakby nikt nie patrzył; kochaj jakbyś nigdy nie był zraniony. Śpiewaj, jakby nikt nie słuchał; Żyj jakby to było Niebo na Ziemi. - William W. Purkey",
-"mj1": "Mogę zaakceptować swoją porażkę, każdy je ponosi, ale nie zaakceptuję tego, że nie próbowałem. - Michael Jordan",
-"gbs1": "W życiu nie chodzi o odnalezienie siebie. W życiu chodzi o wykreowanie siebie. - George Bernard Shaw",
-"wj1": "Największym odkryciem mojego pokolenia jest to, że człowiek może zmienić swoje życie, zmieniając swoje nastawienie. - William James",
-"wj2": "Działanie nie zawsze musi prowadzić do szczęścia, ale nie ma szczęścia bez podjęcia działania. - William James ",
-"wsc1": "Sukces nigdy nie jest ostateczny. Porażka nigdy nie jest całkowita. Liczy się tylko odwaga do dalszego działania. - Winston S. Churchill",
-"er1": "Rób to, co w swoim sercu uważasz za słuszne – tak czy inaczej zostaniesz skrytykowany. - Eleanor Roosevelt",
-"ma2": "Rozważaj piękno życia. Obserwuj gwiazdy i zobacz, jak biegniesz z nimi. - Marek Aureliusz",
-"ma3": "Szczęście twojego życia zależy od jakości twoich myśli. - Marek Aureliusz",
-"hf1": "Jeśli myślisz, że coś potrafisz lub że czegoś nie potrafisz, masz rację. - Henry Ford",
-"rn1": "Boże, daj mi pogodę ducha, aby zaakceptować to, czego nie mogę zmienić, odwagę, by zmienić to, co mogę, i mądrość, by poznać różnicę. - Reinhold Niebuhr",
-"rc1": "Sukces to suma małych wysiłków – powtarzanych dzień po dniu. - Robert Collier",
-"wsc2": "Sukces składa się z przechodzenia od porażki do porażki bez utraty entuzjazmu. - Winston S. Churchill",
-"fn1": "To co nas nie zabija, sprawia, że jesteśmy silniejsi. - Friedrich Nietzsche",
-"fn2": "Każdy dzień, w którym nie tańczyliśmy przynajmniej raz, powinniśmy uważać za stracony. - Friedrich Nietzsche",
-"er2": "Życie jest po to, żeby żyć. Trzeba podtrzymywać w sobie ciekawość. Najgorszą rzeczą jest rezygnacja. Nie wolno nigdy, z żadnego powodu, odwracać się do życia plecami - Eleanor Roosevelt",
-"er3": "Nikt nie może sprawić byś poczuł się gorszy bez twojego przyzwolenia. - Eleanor Roosevelt",
-"er4": "Każdego dnia rób jedną rzecz, która cię przeraża. - Eleanor Roosevelt",
-"mt1": "Sekret pójścia do przodu tkwi w rozpoczęciu. Sekret rozpoczęcia pracy polega na podzieleniu złożonych, przytłaczających zadań na małe, łatwe do wykonania zadania i rozpoczęcie od pierwszego. - Mark Twain",
-  "mw2": "Wszystko co warto robić, warto robić powoli. - Mae West",
-  "tr4": "Jedynym człowiekiem, który nie popełnia błędów, jest ten, który nic nie robi. - Theodore Roosevelt",
-  "fn3": "Ty masz swoją drogę. Ja mam swoją. Co się tyczy prawidłowej drogi, jedynej drogi, właściwej drogi — ta nie istnieje. - Friedrich Nietzsche",
-  "mj2": "ostawiłem sobie kolejny cel… rozsądny, możliwy do osiągnięcia cel, który mogłem realistycznie zrealizować, jeśli wystarczająco się postaram. Do wszystkiego podchodziłem krok po kroku. - Michael Jordan"
+  "WilliamJames": {
+    "quotes": {
+      "1": "Zachowuj się tak, jakby to co robisz robiło różnicę. Bo robi.",
+      "2": "Aby zmienić swoje życie:\n1. Zacznij natychmiast.\n2. Zrób to z rozmachem.\n3. Bez wyjątków.",
+      "3": "Największym odkryciem mojego pokolenia jest to, że człowiek może zmienić swoje życie, zmieniając swoje nastawienie.",
+      "4": "Działanie nie zawsze musi prowadzić do szczęścia, ale nie ma szczęścia bez podjęcia działania."
+    },
+    "name": "William James"
+  },
+  "Epictetus": {
+    "quotes": {
+      "1": "Jest tylko jedna droga do szczęścia – przestać się martwić rzeczami, na które nie masz wpływu.",
+      "2": "Najpierw powiedz sobie, kim będziesz. Później rób to, co musisz robić.",
+      "3": "Jeśli chcesz stać się lepszy, ciesz się gdy myślą, że jesteś głupi."
+    },
+    "name": "Epiktet"
+  },
+  "JohannWolfgangvonGoethe": {
+    "quotes": {
+      "1": "Jak tylko zaufasz sobie, będziesz wiedzieć, jak żyć.",
+      "2": "Należy każdego dnia posłuchać krótkiej pieśni, przeczytać dobry wiersz, zobaczyć wspaniały obraz i jeśli byłoby to możliwe - wypowiedzieć kilka rozsądnych słów."
+    },
+    "name": "Johann Wolfgang von Goethe"
+  },
+  "Seneca": {
+    "quotes": {
+      "1": "Szczęście jest tym, co dzieje się, gdy przygotowanie spotyka się z okazją.",
+      "2": "Nie ma łatwej drogi z ziemi do gwiazd.",
+      "3": "Gdy nie wiesz do którego portu zmierzasz, żaden wiatr nie jest przychylny."
+    },
+    "name": "Seneka"
+  },
+  "CocoChanel": {
+    "quotes": {
+      "1": "Może się zdarzyć, że urodziłaś/eś się bez skrzydeł, ale najważniejsze, żebyś nie przeszkadzał/a im wyrosnąć.",
+      "2": "Żyjesz tylko raz; równie dobrze możesz być zabawna/y.",
+      "3": "Nie marnuj czasu na uderzanie w mur, z nadzieją, że zamieni się on w drzwi."
+    },
+    "name": "Coco Chanel"
+  },
+  "MarcusAurelius": {
+    "quotes": {
+      "1": "Masz władzę nad swoim umysłem – nie nad wydarzeniami zewnętrznymi. Uświadom to sobie, a znajdziesz siłę.",
+      "2": "Budząc się rano, pomyśl jaki to wspaniały skarb żyć, oddychać i móc się radować.",
+      "3": "Rozważaj piękno życia. Obserwuj gwiazdy i zobacz, jak biegniesz z nimi.",
+      "4": "Szczęście twojego życia zależy od jakości twoich myśli."
+    },
+    "name": "Marek Aureliusz"
+  },
+  "LaoTzu": {
+    "quotes": {
+      "1": "Podróż tysiąca mil zaczyna się od jednego kroku."
+    },
+    "name": "Lao Tzu"
+  },
+  "MaeWest": {
+    "quotes": {
+      "1": "Żyjemy tylko raz, ale jeżeli robimy to jak należy, raz w zupełności wystarczy.",
+      "2": "Wszystko co warto robić, warto robić powoli."
+    },
+    "name": "Mae West"
+  },
+  "BernardM.Baruch": {
+    "quotes": {
+      "1": "Bądź sobą i mów to co czujesz, ponieważ Ci, którym to przeszkadza nie liczą się, a tym którzy się liczą, to nie przeszkadza."
+    },
+    "name": "Bernard M. Baruch"
+  },
+  "J.K.Rowling": {
+    "quotes": {
+      "1": "Nie wystarczy rozwodzić się nad marzeniami i zapomnieć o życiu."
+    },
+    "name": "J.K. Rowling"
+  },
+  "OscarWilde": {
+    "quotes": {
+      "1": "Wszyscy jesteśmy w rynsztoku, ale niektórzy z nas patrzą w gwiazdy."
+    },
+    "name": "Oscar Wilde"
+  },
+  "WilliamShakespeare": {
+    "quotes": {
+      "1": "Kochaj wszystkich, ufaj niewielu, nie czyń krzywdy nikomu."
+    },
+    "name": "William Shakespeare"
+  },
+  "ThomasA.Edison": {
+    "quotes": {
+      "1": "Nie odniosłem porażki. Po prostu odkryłem 10.000 błędnych rozwiązań.",
+      "2": "Wiele z życiowych porażek odnieśli ludzie, którzy nie zdawali sobie sprawy, jak blisko byli sukcesu, gdy się poddali."
+    },
+    "name": "Thomas A. Edison"
+  },
+  "TheodoreRoosevelt": {
+    "quotes": {
+      "1": "Rób to, co możesz, tym, co posiadasz, i tam, gdzie jesteś.",
+      "2": "Radość życia zdobywają w najgłębszym i najprawdziwszym tego słowa znaczeniu tylko ci, którzy nie uchylają się od ciężarów życia.",
+      "3": "Poniesienie porażki jest ciężkie, ale jeszcze gorsze jest nigdy nie spróbować odnieść sukcesu.",
+      "4": "Jedynym człowiekiem, który nie popełnia błędów, jest ten, który nic nie robi."
+    },
+    "name": "Theodore Roosevelt"
+  },
+  "WaltDisney": {
+    "quotes": {
+      "1": "Sposobem, by zacząć, jest przestać mówić i zacząć działać."
+    },
+    "name": "Walt Disney"
+  },
+  "SteveJobs": {
+    "quotes": {
+      "1": "Twój czas jest ograniczony, więc nie marnuj go, żyjąc życiem kogoś innego. Nie daj się złapać w pułapkę dogmatu – czyli życia rezultatami myślenia innych ludzi."
+    },
+    "name": "Steve Jobs"
+  },
+  "OprahWinfrey": {
+    "quotes": {
+      "1": "Jeśli będziesz patrzeć na to, co masz w życiu, zawsze będziesz mieć więcej. Jeśli będziesz patrzeć na to, czego w życiu nie masz, nigdy nie będziesz mieć dosyć."
+    },
+    "name": "Oprah Winfrey"
+  },
+  "Confucius": {
+    "quotes": {
+      "1": "Życie jest naprawdę proste, ale my upieramy się, by je komplikować."
+    },
+    "name": "Konfucjusz"
+  },
+  "HenryDavidThoreau": {
+    "quotes": {
+      "1": "Sukces zwykle przychodzi do tych, którzy są zbyt zajęci, by go szukać."
+    },
+    "name": "Henry David Thoreau"
+  },
+  "AlbertEinstein": {
+    "quotes": {
+      "1": "Życie jest jak jazda na rowerze. Żeby utrzymać równowagę, musisz być w ciągłym ruchu."
+    },
+    "name": "Albert Einstein"
+  },
+  "MahatmaGandhi": {
+    "quotes": {
+      "1": "Żyj tak, jakbyś miał umrzeć jutro. Ucz się tak, jakbyś miał żyć wiecznie.",
+      "2": "Bądź zmianą, którą pragniesz ujrzeć w świecie."
+    },
+    "name": "Mahatma Gandhi"
+  },
+  "WilliamW.Purkey": {
+    "quotes": {
+      "1": "Tańcz jakby nikt nie patrzył; kochaj jakbyś nigdy nie był zraniony. Śpiewaj, jakby nikt nie słuchał; Żyj jakby to było Niebo na Ziemi."
+    },
+    "name": "William W. Purkey"
+  },
+  "MichaelJordan": {
+    "quotes": {
+      "1": "Mogę zaakceptować swoją porażkę, każdy je ponosi, ale nie zaakceptuję tego, że nie próbowałem."
+    },
+    "name": "Michael Jordan"
+  },
+  "GeorgeBernardShaw": {
+    "quotes": {
+      "1": "W życiu nie chodzi o odnalezienie siebie. W życiu chodzi o wykreowanie siebie."
+    },
+    "name": "George Bernard Shaw"
+  },
+  "WinstonS.Churchill": {
+    "quotes": {
+      "1": "Sukces nigdy nie jest ostateczny. Porażka nigdy nie jest całkowita. Liczy się tylko odwaga do dalszego działania.",
+      "2": "Sukces składa się z przechodzenia od porażki do porażki bez utraty entuzjazmu."
+    },
+    "name": "Winston S. Churchill"
+  },
+  "EleanorRoosevelt": {
+    "quotes": {
+      "1": "Rób to, co w swoim sercu uważasz za słuszne – tak czy inaczej zostaniesz skrytykowany.",
+      "2": "Życie jest po to, żeby żyć. Trzeba podtrzymywać w sobie ciekawość. Najgorszą rzeczą jest rezygnacja. Nie wolno nigdy, z żadnego powodu, odwracać się do życia plecami.",
+      "3": "Nikt nie może sprawić byś poczuł się gorszy bez twojego przyzwolenia.",
+      "4": "Każdego dnia rób jedną rzecz, która cię przeraża."
+    },
+    "name": "Eleanor Roosevelt"
+  },
+  "HenryFord": {
+    "quotes": {
+      "1": "Jeśli myślisz, że coś potrafisz lub że czegoś nie potrafisz, masz rację."
+    },
+    "name": "Henry Ford"
+  },
+  "ReinholdNiebuhr": {
+    "quotes": {
+      "1": "Boże, daj mi pogodę ducha, aby zaakceptować to, czego nie mogę zmienić, odwagę, by zmienić to, co mogę, i mądrość, by poznać różnicę."
+    },
+    "name": "Reinhold Niebuhr"
+  },
+  "RobertCollier": {
+    "quotes": {
+      "1": "Sukces to suma małych wysiłków – powtarzanych dzień po dniu."
+    },
+    "name": "Robert Collier"
+  },
+  "FriedrichNietzsche": {
+    "quotes": {
+      "1": "To co nas nie zabija, sprawia, że jesteśmy silniejsi.",
+      "2": "Każdy dzień, w którym nie tańczyliśmy przynajmniej raz, powinniśmy uważać za stracony.",
+      "3": "Ty masz swoją drogę. Ja mam swoją. Co się tyczy prawidłowej drogi, jedynej drogi, właściwej drogi — ta nie istnieje."
+    },
+    "name": "Friedrich Nietzsche"
+  },
+  "MarkTwain": {
+    "quotes": {
+      "1": "Sekret pójścia do przodu tkwi w rozpoczęciu. Sekret rozpoczęcia pracy polega na podzieleniu złożonych, przytłaczających zadań na małe, łatwe do wykonania zadania i rozpoczęcie od pierwszego."
+    },
+    "name": "Mark Twain"
+  }
 }

@@ -2,95 +2,94 @@ import { ImageSourcePropType } from 'react-native/Libraries/Image/Image';
 import Nietzsche from '@/theme/assets/images/portraits/nietzsche.jpg';
 import Winston from '@/theme/assets/images/portraits/winston.jpg';
 import Disney from '@/theme/assets/images/portraits/disney.jpg';
-import ma from '@/theme/assets/images/portraits/ma.jpg';
-import s from '@/theme/assets/images/portraits/s.jpg';
-import cc from '@/theme/assets/images/portraits/cc.jpg';
-import ow from '@/theme/assets/images/portraits/ow.jpg';
-import sj from '@/theme/assets/images/portraits/sj.jpg';
-import te from '@/theme/assets/images/portraits/te.jpg';
-import q from '@/theme/assets/images/portraits/q.jpg';
-import hdt from '@/theme/assets/images/portraits/hdt.jpg';
-import ae from '@/theme/assets/images/portraits/ae.jpg';
-import mg from '@/theme/assets/images/portraits/mg.jpg';
-import wwp from '@/theme/assets/images/portraits/wwp.jpg';
-import mj from '@/theme/assets/images/portraits/mj.jpg';
-import gbs from '@/theme/assets/images/portraits/gbs.jpg';
-import wj from '@/theme/assets/images/portraits/wj.jpg';
-import er from '@/theme/assets/images/portraits/er.jpg';
-import hf from '@/theme/assets/images/portraits/hf.jpg';
-import rn from '@/theme/assets/images/portraits/rn.jpg';
-import rc from '@/theme/assets/images/portraits/rc.jpg';
-import mt from '@/theme/assets/images/portraits/mt.jpg';
-import e from '@/theme/assets/images/portraits/e.jpg';
-import jwg from '@/theme/assets/images/portraits/jwg.png';
-import mw from '@/theme/assets/images/portraits/mw.jpg';
-import lt from '@/theme/assets/images/portraits/lt.jpg';
-import bmb from '@/theme/assets/images/portraits/bmb.jpg';
-import owi from '@/theme/assets/images/portraits/owi.jpg';
-import ws from '@/theme/assets/images/portraits/ws.jpg';
-import tr from '@/theme/assets/images/portraits/tr.jpg';
-import jkr from '@/theme/assets/images/portraits/jkr.jpg';
+import Aurelius from '@/theme/assets/images/portraits/ma.jpg';
+import Seneca from '@/theme/assets/images/portraits/s.jpg';
+import Coco from '@/theme/assets/images/portraits/cc.jpg';
+import Winfrey from '@/theme/assets/images/portraits/ow.jpg';
+import Jobs from '@/theme/assets/images/portraits/sj.jpg';
+import Edison from '@/theme/assets/images/portraits/te.jpg';
+import Confucius from '@/theme/assets/images/portraits/q.jpg';
+import Thoreau from '@/theme/assets/images/portraits/hdt.jpg';
+import Einstein from '@/theme/assets/images/portraits/ae.jpg';
+import Ghandi from '@/theme/assets/images/portraits/mg.jpg';
+import Purkey from '@/theme/assets/images/portraits/wwp.jpg';
+import Jordan from '@/theme/assets/images/portraits/mj.jpg';
+import Shaw from '@/theme/assets/images/portraits/gbs.jpg';
+import James from '@/theme/assets/images/portraits/wj.jpg';
+import ElRoosevelt from '@/theme/assets/images/portraits/er.jpg';
+import Ford from '@/theme/assets/images/portraits/hf.jpg';
+import Nieburh from '@/theme/assets/images/portraits/rn.jpg';
+import Collier from '@/theme/assets/images/portraits/rc.jpg';
+import Twain from '@/theme/assets/images/portraits/mt.jpg';
+import Epictetus from '@/theme/assets/images/portraits/e.jpg';
+import Goethe from '@/theme/assets/images/portraits/jwg.png';
+import West from '@/theme/assets/images/portraits/mw.jpg';
+import LaoTzu from '@/theme/assets/images/portraits/lt.jpg';
+import Baruch from '@/theme/assets/images/portraits/bmb.jpg';
+import Wilde from '@/theme/assets/images/portraits/owi.jpg';
+import Shakespeare from '@/theme/assets/images/portraits/ws.jpg';
+import ThRoosevelt from '@/theme/assets/images/portraits/tr.jpg';
+import Rowling from '@/theme/assets/images/portraits/jkr.jpg';
 import { QuoteKeys } from '@/types/schemas/quotes';
 
 export default function getRandomQuote() {
 	const Quotes: [QuoteKeys, ImageSourcePropType][] = [
-		['quotes:ma1', ma],
-		['quotes:wd1', Disney],
-		['quotes:ow1', ow],
-		['quotes:sj1', sj],
-		['quotes:te1', te],
-		['quotes:q1', q],
-		['quotes:hdt1', hdt],
-		['quotes:ae1', ae],
-		['quotes:mg1', mg],
-		['quotes:mg2', mg],
-		['quotes:wwp1', wwp],
-		['quotes:mj1', mj],
-		['quotes:gbs1', gbs],
-		['quotes:wj1', wj],
-		['quotes:wj2', wj],
-		['quotes:er1', er],
-		['quotes:ma2', ma],
-		['quotes:ma3', ma],
-		['quotes:wsc1', Winston],
-		['quotes:hf1', hf],
-		['quotes:rn1', rn],
-		['quotes:rc1', rc],
-		['quotes:wsc2', Winston],
-		['quotes:fn1', Nietzsche],
-		['quotes:fn2', Nietzsche],
-		['quotes:er2', er],
-		['quotes:er3', er],
-		['quotes:er4', er],
-		['quotes:mt1', mt],
-		['quotes:wj3', wj],
-		['quotes:wj4', wj],
-		['quotes:e1', e],
-		['quotes:e2', e],
-		['quotes:e3', e],
-		['quotes:jwg1', jwg],
-		['quotes:jwg2', jwg],
-		['quotes:s1', s],
-		['quotes:s2', s],
-		['quotes:s3', s],
-		['quotes:cc1', cc],
-		['quotes:cc2', cc],
-		['quotes:cc3', cc],
-		['quotes:ma4', ma],
-		['quotes:lt1', lt],
-		['quotes:mw1', mw],
-		['quotes:bmb1', bmb],
-		['quotes:jkr1', jkr],
-		['quotes:owi1', owi],
-		['quotes:ws1', ws],
-		['quotes:te2', te],
-		['quotes:tr1', tr],
-		['quotes:tr2', tr],
-		['quotes:tr3', tr],
-		['quotes:tr4', tr],
-		['quotes:mw2', mw],
-		['quotes:fn3', Nietzsche],
-		['quotes:mj2', mj],
+		['quotes:MarcusAurelius.quotes.1', Aurelius],
+		['quotes:MarcusAurelius.quotes.2', Aurelius],
+		['quotes:MarcusAurelius.quotes.3', Aurelius],
+		['quotes:MarcusAurelius.quotes.4', Aurelius],
+		['quotes:WaltDisney.quotes.1', Disney],
+		['quotes:SteveJobs.quotes.1', Jobs],
+		['quotes:OprahWinfrey.quotes.1', Winfrey],
+		['quotes:ThomasA.Edison.quotes.1', Edison],
+		['quotes:ThomasA.Edison.quotes.2', Edison],
+		['quotes:Confucius.quotes.1', Confucius],
+		['quotes:HenryDavidThoreau.quotes.1', Thoreau],
+		['quotes:AlbertEinstein.quotes.1', Einstein],
+		['quotes:MahatmaGandhi.quotes.1', Ghandi],
+		['quotes:MahatmaGandhi.quotes.2', Ghandi],
+		['quotes:WilliamW.Purkey.quotes.1', Purkey],
+		['quotes:MichaelJordan.quotes.1', Jordan],
+		['quotes:MichaelJordan.quotes.2', Jordan],
+		['quotes:GeorgeBernardShaw.quotes.1', Shaw],
+		['quotes:WilliamJames.quotes.1', James],
+		['quotes:WilliamJames.quotes.2', James],
+		['quotes:WilliamJames.quotes.3', James],
+		['quotes:WilliamJames.quotes.4', James],
+		['quotes:WinstonS.Churchill.quotes.1', Winston],
+		['quotes:WinstonS.Churchill.quotes.2', Winston],
+		['quotes:EleanorRoosevelt.quotes.1', ElRoosevelt],
+		['quotes:EleanorRoosevelt.quotes.2', ElRoosevelt],
+		['quotes:EleanorRoosevelt.quotes.3', ElRoosevelt],
+		['quotes:EleanorRoosevelt.quotes.4', ElRoosevelt],
+		['quotes:HenryFord.quotes.1', Ford],
+		['quotes:ReinholdNiebuhr.quotes.1', Nieburh],
+		['quotes:RobertCollier.quotes.1', Collier],
+		['quotes:FriedrichNietzsche.quotes.1', Nietzsche],
+		['quotes:FriedrichNietzsche.quotes.2', Nietzsche],
+		['quotes:FriedrichNietzsche.quotes.3', Nietzsche],
+		['quotes:MarkTwain.quotes.1', Twain],
+		['quotes:Epictetus.quotes.1', Epictetus],
+		['quotes:Epictetus.quotes.2', Epictetus],
+		['quotes:Epictetus.quotes.3', Epictetus],
+		['quotes:JohannWolfgangvonGoethe.quotes.1', Goethe],
+		['quotes:JohannWolfgangvonGoethe.quotes.2', Goethe],
+		['quotes:Seneca.quotes.1', Seneca],
+		['quotes:Seneca.quotes.2', Seneca],
+		['quotes:CocoChanel.quotes.1', Coco],
+		['quotes:CocoChanel.quotes.2', Coco],
+		['quotes:CocoChanel.quotes.3', Coco],
+		['quotes:LaoTzu.quotes.1', LaoTzu],
+		['quotes:MaeWest.quotes.1', West],
+		['quotes:MaeWest.quotes.2', West],
+		['quotes:BernardM.Baruch.quotes.1', Baruch],
+		['quotes:J.K.Rowling.quotes.1', Rowling],
+		['quotes:OscarWilde.quotes.1', Wilde],
+		['quotes:WilliamShakespeare.quotes.1', Shakespeare],
+		['quotes:TheodoreRoosevelt.quotes.1', ThRoosevelt],
+		['quotes:TheodoreRoosevelt.quotes.2', ThRoosevelt],
+		['quotes:TheodoreRoosevelt.quotes.3', ThRoosevelt],
+		['quotes:TheodoreRoosevelt.quotes.4', ThRoosevelt],
 	];
 
 	const random = Math.floor(Math.random() * Quotes.length);
