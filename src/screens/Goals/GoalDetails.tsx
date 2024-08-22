@@ -1,4 +1,3 @@
-// GoalDetails.tsx
 import { Text, View, TouchableOpacity } from 'react-native';
 import { SafeScreen } from '@/components/template';
 import { useTheme } from '@/theme';
@@ -7,6 +6,7 @@ import { RootScreenProps } from '@/types/navigation';
 import { EditDialog, ItemCard, TaskTopBar } from '@/components/molecules';
 import type { Task } from '@/types/schemas';
 import { useStorage } from '@/storage/StorageContext';
+import * as Progress from 'react-native-progress';
 import { useGoalActions } from '@/helpers/hooks/useGoalActions';
 import { useIsFocused } from '@react-navigation/native';
 import alertAction from '@/helpers/utils/alertAction';
@@ -77,13 +77,6 @@ function GoalDetails({ route, navigation }: RootScreenProps<'GoalDetails'>) {
 			<View style={components.mainContainer}>
 				<Text style={components.header}>{goalName}</Text>
 				<Text style={[fonts.size_16, fonts.gray200]}>{goalDescription}</Text>
-				<Text style={[fonts.size_16, fonts.gray400, gutters.marginTop_16]}>
-					{t('goals:tasksCompleted')}: {taskCount.completed}/{taskCount.total}
-				</Text>
-				<GreenRoundedButton
-					handlePress={handleNavigateToTasks}
-					text="goToTasks"
-				/>
 				{mostImportantTask && (
 					<View style={[gutters.marginTop_16, layout.fullWidth]}>
 						<Text style={[fonts.size_16, fonts.bold, fonts.gray200]}>
@@ -102,6 +95,17 @@ function GoalDetails({ route, navigation }: RootScreenProps<'GoalDetails'>) {
 						</TouchableOpacity>
 					</View>
 				)}
+				<Progress.Bar
+					progress={taskCount.completed / taskCount.total}
+					height={20}
+				/>
+				<Text style={[fonts.size_16, fonts.gray400, gutters.marginTop_16]}>
+					{t('goals:tasksCompleted')}: {taskCount.completed}/{taskCount.total}
+				</Text>
+				<GreenRoundedButton
+					handlePress={handleNavigateToTasks}
+					text="goToTasks"
+				/>
 			</View>
 		</SafeScreen>
 	);
