@@ -1,4 +1,4 @@
-import { Text, View, TouchableOpacity } from 'react-native';
+import { ActivityIndicator, Text, View } from 'react-native';
 
 import { SafeScreen } from '@/components/template';
 import { useTheme } from '@/theme';
@@ -11,15 +11,13 @@ import { useStorage } from '@/storage/StorageContext';
 import { useTaskActions } from '@/helpers/hooks/useTaskActions';
 import { useIsFocused } from '@react-navigation/native';
 import alertAction from '@/helpers/utils/alertAction';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import { useTranslation } from 'react-i18next';
 import { GreenRoundedButton } from '@/components/atoms';
+import { saveTasks } from '@/controllers/goals';
 
 function Tasks({ route, navigation }: RootScreenProps<'Tasks'>) {
 	const { goal, task } = route.params;
 	const storage = useStorage();
-	const { t } = useTranslation(['goals']);
-	const { layout, fonts, gutters, colors, components } = useTheme();
+	const { layout, fonts, gutters, components } = useTheme();
 	const [tasks, setTasks] = useState<Task[]>([]);
 	const [visible, setVisible] = useState(false);
 	const [taskName, setTaskName] = useState(task?.name || '');
@@ -28,6 +26,7 @@ function Tasks({ route, navigation }: RootScreenProps<'Tasks'>) {
 		task?.taskId,
 		task?.id,
 	);
+	const { mutate, isSuccess, isPending, error, data } = saveTasks();
 	const storageString = task
 		? `goals.${goal.id}.${task.id}`
 		: `goals.${goal.id}`;
@@ -42,6 +41,13 @@ function Tasks({ route, navigation }: RootScreenProps<'Tasks'>) {
 			}
 		}
 	}, [task?.id, isFocused]);
+	useEffect(() => {
+		const token = storage.getString('token');
+		if (token) mutate({ tasks, token });
+	}, [tasks]);
+	useEffect(() => {
+		if (data) setTasks(data);
+	}, [isSuccess]);
 	const handleDelete = () => {
 		deleteTask();
 		navigation.goBack();
@@ -99,6 +105,8 @@ function Tasks({ route, navigation }: RootScreenProps<'Tasks'>) {
 				<Text style={[fonts.size_24, fonts.gray200]}>{goal.name}</Text>
 				{task && <Text style={[fonts.size_24, fonts.gray200]}>{taskName}</Text>}
 				<GreenRoundedButton handlePress={handlePress} text="addTask" />
+				{isPending && <ActivityIndicator />}
+				{error && <Text style={components.errorText}>{error.message}</Text>}
 				<View style={[gutters.marginTop_16, layout.fullWidth]}>
 					<TasksList
 						tasks={tasks}

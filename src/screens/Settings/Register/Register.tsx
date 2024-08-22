@@ -5,7 +5,6 @@ import { SafeScreen } from '@/components/template';
 import { useTheme } from '@/theme';
 import { useEffect, useState } from 'react';
 import { resetStates } from '@/helpers/utils/resetStates';
-import { isImageSourcePropType } from '@/types/guards/image';
 import { GreenRoundedButton, TextInputRounded } from '@/components/atoms';
 
 function Register() {

@@ -11,5 +11,8 @@ type Task = {
 	dueDate?: Date;
 	completed: boolean;
 };
-
+export type TasksVariables = {
+	tasks: Task[];
+	token: string;
+};
 export default Task;

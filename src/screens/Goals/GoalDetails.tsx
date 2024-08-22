@@ -95,10 +95,6 @@ function GoalDetails({ route, navigation }: RootScreenProps<'GoalDetails'>) {
 						</TouchableOpacity>
 					</View>
 				)}
-				<Progress.Bar
-					progress={taskCount.completed / taskCount.total}
-					height={20}
-				/>
 				<Text style={[fonts.size_16, fonts.gray400, gutters.marginTop_16]}>
 					{t('goals:tasksCompleted')}: {taskCount.completed}/{taskCount.total}
 				</Text>

@@ -1,6 +1,5 @@
 import { View, TouchableOpacity } from 'react-native';
 import type { Task } from '@/types/schemas';
-import { isImageSourcePropType } from '@/types/guards/image';
 import { TaskListProps } from '@/types/navigation';
 import { ItemCard } from '@/components/molecules';
 import DragList, { DragListRenderItemInfo } from 'react-native-draglist';
