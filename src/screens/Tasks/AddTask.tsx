@@ -11,15 +11,15 @@ import { useTranslation } from 'react-i18next';
 
 function AddTask({ navigation, route }: RootScreenProps<'AddTask'>) {
 	const { task, goal, tasks } = route.params;
-	const { fonts, components } = useTheme();
+	const { components } = useTheme();
 	const { t } = useTranslation(['goals']);
 	const [name, setName] = useState<string>('');
 	const [description, setDescription] = useState<string>('');
 	const [dueDate, setDueDate] = useState<Date>();
 	const [duration, setDuration] = useState<number>();
-	const { addTask } = useTaskActions(goal.id, task?.taskId, task?.id);
-	const handleAddTask = () => {
-		addTask(tasks, name, description, duration, dueDate);
+	const { addTask } = useTaskActions(goal.id, task?.taskId, task?.taskId);
+	const handleAddTask = async () => {
+		await addTask(tasks, name, description, duration, dueDate);
 		navigation.goBack();
 	};
 	return (

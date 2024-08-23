@@ -1,7 +1,8 @@
 type Task = {
-	id: number;
+	_id?: string;
+	taskId: number;
 	goalId: number;
-	taskId?: number | undefined;
+	parentId?: number | undefined;
 	name: string;
 	description: string;
 	duration?: {
@@ -10,9 +11,15 @@ type Task = {
 	};
 	dueDate?: Date;
 	completed: boolean;
+	createdAt?: Date;
+	updatedAt?: Date;
 };
 export type TasksVariables = {
 	tasks: Task[];
+	token: string;
+};
+export type TaskVariables = {
+	task: Task;
 	token: string;
 };
 export default Task;

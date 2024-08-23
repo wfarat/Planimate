@@ -1,5 +1,6 @@
 import { Task } from '@/types/schemas';
 import { useStorage } from '@/storage/StorageContext';
+import { addTaskMutation } from '@/controllers/goals';
 
 export const useTaskActions = (
 	goalId: number,
@@ -7,6 +8,7 @@ export const useTaskActions = (
 	taskId?: number | undefined,
 ) => {
 	const storage = useStorage();
+	const { mutateAsync } = addTaskMutation();
 	const storageString = (target?: number) => {
 		return target ? `goals.${goalId}.${target}` : `goals.${goalId}`;
 	};
@@ -22,27 +24,27 @@ export const useTaskActions = (
 	};
 
 	const deleteTask = () => {
-		const updatedTasks = tasks.filter(t => t.id !== taskId);
+		const updatedTasks = tasks.filter(t => t.taskId !== taskId);
 		updateTasks(updatedTasks, parentId);
 	};
 
 	const finishTask = () => {
 		const updatedTasks = tasks.map(t =>
-			t.id === taskId ? { ...t, completed: true } : t,
+			t.taskId === taskId ? { ...t, completed: true } : t,
 		);
 		updateTasks(updatedTasks, parentId);
 	};
 
 	const editTask = (newName: string, newDescription: string) => {
 		const updatedTasks = tasks.map(t =>
-			t.id === taskId
+			t.taskId === taskId
 				? { ...t, name: newName, description: newDescription }
 				: t,
 		);
 		updateTasks(updatedTasks, parentId);
 	};
 
-	const addTask = (
+	const addTask = async (
 		oldTasks: Task[],
 		name: string,
 		description: string,
@@ -56,14 +58,29 @@ export const useTaskActions = (
 			name,
 			description,
 			goalId,
-			id: lastId + 1,
-			taskId,
+			taskId: lastId + 1,
+			parentId: taskId,
 			duration,
 			dueDate,
 			completed: false,
 		};
 		storage.set(`goals.${goalId}.lastId`, lastId + 1);
 		const updatedTasks = [...oldTasks, newTask];
+		const token = storage.getString('token');
+		if (token) {
+			try {
+				// Use mutateAsync and await the result
+				const savedTask = await mutateAsync({ task: newTask, token });
+				const tasksWithSavedTask = [...oldTasks, savedTask];
+				updateTasks(tasksWithSavedTask, taskId);
+				console.log(savedTask); // Log the data for debugging
+				return tasksWithSavedTask; // Return the updated tasks
+			} catch (error) {
+				console.error('Failed to save task to backend:', error);
+				// Fallback to local update if mutation fails
+				updateTasks(updatedTasks, taskId);
+			}
+		}
 		updateTasks(updatedTasks, taskId);
 		return updatedTasks;
 	};
@@ -74,9 +91,9 @@ export const useTaskActions = (
 					return result;
 				}
 				if (!task.completed) {
-					const data = storage.getString(`goals.${goalId}.${task.id}`);
-					if (data) {
-						const subTasks = JSON.parse(data) as Task[];
+					const tasksData = storage.getString(`goals.${goalId}.${task.taskId}`);
+					if (tasksData) {
+						const subTasks = JSON.parse(tasksData) as Task[];
 						if (subTasks.length === 0) {
 							return task;
 						}
@@ -95,10 +112,12 @@ export const useTaskActions = (
 			return list.reduce<Task | null>((result, task) => {
 				if (result) return result;
 
-				if (!task.completed && !allocatedTaskIds.has(task.id)) {
-					const data = storage.getString(`goals.${task.goalId}.${task.id}`);
-					if (data) {
-						const subTasks = JSON.parse(data) as Task[];
+				if (!task.completed && !allocatedTaskIds.has(task.taskId)) {
+					const tasksData = storage.getString(
+						`goals.${task.goalId}.${task.taskId}`,
+					);
+					if (tasksData) {
+						const subTasks = JSON.parse(tasksData) as Task[];
 						if (subTasks.length === 0) return task;
 						return traverseTasks(subTasks) || task;
 					}
@@ -117,7 +136,7 @@ export const useTaskActions = (
 		let remainingMinutes = freeMinutes;
 		while (task && remainingMinutes > 0) {
 			importantTasks.push(task);
-			allocatedTaskIds.add(task.id);
+			allocatedTaskIds.add(task.taskId);
 			if (task.duration)
 				remainingMinutes -= task.duration.base - task.duration.elapsed;
 			task = traverseTasks(tasks);
@@ -137,9 +156,9 @@ export const useTaskActions = (
 			if (task.completed) {
 				counts.completed += 1;
 			}
-			const data = storage.getString(`goals.${goalId}.${task.id}`);
-			if (data) {
-				const subTasks = JSON.parse(data) as Task[];
+			const tasksData = storage.getString(`goals.${goalId}.${task.taskId}`);
+			if (tasksData) {
+				const subTasks = JSON.parse(tasksData) as Task[];
 				const subtaskCounts = countTasks(subTasks);
 				counts.completed += subtaskCounts.completed;
 				counts.total += subtaskCounts.total;

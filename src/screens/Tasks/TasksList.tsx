@@ -40,7 +40,7 @@ function TasksList({
 		<View>
 			<DragList
 				data={tasks}
-				keyExtractor={item => `${item.goalId}.${item.id}`}
+				keyExtractor={item => `${item.goalId}.${item.taskId}`}
 				renderItem={renderItem}
 				onReordered={onReordered}
 			/>
