@@ -11,7 +11,7 @@ import { useGoalActions } from '@/helpers/hooks/useGoalActions';
 import { useIsFocused } from '@react-navigation/native';
 import alertAction from '@/helpers/utils/alertAction';
 import { useTranslation } from 'react-i18next';
-import { useTaskActions } from '@/helpers/hooks/useTaskActions';
+import { useTaskActions } from '@/helpers/hooks/tasks/useTaskActions';
 import { GreenRoundedButton } from '@/components/atoms';
 
 function GoalDetails({ route, navigation }: RootScreenProps<'GoalDetails'>) {

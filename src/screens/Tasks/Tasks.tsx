@@ -8,10 +8,10 @@ import { RootScreenProps } from '@/types/navigation';
 import { EditDialog, TaskTopBar } from '@/components/molecules';
 import type { Task } from '@/types/schemas';
 import { useStorage } from '@/storage/StorageContext';
-import { useTaskActions } from '@/helpers/hooks/useTaskActions';
 import { useIsFocused } from '@react-navigation/native';
 import alertAction from '@/helpers/utils/alertAction';
 import { GreenRoundedButton } from '@/components/atoms';
+import { useTaskHandlers } from '@/helpers/hooks/tasks/useTaskHandlers';
 
 function Tasks({ route, navigation }: RootScreenProps<'Tasks'>) {
 	const { goal, task } = route.params;
@@ -20,12 +20,8 @@ function Tasks({ route, navigation }: RootScreenProps<'Tasks'>) {
 	const [tasks, setTasks] = useState<Task[]>([]);
 	const [visible, setVisible] = useState(false);
 	const [taskName, setTaskName] = useState(task?.name || '');
-	const { deleteTask, finishTask, editTask, updateTasks } = useTaskActions(
-		goal.id,
-		task?.parentId,
-		task?.taskId,
-		task?.id,
-	);
+	const { handleFinishTask, handleEditTask, handleSetTasks, handleAlert } =
+		useTaskHandlers(goal, setTasks, task);
 	const storageString = task
 		? `goals.${goal.id}.${task.taskId}`
 		: `goals.${goal.id}`;
@@ -40,41 +36,25 @@ function Tasks({ route, navigation }: RootScreenProps<'Tasks'>) {
 			}
 		}
 	}, [task?.taskId, isFocused]);
-	const handleDelete = async () => {
-		await deleteTask();
-		navigation.goBack();
-	};
 
-	const handleFinishTask = () => {
-		finishTask();
-		navigation.goBack();
-	};
-
-	const handleCancel = () => {
-		setVisible(false);
-	};
-	const handleAlert = () => {
-		alertAction('delete', task ? task.name : goal.name, handleDelete);
-	};
-	const handleEdit = (newName: string, newDescription: string) => {
-		if (task) {
-			editTask(newName, newDescription);
-			setTaskName(newName); // Update task name state
-			navigation.setParams({
-				task: { ...task, name: newName, description: newDescription },
-			});
-		}
-		setVisible(false);
-	};
 	const handleAddToAgenda = () => {
 		if (task) navigation.push('AddToAgenda', { task });
 	};
 	const handlePress = () => {
 		navigation.push('AddTask', { tasks, task, goal });
 	};
-	const handleSetTasks = (newTasks: Task[]) => {
-		setTasks(newTasks);
-		updateTasks(newTasks, task ? task.taskId : undefined);
+	const handleCancel = () => {
+		setVisible(false);
+	};
+	const handleEdit = (newName: string, newDescription: string) => {
+		handleEditTask(newName, newDescription);
+		setTaskName(newName);
+		if (task) {
+			navigation.setParams({
+				task: { ...task, name: newName, description: newDescription },
+			});
+		}
+		setVisible(false);
 	};
 	return (
 		<SafeScreen>

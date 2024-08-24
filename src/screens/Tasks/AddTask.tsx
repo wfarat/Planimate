@@ -5,7 +5,7 @@ import { useTheme } from '@/theme';
 import { useEffect, useState } from 'react';
 import { InputDate, InputTime } from '@/components/molecules';
 import { RootScreenProps } from '@/types/navigation';
-import { useTaskActions } from '@/helpers/hooks/useTaskActions';
+import { useTaskActions } from '@/helpers/hooks/tasks/useTaskActions';
 import { GreenRoundedButton, TextInputRounded } from '@/components/atoms';
 import { useTranslation } from 'react-i18next';
 import { useStorage } from '@/storage/StorageContext';
