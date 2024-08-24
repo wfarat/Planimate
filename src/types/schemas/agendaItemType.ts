@@ -6,7 +6,7 @@ type AgendaItemType = {
 		title: string;
 		id: number;
 		key: string;
-		taskStorageKey: string;
+		goalId: number;
 		taskId: number;
 		completed: boolean;
 	}[];
@@ -17,7 +17,7 @@ export type AgendaItemData = {
 	title: string;
 	id: number;
 	key: string;
-	taskStorageKey: string;
+	goalId: number;
 	taskId: number;
 	completed: boolean;
 };
@@ -28,7 +28,7 @@ export type RenderAgendaItemProps = {
 		title: string;
 		id: number;
 		key: string;
-		taskStorageKey: string;
+		goalId: number;
 		taskId: number;
 		completed: boolean;
 	};

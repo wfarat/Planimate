@@ -52,9 +52,7 @@ export const useAgendaItems = () => {
 					title: task.name,
 					id: id + 1,
 					key: title,
-					taskStorageKey: task.taskId
-						? `goals.${task.goalId}.${task.taskId}`
-						: `goals.${task.goalId}`,
+					goalId: task.goalId,
 					taskId: task.taskId,
 					completed: false,
 				},
@@ -137,17 +135,15 @@ export const useAgendaItems = () => {
 	};
 	const completeAgendaItem = (item: AgendaItemData): AgendaItemType[] => {
 		const updatedItems = updateAgendaItem({ ...item, completed: true });
-		const storedTasksString = storage.getString(item.taskStorageKey);
+		const taskStorageKey = item.taskId
+			? `goals.${item.goalId}.${item.taskId}`
+			: `goals.${item.goalId}`;
+		const storedTasksString = storage.getString(taskStorageKey);
 		if (storedTasksString) {
 			const tasks = JSON.parse(storedTasksString) as Task[];
 			const targetTask = tasks.find(current => current.taskId === item.taskId);
 			if (targetTask) {
-				updateTaskDuration(
-					tasks,
-					targetTask,
-					item.duration,
-					item.taskStorageKey,
-				);
+				updateTaskDuration(tasks, targetTask, item.duration, taskStorageKey);
 			}
 		}
 
