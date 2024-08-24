@@ -24,6 +24,7 @@ function Tasks({ route, navigation }: RootScreenProps<'Tasks'>) {
 		goal.id,
 		task?.parentId,
 		task?.taskId,
+		task?._id,
 	);
 	const storageString = task
 		? `goals.${goal.id}.${task.taskId}`
@@ -39,8 +40,8 @@ function Tasks({ route, navigation }: RootScreenProps<'Tasks'>) {
 			}
 		}
 	}, [task?.taskId, isFocused]);
-	const handleDelete = () => {
-		deleteTask();
+	const handleDelete = async () => {
+		await deleteTask();
 		navigation.goBack();
 	};
 

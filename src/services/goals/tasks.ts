@@ -35,3 +35,11 @@ export const getTasks = async (token: string): Promise<Task[]> => {
 	const camelCaseData = responseData.map(task => convertKeysToCamelCase(task));
 	return camelCaseData as Task[];
 };
+
+export const removeTask = async (id: string, token: string) => {
+	await instance.delete(`tasks/${id}`, {
+		headers: {
+			Authorization: `Bearer ${token}`,
+		},
+	});
+};

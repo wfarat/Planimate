@@ -23,4 +23,8 @@ export type TaskVariables = {
 	task: Task;
 	token: string;
 };
+export type RemoveVariables = {
+	id: string;
+	token: string;
+};
 export default Task;

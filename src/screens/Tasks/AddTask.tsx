@@ -17,8 +17,10 @@ function AddTask({ navigation, route }: RootScreenProps<'AddTask'>) {
 	const [description, setDescription] = useState<string>('');
 	const [dueDate, setDueDate] = useState<Date>();
 	const [duration, setDuration] = useState<number>();
+	const [showButton, setShowButton] = useState(true);
 	const { addTask } = useTaskActions(goal.id, task?.taskId, task?.taskId);
 	const handleAddTask = async () => {
+		setShowButton(false);
 		await addTask(tasks, name, description, duration, dueDate);
 		navigation.goBack();
 	};
@@ -38,7 +40,9 @@ function AddTask({ navigation, route }: RootScreenProps<'AddTask'>) {
 				/>
 				<InputDate date={dueDate} setDate={setDueDate} message="endDate" />
 				<InputTime setDuration={setDuration} message="duration" />
-				<GreenRoundedButton handlePress={handleAddTask} text="addTask" />
+				{showButton && (
+					<GreenRoundedButton handlePress={handleAddTask} text="addTask" />
+				)}
 			</View>
 		</SafeScreen>
 	);

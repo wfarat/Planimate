@@ -1,18 +1,21 @@
 import { Task } from '@/types/schemas';
 import { useStorage } from '@/storage/StorageContext';
-import { addTaskMutation } from '@/controllers/goals';
+import { saveTask, removeTask } from '@/controllers/goals';
 
 export const useTaskActions = (
 	goalId: number,
-	parentId?: number | undefined,
-	taskId?: number | undefined,
+	parentId?: number,
+	taskId?: number,
+	id?: string,
 ) => {
 	const storage = useStorage();
-	const { mutateAsync } = addTaskMutation();
+	const saveTaskMutation = saveTask();
+	const removeTaskMutation = removeTask();
 	const storageString = (target?: number) => {
 		return target ? `goals.${goalId}.${target}` : `goals.${goalId}`;
 	};
 	const storedId = storage.getNumber(`goals.${goalId}.lastId`);
+	const token = storage.getString('token');
 	const lastId = storedId || 0;
 	const storedTasks = storage.getString(storageString(parentId));
 	let tasks: Task[] = [];
@@ -23,9 +26,19 @@ export const useTaskActions = (
 		storage.set(storageString(target), JSON.stringify(updatedTasks));
 	};
 
-	const deleteTask = () => {
+	const deleteTask = async () => {
 		const updatedTasks = tasks.filter(t => t.taskId !== taskId);
-		updateTasks(updatedTasks, parentId);
+		if (token && id) {
+			await removeTaskMutation.mutateAsync(
+				{ id, token },
+				{
+					onSuccess: () => updateTasks(updatedTasks, parentId),
+					onError: error => console.error(error),
+				},
+			);
+		} else {
+			updateTasks(updatedTasks, parentId);
+		}
 	};
 
 	const finishTask = () => {
@@ -67,10 +80,12 @@ export const useTaskActions = (
 		};
 		storage.set(`goals.${goalId}.lastId`, lastId + 1);
 		const updatedTasks = [...oldTasks, newTask];
-		const token = storage.getString('token');
 		if (token) {
 			try {
-				const savedTask = await mutateAsync({ task: newTask, token });
+				const savedTask = await saveTaskMutation.mutateAsync({
+					task: newTask,
+					token,
+				});
 				const tasksWithSavedTask = [...oldTasks, savedTask];
 				updateTasks(tasksWithSavedTask, taskId);
 				return tasksWithSavedTask;
