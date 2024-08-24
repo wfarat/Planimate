@@ -6,7 +6,6 @@ import {
 } from '@/helpers/utils/convert';
 
 export const saveTask = async (task: Task, token: string): Promise<Task> => {
-	// Send the POST request with the task data converted to snake_case
 	const response = await instance.post('tasks', {
 		json: { ...convertKeysToSnakeCase(task) },
 		headers: {
@@ -14,14 +13,8 @@ export const saveTask = async (task: Task, token: string): Promise<Task> => {
 			'Content-Type': 'application/json',
 		},
 	});
-
-	// Parse the JSON response
 	const responseData = await response.json();
-
-	// Convert the response data keys from snake_case to camelCase
 	const camelCaseData = convertKeysToCamelCase(responseData);
-
-	// Return the camelCase data
 	return camelCaseData as Task;
 };
 export const saveTasks = async (
@@ -30,4 +23,15 @@ export const saveTasks = async (
 ): Promise<Task[]> => {
 	const taskPromises = tasks.map(task => saveTask(task, token));
 	return Promise.all(taskPromises);
+};
+
+export const getTasks = async (token: string): Promise<Task[]> => {
+	const response = await instance.get('tasks', {
+		headers: {
+			Authorization: `Bearer ${token}`,
+		},
+	});
+	const responseData = await response.json();
+	const camelCaseData = responseData.map(task => convertKeysToCamelCase(task));
+	return camelCaseData as Task[];
 };

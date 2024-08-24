@@ -13,6 +13,7 @@ type Task = {
 	completed: boolean;
 	createdAt?: Date;
 	updatedAt?: Date;
+	order: number;
 };
 export type TasksVariables = {
 	tasks: Task[];

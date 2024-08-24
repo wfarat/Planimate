@@ -63,21 +63,18 @@ export const useTaskActions = (
 			duration,
 			dueDate,
 			completed: false,
+			order: oldTasks.length,
 		};
 		storage.set(`goals.${goalId}.lastId`, lastId + 1);
 		const updatedTasks = [...oldTasks, newTask];
 		const token = storage.getString('token');
 		if (token) {
 			try {
-				// Use mutateAsync and await the result
 				const savedTask = await mutateAsync({ task: newTask, token });
 				const tasksWithSavedTask = [...oldTasks, savedTask];
 				updateTasks(tasksWithSavedTask, taskId);
-				console.log(savedTask); // Log the data for debugging
-				return tasksWithSavedTask; // Return the updated tasks
+				return tasksWithSavedTask;
 			} catch (error) {
-				console.error('Failed to save task to backend:', error);
-				// Fallback to local update if mutation fails
 				updateTasks(updatedTasks, taskId);
 			}
 		}
