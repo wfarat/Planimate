@@ -24,7 +24,7 @@ function Tasks({ route, navigation }: RootScreenProps<'Tasks'>) {
 		goal.id,
 		task?.parentId,
 		task?.taskId,
-		task?._id,
+		task?.id,
 	);
 	const storageString = task
 		? `goals.${goal.id}.${task.taskId}`

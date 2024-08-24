@@ -1,21 +1,20 @@
 import { instance } from '@/services/instance';
-import Task from '@/types/schemas/task';
-import {
-	convertKeysToCamelCase,
-	convertKeysToSnakeCase,
-} from '@/helpers/utils/convert';
+import Task, { FetchedTask } from '@/types/schemas/task';
+import { objectToCamel, objectToSnake } from 'ts-case-convert/lib/caseConvert';
 
+const convertToTask = (fetchedTask: FetchedTask): Task =>
+	// eslint-disable-next-line no-underscore-dangle
+	objectToCamel({ ...fetchedTask, id: fetchedTask._id, _id: undefined });
 export const saveTask = async (task: Task, token: string): Promise<Task> => {
 	const response = await instance.post('tasks', {
-		json: { ...convertKeysToSnakeCase(task) },
+		json: { ...objectToSnake(task) },
 		headers: {
 			Authorization: `Bearer ${token}`,
 			'Content-Type': 'application/json',
 		},
 	});
 	const responseData = await response.json();
-	const camelCaseData = convertKeysToCamelCase(responseData);
-	return camelCaseData as Task;
+	return convertToTask(responseData as FetchedTask);
 };
 export const saveTasks = async (
 	tasks: Task[],
@@ -31,9 +30,8 @@ export const getTasks = async (token: string): Promise<Task[]> => {
 			Authorization: `Bearer ${token}`,
 		},
 	});
-	const responseData = await response.json();
-	const camelCaseData = responseData.map(task => convertKeysToCamelCase(task));
-	return camelCaseData as Task[];
+	const responseData: FetchedTask[] = await response.json<FetchedTask[]>();
+	return responseData.map((task: FetchedTask) => convertToTask(task));
 };
 
 export const removeTask = async (id: string, token: string) => {

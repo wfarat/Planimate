@@ -17,7 +17,9 @@ function Settings({ navigation }: RootScreenProps<'Settings'>) {
 	const onChangeTheme = () => {
 		changeTheme(variant === 'default' ? 'dark' : 'default');
 	};
-	if (data) console.log(data);
+	if (data) {
+		console.log(data);
+	}
 	const onChangeLanguage = () => {
 		void i18next.changeLanguage(i18next.language === 'en' ? 'pl' : 'en');
 	};
@@ -55,7 +57,6 @@ function Settings({ navigation }: RootScreenProps<'Settings'>) {
 						Error when trying to load tasks
 					</Text>
 				)}
-				<Text>reloadx3</Text>
 			</View>
 		</SafeScreen>
 	);
