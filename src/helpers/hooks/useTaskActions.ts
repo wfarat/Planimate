@@ -1,6 +1,6 @@
 import { Task } from '@/types/schemas';
 import { useStorage } from '@/storage/StorageContext';
-import { saveTask, removeTask } from '@/controllers/goals';
+import { removeTask } from '@/controllers/goals';
 
 export const useTaskActions = (
 	goalId: number,
@@ -9,7 +9,6 @@ export const useTaskActions = (
 	id?: string,
 ) => {
 	const storage = useStorage();
-	const saveTaskMutation = saveTask();
 	const removeTaskMutation = removeTask();
 	const storageString = (target?: number) => {
 		return target ? `goals.${goalId}.${target}` : `goals.${goalId}`;
@@ -57,7 +56,7 @@ export const useTaskActions = (
 		updateTasks(updatedTasks, parentId);
 	};
 
-	const addTask = async (
+	const createTask = (
 		oldTasks: Task[],
 		name: string,
 		description: string,
@@ -79,22 +78,7 @@ export const useTaskActions = (
 			order: oldTasks.length,
 		};
 		storage.set(`goals.${goalId}.lastId`, lastId + 1);
-		const updatedTasks = [...oldTasks, newTask];
-		if (token) {
-			try {
-				const savedTask = await saveTaskMutation.mutateAsync({
-					task: newTask,
-					token,
-				});
-				const tasksWithSavedTask = [...oldTasks, savedTask];
-				updateTasks(tasksWithSavedTask, taskId);
-				return tasksWithSavedTask;
-			} catch (error) {
-				updateTasks(updatedTasks, taskId);
-			}
-		}
-		updateTasks(updatedTasks, taskId);
-		return updatedTasks;
+		return newTask;
 	};
 	const findMostImportantTask = (): Task | null => {
 		const traverseTasks = (list: Task[]): Task | null => {
@@ -184,7 +168,7 @@ export const useTaskActions = (
 		deleteTask,
 		finishTask,
 		editTask,
-		addTask,
+		createTask,
 		countTasks,
 		updateTasks,
 		findMostImportantTask,

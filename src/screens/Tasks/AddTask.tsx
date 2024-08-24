@@ -1,28 +1,50 @@
-import { View, Text } from 'react-native';
+import { View, Text, ActivityIndicator } from 'react-native';
 
 import { SafeScreen } from '@/components/template';
 import { useTheme } from '@/theme';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { InputDate, InputTime } from '@/components/molecules';
 import { RootScreenProps } from '@/types/navigation';
 import { useTaskActions } from '@/helpers/hooks/useTaskActions';
 import { GreenRoundedButton, TextInputRounded } from '@/components/atoms';
 import { useTranslation } from 'react-i18next';
+import { useStorage } from '@/storage/StorageContext';
+import { saveTask } from '@/controllers/goals';
+import { Task } from '@/types/schemas';
 
 function AddTask({ navigation, route }: RootScreenProps<'AddTask'>) {
 	const { task, goal, tasks } = route.params;
 	const { components } = useTheme();
 	const { t } = useTranslation(['goals']);
+	const storage = useStorage();
 	const [name, setName] = useState<string>('');
 	const [description, setDescription] = useState<string>('');
 	const [dueDate, setDueDate] = useState<Date>();
 	const [duration, setDuration] = useState<number>();
-	const [showButton, setShowButton] = useState(true);
-	const { addTask } = useTaskActions(goal.id, task?.taskId, task?.taskId);
-	const handleAddTask = async () => {
-		setShowButton(false);
-		await addTask(tasks, name, description, duration, dueDate);
+	const { mutate, data, isSuccess, isPending, isError, error } = saveTask();
+	const { createTask, updateTasks } = useTaskActions(
+		goal.id,
+		task?.taskId,
+		task?.taskId,
+	);
+	const addTask = (newTask: Task) => {
+		const updatedTasks = [...tasks, newTask];
+		updateTasks(updatedTasks, task?.taskId);
 		navigation.goBack();
+	};
+	useEffect(() => {
+		if (isSuccess) {
+			addTask(data);
+		}
+	}, [isSuccess]);
+	const handleAddTask = () => {
+		const newTask = createTask(tasks, name, description, duration, dueDate);
+		const token = storage.getString('token');
+		if (token) {
+			mutate({ task: newTask, token });
+		} else {
+			addTask(newTask);
+		}
 	};
 	return (
 		<SafeScreen>
@@ -40,9 +62,12 @@ function AddTask({ navigation, route }: RootScreenProps<'AddTask'>) {
 				/>
 				<InputDate date={dueDate} setDate={setDueDate} message="endDate" />
 				<InputTime setDuration={setDuration} message="duration" />
-				{showButton && (
+				{isPending ? (
+					<ActivityIndicator />
+				) : (
 					<GreenRoundedButton handlePress={handleAddTask} text="addTask" />
 				)}
+				{isError && <Text style={components.errorText}>{error?.message}</Text>}
 			</View>
 		</SafeScreen>
 	);
