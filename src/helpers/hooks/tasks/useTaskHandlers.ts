@@ -1,7 +1,6 @@
 // useTaskHandlers.ts
 
 import { useNavigation } from '@react-navigation/native';
-import alertAction from '@/helpers/utils/alertAction';
 import { Goal, Task } from '@/types/schemas';
 import { useTaskActions } from '@/helpers/hooks/tasks/useTaskActions';
 
@@ -18,17 +17,14 @@ export const useTaskHandlers = (
 		task?.id,
 	);
 
-	const handleDelete = async () => {
-		await deleteTask();
+	const handleDeleteTask = () => {
+		deleteTask();
 		navigation.goBack();
 	};
 
 	const handleFinishTask = () => {
 		finishTask();
 		navigation.goBack();
-	};
-	const handleAlert = () => {
-		alertAction('delete', task ? task.name : goal.name, handleDelete);
 	};
 	const handleEditTask = (newName: string, newDescription: string) => {
 		if (task) {
@@ -41,10 +37,9 @@ export const useTaskHandlers = (
 	};
 
 	return {
-		handleDelete,
+		handleDeleteTask,
 		handleFinishTask,
 		handleEditTask,
 		handleSetTasks,
-		handleAlert,
 	};
 };

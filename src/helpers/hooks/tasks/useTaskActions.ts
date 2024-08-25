@@ -25,19 +25,9 @@ export const useTaskActions = (
 		storage.set(storageString(target), JSON.stringify(updatedTasks));
 	};
 
-	const deleteTask = async () => {
+	const deleteTask = () => {
 		const updatedTasks = tasks.filter(t => t.taskId !== taskId);
-		if (token && id) {
-			await removeTaskMutation.mutateAsync(
-				{ id, token },
-				{
-					onSuccess: () => updateTasks(updatedTasks, parentId),
-					onError: error => console.error(error),
-				},
-			);
-		} else {
-			updateTasks(updatedTasks, parentId);
-		}
+		updateTasks(updatedTasks, parentId);
 	};
 
 	const finishTask = () => {

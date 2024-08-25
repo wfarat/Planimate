@@ -1,11 +1,11 @@
 import { useMutation, UseMutationResult } from '@tanstack/react-query';
 
 import { removeTask } from '@/services/goals/tasks';
-import { RemoveVariables } from '@/types/schemas/task';
+import { MutationVariables } from '@/types/schemas/task';
 
-export default (): UseMutationResult<void, Error, RemoveVariables> => {
+export default (): UseMutationResult<void, Error, MutationVariables> => {
 	return useMutation({
-		mutationFn: ({ id, token }: RemoveVariables) => {
+		mutationFn: ({ id, token }: MutationVariables) => {
 			return removeTask(id, token);
 		},
 	});

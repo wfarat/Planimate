@@ -40,7 +40,7 @@ export type TaskVariables = {
 	task: Task;
 	token: string;
 };
-export type RemoveVariables = {
+export type MutationVariables = {
 	id: string;
 	token: string;
 };

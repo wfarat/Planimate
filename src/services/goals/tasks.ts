@@ -41,3 +41,11 @@ export const removeTask = async (id: string, token: string) => {
 		},
 	});
 };
+
+export const finishTask = async (id: string, token: string): Promise<void> => {
+	await instance.put(`tasks/finish/${id}`, {
+		headers: {
+			Authorization: `Bearer ${token}`,
+		},
+	});
+};

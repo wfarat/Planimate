@@ -9,18 +9,19 @@ import { EditDialog, TaskTopBar } from '@/components/molecules';
 import type { Task } from '@/types/schemas';
 import { useStorage } from '@/storage/StorageContext';
 import { useIsFocused } from '@react-navigation/native';
-import alertAction from '@/helpers/utils/alertAction';
 import { GreenRoundedButton } from '@/components/atoms';
 import { useTaskHandlers } from '@/helpers/hooks/tasks/useTaskHandlers';
+import ActionDialog from '@/components/molecules/ActionDialog/ActionDialog';
+import { deleteTask, finishTask } from '@/controllers/goals';
 
 function Tasks({ route, navigation }: RootScreenProps<'Tasks'>) {
 	const { goal, task } = route.params;
 	const storage = useStorage();
 	const { layout, fonts, gutters, components } = useTheme();
 	const [tasks, setTasks] = useState<Task[]>([]);
-	const [visible, setVisible] = useState(false);
+	const [visible, setVisible] = useState([false, false, false]);
 	const [taskName, setTaskName] = useState(task?.name || '');
-	const { handleFinishTask, handleEditTask, handleSetTasks, handleAlert } =
+	const { handleDeleteTask, handleFinishTask, handleEditTask, handleSetTasks } =
 		useTaskHandlers(goal, setTasks, task);
 	const storageString = task
 		? `goals.${goal.id}.${task.taskId}`
@@ -43,8 +44,13 @@ function Tasks({ route, navigation }: RootScreenProps<'Tasks'>) {
 	const handlePress = () => {
 		navigation.push('AddTask', { tasks, task, goal });
 	};
-	const handleCancel = () => {
-		setVisible(false);
+	const handleSetVisible = (index: number) => {
+		setVisible(prevVisible =>
+			prevVisible.map((item, i) => (i === index ? !item : item)),
+		);
+	};
+	const handleCancel = (index: number) => {
+		handleSetVisible(index);
 	};
 	const handleEdit = (newName: string, newDescription: string) => {
 		handleEditTask(newName, newDescription);
@@ -54,25 +60,54 @@ function Tasks({ route, navigation }: RootScreenProps<'Tasks'>) {
 				task: { ...task, name: newName, description: newDescription },
 			});
 		}
-		setVisible(false);
+		handleSetVisible(0);
 	};
+	const actionDialogConfig = [
+		{
+			props: {
+				visible: visible[1],
+				onCancel: () => handleCancel(1),
+				mutation: finishTask,
+				actionName: 'complete',
+				action: handleFinishTask,
+			},
+		},
+		{
+			props: {
+				visible: visible[2],
+				onCancel: () => handleCancel(2),
+				mutation: deleteTask,
+				actionName: 'delete',
+				action: handleDeleteTask,
+			},
+		},
+	];
 	return (
 		<SafeScreen>
 			{task && (
 				<TaskTopBar
 					isCompletionPossible={tasks.every(item => item.completed)}
-					onDelete={handleAlert}
-					onFinish={() => alertAction('complete', task.name, handleFinishTask)}
-					onEdit={() => setVisible(true)}
+					onDelete={() => handleSetVisible(2)}
+					onFinish={() => handleSetVisible(1)}
+					onEdit={() => handleSetVisible(0)}
 					addToAgenda={handleAddToAgenda}
 				/>
 			)}
 			<EditDialog
 				onEdit={handleEdit}
-				onCancel={handleCancel}
-				visible={visible}
+				onCancel={() => handleCancel(0)}
+				visible={visible[0]}
 				oldName={task ? task.name : goal.name}
 			/>
+			{task &&
+				actionDialogConfig.map((config, index) => (
+					<ActionDialog
+						key={`action-${index}`}
+						name={task.name}
+						id={task.id}
+						{...config.props}
+					/>
+				))}
 			<View style={components.mainContainer}>
 				<Text style={[fonts.size_24, fonts.gray200]}>{goal.name}</Text>
 				{task && <Text style={[fonts.size_24, fonts.gray200]}>{taskName}</Text>}
