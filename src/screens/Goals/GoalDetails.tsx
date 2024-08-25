@@ -6,10 +6,8 @@ import { RootScreenProps } from '@/types/navigation';
 import { EditDialog, ItemCard, TaskTopBar } from '@/components/molecules';
 import type { Task } from '@/types/schemas';
 import { useStorage } from '@/storage/StorageContext';
-import * as Progress from 'react-native-progress';
 import { useGoalActions } from '@/helpers/hooks/useGoalActions';
 import { useIsFocused } from '@react-navigation/native';
-import alertAction from '@/helpers/utils/alertAction';
 import { useTranslation } from 'react-i18next';
 import { useTaskActions } from '@/helpers/hooks/tasks/useTaskActions';
 import { GreenRoundedButton } from '@/components/atoms';
@@ -57,22 +55,18 @@ function GoalDetails({ route, navigation }: RootScreenProps<'GoalDetails'>) {
 		setVisible(false);
 	};
 
-	const handleAlert = () => {
-		alertAction('delete', goal.name, handleDelete);
-	};
-
 	const handleNavigateToTasks = () => {
 		navigation.push('Tasks', { goal });
 	};
 
 	return (
 		<SafeScreen>
-			<TaskTopBar onDelete={handleAlert} onEdit={() => setVisible(true)} />
+			<TaskTopBar onDelete={handleDelete} onEdit={() => setVisible(true)} />
 			<EditDialog
 				onEdit={handleEdit}
 				onCancel={handleCancel}
 				visible={visible}
-				oldName={goal.name}
+				item={goal}
 			/>
 			<View style={components.mainContainer}>
 				<Text style={components.header}>{goalName}</Text>

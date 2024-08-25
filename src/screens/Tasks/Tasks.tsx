@@ -85,29 +85,30 @@ function Tasks({ route, navigation }: RootScreenProps<'Tasks'>) {
 	return (
 		<SafeScreen>
 			{task && (
-				<TaskTopBar
-					isCompletionPossible={tasks.every(item => item.completed)}
-					onDelete={() => handleSetVisible(2)}
-					onFinish={() => handleSetVisible(1)}
-					onEdit={() => handleSetVisible(0)}
-					addToAgenda={handleAddToAgenda}
-				/>
-			)}
-			<EditDialog
-				onEdit={handleEdit}
-				onCancel={() => handleCancel(0)}
-				visible={visible[0]}
-				oldName={task ? task.name : goal.name}
-			/>
-			{task &&
-				actionDialogConfig.map((config, index) => (
-					<ActionDialog
-						key={`action-${index}`}
-						name={task.name}
-						id={task.id}
-						{...config.props}
+				<View>
+					<TaskTopBar
+						isCompletionPossible={tasks.every(item => item.completed)}
+						onDelete={() => handleSetVisible(2)}
+						onFinish={() => handleSetVisible(1)}
+						onEdit={() => handleSetVisible(0)}
+						addToAgenda={handleAddToAgenda}
 					/>
-				))}
+					<EditDialog
+						onEdit={handleEdit}
+						onCancel={() => handleCancel(0)}
+						visible={visible[0]}
+						item={task}
+					/>
+					{actionDialogConfig.map((config, index) => (
+						<ActionDialog
+							key={`action-${index}`}
+							name={task.name}
+							id={task.id}
+							{...config.props}
+						/>
+					))}
+				</View>
+			)}
 			<View style={components.mainContainer}>
 				<Text style={[fonts.size_24, fonts.gray200]}>{goal.name}</Text>
 				{task && <Text style={[fonts.size_24, fonts.gray200]}>{taskName}</Text>}

@@ -49,3 +49,13 @@ export const finishTask = async (id: string, token: string): Promise<void> => {
 		},
 	});
 };
+
+export const editTask = async (task: Task, token: string): Promise<void> => {
+	await instance.put(`tasks/${task.id}`, {
+		json: { ...objectToSnake(task) },
+		headers: {
+			Authorization: `Bearer ${token}`,
+			'Content-Type': 'application/json',
+		},
+	});
+};

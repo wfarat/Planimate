@@ -5,7 +5,6 @@ import testIDs from '@/screens/Calendar/testIDs';
 import type { AgendaItemData } from '@/types/schemas/agendaItemType';
 import { hoursAndMinutes } from '@/helpers/utils/formatTime';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import alertAction from '@/helpers/utils/alertAction';
 import { useTheme } from '@/theme';
 import { SetTimeDialog } from '@/components/molecules';
 import { useTranslation } from 'react-i18next';
@@ -121,17 +120,11 @@ function AgendaItem(props: ItemProps) {
 				</Text>
 				<View style={styles.itemButtonContainer}>
 					{!item.completed && (
-						<TouchableOpacity
-							onPress={() =>
-								alertAction('complete', item.title, handleComplete)
-							}
-						>
+						<TouchableOpacity onPress={handleComplete}>
 							<MaterialCommunityIcons name="check" size={20} color="green" />
 						</TouchableOpacity>
 					)}
-					<TouchableOpacity
-						onPress={() => alertAction('delete', item.title, handleDelete)}
-					>
+					<TouchableOpacity onPress={handleDelete}>
 						<MaterialCommunityIcons color="red" name="delete" size={20} />
 					</TouchableOpacity>
 				</View>

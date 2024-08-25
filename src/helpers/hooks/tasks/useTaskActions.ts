@@ -1,6 +1,5 @@
 import { Task } from '@/types/schemas';
 import { useStorage } from '@/storage/StorageContext';
-import { removeTask } from '@/controllers/goals';
 
 export const useTaskActions = (
 	goalId: number,
@@ -9,12 +8,10 @@ export const useTaskActions = (
 	id?: string,
 ) => {
 	const storage = useStorage();
-	const removeTaskMutation = removeTask();
 	const storageString = (target?: number) => {
 		return target ? `goals.${goalId}.${target}` : `goals.${goalId}`;
 	};
 	const storedId = storage.getNumber(`goals.${goalId}.lastId`);
-	const token = storage.getString('token');
 	const lastId = storedId || 0;
 	const storedTasks = storage.getString(storageString(parentId));
 	let tasks: Task[] = [];

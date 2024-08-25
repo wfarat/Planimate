@@ -26,7 +26,7 @@ function ActionDialog({
 	const { mutate, isSuccess, isPending } = mutation();
 	const storage = useStorage();
 	useEffect(() => {
-		action();
+		if (isSuccess) action();
 	}, [isSuccess]);
 	const handlePress = () => {
 		const token = storage.getString('token');

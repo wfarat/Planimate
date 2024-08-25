@@ -2,7 +2,8 @@ type Task = {
 	id?: string;
 	taskId: number;
 	goalId: number;
-	parentId?: number | undefined;
+	parentId?: number;
+	userId?: string;
 	name: string;
 	description: string;
 	duration?: {
