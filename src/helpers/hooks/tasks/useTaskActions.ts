@@ -5,7 +5,6 @@ export const useTaskActions = (
 	goalId: number,
 	parentId?: number,
 	taskId?: number,
-	id?: string,
 ) => {
 	const storage = useStorage();
 	const storageString = (target?: number) => {

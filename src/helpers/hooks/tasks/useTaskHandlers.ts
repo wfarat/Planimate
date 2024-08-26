@@ -14,7 +14,6 @@ export const useTaskHandlers = (
 		goal.id,
 		task?.parentId,
 		task?.taskId,
-		task?.id,
 	);
 
 	const handleDeleteTask = () => {
