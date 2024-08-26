@@ -34,5 +34,5 @@ export type TaskListProps<
 	S extends keyof RootStackParamList = keyof RootStackParamList,
 > = RootScreenProps<S> & {
 	tasks: Task[];
-	setTasks: (tasks: Task[]) => void;
+	handleReorder: (tasks: Task[]) => void;
 };

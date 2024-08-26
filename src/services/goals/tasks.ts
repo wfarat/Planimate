@@ -2,19 +2,19 @@ import { instance } from '@/services/instance';
 import Task, { FetchedTask } from '@/types/schemas/task';
 import { objectToCamel, objectToSnake } from 'ts-case-convert/lib/caseConvert';
 
-const convertToTask = (fetchedTask: FetchedTask): Task =>
+const convertToCamel = (fetchedTask: FetchedTask): Task =>
 	// eslint-disable-next-line no-underscore-dangle
 	objectToCamel({ ...fetchedTask, id: fetchedTask._id, _id: undefined });
 export const saveTask = async (task: Task, token: string): Promise<Task> => {
 	const response = await instance.post('tasks', {
-		json: { ...objectToSnake(task) },
+		json: objectToSnake(task),
 		headers: {
 			Authorization: `Bearer ${token}`,
 			'Content-Type': 'application/json',
 		},
 	});
 	const responseData = await response.json();
-	return convertToTask(responseData as FetchedTask);
+	return convertToCamel(responseData as FetchedTask);
 };
 export const saveTasks = async (
 	tasks: Task[],
@@ -31,7 +31,7 @@ export const getTasks = async (token: string): Promise<Task[]> => {
 		},
 	});
 	const responseData: FetchedTask[] = await response.json<FetchedTask[]>();
-	return responseData.map((task: FetchedTask) => convertToTask(task));
+	return responseData.map((task: FetchedTask) => convertToCamel(task));
 };
 
 export const removeTask = async (id: string, token: string) => {
@@ -52,10 +52,21 @@ export const finishTask = async (id: string, token: string): Promise<void> => {
 
 export const editTask = async (task: Task, token: string): Promise<void> => {
 	await instance.put(`tasks/${task.id}`, {
-		json: { ...objectToSnake(task) },
+		json: objectToSnake(task),
 		headers: {
 			Authorization: `Bearer ${token}`,
 			'Content-Type': 'application/json',
 		},
 	});
+};
+export const updateTaskOrder = async (tasks: Task[], token: string) => {
+	const response = await instance.put('tasks/update-order', {
+		headers: {
+			Authorization: `Bearer ${token}`,
+			'Content-Type': 'application/json',
+		},
+		json: tasks.map(task => objectToSnake(task)),
+	});
+	const responseData: FetchedTask[] = await response.json<FetchedTask[]>();
+	return responseData.map((task: FetchedTask) => convertToCamel(task));
 };

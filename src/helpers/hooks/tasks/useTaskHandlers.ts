@@ -31,15 +31,15 @@ export const useTaskHandlers = (
 			editTask(newName, newDescription);
 		}
 	};
-	const handleSetTasks = (newTasks: Task[]) => {
-		setTasks(newTasks);
-		updateTasks(newTasks, task ? task.taskId : undefined);
-	};
 
+	const handleReorder = (tasks: Task[]) => {
+		setTasks(tasks);
+		updateTasks(tasks);
+	};
 	return {
 		handleDeleteTask,
 		handleFinishTask,
 		handleEditTask,
-		handleSetTasks,
+		handleReorder,
 	};
 };

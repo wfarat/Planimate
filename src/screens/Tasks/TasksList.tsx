@@ -3,15 +3,20 @@ import type { Task } from '@/types/schemas';
 import { TaskListProps } from '@/types/navigation';
 import { ItemCard } from '@/components/molecules';
 import DragList, { DragListRenderItemInfo } from 'react-native-draglist';
+import { updateTaskOrder } from '@/controllers/goals';
+import { useStorage } from '@/storage/StorageContext';
+import { useEffect } from 'react';
 
 function TasksList({
 	navigation,
 	route,
 	tasks,
-	setTasks,
+	handleReorder,
 }: TaskListProps<'Tasks'>) {
 	const { goal } = route.params;
-
+	const storage = useStorage();
+	const { isSuccess, mutate, data } = updateTaskOrder();
+	const token = storage.getString('token');
 	const renderItem = (info: DragListRenderItemInfo<Task>) => {
 		const { item, onDragStart, onDragEnd } = info;
 		return (
@@ -30,11 +35,25 @@ function TasksList({
 			</TouchableOpacity>
 		);
 	};
+	useEffect(() => {
+		if (isSuccess && data) handleReorder(data);
+	}, [isSuccess]);
+	const reorder = (fromIndex: number, toIndex: number) => {
+		const result = [...tasks];
+		const removed = result.splice(fromIndex, 1);
+		result.splice(toIndex, 0, removed[0]);
+		return result.map((oldTask, index) => ({
+			...oldTask,
+			order: index,
+		}));
+	};
 	const onReordered = (fromIndex: number, toIndex: number) => {
-		const copy = [...tasks]; // Don't modify react data in-place
-		const removed = copy.splice(fromIndex, 1);
-		copy.splice(toIndex, 0, removed[0]); // Now insert at the new pos
-		setTasks(copy);
+		const reorderedTasks = reorder(fromIndex, toIndex);
+		if (token) {
+			mutate({ tasks: reorderedTasks, token });
+		} else {
+			handleReorder(reorderedTasks);
+		}
 	};
 	return (
 		<View>

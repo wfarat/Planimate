@@ -21,7 +21,7 @@ function Tasks({ route, navigation }: RootScreenProps<'Tasks'>) {
 	const [tasks, setTasks] = useState<Task[]>([]);
 	const [visible, setVisible] = useState([false, false, false]);
 	const [taskName, setTaskName] = useState(task?.name || '');
-	const { handleDeleteTask, handleFinishTask, handleEditTask, handleSetTasks } =
+	const { handleDeleteTask, handleFinishTask, handleEditTask, handleReorder } =
 		useTaskHandlers(goal, setTasks, task);
 	const storageString = task
 		? `goals.${goal.id}.${task.taskId}`
@@ -118,7 +118,7 @@ function Tasks({ route, navigation }: RootScreenProps<'Tasks'>) {
 						tasks={tasks}
 						navigation={navigation}
 						route={route}
-						setTasks={handleSetTasks}
+						handleReorder={handleReorder}
 					/>
 				</View>
 			</View>
