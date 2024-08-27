@@ -1,21 +1,39 @@
-import { View } from 'react-native';
+import { ActivityIndicator, View } from 'react-native';
 import { SafeScreen } from '@/components/template';
 import { useTheme } from '@/theme';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { RootScreenProps } from '@/types/navigation';
 import { InputDate } from '@/components/molecules';
 import { useGoalActions } from '@/helpers/hooks/useGoalActions';
 import { GreenRoundedButton, TextInputRounded } from '@/components/atoms';
+import { saveGoal } from '@/controllers/goals';
+import { Goal } from '@/types/schemas';
+import { useStorage } from '@/storage/StorageContext';
 
 function AddGoal({ navigation }: RootScreenProps<'AddGoal'>) {
 	const { components } = useTheme();
+	const storage = useStorage();
 	const [name, setName] = useState<string>('');
 	const [description, setDescription] = useState<string>('');
-	const { addGoal } = useGoalActions();
+	const { createGoal, updateGoals, getGoals } = useGoalActions();
+	const { isSuccess, isPending, data, mutate } = saveGoal();
 	const [dueDate, setDueDate] = useState<Date>();
-	const handleAddGoal = () => {
-		addGoal(name, description, dueDate);
+	const token = storage.getString('token');
+	const addGoal = (goal: Goal) => {
+		const updatedGoals = [...getGoals(), goal];
+		updateGoals(updatedGoals);
 		navigation.goBack();
+	};
+	useEffect(() => {
+		if (isSuccess) addGoal(data);
+	}, [isSuccess]);
+	const handleAddGoal = () => {
+		const newGoal = createGoal(name, description, dueDate);
+		if (token) {
+			mutate({ goal: newGoal, token });
+		} else {
+			addGoal(newGoal);
+		}
 	};
 	return (
 		<SafeScreen>
@@ -28,7 +46,11 @@ function AddGoal({ navigation }: RootScreenProps<'AddGoal'>) {
 					text="description"
 				/>
 				<InputDate date={dueDate} setDate={setDueDate} message="endDate" />
-				<GreenRoundedButton handlePress={handleAddGoal} text="addGoal" />
+				{isPending ? (
+					<ActivityIndicator />
+				) : (
+					<GreenRoundedButton handlePress={handleAddGoal} text="addGoal" />
+				)}
 			</View>
 		</SafeScreen>
 	);

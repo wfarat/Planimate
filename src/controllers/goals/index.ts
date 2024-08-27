@@ -5,3 +5,4 @@ export { default as deleteTask } from './tasks/deleteTask';
 export { default as finishTask } from './tasks/finishTask';
 export { default as editTask } from './tasks/editTask';
 export { default as updateTaskOrder } from './tasks/updateTaskOrder';
+export { default as saveGoal } from './goals/saveGoal';

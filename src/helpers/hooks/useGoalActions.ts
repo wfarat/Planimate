@@ -26,21 +26,16 @@ export const useGoalActions = (goalId?: number) => {
 		const updatedGoals = goals.filter(g => g.goalId !== goalId);
 		updateGoals(updatedGoals);
 	};
-	const addGoal = (name: string, description: string, dueDate?: Date) => {
+	const createGoal = (name: string, description: string, dueDate?: Date) => {
 		const lastId = storage.getNumber('goals.lastId') || 0;
-		if (name) {
-			const goal = {
-				name,
-				description,
-				dueDate,
-				goalId: lastId + 1,
-			};
-			const updatedGoals = [...goals, goal];
-			updateGoals(updatedGoals);
-			return updatedGoals;
-		}
+		const goal = {
+			name,
+			description,
+			dueDate,
+			goalId: lastId + 1,
+		};
 		storage.set('goals.lastId', lastId + 1);
-		return goals;
+		return goal;
 	};
-	return { editGoal, getGoals, addGoal, deleteGoal };
+	return { editGoal, getGoals, createGoal, deleteGoal, updateGoals };
 };
