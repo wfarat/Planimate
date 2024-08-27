@@ -11,7 +11,7 @@ export const useTaskHandlers = (
 ) => {
 	const navigation = useNavigation();
 	const { deleteTask, finishTask, editTask, updateTasks } = useTaskActions(
-		goal.id,
+		goal.goalId,
 		task?.parentId,
 		task?.taskId,
 	);

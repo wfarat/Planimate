@@ -1,5 +1,6 @@
 type Goal = {
-	id: number;
+	id?: string;
+	goalId: number;
 	name: string;
 	description: string;
 	dueDate?: Date;

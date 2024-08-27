@@ -21,12 +21,12 @@ function GoalDetails({ route, navigation }: RootScreenProps<'GoalDetails'>) {
 	const [visible, setVisible] = useState(false);
 	const [goalName, setGoalName] = useState(goal.name);
 	const [goalDescription, setGoalDescription] = useState(goal.description);
-	const { deleteGoal, editGoal } = useGoalActions(goal.id);
-	const { findMostImportantTask, countTasks } = useTaskActions(goal.id);
+	const { deleteGoal, editGoal } = useGoalActions(goal.goalId);
+	const { findMostImportantTask, countTasks } = useTaskActions(goal.goalId);
 	const isFocused = useIsFocused();
 	const mostImportantTask = findMostImportantTask();
 	const taskCount = countTasks(tasks);
-	const storageString = `goals.${goal.id}`;
+	const storageString = `goals.${goal.goalId}`;
 
 	useEffect(() => {
 		if (isFocused) {

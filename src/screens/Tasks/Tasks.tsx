@@ -24,8 +24,8 @@ function Tasks({ route, navigation }: RootScreenProps<'Tasks'>) {
 	const { handleDeleteTask, handleFinishTask, handleEditTask, handleReorder } =
 		useTaskHandlers(goal, setTasks, task);
 	const storageString = task
-		? `goals.${goal.id}.${task.taskId}`
-		: `goals.${goal.id}`;
+		? `goals.${goal.goalId}.${task.taskId}`
+		: `goals.${goal.goalId}`;
 	const isFocused = useIsFocused();
 	useEffect(() => {
 		if (isFocused) {

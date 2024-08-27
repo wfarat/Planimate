@@ -16,14 +16,14 @@ export const useGoalActions = (goalId?: number) => {
 	const goals: Goal[] = getGoals();
 	const editGoal = (newName: string, newDescription: string) => {
 		const updatedGoals = goals.map(g =>
-			g.id === goalId
+			g.goalId === goalId
 				? { ...g, name: newName, description: newDescription }
 				: g,
 		);
 		updateGoals(updatedGoals);
 	};
 	const deleteGoal = () => {
-		const updatedGoals = goals.filter(g => g.id !== goalId);
+		const updatedGoals = goals.filter(g => g.goalId !== goalId);
 		updateGoals(updatedGoals);
 	};
 	const addGoal = (name: string, description: string, dueDate?: Date) => {
@@ -33,7 +33,7 @@ export const useGoalActions = (goalId?: number) => {
 				name,
 				description,
 				dueDate,
-				id: lastId + 1,
+				goalId: lastId + 1,
 			};
 			const updatedGoals = [...goals, goal];
 			updateGoals(updatedGoals);

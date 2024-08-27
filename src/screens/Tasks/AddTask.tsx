@@ -23,7 +23,7 @@ function AddTask({ navigation, route }: RootScreenProps<'AddTask'>) {
 	const [duration, setDuration] = useState<number>();
 	const { mutate, data, isSuccess, isPending, isError, error } = saveTask();
 	const { createTask, updateTasks } = useTaskActions(
-		goal.id,
+		goal.goalId,
 		task?.taskId,
 		task?.taskId,
 	);

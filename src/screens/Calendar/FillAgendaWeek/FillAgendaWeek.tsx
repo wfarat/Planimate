@@ -102,7 +102,7 @@ function FillAgendaWeek({ navigation }: RootScreenProps<'FillAgendaWeek'>) {
 				))}
 				<SelectDropdown
 					data={getGoals()}
-					onSelect={(selectedItem: Goal) => setGoalId(selectedItem.id)}
+					onSelect={(selectedItem: Goal) => setGoalId(selectedItem.goalId)}
 					renderItem={(item: Goal, index, isSelected) => {
 						return (
 							<View
