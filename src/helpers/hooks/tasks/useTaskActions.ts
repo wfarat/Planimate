@@ -7,23 +7,33 @@ export const useTaskActions = (
 	taskId?: number,
 ) => {
 	const storage = useStorage();
-	const storageString = (target?: number) => {
+	const getStorageString = (target?: number) => {
 		return target ? `goals.${goalId}.${target}` : `goals.${goalId}`;
 	};
 	const storedId = storage.getNumber(`goals.${goalId}.lastId`);
 	const lastId = storedId || 0;
-	const storedTasks = storage.getString(storageString(parentId));
-	let tasks: Task[] = [];
-	if (storedTasks) {
-		tasks = JSON.parse(storedTasks) as Task[];
-	}
-	const updateTasks = (updatedTasks: Task[], target?: number) => {
-		storage.set(storageString(target), JSON.stringify(updatedTasks));
+	const getTasks = (storageString: string) => {
+		const storedTasks = storage.getString(storageString);
+		if (storedTasks) {
+			return JSON.parse(storedTasks) as Task[];
+		}
+		return [];
 	};
-
+	const tasks = getTasks(getStorageString());
+	const updateTasks = (updatedTasks: Task[], target?: number) => {
+		storage.set(getStorageString(target), JSON.stringify(updatedTasks));
+	};
+	const cleanupTasks = (id?: number) => {
+		const subtasks = getTasks(getStorageString(id));
+		subtasks.forEach(subtask => {
+			cleanupTasks(subtask.taskId);
+		});
+		storage.delete(getStorageString(id));
+	};
 	const deleteTask = () => {
 		const updatedTasks = tasks.filter(t => t.taskId !== taskId);
 		updateTasks(updatedTasks, parentId);
+		cleanupTasks(taskId);
 	};
 
 	const finishTask = () => {
@@ -156,6 +166,7 @@ export const useTaskActions = (
 		editTask,
 		createTask,
 		countTasks,
+		cleanupTasks,
 		updateTasks,
 		findMostImportantTask,
 		findImportantTasks,
