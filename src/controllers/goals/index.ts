@@ -6,3 +6,5 @@ export { default as finishTask } from './tasks/finishTask';
 export { default as editTask } from './tasks/editTask';
 export { default as updateTaskOrder } from './tasks/updateTaskOrder';
 export { default as saveGoal } from './goals/saveGoal';
+export { default as editGoal } from './goals/editGoal';
+export { default as deleteGoalMutation } from './goals/deleteGoal';

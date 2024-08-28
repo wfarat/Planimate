@@ -3,7 +3,12 @@ import { SafeScreen } from '@/components/template';
 import { useTheme } from '@/theme';
 import { useEffect, useState } from 'react';
 import { RootScreenProps } from '@/types/navigation';
-import { EditDialog, ItemCard, TaskTopBar } from '@/components/molecules';
+import {
+	ActionDialog,
+	EditDialog,
+	ItemCard,
+	TaskTopBar,
+} from '@/components/molecules';
 import type { Task } from '@/types/schemas';
 import { useStorage } from '@/storage/StorageContext';
 import { useGoalActions } from '@/helpers/hooks/useGoalActions';
@@ -11,6 +16,7 @@ import { useIsFocused } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import { useTaskActions } from '@/helpers/hooks/tasks/useTaskActions';
 import { GreenRoundedButton } from '@/components/atoms';
+import { deleteGoalMutation } from '@/controllers/goals';
 
 function GoalDetails({ route, navigation }: RootScreenProps<'GoalDetails'>) {
 	const { goal } = route.params;
@@ -18,7 +24,7 @@ function GoalDetails({ route, navigation }: RootScreenProps<'GoalDetails'>) {
 	const { t } = useTranslation(['goals']);
 	const { layout, fonts, gutters, components } = useTheme();
 	const [tasks, setTasks] = useState<Task[]>([]);
-	const [visible, setVisible] = useState(false);
+	const [visible, setVisible] = useState([false, false]);
 	const [goalName, setGoalName] = useState(goal.name);
 	const [goalDescription, setGoalDescription] = useState(goal.description);
 	const { deleteGoal, editGoal } = useGoalActions(goal.goalId);
@@ -43,16 +49,16 @@ function GoalDetails({ route, navigation }: RootScreenProps<'GoalDetails'>) {
 		deleteGoal();
 		navigation.goBack();
 	};
-
+	const handleSetVisible = (index: number) => {
+		setVisible(prevVisible =>
+			prevVisible.map((item, i) => (i === index ? !item : item)),
+		);
+	};
 	const handleEdit = (newName: string, newDescription: string) => {
 		editGoal(newName, newDescription);
 		setGoalName(newName);
 		setGoalDescription(newDescription);
-		setVisible(false);
-	};
-
-	const handleCancel = () => {
-		setVisible(false);
+		handleSetVisible(0);
 	};
 
 	const handleNavigateToTasks = () => {
@@ -61,12 +67,24 @@ function GoalDetails({ route, navigation }: RootScreenProps<'GoalDetails'>) {
 
 	return (
 		<SafeScreen>
-			<TaskTopBar onDelete={handleDelete} onEdit={() => setVisible(true)} />
+			<TaskTopBar
+				onDelete={() => handleSetVisible(1)}
+				onEdit={() => handleSetVisible(0)}
+			/>
 			<EditDialog
 				onEdit={handleEdit}
-				onCancel={handleCancel}
-				visible={visible}
+				onCancel={() => handleSetVisible(0)}
+				visible={visible[0]}
 				item={goal}
+			/>
+			<ActionDialog
+				mutation={deleteGoalMutation}
+				actionName="delete"
+				action={handleDelete}
+				id={goal.id}
+				name={goal.name}
+				visible={visible[1]}
+				onCancel={() => handleSetVisible(1)}
 			/>
 			<View style={components.mainContainer}>
 				<Text style={components.header}>{goalName}</Text>

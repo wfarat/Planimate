@@ -5,13 +5,12 @@ import { useTheme } from '@/theme';
 import { useEffect, useState } from 'react';
 import TasksList from '@/screens/Tasks/TasksList';
 import { RootScreenProps } from '@/types/navigation';
-import { EditDialog, TaskTopBar } from '@/components/molecules';
+import { EditDialog, TaskTopBar, ActionDialog } from '@/components/molecules';
 import type { Task } from '@/types/schemas';
 import { useStorage } from '@/storage/StorageContext';
 import { useIsFocused } from '@react-navigation/native';
 import { GreenRoundedButton } from '@/components/atoms';
 import { useTaskHandlers } from '@/helpers/hooks/tasks/useTaskHandlers';
-import ActionDialog from '@/components/molecules/ActionDialog/ActionDialog';
 import { deleteTask, finishTask } from '@/controllers/goals';
 
 function Tasks({ route, navigation }: RootScreenProps<'Tasks'>) {

@@ -1,5 +1,5 @@
 import { instance } from '@/services/instance';
-import Goal, { FetchedGoal } from '@/types/schemas/Goal';
+import Goal, { FetchedGoal } from '@/types/schemas/goal';
 import { objectToCamel, objectToSnake } from 'ts-case-convert/lib/caseConvert';
 
 const convertToCamel = (fetchedTask: FetchedGoal): Goal =>
@@ -15,4 +15,22 @@ export const saveGoal = async (goal: Goal, token: string): Promise<Goal> => {
 	});
 	const responseData = await response.json();
 	return convertToCamel(responseData as FetchedGoal);
+};
+
+export const deleteGoal = async (id: string, token: string): Promise<void> => {
+	await instance.delete(`goals/${id}`, {
+		headers: {
+			Authorization: `Bearer ${token}`,
+			'Content-Type': 'application/json',
+		},
+	});
+};
+export const editGoal = async (goal: Goal, token: string): Promise<void> => {
+	await instance.put(`goals/${goal.id}`, {
+		json: objectToSnake(goal),
+		headers: {
+			Authorization: `Bearer ${token}`,
+			'Content-Type': 'application/json',
+		},
+	});
 };

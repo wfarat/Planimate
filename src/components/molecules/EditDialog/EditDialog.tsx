@@ -1,7 +1,7 @@
 import Dialog from 'react-native-dialog';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { editTask } from '@/controllers/goals';
+import { editGoal, editTask } from '@/controllers/goals';
 import { useStorage } from '@/storage/StorageContext';
 import { Goal, Task } from '@/types/schemas';
 import { ActivityIndicator, View } from 'react-native';
@@ -12,23 +12,31 @@ type EditDialogProps = {
 	visible: boolean;
 	item: Task | Goal;
 };
+function isTask(item: Task | Goal) {
+	return typeof item === 'object' && item !== null && 'taskId' in item;
+}
 function EditDialog({ onEdit, onCancel, visible, item }: EditDialogProps) {
 	const [name, setName] = useState<string>('');
 	const [description, setDescription] = useState<string>('');
 	const { t } = useTranslation(['common']);
 	const taskMutation = editTask();
+	const goalMutation = editGoal();
 	const storage = useStorage();
 	const token = storage.getString('token');
-	const { isSuccess } = taskMutation;
-	const { isPending } = taskMutation;
+	const { isSuccess, isPending } = isTask(item) ? taskMutation : goalMutation;
 	useEffect(() => {
 		if (isSuccess) onEdit(name, description);
 	}, [isSuccess]);
 	const handleEdit = () => {
 		if (token) {
-			if (typeof item === 'object' && item !== null && 'taskId' in item) {
+			if (isTask(item)) {
 				taskMutation.mutate({
-					task: { ...item, name, description },
+					task: { ...(item as Task), name, description },
+					token,
+				});
+			} else {
+				goalMutation.mutate({
+					goal: { ...(item as Goal), name, description },
 					token,
 				});
 			}
