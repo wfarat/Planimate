@@ -1,4 +1,6 @@
 type AgendaItemType = {
+	id?: string;
+	userId?: string;
 	title: string;
 	data: {
 		time?: Date;
@@ -32,5 +34,26 @@ export type RenderAgendaItemProps = {
 		taskId: number;
 		completed: boolean;
 	};
+};
+
+export type FetchedAgendaItem = {
+	_id?: string;
+	title: string;
+	user_id?: string;
+	data: {
+		time?: Date;
+		duration: number;
+		title: string;
+		id: number;
+		key: string;
+		goal_id: number;
+		task_id: number;
+		completed: boolean;
+	}[];
+};
+
+export type AgendaItemVariables = {
+	agendaItem: AgendaItemType;
+	token: string;
 };
 export default AgendaItemType;

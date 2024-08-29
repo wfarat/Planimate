@@ -20,18 +20,15 @@ export const useAgendaItems = () => {
 	};
 	const addAgendaItem = (newItem: AgendaItemType) => {
 		const oldItems = loadStoredItems();
-		const index = oldItems.findIndex(item => item.title === newItem.title);
-		const updatedItems =
-			index !== -1
-				? [
-						...oldItems.slice(0, index),
-						{
-							...oldItems[index],
-							data: [...oldItems[index].data, ...newItem.data],
-						},
-						...oldItems.slice(index + 1),
-				  ]
-				: [...oldItems, newItem];
+		// Use map to create a new updated array
+		const updatedItems = oldItems.map(item =>
+			item.title === newItem.title ? newItem : item,
+		);
+
+		// If no matching item was found, append the new item
+		if (!oldItems.some(item => item.title === newItem.title)) {
+			updatedItems.push(newItem);
+		}
 		updateItems(updatedItems);
 	};
 	const createAgendaItem = (
@@ -58,8 +55,11 @@ export const useAgendaItems = () => {
 				},
 			],
 		};
-		addAgendaItem(newItem);
 		storage.set('agenda.id', id + 1);
+		const oldItems = loadStoredItems();
+		const oldItem = oldItems.find(item => item.title === newItem.title);
+		if (!oldItem) return newItem;
+		return { ...oldItem, data: [...oldItem.data, ...newItem.data] };
 	};
 	const getMarkedDates = (items: agendaItemType[]) => {
 		const marked: MarkedDates = {};
