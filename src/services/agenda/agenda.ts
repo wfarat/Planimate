@@ -15,7 +15,7 @@ export const saveAgendaItem = async (
 	agendaItem: AgendaItemType,
 	token: string,
 ): Promise<AgendaItemType> => {
-	const response = await instance.post('goals', {
+	const response = await instance.post('agenda', {
 		json: objectToSnake(agendaItem),
 		headers: {
 			Authorization: `Bearer ${token}`,
