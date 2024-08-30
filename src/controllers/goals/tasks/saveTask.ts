@@ -1,7 +1,8 @@
 import { useMutation, UseMutationResult } from '@tanstack/react-query';
 
 import { saveTask } from '@/services/goals/tasks';
-import Task, { TaskVariables } from '@/types/schemas/task';
+import Task from '@/types/schemas/task';
+import { TaskVariables } from '@/types/variables';
 
 export default (): UseMutationResult<Task, Error, TaskVariables> => {
 	return useMutation({

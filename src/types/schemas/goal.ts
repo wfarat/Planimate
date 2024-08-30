@@ -15,8 +15,3 @@ export type FetchedGoal = {
 	description: string;
 	due_date: Date;
 };
-
-export type GoalVariables = {
-	goal: Goal;
-	token: string;
-};

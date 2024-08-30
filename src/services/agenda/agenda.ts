@@ -25,3 +25,15 @@ export const saveAgendaItem = async (
 	const responseData = await response.json();
 	return convertToCamel(responseData as FetchedAgendaItem);
 };
+
+export const deleteAgendaItem = async (
+	id: string,
+	token: string,
+): Promise<void> => {
+	await instance.delete(`agenda/${id}`, {
+		headers: {
+			Authorization: `Bearer ${token}`,
+			'Content-Type': 'application/json',
+		},
+	});
+};

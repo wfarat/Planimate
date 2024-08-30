@@ -33,16 +33,5 @@ export type FetchedTask = {
 	updated_at?: Date;
 	order: number;
 };
-export type TasksVariables = {
-	tasks: Task[];
-	token: string;
-};
-export type TaskVariables = {
-	task: Task;
-	token: string;
-};
-export type MutationVariables = {
-	id: string;
-	token: string;
-};
+
 export default Task;

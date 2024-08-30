@@ -1,9 +1,8 @@
 import { useMutation, UseMutationResult } from '@tanstack/react-query';
 
 import { saveAgendaItem } from '@/services/agenda/agenda';
-import AgendaItemType, {
-	AgendaItemVariables,
-} from '@/types/schemas/agendaItemType';
+import AgendaItemType from '@/types/schemas/agendaItemType';
+import { AgendaItemVariables } from '@/types/variables';
 
 export default (): UseMutationResult<
 	AgendaItemType,

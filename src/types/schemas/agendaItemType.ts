@@ -51,9 +51,4 @@ export type FetchedAgendaItem = {
 		completed: boolean;
 	}[];
 };
-
-export type AgendaItemVariables = {
-	agendaItem: AgendaItemType;
-	token: string;
-};
 export default AgendaItemType;
