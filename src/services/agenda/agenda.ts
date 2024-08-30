@@ -37,3 +37,15 @@ export const deleteAgendaItem = async (
 		},
 	});
 };
+export const editAgendaItem = async (
+	agendaItem: AgendaItemType,
+	token: string,
+): Promise<void> => {
+	await instance.put(`agenda/${agendaItem.id}`, {
+		json: objectToSnake(agendaItem),
+		headers: {
+			Authorization: `Bearer ${token}`,
+			'Content-Type': 'application/json',
+		},
+	});
+};
