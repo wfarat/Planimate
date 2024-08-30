@@ -40,7 +40,7 @@ export const deleteAgendaItem = async (
 export const editAgendaItem = async (
 	agendaItem: AgendaItemType,
 	token: string,
-): Promise<AgendaItemType> => {
+): Promise<void> => {
 	const response = await instance.put(`agenda/${agendaItem.id}`, {
 		json: objectToSnake(agendaItem),
 		headers: {
@@ -48,6 +48,4 @@ export const editAgendaItem = async (
 			'Content-Type': 'application/json',
 		},
 	});
-	const responseData = await response.json();
-	return convertToCamel(responseData as FetchedAgendaItem);
 };
