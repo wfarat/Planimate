@@ -3,10 +3,11 @@ import { AgendaItemType, Task } from '@/types/schemas';
 import { MarkedDates } from 'react-native-calendars/src/types';
 import isEmpty from 'lodash/isEmpty';
 import agendaItemType, { AgendaItemData } from '@/types/schemas/agendaItemType';
+import { useTaskFromAgenda } from '@/helpers/hooks/tasks/useTaskFromAgenda';
 
 export const useAgendaItems = () => {
 	const storage = useStorage();
-
+	const { updateStoredTaskDuration, getTaskStorageKey } = useTaskFromAgenda();
 	const loadStoredItems = () => {
 		const storedItems = storage.getString('agenda');
 		if (storedItems) {
@@ -124,56 +125,11 @@ export const useAgendaItems = () => {
 		const completedItem = updateAgendaItem({ ...item, completed: true });
 		const updatedItems = replaceAgendaItem(completedItem);
 		const taskStorageKey = getTaskStorageKey(item);
-		const storedTasks = storage.getString(taskStorageKey);
-
-		if (storedTasks) {
-			updateStoredTasks(storedTasks, item, taskStorageKey);
-		}
-
+		updateStoredTaskDuration(item, taskStorageKey);
 		updateItems(updatedItems);
 		return updatedItems;
 	};
 
-	const getTaskStorageKey = (item: AgendaItemData): string =>
-		item.taskId
-			? `goals.${item.goalId}.${item.taskId}`
-			: `goals.${item.goalId}`;
-
-	const updateStoredTasks = (
-		storedTasks: string,
-		item: AgendaItemData,
-		taskStorageKey: string,
-	) => {
-		const tasks = JSON.parse(storedTasks) as Task[];
-		const targetTask = tasks.find(current => current.taskId === item.taskId);
-		if (targetTask) {
-			updateTaskDuration(tasks, targetTask, item.duration, taskStorageKey);
-		}
-	};
-	function updateTaskDuration(
-		tasks: Task[],
-		task: Task,
-		duration: number,
-		storageKey: string,
-	): void {
-		if (task.duration?.elapsed !== undefined) {
-			const updatedTaskElapsedTime = task.duration.elapsed
-				? task.duration.elapsed + duration
-				: duration;
-			const updatedTask = {
-				...task,
-				duration: { ...task.duration, elapsed: updatedTaskElapsedTime },
-			};
-			storage.set(
-				storageKey,
-				JSON.stringify(
-					tasks.map(current =>
-						current.taskId === task.taskId ? updatedTask : current,
-					),
-				),
-			);
-		}
-	}
 	return {
 		getMarkedDates,
 		addAgendaItem,

@@ -159,7 +159,6 @@ export const useTaskActions = (
 
 		return counts;
 	};
-
 	return {
 		deleteTask,
 		finishTask,
