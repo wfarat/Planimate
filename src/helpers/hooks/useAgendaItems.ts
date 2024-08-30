@@ -18,18 +18,19 @@ export const useAgendaItems = () => {
 	const updateItems = (updatedItems: AgendaItemType[]) => {
 		storage.set('agenda', JSON.stringify(updatedItems));
 	};
-	const addAgendaItem = (newItem: AgendaItemType) => {
+	const replaceAgendaItem = (newItem: AgendaItemType): AgendaItemType[] => {
 		const oldItems = loadStoredItems();
-		// Use map to create a new updated array
-		const updatedItems = oldItems.map(item =>
+		return oldItems.map(item =>
 			item.title === newItem.title ? newItem : item,
 		);
-
+	};
+	const addAgendaItem = (newItem: AgendaItemType) => {
+		const agendaItems = replaceAgendaItem(newItem);
 		// If no matching item was found, append the new item
-		if (!oldItems.some(item => item.title === newItem.title)) {
-			updatedItems.push(newItem);
+		if (!agendaItems.some(item => item.title === newItem.title)) {
+			agendaItems.push(newItem);
 		}
-		updateItems(updatedItems);
+		updateItems(agendaItems);
 	};
 	const createAgendaItem = (
 		date: Date,
@@ -94,6 +95,61 @@ export const useAgendaItems = () => {
 		return filteredItems;
 	};
 
+	/**
+	 * Updates the data field within an agenda item if there's a match.
+	 * @param itemToUpdate - The item that needs its data field updated.
+	 * @param updatedAgendaItem - The new agenda item data used to update.
+	 */
+	const updateAgendaItemData = (
+		itemToUpdate: AgendaItemType,
+		updatedAgendaItem: AgendaItemData,
+	): AgendaItemType => ({
+		...itemToUpdate,
+		data: itemToUpdate.data.map(item =>
+			item.id === updatedAgendaItem.id ? updatedAgendaItem : item,
+		),
+	});
+
+	const updateAgendaItem = (agendaItem: AgendaItemData): AgendaItemType => {
+		const storedAgendaItems = loadStoredItems();
+		const itemToUpdate = storedAgendaItems.find(
+			item => item.id === agendaItem.key,
+		);
+		if (!itemToUpdate) {
+			throw new Error(`Agenda item with key ${agendaItem.key} not found`);
+		}
+		return updateAgendaItemData(itemToUpdate, agendaItem);
+	};
+	const completeAgendaItem = (item: AgendaItemData): AgendaItemType[] => {
+		const completedItem = updateAgendaItem({ ...item, completed: true });
+		const updatedItems = replaceAgendaItem(completedItem);
+		const taskStorageKey = getTaskStorageKey(item);
+		const storedTasks = storage.getString(taskStorageKey);
+
+		if (storedTasks) {
+			updateStoredTasks(storedTasks, item, taskStorageKey);
+		}
+
+		updateItems(updatedItems);
+		return updatedItems;
+	};
+
+	const getTaskStorageKey = (item: AgendaItemData): string =>
+		item.taskId
+			? `goals.${item.goalId}.${item.taskId}`
+			: `goals.${item.goalId}`;
+
+	const updateStoredTasks = (
+		storedTasks: string,
+		item: AgendaItemData,
+		taskStorageKey: string,
+	) => {
+		const tasks = JSON.parse(storedTasks) as Task[];
+		const targetTask = tasks.find(current => current.taskId === item.taskId);
+		if (targetTask) {
+			updateTaskDuration(tasks, targetTask, item.duration, taskStorageKey);
+		}
+	};
 	function updateTaskDuration(
 		tasks: Task[],
 		task: Task,
@@ -118,38 +174,6 @@ export const useAgendaItems = () => {
 			);
 		}
 	}
-	const updateAgendaItem = (item: AgendaItemData): AgendaItemType[] => {
-		const agendaItems = loadStoredItems();
-		const updatedItems = agendaItems.map(agendaItem => {
-			return agendaItem.title === item.key
-				? {
-						...agendaItem,
-						data: agendaItem.data.map(currentItem =>
-							currentItem.id === item.id ? item : currentItem,
-						),
-				  }
-				: agendaItem;
-		});
-		updateItems(updatedItems);
-		return updatedItems;
-	};
-	const completeAgendaItem = (item: AgendaItemData): AgendaItemType[] => {
-		const updatedItems = updateAgendaItem({ ...item, completed: true });
-		const taskStorageKey = item.taskId
-			? `goals.${item.goalId}.${item.taskId}`
-			: `goals.${item.goalId}`;
-		const storedTasksString = storage.getString(taskStorageKey);
-		if (storedTasksString) {
-			const tasks = JSON.parse(storedTasksString) as Task[];
-			const targetTask = tasks.find(current => current.taskId === item.taskId);
-			if (targetTask) {
-				updateTaskDuration(tasks, targetTask, item.duration, taskStorageKey);
-			}
-		}
-
-		updateItems(updatedItems);
-		return updatedItems;
-	};
 	return {
 		getMarkedDates,
 		addAgendaItem,
@@ -158,5 +182,7 @@ export const useAgendaItems = () => {
 		completeAgendaItem,
 		createAgendaItem,
 		updateAgendaItem,
+		updateItems,
+		replaceAgendaItem,
 	};
 };

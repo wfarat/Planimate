@@ -1,6 +1,6 @@
 import { ActivityIndicator } from 'react-native';
 import { UseMutationResult } from '@tanstack/react-query';
-import { MutationVariables } from '@/types/schemas/task';
+import { MutationVariables } from '@/types/variables';
 import { useStorage } from '@/storage/StorageContext';
 import { useEffect } from 'react';
 import Dialog from 'react-native-dialog';
