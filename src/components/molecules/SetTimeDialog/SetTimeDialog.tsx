@@ -6,7 +6,7 @@ import { getMinutesAfterMidnight } from '@/helpers/utils/formatTime';
 import { editAgendaItem } from '@/controllers/agenda';
 import { useStorage } from '@/storage/StorageContext';
 import agendaItemType, { AgendaItemData } from '@/types/schemas/agendaItemType';
-import { useAgendaItems } from '@/helpers/hooks/useAgendaItems';
+import { useAgendaItems } from '@/helpers/hooks/agenda/useAgendaItems';
 import { ActivityIndicator, View } from 'react-native';
 
 type EditDialogProps = {
@@ -51,7 +51,11 @@ function SetTimeDialog({
 	return (
 		<Dialog.Container visible={visible}>
 			<Dialog.Title>{t('common:edit.editTime')}</Dialog.Title>
-			<InputTime time={time} setTime={setTime} message="time" />
+			<InputTime
+				time={time || new Date(agendaItem.key)}
+				setTime={setTime}
+				message="time"
+			/>
 			<InputTime
 				setDuration={setDuration}
 				time={getMinutesAfterMidnight(duration)}

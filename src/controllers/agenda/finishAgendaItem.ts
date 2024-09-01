@@ -1,12 +1,12 @@
 import { useMutation, UseMutationResult } from '@tanstack/react-query';
 
-import { deleteAgendaItem } from '@/services/agenda/agenda';
+import { finishAgendaItem } from '@/services/agenda/agenda';
 import { MutationVariables } from '@/types/variables';
 
 export default (): UseMutationResult<void, Error, MutationVariables> => {
 	return useMutation({
 		mutationFn: ({ id, agendaDataId, token }: MutationVariables) => {
-			return deleteAgendaItem(id, token, agendaDataId);
+			return finishAgendaItem(id, token, agendaDataId);
 		},
 	});
 };

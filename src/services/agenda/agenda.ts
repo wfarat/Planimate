@@ -29,8 +29,9 @@ export const saveAgendaItem = async (
 export const deleteAgendaItem = async (
 	id: string,
 	token: string,
+	agendaDataId?: number,
 ): Promise<void> => {
-	await instance.delete(`agenda/${id}`, {
+	await instance.delete(`agenda/${id}/${agendaDataId}`, {
 		headers: {
 			Authorization: `Bearer ${token}`,
 			'Content-Type': 'application/json',
@@ -41,8 +42,21 @@ export const editAgendaItem = async (
 	agendaItem: AgendaItemType,
 	token: string,
 ): Promise<void> => {
-	const response = await instance.put(`agenda/${agendaItem.id}`, {
+	await instance.put(`agenda/${agendaItem.id}`, {
 		json: objectToSnake(agendaItem),
+		headers: {
+			Authorization: `Bearer ${token}`,
+			'Content-Type': 'application/json',
+		},
+	});
+};
+
+export const finishAgendaItem = async (
+	id: string,
+	token: string,
+	agendaDataId?: number,
+): Promise<void> => {
+	await instance.put(`agenda/finish/${id}/${agendaDataId}`, {
 		headers: {
 			Authorization: `Bearer ${token}`,
 			'Content-Type': 'application/json',

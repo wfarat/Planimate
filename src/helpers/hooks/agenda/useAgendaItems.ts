@@ -114,7 +114,7 @@ export const useAgendaItems = () => {
 	const updateAgendaItem = (agendaItem: AgendaItemData): AgendaItemType => {
 		const storedAgendaItems = loadStoredItems();
 		const itemToUpdate = storedAgendaItems.find(
-			item => item.id === agendaItem.key,
+			item => item.title === agendaItem.key,
 		);
 		if (!itemToUpdate) {
 			throw new Error(`Agenda item with key ${agendaItem.key} not found`);
@@ -129,7 +129,12 @@ export const useAgendaItems = () => {
 		updateItems(updatedItems);
 		return updatedItems;
 	};
-
+	const findAgendaItemId = (data: AgendaItemData): string => {
+		const agendaItems = loadStoredItems();
+		return (
+			agendaItems.find(item => item.data.some(d => d.id === data.id))?.id || ''
+		);
+	};
 	return {
 		getMarkedDates,
 		addAgendaItem,
@@ -140,5 +145,6 @@ export const useAgendaItems = () => {
 		updateAgendaItem,
 		updateItems,
 		replaceAgendaItem,
+		findAgendaItemId,
 	};
 };

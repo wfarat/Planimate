@@ -9,6 +9,7 @@ type Props = {
 	mutation: () => UseMutationResult<void, Error, MutationVariables>;
 	actionName: string;
 	id?: string;
+	agendaDataId?: number;
 	action: () => void;
 	name: string;
 	visible: boolean;
@@ -19,6 +20,7 @@ function ActionDialog({
 	actionName,
 	id = undefined,
 	action,
+	agendaDataId = undefined,
 	name,
 	visible,
 	onCancel,
@@ -31,7 +33,8 @@ function ActionDialog({
 	const handlePress = () => {
 		const token = storage.getString('token');
 		if (token && id) {
-			mutate({ id, token });
+			if (agendaDataId) mutate({ id, agendaDataId, token });
+			else mutate({ id, token });
 		} else {
 			action();
 		}

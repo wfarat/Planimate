@@ -10,7 +10,7 @@ import { useTaskActions } from '@/helpers/hooks/tasks/useTaskActions';
 import { useGoalActions } from '@/helpers/hooks/useGoalActions';
 import { Goal } from '@/types/schemas';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import { useAgendaItems } from '@/helpers/hooks/useAgendaItems';
+import { useAgendaItems } from '@/helpers/hooks/agenda/useAgendaItems';
 import { RootScreenProps } from '@/types/navigation';
 
 type DayOfWeek =

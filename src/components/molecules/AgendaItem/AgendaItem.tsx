@@ -6,8 +6,10 @@ import type { AgendaItemData } from '@/types/schemas/agendaItemType';
 import { hoursAndMinutes } from '@/helpers/utils/formatTime';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useTheme } from '@/theme';
-import { SetTimeDialog } from '@/components/molecules';
+import { ActionDialog, SetTimeDialog } from '@/components/molecules';
 import { useTranslation } from 'react-i18next';
+import { finishAgendaItem, deleteAgendaItem } from '@/controllers/agenda';
+import { useAgendaItems } from '@/helpers/hooks/agenda/useAgendaItems';
 
 const styles = StyleSheet.create({
 	itemButtonContainer: {
@@ -38,9 +40,11 @@ function AgendaItem(props: ItemProps) {
 	const { backgrounds, fonts, layout, gutters, borders } = useTheme();
 	const { t } = useTranslation(['common']);
 	const [duration, setDuration] = useState(item.duration);
+	const [visible, setVisible] = useState([false, false]);
 	const [date, setDate] = useState<Date | undefined>(
 		item.time ? new Date(item.time) : undefined,
 	);
+	const { findAgendaItemId } = useAgendaItems();
 	const [showDialog, setShowDialog] = useState(false);
 	const itemPressed = useCallback(() => {
 		setShowDialog(true);
@@ -51,6 +55,34 @@ function AgendaItem(props: ItemProps) {
 		setShowDialog(false);
 	};
 
+	const handleSetVisible = (index: number) => {
+		setVisible(prevVisible =>
+			prevVisible.map((current, i) => (i === index ? !current : current)),
+		);
+	};
+	const handleCancel = (index: number) => {
+		handleSetVisible(index);
+	};
+	const actionDialogConfig = [
+		{
+			props: {
+				visible: visible[0],
+				onCancel: () => handleCancel(0),
+				mutation: finishAgendaItem,
+				actionName: 'complete',
+				action: handleComplete,
+			},
+		},
+		{
+			props: {
+				visible: visible[1],
+				onCancel: () => handleCancel(1),
+				mutation: deleteAgendaItem,
+				actionName: 'delete',
+				action: handleDelete,
+			},
+		},
+	];
 	const renderTime = () => {
 		if (date) {
 			const startTime = hoursAndMinutes(date);
@@ -86,6 +118,15 @@ function AgendaItem(props: ItemProps) {
 
 	return (
 		<View>
+			{actionDialogConfig.map((config, index) => (
+				<ActionDialog
+					key={`item-${item.id}-action-${index}`}
+					name={item.title}
+					agendaDataId={item.id}
+					id={findAgendaItemId(item)}
+					{...config.props}
+				/>
+			))}
 			<SetTimeDialog
 				updateState={changeTime}
 				onCancel={() => setShowDialog(false)}
@@ -116,11 +157,11 @@ function AgendaItem(props: ItemProps) {
 				</Text>
 				<View style={styles.itemButtonContainer}>
 					{!item.completed && (
-						<TouchableOpacity onPress={handleComplete}>
+						<TouchableOpacity onPress={() => handleSetVisible(0)}>
 							<MaterialCommunityIcons name="check" size={20} color="green" />
 						</TouchableOpacity>
 					)}
-					<TouchableOpacity onPress={handleDelete}>
+					<TouchableOpacity onPress={() => handleSetVisible(1)}>
 						<MaterialCommunityIcons color="red" name="delete" size={20} />
 					</TouchableOpacity>
 				</View>
