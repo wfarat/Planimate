@@ -1,6 +1,6 @@
 import { instance } from '@/services/instance';
 
-export default async (token: string): Promise<Date> => {
+export default async (token: string): Promise<string> => {
 	const response = await instance.get('users/timestamp', {
 		headers: {
 			Authorization: `Bearer ${token}`,
