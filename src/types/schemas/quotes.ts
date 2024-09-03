@@ -19,6 +19,8 @@ export type QuoteKeys =
 	| 'quotes:SteveJobs.quotes.4'
 	| 'quotes:SteveJobs.quotes.5'
 	| 'quotes:OprahWinfrey.quotes.1'
+	| 'quotes:OprahWinfrey.quotes.2'
+	| 'quotes:OprahWinfrey.quotes.3'
 	| 'quotes:ThomasA.Edison.quotes.1'
 	| 'quotes:ThomasA.Edison.quotes.2'
 	| 'quotes:Confucius.quotes.1'

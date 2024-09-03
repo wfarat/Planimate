@@ -54,6 +54,8 @@ export default function getRandomQuote() {
 		['quotes:SteveJobs.quotes.4', Jobs],
 		['quotes:SteveJobs.quotes.5', Jobs],
 		['quotes:OprahWinfrey.quotes.1', Winfrey],
+		['quotes:OprahWinfrey.quotes.2', Winfrey],
+		['quotes:OprahWinfrey.quotes.3', Winfrey],
 		['quotes:ThomasA.Edison.quotes.1', Edison],
 		['quotes:ThomasA.Edison.quotes.2', Edison],
 		['quotes:Confucius.quotes.1', Confucius],
