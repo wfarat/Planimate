@@ -27,12 +27,16 @@ export const saveTasks = async (
 export const fetchTasks = async (
 	id: string,
 	token: string,
+	lastUpdate: string,
 ): Promise<Task[]> => {
-	const response = await instance.get(`tasks/${id}`, {
-		headers: {
-			Authorization: `Bearer ${token}`,
+	const response = await instance.get(
+		lastUpdate ? `tasks/${id}?lastUpdate=${lastUpdate}` : `tasks/${id}`,
+		{
+			headers: {
+				Authorization: `Bearer ${token}`,
+			},
 		},
-	});
+	);
 	const responseData: FetchedTask[] = await response.json<FetchedTask[]>();
 	return responseData.map((task: FetchedTask) => convertToCamel(task));
 };
