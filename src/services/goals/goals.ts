@@ -17,6 +17,17 @@ export const saveGoal = async (goal: Goal, token: string): Promise<Goal> => {
 	return convertToCamel(responseData as FetchedGoal);
 };
 
+export const fetchGoals = async (token: string): Promise<Goal[]> => {
+	const response = await instance.get('goals', {
+		headers: {
+			Authorization: `Bearer ${token}`,
+		},
+	});
+	const responseData: FetchedGoal[] = await response.json();
+	return responseData.map((fetchedGoal: FetchedGoal) =>
+		convertToCamel(fetchedGoal),
+	);
+};
 export const deleteGoal = async (id: string, token: string): Promise<void> => {
 	await instance.delete(`goals/${id}`, {
 		headers: {

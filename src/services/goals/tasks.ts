@@ -24,8 +24,11 @@ export const saveTasks = async (
 	return Promise.all(taskPromises);
 };
 
-export const getTasks = async (token: string): Promise<Task[]> => {
-	const response = await instance.get('tasks', {
+export const fetchTasks = async (
+	id: string,
+	token: string,
+): Promise<Task[]> => {
+	const response = await instance.get(`tasks/${id}`, {
 		headers: {
 			Authorization: `Bearer ${token}`,
 		},
