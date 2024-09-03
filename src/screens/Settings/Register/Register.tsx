@@ -9,7 +9,7 @@ import { GreenRoundedButton, TextInputRounded } from '@/components/atoms';
 
 function Register() {
 	const { t } = useTranslation(['register']);
-	const { components } = useTheme();
+	const { components, layout, gutters } = useTheme();
 	const [email, setEmail] = useState<string>('');
 	const [username, setUsername] = useState<string>('');
 	const [password, setPassword] = useState<string>('');
@@ -33,24 +33,30 @@ function Register() {
 	return (
 		<SafeScreen>
 			<View style={components.mainContainer}>
-				<TextInputRounded onChangeText={setEmail} value={email} text="email" />
-				<TextInputRounded
-					onChangeText={setUsername}
-					value={username}
-					text="username"
-				/>
-				<TextInputRounded
-					onChangeText={setPassword}
-					value={password}
-					secureTextEntry
-					text="password"
-				/>
-				<TextInputRounded
-					onChangeText={setRepeat}
-					value={repeat}
-					secureTextEntry
-					text="repeat"
-				/>
+				<View style={[layout.fullWidth, gutters.marginTop_120]}>
+					<TextInputRounded
+						onChangeText={setEmail}
+						value={email}
+						text="email"
+					/>
+					<TextInputRounded
+						onChangeText={setUsername}
+						value={username}
+						text="username"
+					/>
+					<TextInputRounded
+						onChangeText={setPassword}
+						value={password}
+						secureTextEntry
+						text="password"
+					/>
+					<TextInputRounded
+						onChangeText={setRepeat}
+						value={repeat}
+						secureTextEntry
+						text="repeat"
+					/>
+				</View>
 				{isPending ? (
 					<ActivityIndicator />
 				) : (

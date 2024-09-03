@@ -57,7 +57,7 @@ export default ({
 			...layout.justifyCenter,
 			...layout.itemsCenter,
 			...layout.fullWidth,
-			...gutters.marginTop_80,
+			...gutters.marginTop_60,
 			...gutters.padding_32,
 		},
 		header: {

@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
 import { useStorage } from '@/storage/StorageContext';
 
 function Login() {
-	const { components, layout } = useTheme();
+	const { components, layout, gutters } = useTheme();
 	const [username, setUsername] = useState<string>('');
 	const [password, setPassword] = useState<string>('');
 	const storage = useStorage();
@@ -28,7 +28,7 @@ function Login() {
 		<SafeScreen>
 			<View style={components.mainContainer}>
 				{!isSuccess && (
-					<View style={layout.fullWidth}>
+					<View style={[layout.fullWidth, gutters.marginTop_120]}>
 						<TextInputRounded
 							onChangeText={setUsername}
 							value={username}
