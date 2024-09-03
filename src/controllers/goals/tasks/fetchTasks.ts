@@ -7,5 +7,6 @@ export default (id: string, token: string): UseQueryResult<Task[]> => {
 	return useQuery({
 		queryKey: ['tasks', { id, token }],
 		queryFn: () => fetchTasks(id, token),
+		enabled: false,
 	});
 };

@@ -7,5 +7,6 @@ export default (token: string): UseQueryResult<Goal[]> => {
 	return useQuery({
 		queryKey: ['goals', token],
 		queryFn: () => fetchGoals(token),
+		enabled: false,
 	});
 };
