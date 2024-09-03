@@ -30,6 +30,8 @@ import Wilde from '@/theme/assets/images/portraits/owi.jpg';
 import Shakespeare from '@/theme/assets/images/portraits/ws.jpg';
 import ThRoosevelt from '@/theme/assets/images/portraits/tr.jpg';
 import Rowling from '@/theme/assets/images/portraits/jkr.jpg';
+import Frankl from '@/theme/assets/images/portraits/frankl.jpg';
+
 import { QuoteKeys } from '@/types/schemas/quotes';
 
 export default function getRandomQuote() {
@@ -56,6 +58,7 @@ export default function getRandomQuote() {
 		['quotes:OprahWinfrey.quotes.1', Winfrey],
 		['quotes:OprahWinfrey.quotes.2', Winfrey],
 		['quotes:OprahWinfrey.quotes.3', Winfrey],
+		['quotes:OprahWinfrey.quotes.4', Winfrey],
 		['quotes:ThomasA.Edison.quotes.1', Edison],
 		['quotes:ThomasA.Edison.quotes.2', Edison],
 		['quotes:Confucius.quotes.1', Confucius],
@@ -105,6 +108,11 @@ export default function getRandomQuote() {
 		['quotes:TheodoreRoosevelt.quotes.2', ThRoosevelt],
 		['quotes:TheodoreRoosevelt.quotes.3', ThRoosevelt],
 		['quotes:TheodoreRoosevelt.quotes.4', ThRoosevelt],
+		['quotes:ViktorFrankl.quotes.1', Frankl],
+		['quotes:ViktorFrankl.quotes.2', Frankl],
+		['quotes:ViktorFrankl.quotes.3', Frankl],
+		['quotes:ViktorFrankl.quotes.4', Frankl],
+		['quotes:ViktorFrankl.quotes.5', Frankl],
 	];
 
 	const random = Math.floor(Math.random() * Quotes.length);

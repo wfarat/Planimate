@@ -21,6 +21,7 @@ export type QuoteKeys =
 	| 'quotes:OprahWinfrey.quotes.1'
 	| 'quotes:OprahWinfrey.quotes.2'
 	| 'quotes:OprahWinfrey.quotes.3'
+	| 'quotes:OprahWinfrey.quotes.4'
 	| 'quotes:ThomasA.Edison.quotes.1'
 	| 'quotes:ThomasA.Edison.quotes.2'
 	| 'quotes:Confucius.quotes.1'
@@ -69,7 +70,12 @@ export type QuoteKeys =
 	| 'quotes:TheodoreRoosevelt.quotes.1'
 	| 'quotes:TheodoreRoosevelt.quotes.2'
 	| 'quotes:TheodoreRoosevelt.quotes.3'
-	| 'quotes:TheodoreRoosevelt.quotes.4';
+	| 'quotes:TheodoreRoosevelt.quotes.4'
+	| 'quotes:ViktorFrankl.quotes.1'
+	| 'quotes:ViktorFrankl.quotes.2'
+	| 'quotes:ViktorFrankl.quotes.3'
+	| 'quotes:ViktorFrankl.quotes.4'
+	| 'quotes:ViktorFrankl.quotes.5';
 
 export type QuoteNames =
 	| 'quotes:MarcusAurelius.name'
@@ -102,4 +108,5 @@ export type QuoteNames =
 	| 'quotes:J.K.Rowling.name'
 	| 'quotes:OscarWilde.name'
 	| 'quotes:WilliamShakespeare.name'
-	| 'quotes:TheodoreRoosevelt.name';
+	| 'quotes:TheodoreRoosevelt.name'
+	| 'quotes:ViktorFrankl.name';

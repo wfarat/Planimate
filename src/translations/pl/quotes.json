@@ -130,7 +130,8 @@
     "quotes": {
       "1": "Jeśli będziesz wdzięczny za to, co masz w życiu, zawsze będziesz mieć więcej. Jeśli będziesz patrzeć na to, czego w życiu nie masz, nigdy nie będziesz mieć dosyć.",
       "2": "Powiedziałabym, że nie możemy pozwolić sobie na to, by strach powstrzymywał nas przed życiem, i uważam, że musimy iść naprzód z wiarą, że rzeczy się poprawią… A poprawią się, kiedy sami je ulepszymy.",
-      "3": "Już w bardzo młodym wieku nauczyłam się, że jestem odpowiedzialna za swoje życie. I gdy stałam się bardziej świadoma duchowo, zrozumiałam, że wszyscy jesteśmy odpowiedzialni za siebie, że sami tworzymy swoją rzeczywistość przez sposób, w jaki myślimy, a zatem i działamy. Nie możesz obwiniać apartheidu, swoich rodziców ani okoliczności, bo nie jesteś swoimi okolicznościami. Jesteś swoimi możliwościami. Jeśli to wiesz, możesz zrobić wszystko."
+      "3": "Już w bardzo młodym wieku nauczyłam się, że jestem odpowiedzialna za swoje życie. I gdy stałam się bardziej świadoma duchowo, zrozumiałam, że wszyscy jesteśmy odpowiedzialni za siebie, że sami tworzymy swoją rzeczywistość przez sposób, w jaki myślimy, a zatem i działamy. Nie możesz obwiniać apartheidu, swoich rodziców ani okoliczności, bo nie jesteś swoimi okolicznościami. Jesteś swoimi możliwościami. Jeśli to wiesz, możesz zrobić wszystko.",
+      "4": "Największą przygodą, jaką możesz przeżyć, jest życie zgodne z twoimi marzeniami."
     },
     "name": "Oprah Winfrey"
   },
@@ -224,5 +225,15 @@
       "1": "Sekret pójścia do przodu tkwi w rozpoczęciu. Sekret rozpoczęcia pracy polega na podzieleniu złożonych, przytłaczających zadań na małe, łatwe do wykonania zadania i rozpoczęcie od pierwszego."
     },
     "name": "Mark Twain"
+  },
+  "ViktorFrankl": {
+    "quotes": {
+      "1": "yj tak, jakbyś żył po raz drugi, i tak, jakbyś za pierwszym razem postąpił równie niewłaściwie, jak zamierzasz postąpić teraz.",
+      "2": "Nie gońcie za sukcesem – im bardziej ku niemu dążycie, czyniąc z niego swój jedyny cel, tym częściej on was omija. Do sukcesu bowiem, tak jak do szczęścia, nie można dążyć; musi on z czegoś wynikać i występuje jedynie jako niezamierzony rezultat naszego zaangażowania w dzieło większe i ważniejsze od nas samych lub efekt uboczny całkowitego oddania się drugiemu człowiekowi",
+      "3": "Kiedy nie jesteśmy już w stanie zmienić sytuacji, jesteśmy zmuszeni zmienić siebie.",
+      "4": "Wszystko można człowiekowi odebrać, z wyjątkiem jednej rzeczy: ostatniej z ludzkich wolności — wyboru swojego nastawienia w każdych okolicznościach, wyboru własnej drogi.",
+      "5": "W końcu człowiek nie powinien pytać o sens swojego życia, ale raczej przyjąć do wiadomości, że jest o to pytany. Każdy człowiek na świecie przepytywany jest przez życie; odpowiadać życiu można jedynie przez bycie odpowiedzialnym."
+    },
+    "name": "Viktor Frankl"
   }
 }
