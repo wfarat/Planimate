@@ -108,7 +108,7 @@
       "3": "Cokolwiek robisz, rób to dobrze. Rób to tak dobrze, że kiedy ludzie zobaczą, jak to robisz, będą chcieli wrócić i zobaczyć to ponownie, a także będą chcieli przyprowadzić innych i pokazać im, jak dobrze to robisz.",
       "4": "Przeszłość może boleć. Ale według mnie, możesz albo przed nią uciekać, albo się z niej uczyć.",
       "5": "Bez zmian, postęp jest niemożliwy.",
-      "6": "Sekret spełniania marzeń można streścić czterema C: Ciekawość, Cel, Charakter i Ciągłość; a najważniejsza z nich to Charakter.",
+      "6": "Sekret spełniania marzeń można streścić czterema C: Ciekawość, Cel, Charakter i Ciągłość; a najważniejsze z nich to Charakter.",
       "7": "Każdy upada. Aby nauczyć się chodzić, trzeba się podnosić.",
       "8": "Nigdy nie dawaj z siebie mniej, niż jesteś w stanie.",
       "9": "Najczęściej różnicą między wygraną a przegraną jest to, że się nie poddajesz.",
@@ -118,7 +118,11 @@
   },
   "SteveJobs": {
     "quotes": {
-      "1": "Twój czas jest ograniczony, więc nie marnuj go, żyjąc życiem kogoś innego. Nie daj się złapać w pułapkę dogmatu – czyli życia rezultatami myślenia innych ludzi."
+      "1": "Twój czas jest ograniczony, więc nie marnuj go, żyjąc życiem kogoś innego. Nie daj się złapać w pułapkę dogmatu – czyli życia rezultatami myślenia innych ludzi.",
+      "2": "Oto ci szaleni. Odmieńcy. Buntownicy. Awanturnicy. Ci, którzy nie pasują do schematów. Widzą świat inaczej. Nie lubią zasad i nie uznają status quo. Możesz ich cytować, nie zgadzać się z nimi, podziwiać ich lub potępiać. Ale jednego nie możesz – nie da się ich zignorować. Bo to oni zmieniają świat. Popychają ludzkość naprzód. I chociaż niektórzy widzą w nich szaleńców, my widzimy geniuszy. Bo ludzie, którzy są wystarczająco szaleni, żeby myśleć, że mogą zmienić świat, to właśnie ci, którzy go zmieniają.",
+      "3": "Myślę, że jeśli zrobisz coś i okaże się to całkiem dobre, powinieneś zrobić coś innego, równie wspaniałego, zamiast zbyt długo nad tym rozmyślać. Po prostu zastanów się, co dalej.",
+      "4": "Pamiętanie o tym, że kiedyś umrzesz jest najlepszym sposobem jaki znam na uniknięcie myślenia o tym, że masz cokolwiek do stracenia. Już teraz jesteś nagi. Nie ma powodu, dla którego nie powinieneś żyć tak, jak nakazuje ci serce.",
+      "5": "Każdego ranka patrzyłem w lustro i zadawałem sobie pytanie: 'Gdyby dzisiaj był ostatni dzień mojego życia, czy chciałbym robić to, co zamierzam robić dzisiaj?' I kiedy odpowiedź brzmiała 'Nie' przez zbyt wiele dni z rzędu, wiedziałem, że muszę coś zmienić."
     },
     "name": "Steve Jobs"
   },
