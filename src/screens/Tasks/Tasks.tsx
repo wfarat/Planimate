@@ -7,7 +7,6 @@ import TasksList from '@/screens/Tasks/TasksList';
 import { RootScreenProps } from '@/types/navigation';
 import { EditDialog, TaskTopBar, ActionDialog } from '@/components/molecules';
 import type { Task } from '@/types/schemas';
-import { useStorage } from '@/storage/StorageContext';
 import { useIsFocused } from '@react-navigation/native';
 import { GreenRoundedButton } from '@/components/atoms';
 import { useTaskHandlers } from '@/helpers/hooks/tasks/useTaskHandlers';
@@ -15,26 +14,20 @@ import { deleteTask, finishTask } from '@/controllers/goals';
 
 function Tasks({ route, navigation }: RootScreenProps<'Tasks'>) {
 	const { goal, task } = route.params;
-	const storage = useStorage();
 	const { layout, fonts, gutters, components } = useTheme();
 	const [tasks, setTasks] = useState<Task[]>([]);
 	const [visible, setVisible] = useState([false, false, false]);
 	const [taskName, setTaskName] = useState(task?.name || '');
-	const { handleDeleteTask, handleFinishTask, handleEditTask, handleReorder } =
-		useTaskHandlers(goal, setTasks, task);
-	const storageString = task
-		? `goals.${goal.goalId}.${task.taskId}`
-		: `goals.${goal.goalId}`;
+	const {
+		handleDeleteTask,
+		handleFinishTask,
+		handleEditTask,
+		handleReorder,
+		handleGetTasks,
+	} = useTaskHandlers(goal, setTasks, task);
 	const isFocused = useIsFocused();
 	useEffect(() => {
-		if (isFocused) {
-			const storedTasks = storage.getString(storageString);
-			if (storedTasks) {
-				setTasks(JSON.parse(storedTasks) as Task[]);
-			} else {
-				setTasks([]);
-			}
-		}
+		setTasks(handleGetTasks());
 	}, [task?.taskId, isFocused]);
 
 	const handleAddToAgenda = () => {

@@ -31,12 +31,22 @@ function EditDialog({ onEdit, onCancel, visible, item }: EditDialogProps) {
 		if (token) {
 			if (isTask(item)) {
 				taskMutation.mutate({
-					task: { ...(item as Task), name, description },
+					task: {
+						...(item as Task),
+						name,
+						description,
+						updatedAt: new Date().toISOString(),
+					},
 					token,
 				});
 			} else {
 				goalMutation.mutate({
-					goal: { ...(item as Goal), name, description },
+					goal: {
+						...(item as Goal),
+						name,
+						description,
+						updatedAt: new Date().toISOString(),
+					},
 					token,
 				});
 			}

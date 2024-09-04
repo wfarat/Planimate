@@ -38,7 +38,9 @@ export const useTaskActions = (
 
 	const finishTask = () => {
 		const updatedTasks = tasks.map(t =>
-			t.taskId === taskId ? { ...t, completed: true } : t,
+			t.taskId === taskId
+				? { ...t, completed: true, updatedAt: new Date().toISOString() }
+				: t,
 		);
 		updateTasks(updatedTasks, parentId);
 	};
@@ -46,7 +48,12 @@ export const useTaskActions = (
 	const editTask = (newName: string, newDescription: string) => {
 		const updatedTasks = tasks.map(t =>
 			t.taskId === taskId
-				? { ...t, name: newName, description: newDescription }
+				? {
+						...t,
+						name: newName,
+						description: newDescription,
+						updatedAt: new Date().toISOString(),
+				  }
 				: t,
 		);
 		updateTasks(updatedTasks, parentId);
@@ -70,6 +77,7 @@ export const useTaskActions = (
 			parentId: taskId,
 			duration,
 			dueDate,
+			updatedAt: new Date().toISOString(),
 			completed: false,
 			order: oldTasks.length,
 		};
@@ -160,6 +168,8 @@ export const useTaskActions = (
 		return counts;
 	};
 	return {
+		getTasks,
+		getStorageString,
 		deleteTask,
 		finishTask,
 		editTask,

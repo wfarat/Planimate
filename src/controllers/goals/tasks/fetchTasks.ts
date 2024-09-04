@@ -4,13 +4,16 @@ import { fetchTasks } from '@/services/goals/tasks';
 import Task from '@/types/schemas/task';
 
 export default (
-	id: string,
-	token: string,
+	id: number,
+	isGoal: boolean,
+	token?: string,
 	lastUpdate?: string,
 ): UseQueryResult<Task[]> => {
 	return useQuery({
-		queryKey: ['tasks', { id, token }],
-		queryFn: () => fetchTasks(id, token, lastUpdate),
+		queryKey: ['tasks', { id, token, isGoal, lastUpdate }],
+		queryFn: () =>
+			token ? fetchTasks(id, token, isGoal, lastUpdate) : Promise.resolve([]),
 		staleTime: 1000 * 60 * 5,
+		enabled: !!token,
 	});
 };

@@ -19,7 +19,12 @@ export const useGoalActions = (goalId?: number) => {
 	const editGoal = (newName: string, newDescription: string) => {
 		const updatedGoals = goals.map(g =>
 			g.goalId === goalId
-				? { ...g, name: newName, description: newDescription }
+				? {
+						...g,
+						name: newName,
+						description: newDescription,
+						updatedAt: new Date().toISOString(),
+				  }
 				: g,
 		);
 		updateGoals(updatedGoals);
@@ -37,6 +42,7 @@ export const useGoalActions = (goalId?: number) => {
 			description,
 			dueDate,
 			goalId: lastId + 1,
+			updatedAt: new Date().toISOString(),
 		};
 		storage.set('goals.lastId', lastId + 1);
 		return goal;

@@ -22,7 +22,7 @@ export const fetchGoals = async (
 	lastUpdate?: string,
 ): Promise<Goal[]> => {
 	const response = await instance.get(
-		lastUpdate ? `goals?lastUpdate=${lastUpdate}` : 'goals',
+		lastUpdate ? `goals?last_update=${lastUpdate}` : 'goals',
 		{
 			headers: {
 				Authorization: `Bearer ${token}`,

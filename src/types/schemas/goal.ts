@@ -4,6 +4,7 @@ type Goal = {
 	name: string;
 	description: string;
 	dueDate?: Date;
+	updatedAt: string;
 };
 
 export default Goal;
@@ -14,4 +15,5 @@ export type FetchedGoal = {
 	name: string;
 	description: string;
 	due_date: Date;
+	updated_at: string;
 };

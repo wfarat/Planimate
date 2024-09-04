@@ -12,8 +12,7 @@ type Task = {
 	};
 	dueDate?: Date;
 	completed: boolean;
-	createdAt?: Date;
-	updatedAt?: Date;
+	updatedAt?: string;
 	order: number;
 };
 export type FetchedTask = {
@@ -29,8 +28,7 @@ export type FetchedTask = {
 	};
 	due_date?: Date;
 	completed: boolean;
-	created_at?: Date;
-	updated_at?: Date;
+	updated_at?: string;
 	order: number;
 };
 
