@@ -33,7 +33,7 @@ export const fetchTasks = async (
 	const response = await instance.get(
 		lastUpdate
 			? `tasks/${id}?is_goal=${isGoal}&last_update=${lastUpdate}`
-			: `tasks/${id}?isGoal=${isGoal}`,
+			: `tasks/${id}?is_goal=${isGoal}`,
 		{
 			headers: {
 				Authorization: `Bearer ${token}`,

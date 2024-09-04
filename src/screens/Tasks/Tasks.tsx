@@ -24,11 +24,12 @@ function Tasks({ route, navigation }: RootScreenProps<'Tasks'>) {
 		handleEditTask,
 		handleReorder,
 		handleGetTasks,
+		data,
 	} = useTaskHandlers(goal, setTasks, task);
 	const isFocused = useIsFocused();
 	useEffect(() => {
 		setTasks(handleGetTasks());
-	}, [task?.taskId, isFocused]);
+	}, [task?.taskId, isFocused, data]);
 
 	const handleAddToAgenda = () => {
 		if (task) navigation.push('AddToAgenda', { task });

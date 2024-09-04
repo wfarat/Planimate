@@ -8,7 +8,7 @@ import { useStorage } from '@/storage/StorageContext';
 
 export const useTaskHandlers = (
 	goal: Goal,
-	setTasks: (tasks: Task[]) => void,
+	setTasks?: (tasks: Task[]) => void,
 	task?: Task,
 ) => {
 	const navigation = useNavigation();
@@ -42,10 +42,23 @@ export const useTaskHandlers = (
 		token,
 		lastUpdate,
 	);
+	const replaceTask = (updatedTask: Task): Task[] => {
+		const oldTasks = getTasks(storageString);
+		return oldTasks.map(item =>
+			item.id === updatedTask.id ? updatedTask : item,
+		);
+	};
+	const updateTask = (updatedTask: Task) => {
+		const newTasks = replaceTask(updatedTask);
+		// If no matching item was found, append the new item
+		if (!newTasks.some(item => item.id === updatedTask.id)) {
+			newTasks.push(updatedTask);
+		}
+		updateTasks(newTasks);
+	};
 	const handleGetTasks = () => {
 		if (data) {
-			updateTasks(data, task?.taskId);
-			return data;
+			data.forEach(updatedTask => updateTask(updatedTask));
 		}
 		return getTasks(storageString);
 	};
@@ -64,9 +77,9 @@ export const useTaskHandlers = (
 		}
 	};
 
-	const handleReorder = (tasks: Task[]) => {
-		setTasks(tasks);
-		updateTasks(tasks);
+	const handleReorder = (reorderedTasks: Task[]) => {
+		if (setTasks) setTasks(reorderedTasks);
+		updateTasks(reorderedTasks);
 	};
 	return {
 		handleDeleteTask,
@@ -74,5 +87,6 @@ export const useTaskHandlers = (
 		handleEditTask,
 		handleReorder,
 		handleGetTasks,
+		data,
 	};
 };

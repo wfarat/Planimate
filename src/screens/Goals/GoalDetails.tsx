@@ -10,17 +10,16 @@ import {
 	TaskTopBar,
 } from '@/components/molecules';
 import type { Task } from '@/types/schemas';
-import { useStorage } from '@/storage/StorageContext';
 import { useGoalActions } from '@/helpers/hooks/useGoalActions';
 import { useIsFocused } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import { useTaskActions } from '@/helpers/hooks/tasks/useTaskActions';
 import { GreenRoundedButton } from '@/components/atoms';
 import { deleteGoalMutation } from '@/controllers/goals';
+import { useTaskHandlers } from '@/helpers/hooks/tasks/useTaskHandlers';
 
 function GoalDetails({ route, navigation }: RootScreenProps<'GoalDetails'>) {
 	const { goal } = route.params;
-	const storage = useStorage();
 	const { t } = useTranslation(['goals']);
 	const { layout, fonts, gutters, components } = useTheme();
 	const [tasks, setTasks] = useState<Task[]>([]);
@@ -29,21 +28,13 @@ function GoalDetails({ route, navigation }: RootScreenProps<'GoalDetails'>) {
 	const [goalDescription, setGoalDescription] = useState(goal.description);
 	const { deleteGoal, editGoal } = useGoalActions(goal.goalId);
 	const { findMostImportantTask, countTasks } = useTaskActions(goal.goalId);
+	const { handleGetTasks, data } = useTaskHandlers(goal);
 	const isFocused = useIsFocused();
 	const mostImportantTask = findMostImportantTask();
 	const taskCount = countTasks(tasks);
-	const storageString = `goals.${goal.goalId}`;
-
 	useEffect(() => {
-		if (isFocused) {
-			const storedTasks = storage.getString(storageString);
-			if (storedTasks) {
-				setTasks(JSON.parse(storedTasks) as Task[]);
-			} else {
-				setTasks([]);
-			}
-		}
-	}, [isFocused]);
+		setTasks(handleGetTasks());
+	}, [isFocused, data]);
 
 	const handleDelete = () => {
 		deleteGoal();
