@@ -5,6 +5,7 @@ import { editGoal, editTask } from '@/controllers/goals';
 import { useStorage } from '@/storage/StorageContext';
 import { Goal, Task } from '@/types/schemas';
 import { ActivityIndicator, View } from 'react-native';
+import { useOfflineActions } from '@/helpers/hooks/useOfflineActions';
 
 type EditDialogProps = {
 	onEdit: (name: string, description: string) => void;
@@ -21,36 +22,47 @@ function EditDialog({ onEdit, onCancel, visible, item }: EditDialogProps) {
 	const { t } = useTranslation(['common']);
 	const taskMutation = editTask();
 	const goalMutation = editGoal();
+	const { addAction } = useOfflineActions();
 	const storage = useStorage();
 	const token = storage.getString('token');
 	const { isSuccess, isPending } = isTask(item) ? taskMutation : goalMutation;
 	useEffect(() => {
 		if (isSuccess) onEdit(name, description);
 	}, [isSuccess]);
+	const addOfflineAction = (newItem: Task | Goal) => {
+		if (isTask(newItem)) {
+			addAction('task', {
+				type: 'UPDATE',
+				task: newItem as Task,
+			});
+		} else {
+			addAction('goal', {
+				type: 'UPDATE',
+				goal: newItem as Goal,
+			});
+		}
+	};
 	const handleEdit = () => {
+		const newItem = {
+			...item,
+			name,
+			description,
+			updatedAt: new Date().toISOString(),
+		};
 		if (token) {
 			if (isTask(item)) {
 				taskMutation.mutate({
-					task: {
-						...(item as Task),
-						name,
-						description,
-						updatedAt: new Date().toISOString(),
-					},
+					task: newItem as Task,
 					token,
 				});
 			} else {
 				goalMutation.mutate({
-					goal: {
-						...(item as Goal),
-						name,
-						description,
-						updatedAt: new Date().toISOString(),
-					},
+					goal: newItem as Goal,
 					token,
 				});
 			}
 		} else {
+			addOfflineAction(newItem);
 			onEdit(name, description);
 		}
 	};
