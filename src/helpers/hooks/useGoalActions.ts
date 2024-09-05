@@ -2,6 +2,7 @@ import { Goal } from '@/types/schemas';
 import { useStorage } from '@/storage/StorageContext';
 import { useTaskActions } from '@/helpers/hooks/tasks/useTaskActions';
 import { fetchGoals } from '@/controllers/goals';
+import { getLastUpdate } from '@/helpers/utils/getLastUpdate';
 
 export const useGoalActions = (goalId?: number) => {
 	const storage = useStorage();
@@ -17,18 +18,7 @@ export const useGoalActions = (goalId?: number) => {
 		return [];
 	};
 	const goals: Goal[] = getGoalsFromStorage();
-	const lastUpdate = goals
-		.reduce(
-			(acc, currentGoal) => {
-				if (currentGoal.updatedAt) {
-					const currentGoalDate = new Date(currentGoal.updatedAt);
-					return currentGoalDate > acc ? currentGoalDate : acc;
-				}
-				return acc;
-			},
-			new Date('1970-01-01T00:00:00.000Z'), // Initialize with the earliest possible UTC date
-		)
-		.toISOString(); // Convert the final date back to an ISO string
+	const lastUpdate = getLastUpdate(goals);
 	const token = storage.getString('token');
 	const { data } = fetchGoals(token, lastUpdate);
 	const replaceGoal = (goal: Goal): Goal[] => {

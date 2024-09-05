@@ -4,6 +4,8 @@ import { MarkedDates } from 'react-native-calendars/src/types';
 import isEmpty from 'lodash/isEmpty';
 import agendaItemType, { AgendaItemData } from '@/types/schemas/agendaItemType';
 import { useTaskFromAgenda } from '@/helpers/hooks/tasks/useTaskFromAgenda';
+import { fetchAgendaItems } from '@/controllers/agenda';
+import { getLastUpdate } from '@/helpers/utils/getLastUpdate';
 
 export const useAgendaItems = () => {
 	const storage = useStorage();
@@ -15,7 +17,9 @@ export const useAgendaItems = () => {
 		}
 		return [];
 	};
-
+	const lastUpdate = getLastUpdate(loadStoredItems());
+	const token = storage.getString('token');
+	const { data } = fetchAgendaItems(token, lastUpdate);
 	const updateItems = (updatedItems: AgendaItemType[]) => {
 		storage.set('agenda', JSON.stringify(updatedItems));
 	};
@@ -33,6 +37,10 @@ export const useAgendaItems = () => {
 		}
 		updateItems(agendaItems);
 	};
+	const getItems = () => {
+		if (data) data.forEach(item => addAgendaItem(item));
+		return loadStoredItems();
+	};
 	const createAgendaItem = (
 		date: Date,
 		task: Task,
@@ -44,6 +52,7 @@ export const useAgendaItems = () => {
 		const id = storedId || 0;
 		const newItem: AgendaItemType = {
 			title,
+			updatedAt: new Date().toISOString(),
 			data: [
 				{
 					time,
@@ -129,22 +138,24 @@ export const useAgendaItems = () => {
 		updateItems(updatedItems);
 		return updatedItems;
 	};
-	const findAgendaItemId = (data: AgendaItemData): string => {
+	const findAgendaItemId = (itemData: AgendaItemData): string => {
 		const agendaItems = loadStoredItems();
 		return (
-			agendaItems.find(item => item.data.some(d => d.id === data.id))?.id || ''
+			agendaItems.find(item => item.data.some(d => d.id === itemData.id))?.id ||
+			''
 		);
 	};
 	return {
+		getItems,
 		getMarkedDates,
 		addAgendaItem,
 		deleteAgendaItem,
-		loadStoredItems,
 		completeAgendaItem,
 		createAgendaItem,
 		updateAgendaItem,
 		updateItems,
 		replaceAgendaItem,
 		findAgendaItemId,
+		data,
 	};
 };

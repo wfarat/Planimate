@@ -31,7 +31,7 @@ LocaleConfig.locales.en = EN;
 LocaleConfig.defaultLocale = i18next.language;
 
 function Calendar({ navigation }: RootScreenProps<'Calendar'>) {
-	const { getMarkedDates, loadStoredItems } = useAgendaItems();
+	const { getMarkedDates, getItems, data } = useAgendaItems();
 	const theme = useRef(getTheme());
 	const [markedDates, setMarkedDates] = useState<MarkedDates>();
 	const [agendaItems, setAgendaItems] = useState<AgendaItemType[]>([]);
@@ -40,13 +40,14 @@ function Calendar({ navigation }: RootScreenProps<'Calendar'>) {
 		setMarkedDates,
 	);
 	const { components, layout, gutters } = useTheme();
+	const isFocused = useIsFocused();
 	useEffect(() => {
-		const newItems = loadStoredItems();
+		const newItems = getItems();
 		if (newItems) {
 			setAgendaItems(newItems);
 			setMarkedDates(getMarkedDates(newItems));
 		}
-	}, [useIsFocused()]);
+	}, [isFocused, data]);
 	const [languageKey, setLanguageKey] = useState(i18next.language);
 	const handleLanguageChange = (lng: string) => {
 		if (languageKey !== lng) {

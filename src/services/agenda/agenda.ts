@@ -11,6 +11,25 @@ const convertToCamel = (fetchedAgendaItem: FetchedAgendaItem): AgendaItemType =>
 		id: fetchedAgendaItem._id,
 		_id: undefined,
 	});
+
+export const fetchAgendaItems = async (
+	token: string,
+	lastUpdate?: string,
+): Promise<AgendaItemType[]> => {
+	const response = await instance.get(
+		lastUpdate ? `agenda?last_update=${lastUpdate}` : 'agenda',
+		{
+			headers: {
+				Authorization: `Bearer ${token}`,
+			},
+		},
+	);
+	const responseData: FetchedAgendaItem[] = await response.json();
+	return responseData.map((agendaItem: FetchedAgendaItem) =>
+		convertToCamel(agendaItem),
+	);
+};
+
 export const saveAgendaItem = async (
 	agendaItem: AgendaItemType,
 	token: string,
