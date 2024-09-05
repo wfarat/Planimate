@@ -1,5 +1,7 @@
 import { Task } from '@/types/schemas';
 import { useStorage } from '@/storage/StorageContext';
+import { TaskAction } from '@/types/offlineActions/taskAction';
+import { useOfflineActions } from '@/helpers/hooks/useOfflineActions';
 
 export const useTaskActions = (
 	goalId: number,
@@ -7,6 +9,7 @@ export const useTaskActions = (
 	taskId?: number,
 ) => {
 	const storage = useStorage();
+	const { addAction } = useOfflineActions();
 	const getStorageString = (target?: number) => {
 		return target ? `goals.${goalId}.${target}` : `goals.${goalId}`;
 	};
@@ -167,6 +170,9 @@ export const useTaskActions = (
 
 		return counts;
 	};
+	const addOfflineAction = (action: TaskAction) => {
+		addAction('task', action);
+	};
 	return {
 		getTasks,
 		getStorageString,
@@ -179,5 +185,6 @@ export const useTaskActions = (
 		updateTasks,
 		findMostImportantTask,
 		findImportantTasks,
+		addOfflineAction,
 	};
 };

@@ -3,9 +3,12 @@ import { useStorage } from '@/storage/StorageContext';
 import { useTaskActions } from '@/helpers/hooks/tasks/useTaskActions';
 import { fetchGoals } from '@/controllers/goals';
 import { getLastUpdate } from '@/helpers/utils/getLastUpdate';
+import { GoalAction } from '@/types/offlineActions/goalAction';
+import { useOfflineActions } from '@/helpers/hooks/useOfflineActions';
 
 export const useGoalActions = (goalId?: number) => {
 	const storage = useStorage();
+	const { addAction } = useOfflineActions();
 	const { cleanupTasks } = useTaskActions(goalId || 0);
 	const updateGoals = (updatedGoals: Goal[]) => {
 		storage.set('goals', JSON.stringify(updatedGoals));
@@ -70,5 +73,16 @@ export const useGoalActions = (goalId?: number) => {
 		storage.set('goals.lastId', lastId + 1);
 		return goal;
 	};
-	return { editGoal, getGoals, createGoal, deleteGoal, updateGoals, data };
+	const addOfflineAction = (action: GoalAction) => {
+		addAction('goal', action);
+	};
+	return {
+		editGoal,
+		getGoals,
+		createGoal,
+		deleteGoal,
+		updateGoals,
+		data,
+		addOfflineAction,
+	};
 };

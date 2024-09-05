@@ -1,11 +1,9 @@
 import { Updatable } from '@/types/schemas/updatable';
 
 type Task = Updatable & {
-	id?: string;
 	taskId: number;
 	goalId: number;
 	parentId?: number;
-	userId?: string;
 	name: string;
 	description: string;
 	duration?: {
@@ -14,7 +12,6 @@ type Task = Updatable & {
 	};
 	dueDate?: Date;
 	completed: boolean;
-	updatedAt?: string;
 	order: number;
 };
 export type FetchedTask = {
@@ -30,7 +27,7 @@ export type FetchedTask = {
 	};
 	due_date?: Date;
 	completed: boolean;
-	updated_at?: string;
+	updated_at: string;
 	order: number;
 };
 

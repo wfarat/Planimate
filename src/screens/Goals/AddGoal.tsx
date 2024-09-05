@@ -9,15 +9,18 @@ import { GreenRoundedButton, TextInputRounded } from '@/components/atoms';
 import { saveGoal } from '@/controllers/goals';
 import { Goal } from '@/types/schemas';
 import { useStorage } from '@/storage/StorageContext';
+import { useNetInfo } from '@react-native-community/netinfo';
 
 function AddGoal({ navigation }: RootScreenProps<'AddGoal'>) {
 	const { components } = useTheme();
 	const storage = useStorage();
 	const [name, setName] = useState<string>('');
 	const [description, setDescription] = useState<string>('');
-	const { createGoal, updateGoals, getGoals } = useGoalActions();
+	const { createGoal, updateGoals, getGoals, addOfflineAction } =
+		useGoalActions();
 	const { isSuccess, isPending, data, mutate } = saveGoal();
 	const [dueDate, setDueDate] = useState<Date>();
+	const { isConnected } = useNetInfo();
 	const token = storage.getString('token');
 	const addGoal = (goal: Goal) => {
 		const updatedGoals = [...getGoals(), goal];
@@ -29,10 +32,11 @@ function AddGoal({ navigation }: RootScreenProps<'AddGoal'>) {
 	}, [isSuccess]);
 	const handleAddGoal = () => {
 		const newGoal = createGoal(name, description, dueDate);
-		if (token) {
+		if (token && isConnected) {
 			mutate({ goal: newGoal, token });
 		} else {
 			addGoal(newGoal);
+			addOfflineAction({ type: 'CREATE', goal: newGoal });
 		}
 	};
 	return (

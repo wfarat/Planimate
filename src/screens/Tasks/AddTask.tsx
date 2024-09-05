@@ -11,18 +11,20 @@ import { useTranslation } from 'react-i18next';
 import { useStorage } from '@/storage/StorageContext';
 import { saveTask } from '@/controllers/goals';
 import { Task } from '@/types/schemas';
+import { useNetInfo } from '@react-native-community/netinfo';
 
 function AddTask({ navigation, route }: RootScreenProps<'AddTask'>) {
 	const { task, goal, tasks } = route.params;
 	const { components } = useTheme();
 	const { t } = useTranslation(['goals']);
 	const storage = useStorage();
+	const { isConnected } = useNetInfo();
 	const [name, setName] = useState<string>('');
 	const [description, setDescription] = useState<string>('');
 	const [dueDate, setDueDate] = useState<Date>();
 	const [duration, setDuration] = useState<number>();
 	const { mutate, data, isSuccess, isPending, isError, error } = saveTask();
-	const { createTask, updateTasks } = useTaskActions(
+	const { createTask, updateTasks, addOfflineAction } = useTaskActions(
 		goal.goalId,
 		task?.taskId,
 		task?.taskId,
@@ -40,10 +42,11 @@ function AddTask({ navigation, route }: RootScreenProps<'AddTask'>) {
 	const handleAddTask = () => {
 		const newTask = createTask(tasks, name, description, duration, dueDate);
 		const token = storage.getString('token');
-		if (token) {
+		if (token && isConnected) {
 			mutate({ task: newTask, token });
 		} else {
 			addTask(newTask);
+			addOfflineAction({ type: 'CREATE', task: newTask });
 		}
 	};
 	return (

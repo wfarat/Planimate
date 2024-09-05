@@ -1,7 +1,6 @@
 import { Updatable } from '@/types/schemas/updatable';
 
 type Goal = Updatable & {
-	id?: string;
 	goalId: number;
 	name: string;
 	description: string;
@@ -13,6 +12,7 @@ export default Goal;
 export type FetchedGoal = {
 	_id: string;
 	goal_id: number;
+	user_id: string;
 	name: string;
 	description: string;
 	due_date: Date;
