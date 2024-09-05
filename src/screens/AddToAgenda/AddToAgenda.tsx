@@ -35,7 +35,7 @@ function AddToAgenda({ route, navigation }: RootScreenProps<'AddToAgenda'>) {
 		if (token) {
 			mutate({ agendaItem, token });
 		} else {
-			addOfflineAction({ type: 'CREATE', agendaItem });
+			addOfflineAction({ type: 'create', agendaItem });
 			addToAgenda(agendaItem);
 		}
 	};

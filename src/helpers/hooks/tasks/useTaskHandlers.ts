@@ -85,13 +85,13 @@ export const useTaskHandlers = (
 	};
 
 	const handleOfflineDeleteTask = () => {
-		addOfflineAction({ type: 'DELETE', id: task?.id, taskId: task?.taskId });
+		addOfflineAction({ type: 'delete', id: task?.id, taskId: task?.taskId });
 	};
 	const handleOfflineFinishTask = () => {
-		addOfflineAction({ type: 'COMPLETE', id: task?.id, taskId: task?.taskId });
+		addOfflineAction({ type: 'complete', id: task?.id, taskId: task?.taskId });
 	};
 	const handleOfflineReorder = (tasks: Task[]) => {
-		addOfflineAction({ type: 'REORDER', tasks });
+		addOfflineAction({ type: 'reorder', tasks });
 	};
 	return {
 		handleDeleteTask,

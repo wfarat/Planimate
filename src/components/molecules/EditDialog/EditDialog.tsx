@@ -34,12 +34,12 @@ function EditDialog({ onEdit, onCancel, visible, item }: EditDialogProps) {
 	const addOfflineAction = (newItem: Task | Goal) => {
 		if (isTask(newItem)) {
 			addAction('task', {
-				type: 'UPDATE',
+				type: 'update',
 				task: newItem as Task,
 			});
 		} else {
 			addAction('goal', {
-				type: 'UPDATE',
+				type: 'update',
 				goal: newItem as Goal,
 			});
 		}

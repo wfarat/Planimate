@@ -25,10 +25,10 @@ export const useAgendaHandlers = (
 		if (setAgendaItems) setAgendaItems(newItems);
 	};
 	const handleOfflineDelete = (id?: string, agendaDataId?: number) => {
-		addOfflineAction({ type: 'DELETE', id, agendaDataId });
+		addOfflineAction({ type: 'delete', id, agendaDataId });
 	};
 	const handleOfflineComplete = (id?: string, agendaDataId?: number) => {
-		addOfflineAction({ type: 'COMPLETE', id, agendaDataId });
+		addOfflineAction({ type: 'complete', id, agendaDataId });
 	};
 	return {
 		handleComplete,

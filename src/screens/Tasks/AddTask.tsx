@@ -45,7 +45,7 @@ function AddTask({ navigation, route }: RootScreenProps<'AddTask'>) {
 		if (token && isConnected) {
 			mutate({ task: newTask, token });
 		} else {
-			addOfflineAction({ type: 'CREATE', task: newTask });
+			addOfflineAction({ type: 'create', task: newTask });
 			addTask(newTask);
 		}
 	};

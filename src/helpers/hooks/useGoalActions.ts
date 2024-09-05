@@ -77,7 +77,7 @@ export const useGoalActions = (id?: string, goalId?: number) => {
 		addAction('goal', action);
 	};
 	const handleOfflineDeleteGoal = () => {
-		addOfflineAction({ type: 'DELETE', id, goalId });
+		addOfflineAction({ type: 'delete', id, goalId });
 	};
 	return {
 		editGoal,

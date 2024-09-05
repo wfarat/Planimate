@@ -1,11 +1,16 @@
 import { useMutation } from '@tanstack/react-query';
 import { syncActions } from '@/services/syncActions/syncActions';
 import { useOfflineActions } from '@/helpers/hooks/offline/useOfflineActions';
+import { ActionsPayload } from '@/types/offlineActions/actionPayload';
 
+type Variables = {
+	token: string;
+	actions: ActionsPayload;
+};
 function useSyncActions() {
 	const { clearActions } = useOfflineActions();
 	return useMutation({
-		mutationFn: syncActions,
+		mutationFn: ({ token, actions }: Variables) => syncActions(token, actions),
 		onSuccess: () => {
 			clearActions(); // Clear local storage on successful sync
 		},
