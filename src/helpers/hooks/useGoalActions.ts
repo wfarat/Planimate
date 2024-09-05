@@ -6,7 +6,7 @@ import { getLastUpdate } from '@/helpers/utils/getLastUpdate';
 import { GoalAction } from '@/types/offlineActions/goalAction';
 import { useOfflineActions } from '@/helpers/hooks/useOfflineActions';
 
-export const useGoalActions = (goalId?: number) => {
+export const useGoalActions = (id?: string, goalId?: number) => {
 	const storage = useStorage();
 	const { addAction } = useOfflineActions();
 	const { cleanupTasks } = useTaskActions(goalId || 0);
@@ -76,6 +76,9 @@ export const useGoalActions = (goalId?: number) => {
 	const addOfflineAction = (action: GoalAction) => {
 		addAction('goal', action);
 	};
+	const handleOfflineDeleteGoal = () => {
+		addOfflineAction({ type: 'DELETE', id, goalId });
+	};
 	return {
 		editGoal,
 		getGoals,
@@ -84,5 +87,6 @@ export const useGoalActions = (goalId?: number) => {
 		updateGoals,
 		data,
 		addOfflineAction,
+		handleOfflineDeleteGoal,
 	};
 };

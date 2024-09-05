@@ -6,9 +6,12 @@ import agendaItemType, { AgendaItemData } from '@/types/schemas/agendaItemType';
 import { useTaskFromAgenda } from '@/helpers/hooks/tasks/useTaskFromAgenda';
 import { fetchAgendaItems } from '@/controllers/agenda';
 import { getLastUpdate } from '@/helpers/utils/getLastUpdate';
+import { AgendaAction } from '@/types/offlineActions/agendaAction';
+import { useOfflineActions } from '@/helpers/hooks/useOfflineActions';
 
 export const useAgendaItems = () => {
 	const storage = useStorage();
+	const { addAction } = useOfflineActions();
 	const { updateStoredTaskDuration, getTaskStorageKey } = useTaskFromAgenda();
 	const loadStoredItems = () => {
 		const storedItems = storage.getString('agenda');
@@ -145,6 +148,9 @@ export const useAgendaItems = () => {
 			''
 		);
 	};
+	const addOfflineAction = (action: AgendaAction) => {
+		addAction('agenda', action);
+	};
 	return {
 		getItems,
 		getMarkedDates,
@@ -157,5 +163,6 @@ export const useAgendaItems = () => {
 		replaceAgendaItem,
 		findAgendaItemId,
 		data,
+		addOfflineAction,
 	};
 };

@@ -26,7 +26,10 @@ function GoalDetails({ route, navigation }: RootScreenProps<'GoalDetails'>) {
 	const [visible, setVisible] = useState([false, false]);
 	const [goalName, setGoalName] = useState(goal.name);
 	const [goalDescription, setGoalDescription] = useState(goal.description);
-	const { deleteGoal, editGoal } = useGoalActions(goal.goalId);
+	const { deleteGoal, editGoal, handleOfflineDeleteGoal } = useGoalActions(
+		goal.id,
+		goal.goalId,
+	);
 	const { findMostImportantTask, countTasks } = useTaskActions(goal.goalId);
 	const { handleGetTasks, data } = useTaskHandlers(goal);
 	const isFocused = useIsFocused();
@@ -76,6 +79,7 @@ function GoalDetails({ route, navigation }: RootScreenProps<'GoalDetails'>) {
 				name={goal.name}
 				visible={visible[1]}
 				onCancel={() => handleSetVisible(1)}
+				offlineAction={handleOfflineDeleteGoal}
 			/>
 			<View style={components.mainContainer}>
 				<Text style={components.header}>{goalName}</Text>

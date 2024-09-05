@@ -35,8 +35,8 @@ function AddGoal({ navigation }: RootScreenProps<'AddGoal'>) {
 		if (token && isConnected) {
 			mutate({ goal: newGoal, token });
 		} else {
-			addGoal(newGoal);
 			addOfflineAction({ type: 'CREATE', goal: newGoal });
+			addGoal(newGoal);
 		}
 	};
 	return (

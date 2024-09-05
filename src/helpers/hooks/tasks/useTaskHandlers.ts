@@ -5,6 +5,7 @@ import { Goal, Task } from '@/types/schemas';
 import { useTaskActions } from '@/helpers/hooks/tasks/useTaskActions';
 import { fetchTasks } from '@/controllers/goals';
 import { useStorage } from '@/storage/StorageContext';
+import task from '@/types/schemas/task';
 
 export const useTaskHandlers = (
 	goal: Goal,
@@ -20,6 +21,7 @@ export const useTaskHandlers = (
 		updateTasks,
 		getTasks,
 		getStorageString,
+		addOfflineAction,
 	} = useTaskActions(goal.goalId, task?.parentId, task?.taskId);
 
 	const token = storage.getString('token');
@@ -81,6 +83,13 @@ export const useTaskHandlers = (
 		if (setTasks) setTasks(reorderedTasks);
 		updateTasks(reorderedTasks);
 	};
+
+	const handleOfflineDeleteTask = () => {
+		addOfflineAction({ type: 'DELETE', id: task?.id, taskId: task?.taskId });
+	};
+	const handleOfflineFinishTask = () => {
+		addOfflineAction({ type: 'COMPLETE', id: task?.id, taskId: task?.taskId });
+	};
 	return {
 		handleDeleteTask,
 		handleFinishTask,
@@ -88,5 +97,7 @@ export const useTaskHandlers = (
 		handleReorder,
 		handleGetTasks,
 		data,
+		handleOfflineDeleteTask,
+		handleOfflineFinishTask,
 	};
 };

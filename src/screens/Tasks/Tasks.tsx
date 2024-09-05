@@ -24,6 +24,8 @@ function Tasks({ route, navigation }: RootScreenProps<'Tasks'>) {
 		handleEditTask,
 		handleReorder,
 		handleGetTasks,
+		handleOfflineFinishTask,
+		handleOfflineDeleteTask,
 		data,
 	} = useTaskHandlers(goal, setTasks, task);
 	const isFocused = useIsFocused();
@@ -63,6 +65,7 @@ function Tasks({ route, navigation }: RootScreenProps<'Tasks'>) {
 				mutation: finishTask,
 				actionName: 'complete',
 				action: handleFinishTask,
+				offlineAction: handleOfflineFinishTask,
 			},
 		},
 		{
@@ -72,6 +75,7 @@ function Tasks({ route, navigation }: RootScreenProps<'Tasks'>) {
 				mutation: deleteTask,
 				actionName: 'delete',
 				action: handleDeleteTask,
+				offlineAction: handleOfflineDeleteTask,
 			},
 		},
 	];

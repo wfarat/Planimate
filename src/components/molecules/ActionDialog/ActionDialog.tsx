@@ -14,6 +14,7 @@ type Props = {
 	name: string;
 	visible: boolean;
 	onCancel: () => void;
+	offlineAction: () => void;
 };
 function ActionDialog({
 	mutation,
@@ -24,6 +25,7 @@ function ActionDialog({
 	name,
 	visible,
 	onCancel,
+	offlineAction,
 }: Props) {
 	const { mutate, isSuccess, isPending } = mutation();
 	const storage = useStorage();
@@ -37,6 +39,7 @@ function ActionDialog({
 			else mutate({ id, token });
 		} else {
 			action();
+			offlineAction();
 		}
 	};
 
