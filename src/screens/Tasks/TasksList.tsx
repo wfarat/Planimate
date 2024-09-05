@@ -6,6 +6,7 @@ import DragList, { DragListRenderItemInfo } from 'react-native-draglist';
 import { updateTaskOrder } from '@/controllers/goals';
 import { useStorage } from '@/storage/StorageContext';
 import { useEffect } from 'react';
+import { useNetInfo } from '@react-native-community/netinfo';
 
 function TasksList({
 	navigation,
@@ -16,6 +17,7 @@ function TasksList({
 	const { goal } = route.params;
 	const storage = useStorage();
 	const { isSuccess, mutate, data } = updateTaskOrder();
+	const { isConnected } = useNetInfo();
 	const token = storage.getString('token');
 	const renderItem = (info: DragListRenderItemInfo<Task>) => {
 		const { item, onDragStart, onDragEnd } = info;
@@ -49,7 +51,7 @@ function TasksList({
 	};
 	const onReordered = (fromIndex: number, toIndex: number) => {
 		const reorderedTasks = reorder(fromIndex, toIndex);
-		if (token) {
+		if (token && isConnected) {
 			mutate({ tasks: reorderedTasks, token });
 		} else {
 			handleReorder(reorderedTasks);

@@ -5,7 +5,8 @@ import { editGoal, editTask } from '@/controllers/goals';
 import { useStorage } from '@/storage/StorageContext';
 import { Goal, Task } from '@/types/schemas';
 import { ActivityIndicator, View } from 'react-native';
-import { useOfflineActions } from '@/helpers/hooks/useOfflineActions';
+import { useOfflineActions } from '@/helpers/hooks/offline/useOfflineActions';
+import { useNetInfo } from '@react-native-community/netinfo';
 
 type EditDialogProps = {
 	onEdit: (name: string, description: string) => void;
@@ -22,6 +23,7 @@ function EditDialog({ onEdit, onCancel, visible, item }: EditDialogProps) {
 	const { t } = useTranslation(['common']);
 	const taskMutation = editTask();
 	const goalMutation = editGoal();
+	const { isConnected } = useNetInfo();
 	const { addAction } = useOfflineActions();
 	const storage = useStorage();
 	const token = storage.getString('token');
@@ -49,7 +51,7 @@ function EditDialog({ onEdit, onCancel, visible, item }: EditDialogProps) {
 			description,
 			updatedAt: new Date().toISOString(),
 		};
-		if (token) {
+		if (token && isConnected) {
 			if (isTask(item)) {
 				taskMutation.mutate({
 					task: newItem as Task,

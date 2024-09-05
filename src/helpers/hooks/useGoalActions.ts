@@ -4,7 +4,7 @@ import { useTaskActions } from '@/helpers/hooks/tasks/useTaskActions';
 import { fetchGoals } from '@/controllers/goals';
 import { getLastUpdate } from '@/helpers/utils/getLastUpdate';
 import { GoalAction } from '@/types/offlineActions/goalAction';
-import { useOfflineActions } from '@/helpers/hooks/useOfflineActions';
+import { useOfflineActions } from '@/helpers/hooks/offline/useOfflineActions';
 
 export const useGoalActions = (id?: string, goalId?: number) => {
 	const storage = useStorage();

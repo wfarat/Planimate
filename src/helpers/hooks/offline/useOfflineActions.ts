@@ -3,6 +3,7 @@ import { GoalAction } from '@/types/offlineActions/goalAction';
 import { TaskAction } from '@/types/offlineActions/taskAction';
 import { AgendaAction } from '@/types/offlineActions/agendaAction';
 import { useStorage } from '@/storage/StorageContext';
+import isEmpty from 'lodash/isEmpty';
 
 export const useOfflineActions = () => {
 	const storage = useStorage();
@@ -33,6 +34,14 @@ export const useOfflineActions = () => {
 		else actionsPayload.agenda.push(action as AgendaAction);
 		updateActions(actionsPayload);
 	}
+	const clearActions = (): void => {
+		storage.delete('actions');
+	};
 
-	return { addAction };
+	const getLocalActions = () => {
+		const actions = getActions();
+		if (isEmpty(actions)) return undefined;
+		return actions;
+	};
+	return { addAction, clearActions, getLocalActions };
 };

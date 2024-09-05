@@ -5,7 +5,7 @@ import { Goal, Task } from '@/types/schemas';
 import { useTaskActions } from '@/helpers/hooks/tasks/useTaskActions';
 import { fetchTasks } from '@/controllers/goals';
 import { useStorage } from '@/storage/StorageContext';
-import task from '@/types/schemas/task';
+import tasks from '@/screens/Tasks/Tasks';
 
 export const useTaskHandlers = (
 	goal: Goal,
@@ -89,6 +89,9 @@ export const useTaskHandlers = (
 	};
 	const handleOfflineFinishTask = () => {
 		addOfflineAction({ type: 'COMPLETE', id: task?.id, taskId: task?.taskId });
+	};
+	const handleOfflineReorder = (tasks: Task[]) => {
+		addOfflineAction({ type: 'REORDER', tasks });
 	};
 	return {
 		handleDeleteTask,

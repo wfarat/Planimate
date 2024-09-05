@@ -4,6 +4,7 @@ import { MutationVariables } from '@/types/variables';
 import { useStorage } from '@/storage/StorageContext';
 import { useEffect } from 'react';
 import Dialog from 'react-native-dialog';
+import { useNetInfo } from '@react-native-community/netinfo';
 
 type Props = {
 	mutation: () => UseMutationResult<void, Error, MutationVariables>;
@@ -14,7 +15,7 @@ type Props = {
 	name: string;
 	visible: boolean;
 	onCancel: () => void;
-	offlineAction: () => void;
+	offlineAction: (id?: string, agendaDataId?: number) => void;
 };
 function ActionDialog({
 	mutation,
@@ -29,17 +30,18 @@ function ActionDialog({
 }: Props) {
 	const { mutate, isSuccess, isPending } = mutation();
 	const storage = useStorage();
+	const { isConnected } = useNetInfo();
 	useEffect(() => {
 		if (isSuccess) action();
 	}, [isSuccess]);
 	const handlePress = () => {
 		const token = storage.getString('token');
-		if (token && id) {
+		if (token && id && isConnected) {
 			if (agendaDataId) mutate({ id, agendaDataId, token });
 			else mutate({ id, token });
 		} else {
 			action();
-			offlineAction();
+			offlineAction(id, agendaDataId);
 		}
 	};
 

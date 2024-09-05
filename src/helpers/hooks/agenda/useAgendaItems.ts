@@ -7,7 +7,7 @@ import { useTaskFromAgenda } from '@/helpers/hooks/tasks/useTaskFromAgenda';
 import { fetchAgendaItems } from '@/controllers/agenda';
 import { getLastUpdate } from '@/helpers/utils/getLastUpdate';
 import { AgendaAction } from '@/types/offlineActions/agendaAction';
-import { useOfflineActions } from '@/helpers/hooks/useOfflineActions';
+import { useOfflineActions } from '@/helpers/hooks/offline/useOfflineActions';
 
 export const useAgendaItems = () => {
 	const storage = useStorage();

@@ -10,6 +10,7 @@ import { ActionDialog, SetTimeDialog } from '@/components/molecules';
 import { useTranslation } from 'react-i18next';
 import { finishAgendaItem, deleteAgendaItem } from '@/controllers/agenda';
 import { useAgendaItems } from '@/helpers/hooks/agenda/useAgendaItems';
+import { useAgendaHandlers } from '@/helpers/hooks/agenda/useAgendaHandlers';
 
 const styles = StyleSheet.create({
 	itemButtonContainer: {
@@ -40,6 +41,7 @@ function AgendaItem(props: ItemProps) {
 	const { backgrounds, fonts, layout, gutters, borders } = useTheme();
 	const { t } = useTranslation(['common']);
 	const [duration, setDuration] = useState(item.duration);
+	const { handleOfflineComplete, handleOfflineDelete } = useAgendaHandlers();
 	const [visible, setVisible] = useState([false, false]);
 	const [date, setDate] = useState<Date | undefined>(
 		item.time ? new Date(item.time) : undefined,
@@ -71,6 +73,7 @@ function AgendaItem(props: ItemProps) {
 				mutation: finishAgendaItem,
 				actionName: 'complete',
 				action: handleComplete,
+				offlineAction: handleOfflineComplete,
 			},
 		},
 		{
@@ -80,6 +83,7 @@ function AgendaItem(props: ItemProps) {
 				mutation: deleteAgendaItem,
 				actionName: 'delete',
 				action: handleDelete,
+				offlineAction: handleOfflineDelete,
 			},
 		},
 	];

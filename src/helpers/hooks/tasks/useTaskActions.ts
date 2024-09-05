@@ -1,7 +1,7 @@
 import { Task } from '@/types/schemas';
 import { useStorage } from '@/storage/StorageContext';
 import { TaskAction } from '@/types/offlineActions/taskAction';
-import { useOfflineActions } from '@/helpers/hooks/useOfflineActions';
+import { useOfflineActions } from '@/helpers/hooks/offline/useOfflineActions';
 
 export const useTaskActions = (
 	goalId: number,
