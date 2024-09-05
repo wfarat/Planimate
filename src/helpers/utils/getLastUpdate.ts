@@ -3,9 +3,9 @@ import { Updatable } from '@/types/schemas/updatable';
 export const getLastUpdate = (items: Updatable[]) =>
 	items
 		.reduce(
-			(acc, currentGoal) => {
-				if (currentGoal.updatedAt) {
-					const currentGoalDate = new Date(currentGoal.updatedAt);
+			(acc, currentItem) => {
+				if (currentItem.updatedAt) {
+					const currentGoalDate = new Date(currentItem.updatedAt);
 					return currentGoalDate > acc ? currentGoalDate : acc;
 				}
 				return acc;
