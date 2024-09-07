@@ -40,6 +40,7 @@ export type FetchedAgendaItem = {
 	_id?: string;
 	title: string;
 	user_id?: string;
+	updated_at: string;
 	data: {
 		time?: Date;
 		duration: number;

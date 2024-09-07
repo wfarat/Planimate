@@ -75,7 +75,7 @@ function GoalDetails({ route, navigation }: RootScreenProps<'GoalDetails'>) {
 				mutation={deleteGoalMutation}
 				actionName="delete"
 				action={handleDelete}
-				id={goal.id}
+				data={{ id: goal.id }}
 				name={goal.name}
 				visible={visible[1]}
 				onCancel={() => handleSetVisible(1)}
