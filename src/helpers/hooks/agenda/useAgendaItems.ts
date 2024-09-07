@@ -141,12 +141,16 @@ export const useAgendaItems = () => {
 		updateItems(updatedItems);
 		return updatedItems;
 	};
-	const findAgendaItemId = (itemData: AgendaItemData): string => {
+	const findAgendaItemIdAndTitle = (
+		itemData: AgendaItemData,
+	): { id?: string; title: string } => {
 		const agendaItems = loadStoredItems();
-		return (
-			agendaItems.find(item => item.data.some(d => d.id === itemData.id))?.id ||
-			''
+		const agendaItem = agendaItems.find(item =>
+			item.data.some(d => d.id === itemData.id),
 		);
+		return agendaItem
+			? { id: agendaItem.id, title: agendaItem.title }
+			: { id: '', title: '' };
 	};
 	const addOfflineAction = (action: AgendaAction) => {
 		addAction('agenda', action);
@@ -161,7 +165,7 @@ export const useAgendaItems = () => {
 		updateAgendaItem,
 		updateItems,
 		replaceAgendaItem,
-		findAgendaItemId,
+		findAgendaItemIdAndTitle,
 		data,
 		addOfflineAction,
 	};

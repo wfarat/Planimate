@@ -6,28 +6,27 @@ import { useEffect } from 'react';
 import Dialog from 'react-native-dialog';
 import { useNetInfo } from '@react-native-community/netinfo';
 
-type Props = {
+export type ActionDialogProps = {
 	mutation: () => UseMutationResult<void, Error, MutationVariables>;
 	actionName: string;
-	id?: string;
-	agendaDataId?: number;
+	data: { id?: string };
 	action: () => void;
 	name: string;
 	visible: boolean;
 	onCancel: () => void;
-	offlineAction: (id?: string, agendaDataId?: number) => void;
+	offlineAction: (data: { id?: string }) => void;
 };
+
 function ActionDialog({
 	mutation,
 	actionName,
-	id = undefined,
+	data,
 	action,
-	agendaDataId = undefined,
 	name,
 	visible,
 	onCancel,
 	offlineAction,
-}: Props) {
+}: ActionDialogProps) {
 	const { mutate, isSuccess, isPending } = mutation();
 	const storage = useStorage();
 	const { isConnected } = useNetInfo();
@@ -36,12 +35,11 @@ function ActionDialog({
 	}, [isSuccess]);
 	const handlePress = () => {
 		const token = storage.getString('token');
-		if (token && id && isConnected) {
-			if (agendaDataId) mutate({ id, agendaDataId, token });
-			else mutate({ id, token });
+		if (token && data.id && isConnected) {
+			mutate({ id: data.id, token });
 		} else {
 			action();
-			offlineAction(id, agendaDataId);
+			offlineAction(data);
 		}
 	};
 

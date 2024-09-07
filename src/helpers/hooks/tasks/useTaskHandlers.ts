@@ -5,7 +5,6 @@ import { Goal, Task } from '@/types/schemas';
 import { useTaskActions } from '@/helpers/hooks/tasks/useTaskActions';
 import { fetchTasks } from '@/controllers/goals';
 import { useStorage } from '@/storage/StorageContext';
-import tasks from '@/screens/Tasks/Tasks';
 
 export const useTaskHandlers = (
 	goal: Goal,
@@ -102,5 +101,6 @@ export const useTaskHandlers = (
 		data,
 		handleOfflineDeleteTask,
 		handleOfflineFinishTask,
+		handleOfflineReorder,
 	};
 };

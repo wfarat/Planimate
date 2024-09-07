@@ -13,6 +13,7 @@ function TasksList({
 	route,
 	tasks,
 	handleReorder,
+	handleOfflineReorder,
 }: TaskListProps<'Tasks'>) {
 	const { goal } = route.params;
 	const storage = useStorage();
@@ -55,6 +56,7 @@ function TasksList({
 			mutate({ tasks: reorderedTasks, token });
 		} else {
 			handleReorder(reorderedTasks);
+			handleOfflineReorder(reorderedTasks);
 		}
 	};
 	return (

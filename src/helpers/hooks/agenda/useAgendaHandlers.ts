@@ -24,11 +24,27 @@ export const useAgendaHandlers = (
 		const newItems = completeAgendaItem(item);
 		if (setAgendaItems) setAgendaItems(newItems);
 	};
-	const handleOfflineDelete = (id?: string, agendaDataId?: number) => {
-		addOfflineAction({ type: 'delete', id, agendaDataId });
+	const handleOfflineDelete = (data: {
+		id?: string;
+		agendaDataId?: number;
+		agendaItemTitle?: string;
+	}) => {
+		addOfflineAction({
+			type: 'delete',
+			id: data.id,
+			agendaDataId: data.agendaDataId,
+		});
 	};
-	const handleOfflineComplete = (id?: string, agendaDataId?: number) => {
-		addOfflineAction({ type: 'complete', id, agendaDataId });
+	const handleOfflineComplete = (data: {
+		id?: string;
+		agendaDataId?: number;
+		agendaItemTitle?: string;
+	}) => {
+		addOfflineAction({
+			type: 'complete',
+			id: data.id,
+			agendaDataId: data.agendaDataId,
+		});
 	};
 	return {
 		handleComplete,

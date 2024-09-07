@@ -6,7 +6,7 @@ import type { AgendaItemData } from '@/types/schemas/agendaItemType';
 import { hoursAndMinutes } from '@/helpers/utils/formatTime';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useTheme } from '@/theme';
-import { ActionDialog, SetTimeDialog } from '@/components/molecules';
+import { SetTimeDialog, AgendaActionDialog } from '@/components/molecules';
 import { useTranslation } from 'react-i18next';
 import { finishAgendaItem, deleteAgendaItem } from '@/controllers/agenda';
 import { useAgendaItems } from '@/helpers/hooks/agenda/useAgendaItems';
@@ -46,7 +46,8 @@ function AgendaItem(props: ItemProps) {
 	const [date, setDate] = useState<Date | undefined>(
 		item.time ? new Date(item.time) : undefined,
 	);
-	const { findAgendaItemId } = useAgendaItems();
+	const { findAgendaItemIdAndTitle } = useAgendaItems();
+	const agendaItemIdAndTitle = findAgendaItemIdAndTitle(item);
 	const [showDialog, setShowDialog] = useState(false);
 	const itemPressed = useCallback(() => {
 		setShowDialog(true);
@@ -123,11 +124,14 @@ function AgendaItem(props: ItemProps) {
 	return (
 		<View>
 			{actionDialogConfig.map((config, index) => (
-				<ActionDialog
+				<AgendaActionDialog
 					key={`item-${item.id}-action-${index}`}
 					name={item.title}
-					agendaDataId={item.id}
-					id={findAgendaItemId(item)}
+					data={{
+						id: agendaItemIdAndTitle?.id,
+						agendaDataId: item.id,
+						agendaItemTitle: agendaItemIdAndTitle.title,
+					}}
 					{...config.props}
 				/>
 			))}

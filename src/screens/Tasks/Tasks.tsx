@@ -26,6 +26,7 @@ function Tasks({ route, navigation }: RootScreenProps<'Tasks'>) {
 		handleGetTasks,
 		handleOfflineFinishTask,
 		handleOfflineDeleteTask,
+		handleOfflineReorder,
 		data,
 	} = useTaskHandlers(goal, setTasks, task);
 	const isFocused = useIsFocused();
@@ -100,7 +101,7 @@ function Tasks({ route, navigation }: RootScreenProps<'Tasks'>) {
 						<ActionDialog
 							key={`action-${index}`}
 							name={task.name}
-							id={task.id}
+							data={{ id: task.id }}
 							{...config.props}
 						/>
 					))}
@@ -116,6 +117,7 @@ function Tasks({ route, navigation }: RootScreenProps<'Tasks'>) {
 						navigation={navigation}
 						route={route}
 						handleReorder={handleReorder}
+						handleOfflineReorder={handleOfflineReorder}
 					/>
 				</View>
 			</View>
