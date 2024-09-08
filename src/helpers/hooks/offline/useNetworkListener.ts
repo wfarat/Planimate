@@ -11,11 +11,11 @@ function useNetworkListener() {
 	const { mutate } = useSyncActions();
 	const { getLocalActions } = useOfflineActions();
 	const storage = useStorage();
+	const token = storage.getString('token');
 	// Memoize the debounced function using useCallback to ensure it remains stable between renders
 	const debouncedSync = useCallback(
 		debounce(() => {
 			const actions = getLocalActions();
-			const token = storage.getString('token');
 			if (
 				!isEmpty(actions) &&
 				token &&
@@ -26,7 +26,7 @@ function useNetworkListener() {
 				mutate({ token, actions }); // Trigger mutation
 			}
 		}, 5000),
-		[getLocalActions, mutate], // Dependencies for debounce
+		[getLocalActions, mutate, token], // Dependencies for debounce
 	);
 
 	useEffect(() => {

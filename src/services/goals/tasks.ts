@@ -25,15 +25,15 @@ export const saveTasks = async (
 };
 
 export const fetchTasks = async (
-	id: number,
+	goalId: number,
 	token: string,
-	isGoal: boolean,
+	taskId?: number,
 	lastUpdate?: string,
 ): Promise<Task[]> => {
 	const response = await instance.get(
-		lastUpdate
-			? `tasks/${id}?is_goal=${isGoal}&last_update=${lastUpdate}`
-			: `tasks/${id}?is_goal=${isGoal}`,
+		taskId
+			? `tasks/${goalId}?task_id=${taskId}&last_update=${lastUpdate}`
+			: `tasks/${goalId}?last_update=${lastUpdate}`,
 		{
 			headers: {
 				Authorization: `Bearer ${token}`,

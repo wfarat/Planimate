@@ -37,12 +37,7 @@ export const useTaskHandlers = (
 			new Date('1970-01-01T00:00:00.000Z'), // Initialize with the earliest possible UTC date
 		)
 		.toISOString(); // Convert the final date back to an ISO string
-	const { data } = fetchTasks(
-		task ? task.taskId : goal.goalId,
-		!task,
-		token,
-		lastUpdate,
-	);
+	const { data } = fetchTasks(goal.goalId, task?.taskId, token, lastUpdate);
 	const replaceTask = (updatedTask: Task): Task[] => {
 		const oldTasks = getTasks(storageString);
 		return oldTasks.map(item =>
@@ -55,7 +50,7 @@ export const useTaskHandlers = (
 		if (!newTasks.some(item => item.taskId === updatedTask.taskId)) {
 			newTasks.push(updatedTask);
 		}
-		updateTasks(newTasks);
+		updateTasks(newTasks, task?.taskId);
 	};
 	const handleGetTasks = () => {
 		if (data) {

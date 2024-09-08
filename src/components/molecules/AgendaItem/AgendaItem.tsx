@@ -32,12 +32,12 @@ const styles = StyleSheet.create({
 
 interface ItemProps {
 	item: AgendaItemData;
-	handleDelete: () => void;
-	handleComplete: () => void;
+	onDelete: () => void;
+	onComplete: () => void;
 }
 
 function AgendaItem(props: ItemProps) {
-	const { item, handleDelete, handleComplete } = props;
+	const { item, onDelete, onComplete } = props;
 	const { backgrounds, fonts, layout, gutters, borders } = useTheme();
 	const { t } = useTranslation(['common']);
 	const [duration, setDuration] = useState(item.duration);
@@ -65,6 +65,14 @@ function AgendaItem(props: ItemProps) {
 	};
 	const handleCancel = (index: number) => {
 		handleSetVisible(index);
+	};
+	const handleDelete = () => {
+		onDelete();
+		handleSetVisible(1);
+	};
+	const handleComplete = () => {
+		onComplete();
+		handleSetVisible(0);
 	};
 	const actionDialogConfig = [
 		{

@@ -66,8 +66,8 @@ function Calendar({ navigation }: RootScreenProps<'Calendar'>) {
 		return (
 			<AgendaItem
 				item={item}
-				handleDelete={() => handleDelete(item)}
-				handleComplete={() => handleComplete(item)}
+				onDelete={() => handleDelete(item)}
+				onComplete={() => handleComplete(item)}
 			/>
 		);
 	}, []);
