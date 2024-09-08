@@ -26,12 +26,12 @@ export const useGoalActions = (id?: string, goalId?: number) => {
 	const { data } = fetchGoals(token, lastUpdate);
 	const replaceGoal = (goal: Goal): Goal[] => {
 		const oldGoals = getGoalsFromStorage();
-		return oldGoals.map(item => (item.id === goal.id ? goal : item));
+		return oldGoals.map(item => (item.goalId === goal.goalId ? goal : item));
 	};
 	const updateGoal = (goal: Goal) => {
 		const newGoals = replaceGoal(goal);
 		// If no matching item was found, append the new item
-		if (!newGoals.some(item => item.id === goal.id)) {
+		if (!newGoals.some(item => item.goalId === goal.goalId)) {
 			newGoals.push(goal);
 		}
 		updateGoals(newGoals);

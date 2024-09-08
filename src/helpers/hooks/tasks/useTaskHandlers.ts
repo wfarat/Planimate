@@ -46,13 +46,13 @@ export const useTaskHandlers = (
 	const replaceTask = (updatedTask: Task): Task[] => {
 		const oldTasks = getTasks(storageString);
 		return oldTasks.map(item =>
-			item.id === updatedTask.id ? updatedTask : item,
+			item.taskId === updatedTask.taskId ? updatedTask : item,
 		);
 	};
 	const updateTask = (updatedTask: Task) => {
 		const newTasks = replaceTask(updatedTask);
 		// If no matching item was found, append the new item
-		if (!newTasks.some(item => item.id === updatedTask.id)) {
+		if (!newTasks.some(item => item.taskId === updatedTask.taskId)) {
 			newTasks.push(updatedTask);
 		}
 		updateTasks(newTasks);
@@ -84,10 +84,20 @@ export const useTaskHandlers = (
 	};
 
 	const handleOfflineDeleteTask = () => {
-		addOfflineAction({ type: 'delete', id: task?.id, taskId: task?.taskId });
+		addOfflineAction({
+			type: 'delete',
+			id: task?.id,
+			taskId: task?.taskId,
+			goalId: goal.goalId,
+		});
 	};
 	const handleOfflineFinishTask = () => {
-		addOfflineAction({ type: 'complete', id: task?.id, taskId: task?.taskId });
+		addOfflineAction({
+			type: 'complete',
+			id: task?.id,
+			taskId: task?.taskId,
+			goalId: goal.goalId,
+		});
 	};
 	const handleOfflineReorder = (tasks: Task[]) => {
 		addOfflineAction({ type: 'reorder', tasks });

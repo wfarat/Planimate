@@ -33,6 +33,7 @@ export const useAgendaHandlers = (
 			type: 'delete',
 			id: data.id,
 			agendaDataId: data.agendaDataId,
+			agendaItemTitle: data.agendaItemTitle,
 		});
 	};
 	const handleOfflineComplete = (data: {
@@ -44,6 +45,7 @@ export const useAgendaHandlers = (
 			type: 'complete',
 			id: data.id,
 			agendaDataId: data.agendaDataId,
+			agendaItemTitle: data.agendaItemTitle,
 		});
 	};
 	return {

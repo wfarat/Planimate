@@ -22,7 +22,6 @@ export const useTaskActions = (
 		}
 		return [];
 	};
-	const tasks = getTasks(getStorageString());
 	const updateTasks = (updatedTasks: Task[], target?: number) => {
 		storage.set(getStorageString(target), JSON.stringify(updatedTasks));
 	};
@@ -34,12 +33,14 @@ export const useTaskActions = (
 		storage.delete(getStorageString(id));
 	};
 	const deleteTask = () => {
+		const tasks = getTasks(getStorageString(parentId));
 		const updatedTasks = tasks.filter(t => t.taskId !== taskId);
 		updateTasks(updatedTasks, parentId);
 		cleanupTasks(taskId);
 	};
 
 	const finishTask = () => {
+		const tasks = getTasks(getStorageString(parentId));
 		const updatedTasks = tasks.map(t =>
 			t.taskId === taskId
 				? { ...t, completed: true, updatedAt: new Date().toISOString() }
@@ -49,6 +50,7 @@ export const useTaskActions = (
 	};
 
 	const editTask = (newName: string, newDescription: string) => {
+		const tasks = getTasks(getStorageString(parentId));
 		const updatedTasks = tasks.map(t =>
 			t.taskId === taskId
 				? {
@@ -88,6 +90,7 @@ export const useTaskActions = (
 		return newTask;
 	};
 	const findMostImportantTask = (): Task | null => {
+		const tasks = getTasks(getStorageString());
 		const traverseTasks = (list: Task[]): Task | null => {
 			return list.reduce<Task | null>((result, task) => {
 				if (result) {
@@ -110,6 +113,7 @@ export const useTaskActions = (
 		return traverseTasks(tasks);
 	};
 	const findImportantTasks = (freeMinutes: number): Task[] => {
+		const tasks = getTasks(getStorageString());
 		const allocatedTaskIds = new Set<number>();
 		const traverseTasks = (list: Task[]): Task | null => {
 			return list.reduce<Task | null>((result, task) => {
