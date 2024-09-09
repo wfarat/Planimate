@@ -33,6 +33,10 @@ export const useGoalActions = (id?: string, goalId?: number) => {
 		// If no matching item was found, append the new item
 		if (!newGoals.some(item => item.goalId === goal.goalId)) {
 			newGoals.push(goal);
+			const lastId = storage.getNumber('goals.lastId') || 0;
+			if (lastId < goal.goalId) {
+				storage.set('goals.lastId', goal.goalId);
+			}
 		}
 		updateGoals(newGoals);
 	};

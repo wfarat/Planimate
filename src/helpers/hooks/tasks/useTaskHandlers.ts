@@ -49,6 +49,9 @@ export const useTaskHandlers = (
 		// If no matching item was found, append the new item
 		if (!newTasks.some(item => item.taskId === updatedTask.taskId)) {
 			newTasks.push(updatedTask);
+			const lastId = storage.getNumber(`goals.${goal.goalId}.lastId`) || 0;
+			if (lastId < updatedTask.taskId)
+				storage.set('lastId', updatedTask.taskId);
 		}
 		updateTasks(newTasks, task?.taskId);
 	};
