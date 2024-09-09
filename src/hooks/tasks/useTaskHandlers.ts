@@ -2,8 +2,8 @@
 
 import { useNavigation } from '@react-navigation/native';
 import { Goal, Task } from '@/types/schemas';
-import { useTaskActions } from '@/helpers/hooks/tasks/useTaskActions';
-import { fetchTasks } from '@/controllers/goals';
+import { useTaskActions } from '@/hooks/tasks/useTaskActions';
+import { fetchTasks } from '@/api';
 import { useStorage } from '@/storage/StorageContext';
 
 export const useTaskHandlers = (

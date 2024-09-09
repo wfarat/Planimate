@@ -10,7 +10,7 @@ export default (
 	lastUpdate?: string,
 ): UseQueryResult<Task[]> => {
 	return useQuery({
-		queryKey: [`tasks.${taskId}`, { taskId, token, goalId, lastUpdate }],
+		queryKey: ['tasks', goalId, taskId, token],
 		queryFn: () =>
 			token
 				? fetchTasks(goalId, token, taskId, lastUpdate)

@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 import { syncActions } from '@/services/syncActions/syncActions';
-import { useOfflineActions } from '@/helpers/hooks/offline/useOfflineActions';
+import { useOfflineActions } from '@/hooks/useOfflineActions';
 import { ActionsPayload } from '@/types/offlineActions/actionPayload';
 
 type Variables = {

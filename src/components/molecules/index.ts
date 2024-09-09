@@ -6,4 +6,3 @@ export { default as InputDate } from '@/components/molecules/InputDate/InputDate
 export { default as InputTime } from '@/components/molecules/InputTime/InputTime';
 export { default as SetTimeDialog } from '@/components/molecules/SetTimeDialog/SetTimeDialog';
 export { default as ActionDialog } from '@/components/molecules/ActionDialog/ActionDialog';
-export { default as AgendaActionDialog } from '@/components/molecules/ActionDialog/AgendaActionDialog';

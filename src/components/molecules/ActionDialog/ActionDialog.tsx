@@ -9,18 +9,26 @@ import { useNetInfo } from '@react-native-community/netinfo';
 export type ActionDialogProps = {
 	mutation: () => UseMutationResult<void, Error, MutationVariables>;
 	actionName: string;
-	data: { id?: string };
+	id?: string;
+	agendaDataId?: number;
+	agendaItemTitle?: string;
 	action: () => void;
 	name: string;
 	visible: boolean;
 	onCancel: () => void;
-	offlineAction: (data: { id?: string }) => void;
+	offlineAction: (data?: {
+		id?: string;
+		agendaDataId?: number;
+		agendaItemTitle?: string;
+	}) => void;
 };
 
 function ActionDialog({
 	mutation,
 	actionName,
-	data,
+	id,
+	agendaItemTitle,
+	agendaDataId,
 	action,
 	name,
 	visible,
@@ -35,11 +43,11 @@ function ActionDialog({
 	}, [isSuccess]);
 	const handlePress = () => {
 		const token = storage.getString('token');
-		if (token && data.id && isConnected) {
-			mutate({ id: data.id, token });
+		if (token && id && isConnected) {
+			mutate({ id, agendaDataId, token });
 		} else {
 			action();
-			offlineAction(data);
+			offlineAction({ id, agendaDataId, agendaItemTitle });
 		}
 	};
 

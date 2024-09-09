@@ -5,7 +5,7 @@ import { Goal } from '@/types/schemas';
 import { RootScreenProps } from '@/types/navigation';
 import { ItemCard } from '@/components/molecules';
 import { useIsFocused } from '@react-navigation/native';
-import { useGoalActions } from '@/helpers/hooks/useGoalActions';
+import { useGoalActions } from '@/hooks/goals/useGoalActions';
 
 function GoalsList({ navigation }: RootScreenProps<'Goals'>) {
 	const [goals, setGoals] = useState<Goal[]>([]);

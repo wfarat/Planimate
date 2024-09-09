@@ -1,10 +1,10 @@
 import { View, Text, ActivityIndicator } from 'react-native';
-import { login } from '@/controllers/users';
 import { SafeScreen } from '@/components/template';
 import { useTheme } from '@/theme';
 import { GreenRoundedButton, TextInputRounded } from '@/components/atoms';
 import { useEffect, useState } from 'react';
 import { useStorage } from '@/storage/StorageContext';
+import { login } from '../../../api/users';
 
 function Login() {
 	const { components, layout, gutters } = useTheme();

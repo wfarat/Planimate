@@ -1,11 +1,11 @@
 import Dialog from 'react-native-dialog';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { editGoal, editTask } from '@/controllers/goals';
+import { editGoal, editTask } from '@/api';
 import { useStorage } from '@/storage/StorageContext';
 import { Goal, Task } from '@/types/schemas';
 import { ActivityIndicator, View } from 'react-native';
-import { useOfflineActions } from '@/helpers/hooks/offline/useOfflineActions';
+import { useOfflineActions } from '@/hooks/useOfflineActions';
 import { useNetInfo } from '@react-native-community/netinfo';
 
 type EditDialogProps = {

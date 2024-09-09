@@ -6,9 +6,9 @@ import {
 	CalendarProvider,
 	LocaleConfig,
 } from 'react-native-calendars';
-import { useAgendaItems } from '@/helpers/hooks/agenda/useAgendaItems';
+import { useAgendaItems } from '@/hooks/agenda/useAgendaItems';
 import AgendaItem from '@/components/molecules/AgendaItem/AgendaItem';
-import { getTheme } from '@/helpers/utils/calendarTheme';
+import { getTheme } from '@/utils/calendarTheme';
 import PreviousArrow from '@/theme/assets/images/previousArrow.png';
 import NextArrow from '@/theme/assets/images/nextArrow.png';
 import PL from '@/translations/pl/calendar';
@@ -23,7 +23,7 @@ import { isImageSourcePropType } from '@/types/guards/image';
 import { GreenRoundedButton } from '@/components/atoms';
 import { View } from 'react-native';
 import { RootScreenProps } from '@/types/navigation';
-import { useAgendaHandlers } from '@/helpers/hooks/agenda/useAgendaHandlers';
+import { useAgendaHandlers } from '@/hooks/agenda/useAgendaHandlers';
 import testIDs from './testIDs';
 
 LocaleConfig.locales.pl = PL;

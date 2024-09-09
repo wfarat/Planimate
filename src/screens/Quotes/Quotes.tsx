@@ -2,7 +2,7 @@ import { View, Text, ScrollView, Share, Alert } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { SafeScreen } from '@/components/template';
 import { useTheme } from '@/theme';
-import getRandomQuote from '@/helpers/utils/getRandomQuote';
+import getRandomQuote from '@/utils/getRandomQuote';
 import Portrait from '@/components/molecules/Portrait/Portrait';
 import QuoteTopBar from '@/components/molecules/QuoteTopBar/QuoteTopBar';
 import { useEffect, useState } from 'react';

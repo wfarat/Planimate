@@ -3,14 +3,14 @@ import React, { useCallback, useState } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import testIDs from '@/screens/Calendar/testIDs';
 import type { AgendaItemData } from '@/types/schemas/agendaItemType';
-import { hoursAndMinutes } from '@/helpers/utils/formatTime';
+import { hoursAndMinutes } from '@/utils/formatTime';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useTheme } from '@/theme';
-import { SetTimeDialog, AgendaActionDialog } from '@/components/molecules';
+import { SetTimeDialog, ActionDialog } from '@/components/molecules';
 import { useTranslation } from 'react-i18next';
-import { finishAgendaItem, deleteAgendaItem } from '@/controllers/agenda';
-import { useAgendaItems } from '@/helpers/hooks/agenda/useAgendaItems';
-import { useAgendaHandlers } from '@/helpers/hooks/agenda/useAgendaHandlers';
+import { finishAgendaItem, deleteAgendaItem } from '@/api';
+import { useAgendaItems } from '@/hooks/agenda/useAgendaItems';
+import { useAgendaHandlers } from '@/hooks/agenda/useAgendaHandlers';
 
 const styles = StyleSheet.create({
 	itemButtonContainer: {
@@ -132,14 +132,12 @@ function AgendaItem(props: ItemProps) {
 	return (
 		<View>
 			{actionDialogConfig.map((config, index) => (
-				<AgendaActionDialog
+				<ActionDialog
 					key={`item-${item.id}-action-${index}`}
 					name={item.title}
-					data={{
-						id: agendaItemIdAndTitle?.id,
-						agendaDataId: item.id,
-						agendaItemTitle: agendaItemIdAndTitle.title,
-					}}
+					id={agendaItemIdAndTitle?.id}
+					agendaDataId={item.id}
+					agendaItemTitle={agendaItemIdAndTitle.title}
 					{...config.props}
 				/>
 			))}

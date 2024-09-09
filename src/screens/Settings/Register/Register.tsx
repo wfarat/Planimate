@@ -1,11 +1,11 @@
 import { View, Text, ActivityIndicator } from 'react-native';
-import { register } from '@/controllers/users';
 import { useTranslation } from 'react-i18next';
 import { SafeScreen } from '@/components/template';
 import { useTheme } from '@/theme';
 import { useEffect, useState } from 'react';
-import { resetStates } from '@/helpers/utils/resetStates';
+import { resetStates } from '@/utils/resetStates';
 import { GreenRoundedButton, TextInputRounded } from '@/components/atoms';
+import { register } from '../../../api/users';
 
 function Register() {
 	const { t } = useTranslation(['register']);

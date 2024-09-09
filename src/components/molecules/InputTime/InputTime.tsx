@@ -5,7 +5,7 @@ import DateTimePicker, {
 import { useState } from 'react';
 import { useTheme } from '@/theme';
 import { useTranslation } from 'react-i18next';
-import { hoursAndMinutes, getStartOfDay } from '@/helpers/utils/formatTime';
+import { hoursAndMinutes, getStartOfDay } from '@/utils/formatTime';
 import { InputTimeProps } from '@/types/props/inputTimeProps';
 
 function InputTime({ message, setTime, setDuration, time }: InputTimeProps) {

@@ -3,7 +3,7 @@ import type { Task } from '@/types/schemas';
 import { TaskListProps } from '@/types/navigation';
 import { ItemCard } from '@/components/molecules';
 import DragList, { DragListRenderItemInfo } from 'react-native-draglist';
-import { updateTaskOrder } from '@/controllers/goals';
+import { updateTaskOrder } from '@/api';
 import { useStorage } from '@/storage/StorageContext';
 import { useEffect } from 'react';
 import { useNetInfo } from '@react-native-community/netinfo';

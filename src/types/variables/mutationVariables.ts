@@ -1,7 +1,7 @@
 type MutationVariables = {
 	id: string;
-	token: string;
 	agendaDataId?: number;
+	token: string;
 };
 
 export default MutationVariables;

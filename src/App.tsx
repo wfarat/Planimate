@@ -5,6 +5,7 @@ import { ThemeProvider } from '@/theme';
 import { StorageProvider } from '@/storage/StorageContext';
 import ApplicationNavigator from './navigators/Application';
 import './translations';
+import { NetworkListenerProvider } from '@/network/NetworkListenerProvider';
 
 export const queryClient = new QueryClient();
 
@@ -12,9 +13,11 @@ function App() {
 	return (
 		<QueryClientProvider client={queryClient}>
 			<StorageProvider>
-				<ThemeProvider>
-					<ApplicationNavigator />
-				</ThemeProvider>
+				<NetworkListenerProvider>
+					<ThemeProvider>
+						<ApplicationNavigator />
+					</ThemeProvider>
+				</NetworkListenerProvider>
 			</StorageProvider>
 		</QueryClientProvider>
 	);

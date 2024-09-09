@@ -1,10 +1,10 @@
 import { Goal } from '@/types/schemas';
 import { useStorage } from '@/storage/StorageContext';
-import { useTaskActions } from '@/helpers/hooks/tasks/useTaskActions';
-import { fetchGoals } from '@/controllers/goals';
-import { getLastUpdate } from '@/helpers/utils/getLastUpdate';
+import { useTaskActions } from '@/hooks/tasks/useTaskActions';
+import { fetchGoals } from '@/api';
+import { getLastUpdate } from '@/utils/getLastUpdate';
 import { GoalAction } from '@/types/offlineActions/goalAction';
-import { useOfflineActions } from '@/helpers/hooks/offline/useOfflineActions';
+import { useOfflineActions } from '@/hooks/useOfflineActions';
 
 export const useGoalActions = (id?: string, goalId?: number) => {
 	const storage = useStorage();

@@ -9,8 +9,8 @@ import { EditDialog, TaskTopBar, ActionDialog } from '@/components/molecules';
 import type { Task } from '@/types/schemas';
 import { useIsFocused } from '@react-navigation/native';
 import { GreenRoundedButton } from '@/components/atoms';
-import { useTaskHandlers } from '@/helpers/hooks/tasks/useTaskHandlers';
-import { deleteTask, finishTask } from '@/controllers/goals';
+import { useTaskHandlers } from '@/hooks/tasks/useTaskHandlers';
+import { deleteTask, finishTask } from '@/api';
 
 function Tasks({ route, navigation }: RootScreenProps<'Tasks'>) {
 	const { goal, task } = route.params;
@@ -101,7 +101,7 @@ function Tasks({ route, navigation }: RootScreenProps<'Tasks'>) {
 						<ActionDialog
 							key={`action-${index}`}
 							name={task.name}
-							data={{ id: task.id }}
+							id={task.id}
 							{...config.props}
 						/>
 					))}

@@ -5,7 +5,7 @@ import type ItemCardProps from '@/types/props/itemCardProps';
 import * as Progress from 'react-native-progress';
 import isEmpty from 'lodash/isEmpty';
 import { useTranslation } from 'react-i18next';
-import { daysBetween } from '@/helpers/utils/formatTime';
+import { daysBetween } from '@/utils/formatTime';
 
 function ItemCard({
 	name,

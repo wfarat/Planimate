@@ -8,7 +8,7 @@ export default (
 	lastUpdate?: string,
 ): UseQueryResult<AgendaItemType[]> => {
 	return useQuery({
-		queryKey: ['agenda', { token, lastUpdate }],
+		queryKey: ['agenda', token],
 		queryFn: () =>
 			token ? fetchAgendaItems(token, lastUpdate) : Promise.resolve(undefined),
 		staleTime: 1000 * 60 * 5,

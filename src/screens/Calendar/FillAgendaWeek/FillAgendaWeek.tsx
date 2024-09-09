@@ -6,11 +6,11 @@ import { useTheme } from '@/theme';
 import SelectDropdown from 'react-native-select-dropdown';
 import { InputTime } from '@/components/molecules';
 import { GreenRoundedButton } from '@/components/atoms';
-import { useTaskActions } from '@/helpers/hooks/tasks/useTaskActions';
-import { useGoalActions } from '@/helpers/hooks/useGoalActions';
+import { useTaskActions } from '@/hooks/tasks/useTaskActions';
+import { useGoalActions } from '@/hooks/goals/useGoalActions';
 import { Goal } from '@/types/schemas';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import { useAgendaItems } from '@/helpers/hooks/agenda/useAgendaItems';
+import { useAgendaItems } from '@/hooks/agenda/useAgendaItems';
 import { RootScreenProps } from '@/types/navigation';
 
 type DayOfWeek =

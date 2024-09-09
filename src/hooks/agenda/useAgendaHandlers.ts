@@ -1,7 +1,7 @@
 import { AgendaItemData } from '@/types/schemas/agendaItemType';
 import { AgendaItemType } from '@/types/schemas';
 import { MarkedDates } from 'react-native-calendars/src/types';
-import { useAgendaItems } from '@/helpers/hooks/agenda/useAgendaItems';
+import { useAgendaItems } from '@/hooks/agenda/useAgendaItems';
 
 export const useAgendaHandlers = (
 	setAgendaItems?: (newItems: AgendaItemType[]) => void,
@@ -24,29 +24,31 @@ export const useAgendaHandlers = (
 		const newItems = completeAgendaItem(item);
 		if (setAgendaItems) setAgendaItems(newItems);
 	};
-	const handleOfflineDelete = (data: {
+	const handleOfflineDelete = (data?: {
 		id?: string;
 		agendaDataId?: number;
 		agendaItemTitle?: string;
 	}) => {
-		addOfflineAction({
-			type: 'delete',
-			id: data.id,
-			agendaDataId: data.agendaDataId,
-			agendaItemTitle: data.agendaItemTitle,
-		});
+		if (data)
+			addOfflineAction({
+				type: 'delete',
+				id: data.id,
+				agendaDataId: data.agendaDataId,
+				agendaItemTitle: data.agendaItemTitle,
+			});
 	};
-	const handleOfflineComplete = (data: {
+	const handleOfflineComplete = (data?: {
 		id?: string;
 		agendaDataId?: number;
 		agendaItemTitle?: string;
 	}) => {
-		addOfflineAction({
-			type: 'complete',
-			id: data.id,
-			agendaDataId: data.agendaDataId,
-			agendaItemTitle: data.agendaItemTitle,
-		});
+		if (data)
+			addOfflineAction({
+				type: 'complete',
+				id: data.id,
+				agendaDataId: data.agendaDataId,
+				agendaItemTitle: data.agendaItemTitle,
+			});
 	};
 	return {
 		handleComplete,

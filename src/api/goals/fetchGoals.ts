@@ -8,7 +8,7 @@ export default (
 	lastUpdate?: string,
 ): UseQueryResult<Goal[]> => {
 	return useQuery({
-		queryKey: ['goals', { token, lastUpdate }],
+		queryKey: ['goals', token],
 		queryFn: () =>
 			token ? fetchGoals(token, lastUpdate) : Promise.resolve(undefined),
 		staleTime: 1000 * 60 * 5,

@@ -1,11 +1,11 @@
-import { useEffect, useCallback } from 'react';
+import { useCallback } from 'react';
 import NetInfo from '@react-native-community/netinfo';
-import { useOfflineActions } from '@/helpers/hooks/offline/useOfflineActions';
+import { useOfflineActions } from '@/hooks/useOfflineActions';
 import { debounce } from 'lodash';
 import isEmpty from 'lodash/isEmpty';
 import { useStorage } from '@/storage/StorageContext';
+import { onlineManager } from '@tanstack/react-query';
 import useSyncActions from './useSyncActions';
-
 // Custom hook for network listener and debouncing sync
 function useNetworkListener() {
 	const { mutate } = useSyncActions();
@@ -29,24 +29,18 @@ function useNetworkListener() {
 		[getLocalActions, mutate, token], // Dependencies for debounce
 	);
 
-	useEffect(() => {
-		const unsubscribe = NetInfo.addEventListener(state => {
-			if (state.isConnected) {
-				debouncedSync(); // Use the debounced function
+	// Set up network listener to trigger sync
+	onlineManager.setEventListener(setOnline => {
+		return NetInfo.addEventListener(state => {
+			const isConnected = !!state.isConnected;
+			setOnline(isConnected); // Update react-query's online state
+
+			// Trigger sync when reconnecting
+			if (isConnected) {
+				debouncedSync(); // Fire debounced sync when online
 			}
 		});
-
-		return () => {
-			unsubscribe(); // Cleanup listener on component unmount
-		};
-	}, [debouncedSync]);
-
-	// Cleanup debounce when the component unmounts
-	useEffect(() => {
-		return () => {
-			debouncedSync.cancel(); // Cancel debounce to avoid memory leaks
-		};
-	}, [debouncedSync]);
+	});
 }
 
 export default useNetworkListener;

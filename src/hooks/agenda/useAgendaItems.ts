@@ -3,11 +3,11 @@ import { AgendaItemType, Task } from '@/types/schemas';
 import { MarkedDates } from 'react-native-calendars/src/types';
 import isEmpty from 'lodash/isEmpty';
 import agendaItemType, { AgendaItemData } from '@/types/schemas/agendaItemType';
-import { useTaskFromAgenda } from '@/helpers/hooks/tasks/useTaskFromAgenda';
-import { fetchAgendaItems } from '@/controllers/agenda';
-import { getLastUpdate } from '@/helpers/utils/getLastUpdate';
+import { useTaskFromAgenda } from '@/hooks/tasks/useTaskFromAgenda';
+import { fetchAgendaItems } from '@/api';
+import { getLastUpdate } from '@/utils/getLastUpdate';
 import { AgendaAction } from '@/types/offlineActions/agendaAction';
-import { useOfflineActions } from '@/helpers/hooks/offline/useOfflineActions';
+import { useOfflineActions } from '@/hooks/useOfflineActions';
 
 export const useAgendaItems = () => {
 	const storage = useStorage();

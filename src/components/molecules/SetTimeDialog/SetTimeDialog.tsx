@@ -2,11 +2,11 @@ import Dialog from 'react-native-dialog';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import InputTime from '@/components/molecules/InputTime/InputTime';
-import { getMinutesAfterMidnight } from '@/helpers/utils/formatTime';
-import { editAgendaItem } from '@/controllers/agenda';
+import { getMinutesAfterMidnight } from '@/utils/formatTime';
+import { editAgendaItem } from '@/api';
 import { useStorage } from '@/storage/StorageContext';
 import agendaItemType, { AgendaItemData } from '@/types/schemas/agendaItemType';
-import { useAgendaItems } from '@/helpers/hooks/agenda/useAgendaItems';
+import { useAgendaItems } from '@/hooks/agenda/useAgendaItems';
 import { ActivityIndicator, View } from 'react-native';
 
 type EditDialogProps = {

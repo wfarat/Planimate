@@ -10,13 +10,13 @@ import {
 	TaskTopBar,
 } from '@/components/molecules';
 import type { Task } from '@/types/schemas';
-import { useGoalActions } from '@/helpers/hooks/useGoalActions';
+import { useGoalActions } from '@/hooks/goals/useGoalActions';
 import { useIsFocused } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
-import { useTaskActions } from '@/helpers/hooks/tasks/useTaskActions';
+import { useTaskActions } from '@/hooks/tasks/useTaskActions';
 import { GreenRoundedButton } from '@/components/atoms';
-import { deleteGoalMutation } from '@/controllers/goals';
-import { useTaskHandlers } from '@/helpers/hooks/tasks/useTaskHandlers';
+import { deleteGoalMutation } from '@/api';
+import { useTaskHandlers } from '@/hooks/tasks/useTaskHandlers';
 
 function GoalDetails({ route, navigation }: RootScreenProps<'GoalDetails'>) {
 	const { goal } = route.params;
@@ -75,7 +75,7 @@ function GoalDetails({ route, navigation }: RootScreenProps<'GoalDetails'>) {
 				mutation={deleteGoalMutation}
 				actionName="delete"
 				action={handleDelete}
-				data={{ id: goal.id }}
+				id={goal.id}
 				name={goal.name}
 				visible={visible[1]}
 				onCancel={() => handleSetVisible(1)}

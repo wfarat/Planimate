@@ -4,10 +4,10 @@ import { ActivityIndicator, Text, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@/theme';
 import { useEffect, useState } from 'react';
-import { useAgendaItems } from '@/helpers/hooks/agenda/useAgendaItems';
+import { useAgendaItems } from '@/hooks/agenda/useAgendaItems';
 import { InputDate, InputTime } from '@/components/molecules';
 import { GreenRoundedButton } from '@/components/atoms';
-import { saveAgendaItem } from '@/controllers/agenda';
+import { saveAgendaItem } from '@/api';
 import { useStorage } from '@/storage/StorageContext';
 import { AgendaItemType } from '@/types/schemas';
 
