@@ -47,6 +47,7 @@ function TasksList({
 		result.splice(toIndex, 0, removed[0]);
 		return result.map((oldTask, index) => ({
 			...oldTask,
+			updatedAt: new Date().toISOString(),
 			order: index,
 		}));
 	};

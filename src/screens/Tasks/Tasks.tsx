@@ -31,7 +31,7 @@ function Tasks({ route, navigation }: RootScreenProps<'Tasks'>) {
 	} = useTaskHandlers(goal, setTasks, task);
 	const isFocused = useIsFocused();
 	useEffect(() => {
-		setTasks(handleGetTasks());
+		setTasks(handleGetTasks().sort((a, b) => a.order - b.order));
 	}, [task?.taskId, isFocused, data]);
 
 	const handleAddToAgenda = () => {
