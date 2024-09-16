@@ -23,7 +23,7 @@ export const useGoalActions = (id?: string, goalId?: number) => {
 	const goals: Goal[] = getGoalsFromStorage();
 	const lastUpdate = getLastUpdate(goals);
 	const token = storage.getString('token');
-	const { data } = fetchGoals(token, lastUpdate);
+	const { data, dataUpdatedAt } = fetchGoals(token, lastUpdate);
 	const replaceGoal = (goal: Goal): Goal[] => {
 		const oldGoals = getGoalsFromStorage();
 		return oldGoals.map(item => (item.goalId === goal.goalId ? goal : item));
@@ -41,8 +41,10 @@ export const useGoalActions = (id?: string, goalId?: number) => {
 		updateGoals(newGoals);
 	};
 	const getGoals = () => {
-		if (data) {
+		const storageUpdatedAt = storage.getNumber('goals.updatedAt');
+		if (data && dataUpdatedAt !== storageUpdatedAt) {
 			data.forEach(goal => updateGoal(goal));
+			storage.set('goals.updatedAt', dataUpdatedAt);
 		}
 		return getGoalsFromStorage();
 	};

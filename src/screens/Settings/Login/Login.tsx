@@ -4,6 +4,8 @@ import { useTheme } from '@/theme';
 import { GreenRoundedButton, TextInputRounded } from '@/components/atoms';
 import { useEffect, useState } from 'react';
 import { useStorage } from '@/storage/StorageContext';
+import { useOfflineActions } from '@/hooks/useOfflineActions';
+import useSyncActions from '@/network/useSyncActions';
 import { login } from '../../../api/users';
 
 function Login() {
@@ -11,6 +13,8 @@ function Login() {
 	const [username, setUsername] = useState<string>('');
 	const [password, setPassword] = useState<string>('');
 	const storage = useStorage();
+	const { getLocalActions } = useOfflineActions();
+	const syncActions = useSyncActions();
 	const { mutate, isSuccess, isPending, error, data } = login();
 	const loginUser = () => {
 		if (username.trim()) {
@@ -21,7 +25,12 @@ function Login() {
 		}
 	};
 	useEffect(() => {
-		if (data?.access_token) storage.set('token', data.access_token);
+		if (data?.access_token) {
+			const token = data.access_token;
+			const actions = getLocalActions();
+			storage.set('token', token);
+			if (actions) syncActions.mutate({ actions, token });
+		}
 	}, [isSuccess]);
 
 	return (

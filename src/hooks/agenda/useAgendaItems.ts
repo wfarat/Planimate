@@ -22,7 +22,7 @@ export const useAgendaItems = () => {
 	};
 	const lastUpdate = getLastUpdate(loadStoredItems());
 	const token = storage.getString('token');
-	const { data } = fetchAgendaItems(token, lastUpdate);
+	const { data, dataUpdatedAt } = fetchAgendaItems(token, lastUpdate);
 	const updateItems = (updatedItems: AgendaItemType[]) => {
 		storage.set('agenda', JSON.stringify(updatedItems));
 	};
@@ -41,7 +41,11 @@ export const useAgendaItems = () => {
 		updateItems(agendaItems);
 	};
 	const getItems = () => {
-		if (data) data.forEach(item => addAgendaItem(item));
+		const storageUpdatedAt = storage.getNumber('agenda.updatedAt');
+		if (data && dataUpdatedAt !== storageUpdatedAt) {
+			data.forEach(item => addAgendaItem(item));
+			storage.set('agenda.updatedAt', dataUpdatedAt);
+		}
 		return loadStoredItems();
 	};
 	const createAgendaItem = (
