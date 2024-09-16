@@ -8,7 +8,8 @@ PlannerApp is a React Native application designed to help users plan their goals
 - **Goal Planning:** Create and manage goals, breaking them down into smaller tasks.
 - **Quote Section:** Get daily inspirational quotes to stay motivated.
 - **Calendar:** Schedule and view tasks and goals on a calendar.
-.
+- **Offline:** Supports both offline usage and saving/loading data
+
 
 ## To-do's:
 - **Functionality:** Implementing remaining functionality listed in "Our vision"
