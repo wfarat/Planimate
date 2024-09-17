@@ -14,3 +14,4 @@ export { default as editAgendaItem } from '@/api/agenda/editAgendaItem';
 export { default as deleteAgendaItem } from '@/api/agenda/deleteAgendaItem';
 export { default as finishAgendaItem } from '@/api/agenda/finishAgendaItem';
 export { default as fetchAgendaItems } from '@/api/agenda/fetchAgendaItems';
+export { default as saveAgendaItems } from '@/api/agenda/saveAgendaItems';

@@ -5,4 +5,8 @@ type AgendaItemVariables = {
 	token: string;
 };
 
+export type AgendaItemsVariables = {
+	agendaItems: AgendaItemType[];
+	token: string;
+};
 export default AgendaItemVariables;

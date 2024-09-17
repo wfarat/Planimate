@@ -44,6 +44,22 @@ export const saveAgendaItem = async (
 	const responseData = await response.json();
 	return convertToCamel(responseData as FetchedAgendaItem);
 };
+export const saveAgendaItems = async (
+	agendaItems: AgendaItemType[],
+	token: string,
+): Promise<AgendaItemType[]> => {
+	const response = await instance.post('agenda/bulk', {
+		json: objectToSnake(agendaItems),
+		headers: {
+			Authorization: `Bearer ${token}`,
+			'Content-Type': 'application/json',
+		},
+	});
+	const responseData = await response.json();
+	return (responseData as FetchedAgendaItem[]).map(
+		(agendaItem: FetchedAgendaItem) => convertToCamel(agendaItem),
+	);
+};
 
 export const deleteAgendaItem = async (
 	id: string,

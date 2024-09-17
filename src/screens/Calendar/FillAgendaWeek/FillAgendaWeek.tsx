@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { SafeScreen } from '@/components/template';
-import { Alert, Text, View } from 'react-native';
+import { ActivityIndicator, Alert, Text, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@/theme';
 import SelectDropdown from 'react-native-select-dropdown';
@@ -8,10 +8,13 @@ import { InputTime } from '@/components/molecules';
 import { GreenRoundedButton } from '@/components/atoms';
 import { useTaskActions } from '@/hooks/tasks/useTaskActions';
 import { useGoalActions } from '@/hooks/goals/useGoalActions';
-import { Goal } from '@/types/schemas';
+import { AgendaItemType, Goal } from '@/types/schemas';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useAgendaItems } from '@/hooks/agenda/useAgendaItems';
 import { RootScreenProps } from '@/types/navigation';
+import { useStorage } from '@/storage/StorageContext';
+import { useNetInfo } from '@react-native-community/netinfo';
+import { saveAgendaItems } from '@/api';
 
 type DayOfWeek =
 	| 'Monday'
@@ -21,46 +24,64 @@ type DayOfWeek =
 	| 'Friday'
 	| 'Saturday'
 	| 'Sunday';
+
+const daysOfWeek = [
+	'Sunday',
+	'Monday',
+	'Tuesday',
+	'Wednesday',
+	'Thursday',
+	'Friday',
+	'Saturday',
+];
+const today = new Date().getDay();
+const reorderedDaysOfWeek = [
+	...daysOfWeek.slice(today),
+	...daysOfWeek.slice(0, today),
+];
+
 function FillAgendaWeek({ navigation }: RootScreenProps<'FillAgendaWeek'>) {
 	const { components, fonts, layout, gutters, backgrounds, borders } =
 		useTheme();
 	const { t } = useTranslation(['agenda']);
-	const [weekFreeTime, setWeekFreeTime] = useState([0, 0, 0, 0, 0, 0, 0]);
-	const [goalId, setGoalId] = useState(0);
-	const { findImportantTasks } = useTaskActions(goalId);
+	const storage = useStorage();
+	const [dailyFreeTime, setDailyFreeTime] = useState([0, 0, 0, 0, 0, 0, 0]);
+	const [selectedGoalId, setSelectedGoalId] = useState(0);
+	const { findImportantTasks } = useTaskActions(selectedGoalId);
 	const { getGoals } = useGoalActions();
-	const { createAgendaItem } = useAgendaItems();
-	const daysOfWeek = [
-		'Sunday',
-		'Monday',
-		'Tuesday',
-		'Wednesday',
-		'Thursday',
-		'Friday',
-		'Saturday',
-	];
-	const today = new Date().getDay();
-	const reorderedDaysOfWeek = [
-		...daysOfWeek.slice(today),
-		...daysOfWeek.slice(0, today),
-	];
-	const handleSetDuration = (index: number, duration: number) => {
-		const updatedWeekFreeTime = [...weekFreeTime];
-		updatedWeekFreeTime[index] = duration;
-		setWeekFreeTime(updatedWeekFreeTime);
+	const { createAgendaItem, addAgendaItem, addOfflineAction } =
+		useAgendaItems();
+	const token = storage.getString('token');
+	const { isConnected } = useNetInfo();
+	const { mutate, isSuccess, isPending, data } = saveAgendaItems();
+
+	const addAgendaItems = (agendaItems: AgendaItemType[]) => {
+		agendaItems.forEach(item => addAgendaItem(item));
+		navigation.goBack();
 	};
 
-	const addAgendaItems = () => {
-		if (!goalId) return Alert.alert('Please choose goal');
-		const totalFreeTime = weekFreeTime.reduce(
+	useEffect(() => {
+		if (data) addAgendaItems(data);
+	}, [isSuccess]);
+
+	const updateDailyFreeTime = (index: number, duration: number) => {
+		const updatedDailyFreeTime = [...dailyFreeTime];
+		updatedDailyFreeTime[index] = duration;
+		setDailyFreeTime(updatedDailyFreeTime);
+	};
+
+	const generateAgendaItems = (): AgendaItemType[] => {
+		const agendaItems: AgendaItemType[] = [];
+		const totalFreeTime = dailyFreeTime.reduce(
 			(acc, minutes) => acc + minutes,
 			0,
 		);
 		const importantTasks = findImportantTasks(totalFreeTime);
 		let taskIndex = 0;
-		weekFreeTime.forEach((time, index) => {
+
+		dailyFreeTime.forEach((time, index) => {
 			let freeHours = time;
-			const date = new Date(); // Assuming you set the date correctly for each day
+			const date = new Date(); // Adjust date for each day
 			date.setDate(date.getDate() + index);
 
 			while (freeHours > 0 && taskIndex < importantTasks.length) {
@@ -70,72 +91,90 @@ function FillAgendaWeek({ navigation }: RootScreenProps<'FillAgendaWeek'>) {
 					: 0;
 
 				if (taskDuration <= freeHours) {
-					const duration = taskDuration;
-					freeHours -= duration;
-					if (task.duration) task.duration.elapsed += duration;
-					// Add the task to the agenda
-					createAgendaItem(date, task, duration);
+					freeHours -= taskDuration;
+					if (task.duration) task.duration.elapsed += taskDuration;
+					agendaItems.push(createAgendaItem(date, task, taskDuration));
 					taskIndex += 1;
 				} else {
-					const duration = freeHours;
 					freeHours = 0;
-					if (task.duration) task.duration.elapsed += duration;
-					// Add a partial task to the agenda
-					createAgendaItem(date, task, duration);
+					if (task.duration) task.duration.elapsed += freeHours;
+					agendaItems.push(createAgendaItem(date, task, freeHours));
 				}
 			}
 		});
-		return navigation.goBack();
+
+		return agendaItems;
+	};
+
+	const handleAddAgendaItems = () => {
+		if (!selectedGoalId) {
+			Alert.alert('No goal selected');
+		} else {
+			const agendaItems = generateAgendaItems();
+			if (token && isConnected) {
+				mutate({ agendaItems, token });
+			} else {
+				addAgendaItems(agendaItems);
+				agendaItems.forEach(agendaItem =>
+					addOfflineAction({ type: 'create', agendaItem }),
+				);
+			}
+		}
 	};
 
 	return (
 		<SafeScreen>
 			<View style={components.mainContainer}>
 				<Text style={components.header}>{t('agenda:fillAgendaWeek')}</Text>
-
 				{reorderedDaysOfWeek.map((day, index) => (
 					<InputTime
 						key={day}
-						setDuration={duration => handleSetDuration(index, duration)}
+						setDuration={duration => updateDailyFreeTime(index, duration)}
 						message={day as DayOfWeek}
 					/>
 				))}
 				<SelectDropdown
 					data={getGoals()}
-					onSelect={(selectedItem: Goal) => setGoalId(selectedItem.goalId)}
-					renderItem={(item: Goal, index, isSelected) => {
-						return (
-							<View
-								style={[
-									gutters.padding_16,
-									layout.itemsCenter,
-									layout.fullWidth,
-									borders.w_1,
-									borders.gray100,
-									isSelected && backgrounds.blue100,
-								]}
-							>
-								<Text style={[fonts.gray400, fonts.size_16]}>{item.name}</Text>
-							</View>
-						);
-					}}
-					renderButton={(selectedItem: Goal, isOpened) => {
-						return (
-							<View style={[components.textInputRounded, layout.row]}>
-								<Text style={[layout.flex_1, fonts.gray200, fonts.size_16]}>
-									{(selectedItem && selectedItem.name) || 'Select goal'}
-								</Text>
-								<MaterialCommunityIcons
-									name={isOpened ? 'chevron-up' : 'chevron-down'}
-									size={20}
-								/>
-							</View>
-						);
-					}}
+					onSelect={(selectedItem: Goal) =>
+						setSelectedGoalId(selectedItem.goalId)
+					}
+					renderItem={(item: Goal, index, isSelected) => (
+						<View
+							style={[
+								gutters.padding_16,
+								layout.itemsCenter,
+								layout.fullWidth,
+								borders.w_1,
+								borders.gray100,
+								isSelected && backgrounds.blue100,
+							]}
+						>
+							<Text style={[fonts.gray400, fonts.size_16]}>{item.name}</Text>
+						</View>
+					)}
+					renderButton={(selectedItem: Goal, isOpened) => (
+						<View style={[components.textInputRounded, layout.row]}>
+							<Text style={[layout.flex_1, fonts.gray200, fonts.size_16]}>
+								{(selectedItem && selectedItem.name) || 'Select goal'}
+							</Text>
+							<MaterialCommunityIcons
+								name={isOpened ? 'chevron-up' : 'chevron-down'}
+								size={20}
+							/>
+						</View>
+					)}
 				/>
-				<GreenRoundedButton handlePress={addAgendaItems} text="fillWeek" />
+				{isPending ? (
+					<ActivityIndicator size="large" />
+				) : (
+					<GreenRoundedButton
+						handlePress={handleAddAgendaItems}
+						text="fillWeek"
+					/>
+				)}
 			</View>
 		</SafeScreen>
 	);
 }
+
 export default FillAgendaWeek;
