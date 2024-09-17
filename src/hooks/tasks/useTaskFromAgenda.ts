@@ -6,7 +6,7 @@ export const useTaskFromAgenda = () => {
 	const storage = useStorage();
 	const getTaskStorageKey = (item: AgendaItemData): string =>
 		item.taskId
-			? `goals.${item.goalId}.${item.taskId}`
+			? `goals.${item.goalId}.${item.parentId}`
 			: `goals.${item.goalId}`;
 
 	function updateTaskDuration(

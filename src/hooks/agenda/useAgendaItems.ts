@@ -69,6 +69,7 @@ export const useAgendaItems = () => {
 					key: title,
 					goalId: task.goalId,
 					taskId: task.taskId,
+					parentId: task.parentId,
 					completed: false,
 				},
 			],

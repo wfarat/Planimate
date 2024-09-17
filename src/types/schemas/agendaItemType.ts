@@ -2,16 +2,7 @@ import { Updatable } from '@/types/schemas/updatable';
 
 type AgendaItemType = Updatable & {
 	title: string;
-	data: {
-		time?: Date;
-		duration: number;
-		title: string;
-		id: number;
-		key: string;
-		goalId: number;
-		taskId: number;
-		completed: boolean;
-	}[];
+	data: AgendaItemData[];
 };
 export type AgendaItemData = {
 	time?: Date;
@@ -20,20 +11,12 @@ export type AgendaItemData = {
 	id: number;
 	key: string;
 	goalId: number;
+	parentId?: number;
 	taskId: number;
 	completed: boolean;
 };
 export type RenderAgendaItemProps = {
-	item: {
-		time?: Date;
-		duration: number;
-		title: string;
-		id: number;
-		key: string;
-		goalId: number;
-		taskId: number;
-		completed: boolean;
-	};
+	item: AgendaItemData;
 };
 
 export type FetchedAgendaItem = {
@@ -49,6 +32,7 @@ export type FetchedAgendaItem = {
 		key: string;
 		goal_id: number;
 		task_id: number;
+		parent_id?: number;
 		completed: boolean;
 	}[];
 };
