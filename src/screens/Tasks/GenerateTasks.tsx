@@ -10,23 +10,42 @@ import {
 	View,
 } from 'react-native';
 import { GeneratedTaskCard } from '@/components/molecules';
+import { GreenRoundedButton } from '@/components/atoms';
+import { generateTasks } from '@/api';
+import { RootScreenProps } from '@/types/navigation';
 
-function GenerateTasks({ route, navigation }) {
+function GenerateTasks({
+	route,
+	navigation,
+}): RootScreenProps<'GenerateTasks'> {
 	const { goal, task } = route.params;
 	const storage = useStorage();
 	const { components } = useTheme();
 	const [generatedTasks, setGeneratedTasks] = useState<GeneratedTask[]>([]);
+	const { mutate, isPending, isSuccess, data } = generateTasks();
 	const token = storage.getString('token');
 	const renderItem = ({ item }: ListRenderItemInfo<GeneratedTask>) => {
-		<TouchableOpacity>
-			<GeneratedTaskCard generatedTask={item} />
-		</TouchableOpacity>;
+		return (
+			<TouchableOpacity>
+				<GeneratedTaskCard generatedTask={item} />
+			</TouchableOpacity>
+		);
+	};
+	const handleGenerate = () => {
+		if (token) mutate({ goal, task, token });
 	};
 	return (
 		<SafeScreen>
 			<View style={components.mainContainer}>
-				<FlatList data={generatedTasks} renderItem={} />
+				<GreenRoundedButton handlePress={} text={} />
+				<FlatList
+					data={generatedTasks}
+					renderItem={renderItem}
+					keyExtractor={(item, index) => index.toString()}
+				/>
 			</View>
 		</SafeScreen>
 	);
 }
+
+export default GenerateTasks;

@@ -10,3 +10,4 @@ export { default as AddTask } from '@/screens/Tasks/AddTask';
 export { default as Login } from '@/screens/Settings/Login/Login';
 export { default as GoalDetails } from '@/screens/Goals/GoalDetails';
 export { default as FillAgendaWeek } from '@/screens/Calendar/FillAgendaWeek/FillAgendaWeek';
+export { default as GenerateTasks } from '@/screens/Tasks/GenerateTasks';
