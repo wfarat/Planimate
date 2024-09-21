@@ -4,5 +4,7 @@
   "endDate": "Due:",
   "nextTask": "Next task to do",
   "tasksCompleted": "Tasks completed",
-  "newTask": "New Task:"
+  "newTask": "New Task:",
+  "duration": "Approx time to complete:",
+  "divisible": "Divisible"
 }
