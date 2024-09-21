@@ -25,17 +25,17 @@ function GeneratedTaskCard({ generatedTask }: Props) {
 			<Text style={fonts.gray200}>{description}</Text>
 			<View style={[layout.row, layout.justifyBetween]}>
 				{dueDate && (
-					<Text>
+					<Text style={fonts.gray200}>
 						{t('goals:endDate')} {new Date(dueDate).toLocaleDateString()}
 					</Text>
 				)}
 				{duration && (
-					<Text>
+					<Text style={fonts.gray200}>
 						{t('goals:duration')} {duration} min
 					</Text>
 				)}
 			</View>
-			{divisible && <Text>{t('goals:divisible')}</Text>}
+			{divisible && <Text style={fonts.green400}>{t('goals:divisible')}</Text>}
 		</View>
 	);
 }

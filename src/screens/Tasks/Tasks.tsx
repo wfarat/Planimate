@@ -80,6 +80,9 @@ function Tasks({ route, navigation }: RootScreenProps<'Tasks'>) {
 			},
 		},
 	];
+	const handleGenerate = () => {
+		navigation.push('GenerateTasks', { goal, task });
+	};
 	return (
 		<SafeScreen>
 			{task && (
@@ -120,6 +123,7 @@ function Tasks({ route, navigation }: RootScreenProps<'Tasks'>) {
 						handleOfflineReorder={handleOfflineReorder}
 					/>
 				</View>
+				<GreenRoundedButton handlePress={handleGenerate} text="generateTasks" />
 			</View>
 		</SafeScreen>
 	);

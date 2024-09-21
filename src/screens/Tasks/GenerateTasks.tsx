@@ -58,7 +58,9 @@ function GenerateTasks({
 					renderItem={renderItem}
 					keyExtractor={(item, index) => index.toString()}
 				/>
-				<GreenRoundedButton handlePress={handleSave} text="saveTasks" />
+				{isSuccess && (
+					<GreenRoundedButton handlePress={handleSave} text="saveTasks" />
+				)}
 			</View>
 		</SafeScreen>
 	);
