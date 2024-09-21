@@ -11,7 +11,9 @@ type Props = {
 		| 'register'
 		| 'login'
 		| 'addAgendaItem'
-		| 'fillWeek';
+		| 'fillWeek'
+		| 'generateTasks'
+		| 'saveTasks';
 };
 function GreenRoundedButton({ handlePress, text }: Props) {
 	const { components, fonts, gutters } = useTheme();

@@ -1,9 +1,10 @@
 import { useStorage } from '@/storage/StorageContext';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { GeneratedTask } from '@/types/schemas';
 import { SafeScreen } from '@/components/template';
 import { useTheme } from '@/theme';
 import {
+	ActivityIndicator,
 	FlatList,
 	ListRenderItemInfo,
 	TouchableOpacity,
@@ -15,15 +16,18 @@ import { generateTasks } from '@/api';
 import { RootScreenProps } from '@/types/navigation';
 
 function GenerateTasks({
-	route,
 	navigation,
-}): RootScreenProps<'GenerateTasks'> {
+	route,
+}: RootScreenProps<'GenerateTasks'>) {
 	const { goal, task } = route.params;
 	const storage = useStorage();
 	const { components } = useTheme();
 	const [generatedTasks, setGeneratedTasks] = useState<GeneratedTask[]>([]);
 	const { mutate, isPending, isSuccess, data } = generateTasks();
 	const token = storage.getString('token');
+	useEffect(() => {
+		if (data) setGeneratedTasks(data);
+	}, [isSuccess]);
 	const renderItem = ({ item }: ListRenderItemInfo<GeneratedTask>) => {
 		return (
 			<TouchableOpacity>
@@ -34,15 +38,27 @@ function GenerateTasks({
 	const handleGenerate = () => {
 		if (token) mutate({ goal, task, token });
 	};
+	const handleSave = () => {
+		// save logic here
+		navigation.goBack();
+	};
 	return (
 		<SafeScreen>
 			<View style={components.mainContainer}>
-				<GreenRoundedButton handlePress={} text={} />
+				{isPending ? (
+					<ActivityIndicator />
+				) : (
+					<GreenRoundedButton
+						handlePress={handleGenerate}
+						text="generateTasks"
+					/>
+				)}
 				<FlatList
 					data={generatedTasks}
 					renderItem={renderItem}
 					keyExtractor={(item, index) => index.toString()}
 				/>
+				<GreenRoundedButton handlePress={handleSave} text="saveTasks" />
 			</View>
 		</SafeScreen>
 	);

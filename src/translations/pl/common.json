@@ -45,7 +45,9 @@
     "register": "Załóż konto",
     "login": "Zaloguj się",
     "addAgendaItem": "Dodaj do terminarza",
-    "fillWeek": "Wypełnij tydzień"
+    "fillWeek": "Wypełnij tydzień",
+    "generateTasks": "Wygeneruj zadania",
+    "saveTasks": "Zapisz zadania"
   },
   "textInput": {
     "email": "Adres e-mail",

@@ -45,7 +45,9 @@
     "register": "Create an account",
     "login": "Sign in",
     "addAgendaItem": "Add to agenda",
-    "fillWeek": "Fill week"
+    "fillWeek": "Fill week",
+    "generateTasks": "Generate tasks",
+    "saveTasks": "Save tasks"
   },
   "textInput": {
     "email": "E-mail address",
