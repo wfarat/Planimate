@@ -23,6 +23,7 @@ export type RootStackParamList = {
 	GenerateTasks: {
 		goal: Goal;
 		task?: Task;
+		tasks: Task[];
 	};
 	GoalDetails: {
 		goal: Goal;

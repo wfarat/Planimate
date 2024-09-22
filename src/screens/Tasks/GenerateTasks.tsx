@@ -14,24 +14,37 @@ import { GeneratedTaskCard } from '@/components/molecules';
 import { GreenRoundedButton } from '@/components/atoms';
 import { generateTasks } from '@/api';
 import { RootScreenProps } from '@/types/navigation';
+import { useTaskActions } from '@/hooks/tasks/useTaskActions';
 
 function GenerateTasks({
 	navigation,
 	route,
 }: RootScreenProps<'GenerateTasks'>) {
-	const { goal, task } = route.params;
+	const { goal, task, tasks } = route.params;
 	const storage = useStorage();
 	const { components } = useTheme();
 	const [generatedTasks, setGeneratedTasks] = useState<GeneratedTask[]>([]);
+	const [pickedTasks, setPickedTasks] = useState<GeneratedTask[]>([]);
 	const { mutate, isPending, isSuccess, data } = generateTasks();
+	const { createTask, updateTasks, addOfflineAction } = useTaskActions(
+		goal.goalId,
+		task?.taskId,
+		task?.taskId,
+	);
 	const token = storage.getString('token');
 	useEffect(() => {
 		if (data) setGeneratedTasks(data);
 	}, [isSuccess]);
+	const handlePickTask = (item: GeneratedTask) => {
+		setPickedTasks([...pickedTasks, item]);
+	};
 	const renderItem = ({ item }: ListRenderItemInfo<GeneratedTask>) => {
 		return (
-			<TouchableOpacity>
-				<GeneratedTaskCard generatedTask={item} />
+			<TouchableOpacity onPress={() => handlePickTask(item)}>
+				<GeneratedTaskCard
+					generatedTask={item}
+					picked={pickedTasks.includes(item)}
+				/>
 			</TouchableOpacity>
 		);
 	};
@@ -39,7 +52,19 @@ function GenerateTasks({
 		if (token) mutate({ goal, task, token });
 	};
 	const handleSave = () => {
-		// save logic here
+		const newTasks = pickedTasks.map(pickedTask =>
+			createTask(
+				tasks.length,
+				pickedTask.name,
+				pickedTask.description,
+				pickedTask.duration,
+				pickedTask.dueDate,
+			),
+		);
+		updateTasks(newTasks, task?.taskId);
+		newTasks.forEach(newTask =>
+			addOfflineAction({ type: 'create', task: newTask }),
+		);
 		navigation.goBack();
 	};
 	return (

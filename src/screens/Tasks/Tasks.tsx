@@ -81,7 +81,7 @@ function Tasks({ route, navigation }: RootScreenProps<'Tasks'>) {
 		},
 	];
 	const handleGenerate = () => {
-		navigation.push('GenerateTasks', { goal, task });
+		navigation.push('GenerateTasks', { goal, task, tasks });
 	};
 	return (
 		<SafeScreen>

@@ -40,7 +40,13 @@ function AddTask({ navigation, route }: RootScreenProps<'AddTask'>) {
 		}
 	}, [isSuccess]);
 	const handleAddTask = () => {
-		const newTask = createTask(tasks, name, description, duration, dueDate);
+		const newTask = createTask(
+			tasks.length,
+			name,
+			description,
+			duration,
+			dueDate,
+		);
 		const token = storage.getString('token');
 		if (token && isConnected) {
 			mutate({ task: newTask, token });

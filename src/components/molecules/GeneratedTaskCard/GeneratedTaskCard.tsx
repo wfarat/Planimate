@@ -5,10 +5,11 @@ import { useTranslation } from 'react-i18next';
 
 type Props = {
 	generatedTask: GeneratedTask;
+	picked: boolean;
 };
-function GeneratedTaskCard({ generatedTask }: Props) {
+function GeneratedTaskCard({ generatedTask, picked = false }: Props) {
 	const { name, description, dueDate, divisible, duration } = generatedTask;
-	const { gutters, borders, layout, fonts } = useTheme();
+	const { gutters, borders, layout, fonts, backgrounds } = useTheme();
 	const { t } = useTranslation(['goals']);
 	return (
 		<View
@@ -19,6 +20,7 @@ function GeneratedTaskCard({ generatedTask }: Props) {
 				layout.fullWidth,
 				borders.rounded_4,
 				gutters.padding_16,
+				picked ? backgrounds.green400 : backgrounds.purple100,
 			]}
 		>
 			<Text style={[fonts.gray200, fonts.bold, fonts.size_16]}>{name}</Text>

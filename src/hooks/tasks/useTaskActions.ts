@@ -65,7 +65,7 @@ export const useTaskActions = (
 	};
 
 	const createTask = (
-		oldTasks: Task[],
+		order: number,
 		name: string,
 		description: string,
 		durationTime?: number,
@@ -84,7 +84,7 @@ export const useTaskActions = (
 			dueDate,
 			updatedAt: new Date().toISOString(),
 			completed: false,
-			order: oldTasks.length,
+			order,
 		};
 		storage.set(`goals.${goalId}.lastId`, lastId + 1);
 		return newTask;
