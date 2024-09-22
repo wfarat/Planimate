@@ -20,8 +20,15 @@ export const saveTasks = async (
 	tasks: Task[],
 	token: string,
 ): Promise<Task[]> => {
-	const taskPromises = tasks.map(task => saveTask(task, token));
-	return Promise.all(taskPromises);
+	const response = await instance.post('tasks/bulk', {
+		json: objectToSnake(tasks),
+		headers: {
+			Authorization: `Bearer ${token}`,
+			'Content-Type': 'application/json',
+		},
+	});
+	const responseData = await response.json();
+	return (responseData as FetchedTask[]).map(task => convertToCamel(task));
 };
 
 export const fetchTasks = async (
