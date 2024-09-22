@@ -72,6 +72,8 @@ function GenerateTasks({
 			<View style={components.mainContainer}>
 				{isPending ? (
 					<ActivityIndicator />
+				) : isSuccess ? (
+					<GreenRoundedButton handlePress={handleSave} text="saveTasks" />
 				) : (
 					<GreenRoundedButton
 						handlePress={handleGenerate}
@@ -83,9 +85,6 @@ function GenerateTasks({
 					renderItem={renderItem}
 					keyExtractor={(item, index) => index.toString()}
 				/>
-				{isSuccess && (
-					<GreenRoundedButton handlePress={handleSave} text="saveTasks" />
-				)}
 			</View>
 		</SafeScreen>
 	);
