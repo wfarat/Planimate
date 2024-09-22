@@ -1,6 +1,6 @@
 import { useStorage } from '@/storage/StorageContext';
 import { useEffect, useState } from 'react';
-import { GeneratedTask } from '@/types/schemas';
+import { GeneratedTask, Task } from '@/types/schemas';
 import { SafeScreen } from '@/components/template';
 import { useTheme } from '@/theme';
 import {
@@ -12,9 +12,10 @@ import {
 } from 'react-native';
 import { GeneratedTaskCard } from '@/components/molecules';
 import { GreenRoundedButton } from '@/components/atoms';
-import { generateTasks } from '@/api';
+import { generateTasks, saveTasks } from '@/api';
 import { RootScreenProps } from '@/types/navigation';
 import { useTaskActions } from '@/hooks/tasks/useTaskActions';
+import { useNetInfo } from '@react-native-community/netinfo';
 
 function GenerateTasks({
 	navigation,
@@ -23,18 +24,28 @@ function GenerateTasks({
 	const { goal, task, tasks } = route.params;
 	const storage = useStorage();
 	const { components } = useTheme();
+	const { isConnected } = useNetInfo();
 	const [generatedTasks, setGeneratedTasks] = useState<GeneratedTask[]>([]);
 	const [pickedTasks, setPickedTasks] = useState<GeneratedTask[]>([]);
 	const { mutate, isPending, isSuccess, data } = generateTasks();
+	const saveMutation = saveTasks();
 	const { createTask, updateTasks, addOfflineAction } = useTaskActions(
 		goal.goalId,
 		task?.taskId,
 		task?.taskId,
 	);
 	const token = storage.getString('token');
+	const addTasks = (newTasks: Task[]) => {
+		const updatedTasks = [...tasks, ...newTasks];
+		updateTasks(updatedTasks, task?.taskId);
+		navigation.goBack();
+	};
 	useEffect(() => {
 		if (data) setGeneratedTasks(data);
 	}, [isSuccess]);
+	useEffect(() => {
+		if (saveMutation.data) addTasks(saveMutation.data);
+	}, [saveMutation.isSuccess]);
 	const handlePickTask = (item: GeneratedTask) => {
 		setPickedTasks([...pickedTasks, item]);
 	};
@@ -61,16 +72,19 @@ function GenerateTasks({
 				pickedTask.dueDate,
 			),
 		);
-		updateTasks(newTasks, task?.taskId);
-		newTasks.forEach(newTask =>
-			addOfflineAction({ type: 'create', task: newTask }),
-		);
-		navigation.goBack();
+		if (token && isConnected) {
+			saveMutation.mutate({ tasks: newTasks, token });
+		} else {
+			newTasks.forEach(newTask =>
+				addOfflineAction({ type: 'create', task: newTask }),
+			);
+			addTasks(newTasks);
+		}
 	};
 	return (
 		<SafeScreen>
 			<View style={components.mainContainer}>
-				{isPending ? (
+				{isPending || saveMutation.isPending ? (
 					<ActivityIndicator />
 				) : isSuccess ? (
 					<GreenRoundedButton handlePress={handleSave} text="saveTasks" />
