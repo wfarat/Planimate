@@ -1,4 +1,4 @@
-import { Task } from '@/types/schemas';
+import { GeneratedTask, Task } from '@/types/schemas';
 import { useStorage } from '@/storage/StorageContext';
 import { TaskAction } from '@/types/offlineActions/taskAction';
 import { useOfflineActions } from '@/hooks/useOfflineActions';
@@ -177,6 +177,19 @@ export const useTaskActions = (
 	const addOfflineAction = (action: TaskAction) => {
 		addAction('task', action);
 	};
+	const saveGeneratedTasks = (generatedTasks: GeneratedTask[]) => {
+		storage.set(
+			`${getStorageString(taskId)}.generated`,
+			JSON.stringify(generatedTasks),
+		);
+	};
+	const getGeneratedTasks = () => {
+		const storedTasks = storage.getString(
+			`${getStorageString(taskId)}.generated`,
+		);
+		if (storedTasks) return JSON.parse(storedTasks) as GeneratedTask[];
+		return [];
+	};
 	return {
 		getTasks,
 		getStorageString,
@@ -190,5 +203,7 @@ export const useTaskActions = (
 		findMostImportantTask,
 		findImportantTasks,
 		addOfflineAction,
+		saveGeneratedTasks,
+		getGeneratedTasks,
 	};
 };

@@ -29,11 +29,13 @@ function GenerateTasks({
 	const [pickedTasks, setPickedTasks] = useState<GeneratedTask[]>([]);
 	const { mutate, isPending, isSuccess, data } = generateTasks();
 	const saveMutation = saveTasks();
-	const { createTask, updateTasks, addOfflineAction } = useTaskActions(
-		goal.goalId,
-		task?.taskId,
-		task?.taskId,
-	);
+	const {
+		createTask,
+		updateTasks,
+		addOfflineAction,
+		saveGeneratedTasks,
+		getGeneratedTasks,
+	} = useTaskActions(goal.goalId, task?.taskId, task?.taskId);
 	const token = storage.getString('token');
 	const addTasks = (newTasks: Task[]) => {
 		const updatedTasks = [...tasks, ...newTasks];
@@ -41,7 +43,13 @@ function GenerateTasks({
 		navigation.goBack();
 	};
 	useEffect(() => {
-		if (data) setGeneratedTasks(data);
+		setGeneratedTasks(getGeneratedTasks());
+	}, []);
+	useEffect(() => {
+		if (data) {
+			setGeneratedTasks(data);
+			saveGeneratedTasks(data);
+		}
 	}, [isSuccess]);
 	useEffect(() => {
 		if (saveMutation.data) addTasks(saveMutation.data);
@@ -81,19 +89,25 @@ function GenerateTasks({
 			addTasks(newTasks);
 		}
 	};
+	const isActivityIndicatorVisible = isPending || saveMutation.isPending;
+	const hasGeneratedTasks = generatedTasks.length > 0;
+
+	const renderActionButton = () => {
+		if (isActivityIndicatorVisible) {
+			return <ActivityIndicator />;
+		}
+		if (hasGeneratedTasks) {
+			return <GreenRoundedButton handlePress={handleSave} text="saveTasks" />;
+		}
+		return (
+			<GreenRoundedButton handlePress={handleGenerate} text="generateTasks" />
+		);
+	};
+
 	return (
 		<SafeScreen>
 			<View style={components.mainContainer}>
-				{isPending || saveMutation.isPending ? (
-					<ActivityIndicator />
-				) : isSuccess ? (
-					<GreenRoundedButton handlePress={handleSave} text="saveTasks" />
-				) : (
-					<GreenRoundedButton
-						handlePress={handleGenerate}
-						text="generateTasks"
-					/>
-				)}
+				{renderActionButton()}
 				<FlatList
 					data={generatedTasks}
 					renderItem={renderItem}
