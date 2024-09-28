@@ -16,6 +16,8 @@
   "dependencies": {
     "@react-native-community/datetimepicker": "^8.2.0",
     "@react-native-community/netinfo": "^11.3.2",
+    "@react-native-firebase/app": "^21.0.0",
+    "@react-native-firebase/messaging": "^21.0.0",
     "@react-native-masked-view/masked-view": "^0.3.0",
     "@react-navigation/bottom-tabs": "^6.6.1",
     "@react-navigation/native": "^6.0.8",

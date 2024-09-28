@@ -15,7 +15,7 @@ function Quotes() {
 	const [name, setName] = useState<QuoteNames>();
 	const [image, setImage] = useState<ImageSourcePropType>();
 	const { layout, gutters, fonts, components } = useTheme();
-
+	const translatedText = quote ? t(quote) : '';
 	const updateQuoteAndImage = () => {
 		const [newQuote, newImage] = getRandomQuote();
 		setQuote(newQuote);
@@ -66,8 +66,14 @@ function Quotes() {
 				</View>
 
 				<View style={[gutters.paddingHorizontal_32, gutters.marginTop_60]}>
-					<Text style={[fonts.size_24, fonts.gray200, gutters.marginBottom_40]}>
-						{quote && t(quote)}
+					<Text
+						style={[
+							translatedText.length < 200 ? fonts.size_24 : fonts.size_20,
+							fonts.gray200,
+							gutters.marginBottom_40,
+						]}
+					>
+						{translatedText}
 					</Text>
 				</View>
 			</ScrollView>
