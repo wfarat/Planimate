@@ -1,3 +1,5 @@
+// Tabs.tsx
+
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import GoalsStack from '@/navigators/GoalsStack';
@@ -6,6 +8,12 @@ import SettingsStack from '@/navigators/SettingsStack';
 import CalendarStack from '@/navigators/CalendarStack';
 
 const Tab = createBottomTabNavigator();
+
+// Separate function to return the tab icons
+const getTabBarIcon = (name: string) =>
+	function ({ size, color }: { size: number; color: string }) {
+		return <MaterialCommunityIcons name={name} size={size} color={color} />;
+	};
 
 function Tabs() {
 	return (
@@ -18,9 +26,7 @@ function Tabs() {
 				name="GoalsStackScreen"
 				component={GoalsStack}
 				options={{
-					tabBarIcon: ({ size, color }) => (
-						<MaterialCommunityIcons name="target" size={size} color={color} />
-					),
+					tabBarIcon: getTabBarIcon('target'), // Use the external icon component
 					tabBarShowLabel: false,
 				}}
 			/>
@@ -28,13 +34,7 @@ function Tabs() {
 				name="MainStackScreen"
 				component={QuotesStack}
 				options={{
-					tabBarIcon: ({ size, color }) => (
-						<MaterialCommunityIcons
-							name="format-quote-close"
-							size={size}
-							color={color}
-						/>
-					),
+					tabBarIcon: getTabBarIcon('format-quote-close'),
 					tabBarShowLabel: false,
 				}}
 			/>
@@ -42,13 +42,7 @@ function Tabs() {
 				name="CalendarStack"
 				component={CalendarStack}
 				options={{
-					tabBarIcon: ({ size, color }) => (
-						<MaterialCommunityIcons
-							name="calendar-month"
-							size={size}
-							color={color}
-						/>
-					),
+					tabBarIcon: getTabBarIcon('calendar-month'),
 					tabBarShowLabel: false,
 				}}
 			/>
@@ -56,9 +50,7 @@ function Tabs() {
 				name="SettingsStackScreen"
 				component={SettingsStack}
 				options={{
-					tabBarIcon: ({ size, color }) => (
-						<MaterialCommunityIcons name="cog" size={size} color={color} />
-					),
+					tabBarIcon: getTabBarIcon('cog'),
 					tabBarShowLabel: false,
 				}}
 			/>
