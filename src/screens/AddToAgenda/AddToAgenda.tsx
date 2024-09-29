@@ -19,12 +19,13 @@ function AddToAgenda({ route, navigation }: RootScreenProps<'AddToAgenda'>) {
 	const [date, setDate] = useState(new Date());
 	const [time, setTime] = useState<Date>();
 	const [duration, setDuration] = useState(0);
-	const { createAgendaItem, addAgendaItem, addOfflineAction } =
+	const { createAgendaItem, addAgendaItem, addOfflineAction, loadStoredItems } =
 		useAgendaItems();
 	const { data, mutate, isSuccess, isPending } = saveAgendaItem();
 	const token = storage.getString('token');
 	const addToAgenda = (agendaItem: AgendaItemType) => {
-		addAgendaItem(agendaItem);
+		const storedItems = loadStoredItems();
+		addAgendaItem(storedItems, agendaItem);
 		navigation.goBack();
 	};
 	useEffect(() => {

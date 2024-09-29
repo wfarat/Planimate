@@ -26,24 +26,41 @@ export const useAgendaItems = () => {
 	const updateItems = (updatedItems: AgendaItemType[]) => {
 		storage.set('agenda', JSON.stringify(updatedItems));
 	};
-	const replaceAgendaItem = (newItem: AgendaItemType): AgendaItemType[] => {
-		const oldItems = loadStoredItems();
+	const replaceAgendaItem = (
+		oldItems: AgendaItemType[],
+		newItem: AgendaItemType,
+	): AgendaItemType[] => {
 		return oldItems.map(item =>
 			item.title === newItem.title ? newItem : item,
 		);
 	};
-	const addAgendaItem = (newItem: AgendaItemType) => {
-		const agendaItems = replaceAgendaItem(newItem);
+
+	const addAgendaItem = (
+		agendaItems: AgendaItemType[],
+		newItem: AgendaItemType,
+	): AgendaItemType[] => {
+		const updatedItems = replaceAgendaItem(agendaItems, newItem);
+
 		// If no matching item was found, append the new item
-		if (!agendaItems.some(item => item.title === newItem.title)) {
-			agendaItems.push(newItem);
+		if (!updatedItems.some(item => item.title === newItem.title)) {
+			updatedItems.push(newItem);
 		}
-		updateItems(agendaItems);
+
+		return updatedItems;
+	};
+	const addMultipleAgendaItems = (newItems: AgendaItemType[]) => {
+		let agendaItems = loadStoredItems(); // Load once
+
+		newItems.forEach(newItem => {
+			agendaItems = addAgendaItem(agendaItems, newItem); // Modify in-memory agendaItems
+		});
+
+		updateItems(agendaItems); // Persist changes once after all operations
 	};
 	const getItems = () => {
 		const storageUpdatedAt = storage.getNumber('agenda.updatedAt');
 		if (data && dataUpdatedAt !== storageUpdatedAt) {
-			data.forEach(item => addAgendaItem(item));
+			addMultipleAgendaItems(data);
 			storage.set('agenda.updatedAt', dataUpdatedAt);
 		}
 		return loadStoredItems();
@@ -140,7 +157,8 @@ export const useAgendaItems = () => {
 	};
 	const completeAgendaItem = (item: AgendaItemData): AgendaItemType[] => {
 		const completedItem = updateAgendaItem({ ...item, completed: true });
-		const updatedItems = replaceAgendaItem(completedItem);
+		const storedItems = loadStoredItems();
+		const updatedItems = replaceAgendaItem(storedItems, completedItem);
 		const taskStorageKey = getTaskStorageKey(item);
 		updateStoredTaskDuration(item, taskStorageKey);
 		updateItems(updatedItems);
@@ -173,5 +191,7 @@ export const useAgendaItems = () => {
 		findAgendaItemIdAndTitle,
 		data,
 		addOfflineAction,
+		addMultipleAgendaItems,
+		loadStoredItems,
 	};
 };

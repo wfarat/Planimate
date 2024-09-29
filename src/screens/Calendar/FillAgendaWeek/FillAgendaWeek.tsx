@@ -49,14 +49,14 @@ function FillAgendaWeek({ navigation }: RootScreenProps<'FillAgendaWeek'>) {
 	const [selectedGoalId, setSelectedGoalId] = useState(0);
 	const { findImportantTasks } = useTaskActions(selectedGoalId);
 	const { getGoals } = useGoalActions();
-	const { createAgendaItem, addAgendaItem, addOfflineAction } =
+	const { createAgendaItem, addMultipleAgendaItems, addOfflineAction } =
 		useAgendaItems();
 	const token = storage.getString('token');
 	const { isConnected } = useNetInfo();
 	const { mutate, isSuccess, isPending, data } = saveAgendaItems();
 
 	const addAgendaItems = (agendaItems: AgendaItemType[]) => {
-		agendaItems.forEach(item => addAgendaItem(item));
+		addMultipleAgendaItems(agendaItems);
 		navigation.goBack();
 	};
 
@@ -96,9 +96,9 @@ function FillAgendaWeek({ navigation }: RootScreenProps<'FillAgendaWeek'>) {
 					agendaItems.push(createAgendaItem(date, task, taskDuration));
 					taskIndex += 1;
 				} else {
-					freeHours = 0;
 					if (task.duration) task.duration.elapsed += freeHours;
 					agendaItems.push(createAgendaItem(date, task, freeHours));
+					freeHours = 0;
 				}
 			}
 		});

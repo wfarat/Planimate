@@ -5,7 +5,7 @@ import { useStorage } from '@/storage/StorageContext';
 export const useTaskFromAgenda = () => {
 	const storage = useStorage();
 	const getTaskStorageKey = (item: AgendaItemData): string =>
-		item.taskId
+		item.parentId
 			? `goals.${item.goalId}.${item.parentId}`
 			: `goals.${item.goalId}`;
 
