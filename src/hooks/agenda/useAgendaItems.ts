@@ -48,6 +48,12 @@ export const useAgendaItems = () => {
 
 		return updatedItems;
 	};
+
+	const addSingleAgendaItem = (newItem: AgendaItemType) => {
+		const updatedAgendaItems = addAgendaItem(loadStoredItems(), newItem);
+		updateItems(updatedAgendaItems);
+	};
+
 	const addMultipleAgendaItems = (newItems: AgendaItemType[]) => {
 		let agendaItems = loadStoredItems(); // Load once
 
@@ -181,7 +187,7 @@ export const useAgendaItems = () => {
 	return {
 		getItems,
 		getMarkedDates,
-		addAgendaItem,
+		addSingleAgendaItem,
 		deleteAgendaItem,
 		completeAgendaItem,
 		createAgendaItem,
@@ -192,6 +198,5 @@ export const useAgendaItems = () => {
 		data,
 		addOfflineAction,
 		addMultipleAgendaItems,
-		loadStoredItems,
 	};
 };
