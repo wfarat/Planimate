@@ -1,7 +1,7 @@
 
-# PlannerApp
+# Planimate
 
-PlannerApp is a React Native application designed to help users plan their goals and break them down into smaller, manageable tasks. The app features a goal planner, a quote section for daily inspiration, and a calendar view for easy scheduling. Future plans include expanding the app with social features and AI assistance.
+Planimate is a React Native application designed to help users plan their goals and break them down into smaller, manageable tasks. The app features a goal planner, a quote section for daily inspiration, and a calendar view for easy scheduling. Future plans include expanding the app with social features and AI assistance.
 
 ## Features
 
@@ -32,8 +32,8 @@ PlannerApp is a React Native application designed to help users plan their goals
 
 1. **Clone the repository:**
    ```sh
-   git clone https://github.com/yourusername/plannerapp.git
-   cd plannerapp
+   git clone https://github.com/wfarat/planimate.git
+   cd planimate
    ```
 
 2. **Install dependencies:**

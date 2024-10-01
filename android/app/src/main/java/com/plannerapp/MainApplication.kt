@@ -1,5 +1,5 @@
 
-package com.plannerapp
+package com.planimate
 
 import android.app.Application
 import com.facebook.react.PackageList

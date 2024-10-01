@@ -9823,9 +9823,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"plannerapp@workspace:.":
+"planimate@workspace:.":
   version: 0.0.0-use.local
-  resolution: "plannerapp@workspace:."
+  resolution: "planimate@workspace:."
   dependencies:
     "@babel/core": ^7.20.0
     "@babel/preset-env": ^7.20.0
