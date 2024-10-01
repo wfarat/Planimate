@@ -32,7 +32,7 @@ Planimate is a React Native application designed to help users plan their goals 
 
 1. **Clone the repository:**
    ```sh
-   git clone https://github.com/wfarat/planimate.git
+   git clone https://github.com/wfarat/Planimate.git
    cd planimate
    ```
 
