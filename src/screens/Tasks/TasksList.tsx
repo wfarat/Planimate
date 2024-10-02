@@ -1,4 +1,4 @@
-import { View, TouchableOpacity } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 import type { Task } from '@/types/schemas';
 import { TaskListProps } from '@/types/navigation';
 import { ItemCard } from '@/components/molecules';
@@ -7,6 +7,7 @@ import { updateTaskOrder } from '@/api';
 import { useStorage } from '@/storage/StorageContext';
 import { useEffect } from 'react';
 import { useNetInfo } from '@react-native-community/netinfo';
+import { useTheme } from '@/theme';
 
 function TasksList({
 	navigation,
@@ -14,8 +15,11 @@ function TasksList({
 	tasks,
 	handleReorder,
 	handleOfflineReorder,
+	ListHeaderComponent,
+	ListFooterComponent,
 }: TaskListProps<'Tasks'>) {
 	const { goal } = route.params;
+	const { components, layout } = useTheme();
 	const storage = useStorage();
 	const { isSuccess, mutate, data } = updateTaskOrder();
 	const { isConnected } = useNetInfo();
@@ -61,14 +65,16 @@ function TasksList({
 		}
 	};
 	return (
-		<View>
-			<DragList
-				data={tasks}
-				keyExtractor={item => `${item.goalId}.${item.taskId}`}
-				renderItem={renderItem}
-				onReordered={onReordered}
-			/>
-		</View>
+		<DragList
+			data={tasks}
+			keyExtractor={item => `${item.goalId}.${item.taskId}`}
+			renderItem={renderItem}
+			onReordered={onReordered}
+			containerStyle={components.mainContainer}
+			ListHeaderComponent={ListHeaderComponent}
+			ListFooterComponent={ListFooterComponent}
+			ListFooterComponentStyle={[layout.justifyCenter, layout.itemsCenter]}
+		/>
 	);
 }
 

@@ -13,8 +13,6 @@ export const useTaskActions = (
 	const getStorageString = (target?: number) => {
 		return target ? `goals.${goalId}.${target}` : `goals.${goalId}`;
 	};
-	const storedId = storage.getNumber(`goals.${goalId}.lastId`);
-	const lastId = storedId || 0;
 	const getTasks = (storageString: string) => {
 		const storedTasks = storage.getString(storageString);
 		if (storedTasks) {
@@ -74,6 +72,8 @@ export const useTaskActions = (
 		const duration = durationTime
 			? { base: durationTime, elapsed: 0 }
 			: undefined;
+		const storedId = storage.getNumber(`goals.${goalId}.lastId`);
+		const lastId = storedId || 0;
 		const newTask = {
 			name,
 			description,

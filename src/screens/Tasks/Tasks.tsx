@@ -1,4 +1,4 @@
-import { Text, View } from 'react-native';
+import { View } from 'react-native';
 
 import { SafeScreen } from '@/components/template';
 import { useTheme } from '@/theme';
@@ -8,13 +8,12 @@ import { RootScreenProps } from '@/types/navigation';
 import { EditDialog, TaskTopBar, ActionDialog } from '@/components/molecules';
 import type { Task } from '@/types/schemas';
 import { useIsFocused } from '@react-navigation/native';
-import { GreenRoundedButton } from '@/components/atoms';
+import { GreenRoundedButton, TasksHeader } from '@/components/atoms';
 import { useTaskHandlers } from '@/hooks/tasks/useTaskHandlers';
 import { deleteTask, finishTask } from '@/api';
 
 function Tasks({ route, navigation }: RootScreenProps<'Tasks'>) {
 	const { goal, task } = route.params;
-	const { layout, fonts, gutters, components } = useTheme();
 	const [tasks, setTasks] = useState<Task[]>([]);
 	const [visible, setVisible] = useState([false, false, false]);
 	const [taskName, setTaskName] = useState(task?.name || '');
@@ -83,6 +82,7 @@ function Tasks({ route, navigation }: RootScreenProps<'Tasks'>) {
 	const handleGenerate = () => {
 		navigation.push('GenerateTasks', { goal, task, tasks });
 	};
+
 	return (
 		<SafeScreen>
 			{task && (
@@ -110,21 +110,26 @@ function Tasks({ route, navigation }: RootScreenProps<'Tasks'>) {
 					))}
 				</View>
 			)}
-			<View style={components.mainContainer}>
-				<Text style={[fonts.size_24, fonts.gray200]}>{goal.name}</Text>
-				{task && <Text style={[fonts.size_24, fonts.gray200]}>{taskName}</Text>}
-				<GreenRoundedButton handlePress={handlePress} text="addTask" />
-				<View style={[gutters.marginTop_16, layout.fullWidth]}>
-					<TasksList
-						tasks={tasks}
-						navigation={navigation}
-						route={route}
-						handleReorder={handleReorder}
-						handleOfflineReorder={handleOfflineReorder}
+			<TasksList
+				tasks={tasks}
+				navigation={navigation}
+				route={route}
+				handleReorder={handleReorder}
+				handleOfflineReorder={handleOfflineReorder}
+				ListHeaderComponent={
+					<TasksHeader
+						goalName={goal.name}
+						taskName={taskName}
+						handlePress={handlePress}
 					/>
-				</View>
-				<GreenRoundedButton handlePress={handleGenerate} text="generateTasks" />
-			</View>
+				}
+				ListFooterComponent={
+					<GreenRoundedButton
+						handlePress={handleGenerate}
+						text="generateTasks"
+					/>
+				}
+			/>
 		</SafeScreen>
 	);
 }

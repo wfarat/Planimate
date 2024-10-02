@@ -1,5 +1,6 @@
 import type { StackScreenProps } from '@react-navigation/stack';
 import { Goal, Task } from '@/types/schemas';
+import { ReactElement } from 'react';
 
 export type RootStackParamList = {
 	Quotes: undefined;
@@ -41,4 +42,6 @@ export type TaskListProps<
 	tasks: Task[];
 	handleReorder: (tasks: Task[]) => void;
 	handleOfflineReorder: (tasks: Task[]) => void;
+	ListHeaderComponent: ReactElement;
+	ListFooterComponent: ReactElement;
 };
