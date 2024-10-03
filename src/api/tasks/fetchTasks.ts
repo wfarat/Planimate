@@ -4,17 +4,13 @@ import { fetchTasks } from '@/services/goals/tasks';
 import Task from '@/types/schemas/task';
 
 export default (
-	goalId: number,
-	taskId?: number,
 	token?: string,
 	lastUpdate?: string,
 ): UseQueryResult<Task[]> => {
 	return useQuery({
-		queryKey: ['tasks', goalId, taskId, token],
+		queryKey: ['tasks', token],
 		queryFn: () =>
-			token
-				? fetchTasks(goalId, token, taskId, lastUpdate)
-				: Promise.resolve(undefined),
+			token ? fetchTasks(token, lastUpdate) : Promise.resolve(undefined),
 		staleTime: 1000 * 60 * 5,
 		enabled: !!token,
 		refetchOnWindowFocus: false,

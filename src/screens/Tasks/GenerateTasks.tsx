@@ -16,6 +16,7 @@ import { generateTasks, saveTasks } from '@/api';
 import { RootScreenProps } from '@/types/navigation';
 import { useTaskActions } from '@/hooks/tasks/useTaskActions';
 import { useNetInfo } from '@react-native-community/netinfo';
+import i18next from 'i18next';
 
 function GenerateTasks({
 	navigation,
@@ -26,7 +27,8 @@ function GenerateTasks({
 	const { components } = useTheme();
 	const { isConnected } = useNetInfo();
 	const [generatedTasks, setGeneratedTasks] = useState<GeneratedTask[]>([]);
-	const [pickedTasks, setPickedTasks] = useState<GeneratedTask[]>([]);
+	const [pickedTasks, setPickedTasks] = useState<Set<GeneratedTask>>(new Set());
+	const { language } = i18next;
 	const { mutate, isPending, isSuccess, data } = generateTasks();
 	const saveMutation = saveTasks();
 	const {
@@ -55,27 +57,38 @@ function GenerateTasks({
 		if (saveMutation.data) addTasks(saveMutation.data);
 	}, [saveMutation.isSuccess]);
 	const handlePickTask = (item: GeneratedTask) => {
-		setPickedTasks([...pickedTasks, item]);
+		const updatedPickedTasks = new Set(pickedTasks);
+
+		// If the task is already in the set, remove it; otherwise, add it
+		if (updatedPickedTasks.has(item)) {
+			updatedPickedTasks.delete(item);
+		} else {
+			updatedPickedTasks.add(item);
+		}
+
+		setPickedTasks(updatedPickedTasks);
 	};
+
 	const renderItem = ({ item }: ListRenderItemInfo<GeneratedTask>) => {
 		return (
 			<TouchableOpacity onPress={() => handlePickTask(item)}>
 				<GeneratedTaskCard
 					generatedTask={item}
-					picked={pickedTasks.includes(item)}
+					picked={pickedTasks.has(item)}
 				/>
 			</TouchableOpacity>
 		);
 	};
 	const handleGenerate = () => {
-		if (token) mutate({ goal, task, token });
+		if (token) mutate({ goal, task, language, token });
 	};
 	const handleSave = () => {
-		const newTasks = pickedTasks.map(pickedTask =>
+		const newTasks = Array.from(pickedTasks).map(pickedTask =>
 			createTask(
 				tasks.length,
 				pickedTask.name,
 				pickedTask.description,
+				pickedTask.divisible,
 				pickedTask.duration,
 				pickedTask.dueDate,
 			),

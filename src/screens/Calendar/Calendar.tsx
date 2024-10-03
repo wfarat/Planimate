@@ -114,8 +114,8 @@ function Calendar({ navigation }: RootScreenProps<'Calendar'>) {
 				style={[
 					layout.absolute,
 					layout.bottom0,
-					gutters.marginLeft_60,
-					gutters.marginRight_12,
+					gutters.marginLeft_32,
+					gutters.marginRight_32,
 				]}
 			>
 				<GreenRoundedButton handlePress={handlePress} text="fillWeek" />

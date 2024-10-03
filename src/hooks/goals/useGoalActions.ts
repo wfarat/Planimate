@@ -48,6 +48,7 @@ export const useGoalActions = (id?: string, goalId?: number) => {
 		}
 		return getGoalsFromStorage();
 	};
+
 	const editGoal = (newName: string, newDescription: string) => {
 		const updatedGoals = goals.map(g =>
 			g.goalId === goalId

@@ -29,7 +29,7 @@ function TasksList({
 		return (
 			<TouchableOpacity
 				onPress={() => navigation.push('Tasks', { goal, task: item })}
-				onPressIn={onDragStart}
+				onLongPress={onDragStart}
 				onPressOut={onDragEnd}
 			>
 				<ItemCard

@@ -12,6 +12,7 @@ export default (
 		queryFn: () =>
 			token ? fetchGoals(token, lastUpdate) : Promise.resolve(undefined),
 		staleTime: 1000 * 60 * 5,
+		retry: false,
 		enabled: !!token,
 		refetchOnWindowFocus: false,
 	});

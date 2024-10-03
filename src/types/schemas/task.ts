@@ -13,6 +13,7 @@ type Task = Updatable & {
 	dueDate?: Date;
 	completed: boolean;
 	order: number;
+	divisible: boolean;
 };
 export type FetchedTask = {
 	_id?: string;
@@ -29,6 +30,7 @@ export type FetchedTask = {
 	completed: boolean;
 	updated_at: string;
 	order: number;
+	divisible: boolean;
 };
 
 export default Task;

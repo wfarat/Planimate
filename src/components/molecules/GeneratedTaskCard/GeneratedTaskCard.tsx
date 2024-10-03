@@ -37,7 +37,11 @@ function GeneratedTaskCard({ generatedTask, picked = false }: Props) {
 					</Text>
 				)}
 			</View>
-			{divisible && <Text style={fonts.green400}>{t('goals:divisible')}</Text>}
+			{divisible && (
+				<Text style={picked ? fonts.blue100 : fonts.green400}>
+					{t('goals:divisible')}
+				</Text>
+			)}
 		</View>
 	);
 }

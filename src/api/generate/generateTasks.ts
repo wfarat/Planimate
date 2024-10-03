@@ -9,8 +9,8 @@ export default (): UseMutationResult<
 	GenerateTasksVariables
 > => {
 	return useMutation({
-		mutationFn: ({ goal, task, token }: GenerateTasksVariables) => {
-			return generateTasks(goal, token, task);
+		mutationFn: ({ goal, language, task, token }: GenerateTasksVariables) => {
+			return generateTasks(goal, token, language, task);
 		},
 	});
 };

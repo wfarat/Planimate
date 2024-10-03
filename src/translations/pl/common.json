@@ -23,7 +23,7 @@
     "hour": "h",
     "min": "m"
   },
-  "common": {
+  "picker": {
     "endDate": "Termin docelowy:",
     "enterDate": "Dotknij by wybrać",
     "agendaDate": "Dzień w terminarzu:",

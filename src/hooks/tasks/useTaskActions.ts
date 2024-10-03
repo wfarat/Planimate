@@ -4,7 +4,7 @@ import { TaskAction } from '@/types/offlineActions/taskAction';
 import { useOfflineActions } from '@/hooks/useOfflineActions';
 
 export const useTaskActions = (
-	goalId: number,
+	goalId?: number,
 	parentId?: number,
 	taskId?: number,
 ) => {
@@ -66,6 +66,7 @@ export const useTaskActions = (
 		order: number,
 		name: string,
 		description: string,
+		divisible: boolean,
 		durationTime?: number,
 		dueDate?: Date,
 	) => {
@@ -81,6 +82,7 @@ export const useTaskActions = (
 			taskId: lastId + 1,
 			parentId: taskId,
 			duration,
+			divisible,
 			dueDate,
 			updatedAt: new Date().toISOString(),
 			completed: false,

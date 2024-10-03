@@ -1,7 +1,6 @@
 import { View } from 'react-native';
 
 import { SafeScreen } from '@/components/template';
-import { useTheme } from '@/theme';
 import { useEffect, useState } from 'react';
 import TasksList from '@/screens/Tasks/TasksList';
 import { RootScreenProps } from '@/types/navigation';
@@ -26,12 +25,11 @@ function Tasks({ route, navigation }: RootScreenProps<'Tasks'>) {
 		handleOfflineFinishTask,
 		handleOfflineDeleteTask,
 		handleOfflineReorder,
-		data,
 	} = useTaskHandlers(goal, setTasks, task);
 	const isFocused = useIsFocused();
 	useEffect(() => {
 		setTasks(handleGetTasks().sort((a, b) => a.order - b.order));
-	}, [task?.taskId, isFocused, data]);
+	}, [task?.taskId, isFocused]);
 
 	const handleAddToAgenda = () => {
 		if (task) navigation.push('AddToAgenda', { task });
