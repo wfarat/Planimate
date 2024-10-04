@@ -3,7 +3,7 @@ import { SafeScreen } from '@/components/template';
 import { useTheme } from '@/theme';
 import { GreenRoundedButton, TextInputRounded } from '@/components/atoms';
 import { useEffect, useState } from 'react';
-import { useStorage } from '@/storage/StorageContext';
+import { storage } from '@/storage/storage';
 import { useOfflineActions } from '@/hooks/useOfflineActions';
 import useSyncActions from '@/network/useSyncActions';
 import { login } from '../../../api/users';
@@ -12,7 +12,7 @@ function Login() {
 	const { components, layout, gutters } = useTheme();
 	const [username, setUsername] = useState<string>('');
 	const [password, setPassword] = useState<string>('');
-	const storage = useStorage();
+
 	const { getLocalActions } = useOfflineActions();
 	const syncActions = useSyncActions();
 	const { mutate, isSuccess, isPending, error, data } = login();

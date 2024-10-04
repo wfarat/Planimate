@@ -3300,6 +3300,30 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@react-native-firebase/auth@npm:^21.0.0":
+  version: 21.0.0
+  resolution: "@react-native-firebase/auth@npm:21.0.0"
+  dependencies:
+    plist: ^3.1.0
+  peerDependencies:
+    "@react-native-firebase/app": 21.0.0
+    expo: ">=47.0.0"
+  peerDependenciesMeta:
+    expo:
+      optional: true
+  checksum: 0e44d3394f23e41e92180a972dd976606b7f0268a2bd92e264a93a4e080164578e7121927631e000fda97f67d919431042d7c7a0da88bbfd8c29d76082be6ef3
+  languageName: node
+  linkType: hard
+
+"@react-native-firebase/firestore@npm:^21.0.0":
+  version: 21.0.0
+  resolution: "@react-native-firebase/firestore@npm:21.0.0"
+  peerDependencies:
+    "@react-native-firebase/app": 21.0.0
+  checksum: 76710b26730a12b97aba9b0596489d0b01e0e13081e895c2b3bb89f53127d90d81050f17482edcb9db453cf338f7f33f966f0117fe6fc14773f37ec7923e1fd3
+  languageName: node
+  linkType: hard
+
 "@react-native-firebase/messaging@npm:^21.0.0":
   version: 21.0.0
   resolution: "@react-native-firebase/messaging@npm:21.0.0"
@@ -4273,6 +4297,13 @@ __metadata:
     "@typescript-eslint/types": 7.17.0
     eslint-visitor-keys: ^3.4.3
   checksum: fae45049d06c15473784fc442271a9ebab1d1139246d47f185645a64407669c85c7519ef083886d74c921e34fcc68889f35caa858b345469d8bb26eb9f26728e
+  languageName: node
+  linkType: hard
+
+"@xmldom/xmldom@npm:^0.8.8":
+  version: 0.8.10
+  resolution: "@xmldom/xmldom@npm:0.8.10"
+  checksum: 4c136aec31fb3b49aaa53b6fcbfe524d02a1dc0d8e17ee35bd3bf35e9ce1344560481cd1efd086ad1a4821541482528672306d5e37cdbd187f33d7fadd3e2cf0
   languageName: node
   linkType: hard
 
@@ -9836,6 +9867,8 @@ __metadata:
     "@react-native-community/datetimepicker": ^8.2.0
     "@react-native-community/netinfo": ^11.3.2
     "@react-native-firebase/app": ^21.0.0
+    "@react-native-firebase/auth": ^21.0.0
+    "@react-native-firebase/firestore": ^21.0.0
     "@react-native-firebase/messaging": ^21.0.0
     "@react-native-masked-view/masked-view": ^0.3.0
     "@react-native/babel-preset": ^0.74.85
@@ -9897,6 +9930,17 @@ __metadata:
     zod: ^3.23.0
   languageName: unknown
   linkType: soft
+
+"plist@npm:^3.1.0":
+  version: 3.1.0
+  resolution: "plist@npm:3.1.0"
+  dependencies:
+    "@xmldom/xmldom": ^0.8.8
+    base64-js: ^1.5.1
+    xmlbuilder: ^15.1.1
+  checksum: c8ea013da8646d4c50dff82f9be39488054621cc229957621bb00add42b5d4ce3657cf58d4b10c50f7dea1a81118f825838f838baeb4e6f17fab453ecf91d424
+  languageName: node
+  linkType: hard
 
 "possible-typed-array-names@npm:^1.0.0":
   version: 1.0.0
@@ -12223,6 +12267,13 @@ __metadata:
   version: 0.8.2
   resolution: "xdate@npm:0.8.2"
   checksum: 5aa8991be67422d23d29f4c8cd86dd76f9788e19ae53231a76e0fd31685cb4bc831fb92714a02d242df55f9bacf2d072cd2223dadcaea54c89aae87b54b48c3a
+  languageName: node
+  linkType: hard
+
+"xmlbuilder@npm:^15.1.1":
+  version: 15.1.1
+  resolution: "xmlbuilder@npm:15.1.1"
+  checksum: 14f7302402e28d1f32823583d121594a9dca36408d40320b33f598bd589ca5163a352d076489c9c64d2dc1da19a790926a07bf4191275330d4de2b0d85bb1843
   languageName: node
   linkType: hard
 

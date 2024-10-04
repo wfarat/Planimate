@@ -1,5 +1,5 @@
 import { Text, View } from 'react-native';
-import { GreenRoundedButton } from '@/components/atoms';
+import GreenRoundedButton from '@/components/atoms/GreenRoundedButton/GreenRoundedButton';
 import { useTheme } from '@/theme';
 
 type Props = {

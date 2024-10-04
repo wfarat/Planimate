@@ -2,12 +2,10 @@ import { ActionsPayload } from '@/types/offlineActions/actionPayload';
 import { GoalAction } from '@/types/offlineActions/goalAction';
 import { TaskAction } from '@/types/offlineActions/taskAction';
 import { AgendaAction } from '@/types/offlineActions/agendaAction';
-import { useStorage } from '@/storage/StorageContext';
+import { storage } from '@/storage/storage';
 import isEmpty from 'lodash/isEmpty';
 
 export const useOfflineActions = () => {
-	const storage = useStorage();
-
 	const getActions = (): ActionsPayload => {
 		const storedActions = storage.getString('actions');
 		if (storedActions) {

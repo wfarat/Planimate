@@ -2,6 +2,9 @@
 #
 .DS_Store
 
+# Ignore Google Services config
+google-services.json
+
 # Xcode
 #
 build/

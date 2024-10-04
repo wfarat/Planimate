@@ -1,9 +1,8 @@
 import { AgendaItemData } from '@/types/schemas/agendaItemType';
 import { Task } from '@/types/schemas';
-import { useStorage } from '@/storage/StorageContext';
+import { storage } from '@/storage/storage';
 
 export const useTaskFromAgenda = () => {
-	const storage = useStorage();
 	const getTaskStorageKey = (item: AgendaItemData): string =>
 		item.parentId
 			? `goals.${item.goalId}.${item.parentId}`

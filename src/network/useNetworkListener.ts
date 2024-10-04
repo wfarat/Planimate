@@ -3,14 +3,14 @@ import NetInfo from '@react-native-community/netinfo';
 import { useOfflineActions } from '@/hooks/useOfflineActions';
 import { debounce } from 'lodash';
 import isEmpty from 'lodash/isEmpty';
-import { useStorage } from '@/storage/StorageContext';
+import { storage } from '@/storage/storage';
 import { onlineManager } from '@tanstack/react-query';
 import useSyncActions from './useSyncActions';
 // Custom hook for network listener and debouncing sync
 function useNetworkListener() {
 	const { mutate } = useSyncActions();
 	const { getLocalActions } = useOfflineActions();
-	const storage = useStorage();
+
 	const token = storage.getString('token');
 	// Memoize the debounced function using useCallback to ensure it remains stable between renders
 	const debouncedSync = useCallback(

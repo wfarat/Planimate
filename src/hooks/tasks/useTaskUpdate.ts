@@ -2,14 +2,13 @@ import { Task } from '@/types/schemas';
 import { fetchTasks } from '@/api';
 
 import { useTaskActions } from '@/hooks/tasks/useTaskActions';
-import { useStorage } from '@/storage/StorageContext';
+import { storage } from '@/storage/storage';
 import { useGoalActions } from '@/hooks/goals/useGoalActions';
 
 export const useTaskUpdate = () => {
-	const storage = useStorage();
 	const token = storage.getString('token');
 	const { getGoals } = useGoalActions();
-	const { getTasks } = useTaskActions();
+	const { getTasks } = useTaskActions(0);
 
 	const findMostRecentUpdate = (): string => {
 		const goals = getGoals(); // Assuming this function retrieves all goals

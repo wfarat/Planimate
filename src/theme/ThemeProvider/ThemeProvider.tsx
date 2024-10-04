@@ -28,8 +28,7 @@ import type {
 	FulfilledThemeConfiguration,
 	Variant,
 } from '@/types/theme/config';
-import { useStorage } from '@/storage/StorageContext';
-
+import { storage } from '@/storage/storage';
 // Types
 
 type Context = Theme & {
@@ -40,7 +39,7 @@ export const ThemeContext = createContext<Context | undefined>(undefined);
 
 function ThemeProvider({ children = false }: PropsWithChildren) {
 	// Current theme variant
-	const storage = useStorage();
+
 	const [variant, setVariant] = useState(
 		(storage.getString('theme') as Variant) || 'default',
 	);

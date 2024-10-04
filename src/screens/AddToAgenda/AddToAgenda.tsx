@@ -8,13 +8,13 @@ import { useAgendaItems } from '@/hooks/agenda/useAgendaItems';
 import { InputDate, InputTime } from '@/components/molecules';
 import { GreenRoundedButton } from '@/components/atoms';
 import { saveAgendaItem } from '@/api';
-import { useStorage } from '@/storage/StorageContext';
+import { storage } from '@/storage/storage';
 import { AgendaItemType } from '@/types/schemas';
 
 function AddToAgenda({ route, navigation }: RootScreenProps<'AddToAgenda'>) {
 	const { task } = route.params;
 	const { components } = useTheme();
-	const storage = useStorage();
+
 	const { t } = useTranslation(['agenda']);
 	const [date, setDate] = useState(new Date());
 	const [time, setTime] = useState<Date>();

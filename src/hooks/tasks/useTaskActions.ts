@@ -1,14 +1,13 @@
 import { GeneratedTask, Task } from '@/types/schemas';
-import { useStorage } from '@/storage/StorageContext';
+import { storage } from '@/storage/storage';
 import { TaskAction } from '@/types/offlineActions/taskAction';
 import { useOfflineActions } from '@/hooks/useOfflineActions';
 
 export const useTaskActions = (
-	goalId?: number,
+	goalId: number,
 	parentId?: number,
 	taskId?: number,
 ) => {
-	const storage = useStorage();
 	const { addAction } = useOfflineActions();
 	const getStorageString = (target?: number) => {
 		return target ? `goals.${goalId}.${target}` : `goals.${goalId}`;

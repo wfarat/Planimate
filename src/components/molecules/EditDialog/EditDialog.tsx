@@ -2,7 +2,7 @@ import Dialog from 'react-native-dialog';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { editGoal, editTask } from '@/api';
-import { useStorage } from '@/storage/StorageContext';
+import { storage } from '@/storage/storage';
 import { Goal, Task } from '@/types/schemas';
 import { ActivityIndicator, View } from 'react-native';
 import { useOfflineActions } from '@/hooks/useOfflineActions';
@@ -25,7 +25,6 @@ function EditDialog({ onEdit, onCancel, visible, item }: EditDialogProps) {
 	const goalMutation = editGoal();
 	const { isConnected } = useNetInfo();
 	const { addAction } = useOfflineActions();
-	const storage = useStorage();
 	const token = storage.getString('token');
 	const { isSuccess, isPending } = isTask(item) ? taskMutation : goalMutation;
 	useEffect(() => {

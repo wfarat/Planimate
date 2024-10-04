@@ -12,7 +12,7 @@ import { AgendaItemType, Goal } from '@/types/schemas';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useAgendaItems } from '@/hooks/agenda/useAgendaItems';
 import { RootScreenProps } from '@/types/navigation';
-import { useStorage } from '@/storage/StorageContext';
+import { storage } from '@/storage/storage';
 import { useNetInfo } from '@react-native-community/netinfo';
 import { saveAgendaItems } from '@/api';
 
@@ -44,7 +44,7 @@ function FillAgendaWeek({ navigation }: RootScreenProps<'FillAgendaWeek'>) {
 	const { components, fonts, layout, gutters, backgrounds, borders } =
 		useTheme();
 	const { t } = useTranslation(['agenda']);
-	const storage = useStorage();
+
 	const [dailyFreeTime, setDailyFreeTime] = useState([0, 0, 0, 0, 0, 0, 0]);
 	const [selectedGoalId, setSelectedGoalId] = useState(0);
 	const { findImportantTasks } = useTaskActions(selectedGoalId);

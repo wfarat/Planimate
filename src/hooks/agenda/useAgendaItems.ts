@@ -1,4 +1,4 @@
-import { useStorage } from '@/storage/StorageContext';
+import { storage } from '@/storage/storage';
 import { AgendaItemType, Task } from '@/types/schemas';
 import { MarkedDates } from 'react-native-calendars/src/types';
 import isEmpty from 'lodash/isEmpty';
@@ -10,7 +10,6 @@ import { AgendaAction } from '@/types/offlineActions/agendaAction';
 import { useOfflineActions } from '@/hooks/useOfflineActions';
 
 export const useAgendaItems = () => {
-	const storage = useStorage();
 	const { addAction } = useOfflineActions();
 	const { updateStoredTaskDuration, getTaskStorageKey } = useTaskFromAgenda();
 	const loadStoredItems = () => {

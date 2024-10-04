@@ -8,7 +8,7 @@ import { RootScreenProps } from '@/types/navigation';
 import { useTaskActions } from '@/hooks/tasks/useTaskActions';
 import { GreenRoundedButton, TextInputRounded } from '@/components/atoms';
 import { useTranslation } from 'react-i18next';
-import { useStorage } from '@/storage/StorageContext';
+import { storage } from '@/storage/storage';
 import { saveTask } from '@/api';
 import { Task } from '@/types/schemas';
 import { useNetInfo } from '@react-native-community/netinfo';
@@ -17,7 +17,7 @@ function AddTask({ navigation, route }: RootScreenProps<'AddTask'>) {
 	const { task, goal, tasks } = route.params;
 	const { components } = useTheme();
 	const { t } = useTranslation(['goals']);
-	const storage = useStorage();
+
 	const { isConnected } = useNetInfo();
 	const [name, setName] = useState<string>('');
 	const [description, setDescription] = useState<string>('');
@@ -44,6 +44,7 @@ function AddTask({ navigation, route }: RootScreenProps<'AddTask'>) {
 			tasks.length,
 			name,
 			description,
+			false,
 			duration,
 			dueDate,
 		);

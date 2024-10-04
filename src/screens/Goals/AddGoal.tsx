@@ -8,12 +8,11 @@ import { useGoalActions } from '@/hooks/goals/useGoalActions';
 import { GreenRoundedButton, TextInputRounded } from '@/components/atoms';
 import { saveGoal } from '@/api';
 import { Goal } from '@/types/schemas';
-import { useStorage } from '@/storage/StorageContext';
+import { storage } from '@/storage/storage';
 import { useNetInfo } from '@react-native-community/netinfo';
 
 function AddGoal({ navigation }: RootScreenProps<'AddGoal'>) {
 	const { components } = useTheme();
-	const storage = useStorage();
 	const [name, setName] = useState<string>('');
 	const [description, setDescription] = useState<string>('');
 	const { createGoal, updateGoals, getGoals, addOfflineAction } =

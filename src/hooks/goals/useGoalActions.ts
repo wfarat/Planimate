@@ -1,5 +1,5 @@
 import { Goal } from '@/types/schemas';
-import { useStorage } from '@/storage/StorageContext';
+import { storage } from '@/storage/storage';
 import { useTaskActions } from '@/hooks/tasks/useTaskActions';
 import { fetchGoals } from '@/api';
 import { getLastUpdate } from '@/utils/getLastUpdate';
@@ -7,7 +7,6 @@ import { GoalAction } from '@/types/offlineActions/goalAction';
 import { useOfflineActions } from '@/hooks/useOfflineActions';
 
 export const useGoalActions = (id?: string, goalId?: number) => {
-	const storage = useStorage();
 	const { addAction } = useOfflineActions();
 	const { cleanupTasks } = useTaskActions(goalId || 0);
 	const updateGoals = (updatedGoals: Goal[]) => {

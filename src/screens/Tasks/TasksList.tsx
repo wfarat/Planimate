@@ -4,7 +4,7 @@ import { TaskListProps } from '@/types/navigation';
 import { ItemCard } from '@/components/molecules';
 import DragList, { DragListRenderItemInfo } from 'react-native-draglist';
 import { updateTaskOrder } from '@/api';
-import { useStorage } from '@/storage/StorageContext';
+import { storage } from '@/storage/storage';
 import { useEffect } from 'react';
 import { useNetInfo } from '@react-native-community/netinfo';
 import { useTheme } from '@/theme';
@@ -20,7 +20,7 @@ function TasksList({
 }: TaskListProps<'Tasks'>) {
 	const { goal } = route.params;
 	const { components, layout } = useTheme();
-	const storage = useStorage();
+
 	const { isSuccess, mutate, data } = updateTaskOrder();
 	const { isConnected } = useNetInfo();
 	const token = storage.getString('token');

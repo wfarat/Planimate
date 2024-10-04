@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import InputTime from '@/components/molecules/InputTime/InputTime';
 import { getMinutesAfterMidnight } from '@/utils/formatTime';
 import { editAgendaItem } from '@/api';
-import { useStorage } from '@/storage/StorageContext';
+import { storage } from '@/storage/storage';
 import agendaItemType, { AgendaItemData } from '@/types/schemas/agendaItemType';
 import { useAgendaItems } from '@/hooks/agenda/useAgendaItems';
 import { ActivityIndicator, View } from 'react-native';
@@ -22,8 +22,10 @@ function SetTimeDialog({
 	agendaItem,
 }: EditDialogProps) {
 	const { t } = useTranslation(['common']);
-	const storage = useStorage();
-	const [time, setTime] = useState(agendaItem.time);
+
+	const [time, setTime] = useState(
+		agendaItem.time ? new Date(agendaItem.time) : new Date(),
+	);
 	const [duration, setDuration] = useState(agendaItem.duration);
 	const { updateAgendaItem, replaceAgendaItem, updateItems, getItems } =
 		useAgendaItems();
@@ -37,12 +39,20 @@ function SetTimeDialog({
 	};
 	useEffect(() => {
 		if (isSuccess) {
-			const newItem = updateAgendaItem({ ...agendaItem, time, duration });
+			const newItem = updateAgendaItem({
+				...agendaItem,
+				time: time.toISOString(),
+				duration,
+			});
 			saveEditedItems(newItem);
 		}
 	}, [isSuccess]);
 	const handleEdit = () => {
-		const newItem = updateAgendaItem({ ...agendaItem, time, duration });
+		const newItem = updateAgendaItem({
+			...agendaItem,
+			time: time.toISOString(),
+			duration,
+		});
 		if (token) {
 			mutate({ agendaItem: newItem, token });
 		} else {

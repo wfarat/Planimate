@@ -1,4 +1,4 @@
-import { useStorage } from '@/storage/StorageContext';
+import { storage } from '@/storage/storage';
 import { useEffect, useState } from 'react';
 import { GeneratedTask, Task } from '@/types/schemas';
 import { SafeScreen } from '@/components/template';
@@ -23,7 +23,7 @@ function GenerateTasks({
 	route,
 }: RootScreenProps<'GenerateTasks'>) {
 	const { goal, task, tasks } = route.params;
-	const storage = useStorage();
+
 	const { components } = useTheme();
 	const { isConnected } = useNetInfo();
 	const [generatedTasks, setGeneratedTasks] = useState<GeneratedTask[]>([]);
