@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import { GeneratedTaskCard } from '@/components/molecules';
 import { GreenRoundedButton } from '@/components/atoms';
-import { generateTasks } from '@/api';
+import { generateTasks } from '@/api/generate';
 import { RootScreenProps } from '@/types/navigation';
 import { useTaskActions } from '@/hooks/tasks/useTaskActions';
 import i18next from 'i18next';
