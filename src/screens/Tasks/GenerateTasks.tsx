@@ -1,4 +1,3 @@
-import { storage } from '@/storage/storage';
 import { useEffect, useState } from 'react';
 import { GeneratedTask, Task } from '@/types/schemas';
 import { SafeScreen } from '@/components/template';
@@ -91,7 +90,9 @@ function GenerateTasks({
 		if (hasGeneratedTasks) {
 			return <GreenRoundedButton handlePress={handleSave} text="saveTasks" />;
 		}
-		return (
+		return isPending ? (
+			<ActivityIndicator size="large" />
+		) : (
 			<GreenRoundedButton handlePress={handleGenerate} text="generateTasks" />
 		);
 	};
