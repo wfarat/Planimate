@@ -1,6 +1,4 @@
-import { Updatable } from '@/types/schemas/updatable';
-
-type Task = Updatable & {
+type Task = {
 	taskId: number;
 	goalId: number;
 	parentId?: number;

@@ -1,6 +1,4 @@
-import { Updatable } from '@/types/schemas/updatable';
-
-type Goal = Updatable & {
+type Goal = {
 	goalId: number;
 	name: string;
 	description: string;

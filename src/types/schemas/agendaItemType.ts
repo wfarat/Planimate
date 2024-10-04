@@ -1,6 +1,4 @@
-import { Updatable } from '@/types/schemas/updatable';
-
-type AgendaItemType = Updatable & {
+type AgendaItemType = {
 	title: string;
 	data: AgendaItemData[];
 };

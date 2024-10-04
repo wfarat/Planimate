@@ -44,8 +44,7 @@ function AgendaItem(props: ItemProps) {
 	const [date, setDate] = useState<Date | undefined>(
 		item.time ? new Date(item.time) : undefined,
 	);
-	const { findAgendaItemIdAndTitle } = useAgendaItems();
-	const agendaItemIdAndTitle = findAgendaItemIdAndTitle(item);
+
 	const [showDialog, setShowDialog] = useState(false);
 	const itemPressed = useCallback(() => {
 		setShowDialog(true);

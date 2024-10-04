@@ -69,7 +69,6 @@ export const useAgendaItems = () => {
 		const id = storedId || 0;
 		const newItem: AgendaItemType = {
 			title,
-			updatedAt: new Date().toISOString(),
 			data: [
 				{
 					time: time?.toISOString(),
@@ -157,17 +156,6 @@ export const useAgendaItems = () => {
 		updateItems(updatedItems);
 		return updatedItems;
 	};
-	const findAgendaItemIdAndTitle = (
-		itemData: AgendaItemData,
-	): { id?: string; title: string } => {
-		const agendaItems = loadStoredItems();
-		const agendaItem = agendaItems.find(item =>
-			item.data.some(d => d.id === itemData.id),
-		);
-		return agendaItem
-			? { id: agendaItem.id, title: agendaItem.title }
-			: { id: '', title: '' };
-	};
 
 	return {
 		getItems,
@@ -179,7 +167,6 @@ export const useAgendaItems = () => {
 		updateAgendaItem,
 		updateItems,
 		replaceAgendaItem,
-		findAgendaItemIdAndTitle,
 		addMultipleAgendaItems,
 	};
 };
