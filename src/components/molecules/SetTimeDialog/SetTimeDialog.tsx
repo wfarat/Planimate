@@ -1,10 +1,8 @@
 import Dialog from 'react-native-dialog';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import InputTime from '@/components/molecules/InputTime/InputTime';
 import { getMinutesAfterMidnight } from '@/utils/formatTime';
-import { editAgendaItem } from '@/api';
-import { storage } from '@/storage/storage';
 import agendaItemType, { AgendaItemData } from '@/types/schemas/agendaItemType';
 import { useAgendaItems } from '@/hooks/agenda/useAgendaItems';
 import { ActivityIndicator, View } from 'react-native';
@@ -29,35 +27,20 @@ function SetTimeDialog({
 	const [duration, setDuration] = useState(agendaItem.duration);
 	const { updateAgendaItem, replaceAgendaItem, updateItems, getItems } =
 		useAgendaItems();
-	const { isSuccess, isPending, mutate } = editAgendaItem();
-	const token = storage.getString('token');
 	const saveEditedItems = (newItem: agendaItemType) => {
 		const agendaItems = getItems();
 		const editedItems = replaceAgendaItem(agendaItems, newItem);
 		updateItems(editedItems);
 		updateState(duration, time);
 	};
-	useEffect(() => {
-		if (isSuccess) {
-			const newItem = updateAgendaItem({
-				...agendaItem,
-				time: time.toISOString(),
-				duration,
-			});
-			saveEditedItems(newItem);
-		}
-	}, [isSuccess]);
+
 	const handleEdit = () => {
 		const newItem = updateAgendaItem({
 			...agendaItem,
 			time: time.toISOString(),
 			duration,
 		});
-		if (token) {
-			mutate({ agendaItem: newItem, token });
-		} else {
-			saveEditedItems(newItem);
-		}
+		saveEditedItems(newItem);
 	};
 
 	return (
@@ -73,14 +56,11 @@ function SetTimeDialog({
 				time={getMinutesAfterMidnight(duration)}
 				message="duration"
 			/>
-			{isPending ? (
-				<ActivityIndicator />
-			) : (
-				<View>
-					<Dialog.Button label="Cancel" onPress={onCancel} />
-					<Dialog.Button label="Edit" onPress={handleEdit} />
-				</View>
-			)}
+			<ActivityIndicator />
+			<View>
+				<Dialog.Button label="Cancel" onPress={onCancel} />
+				<Dialog.Button label="Edit" onPress={handleEdit} />
+			</View>
 		</Dialog.Container>
 	);
 }

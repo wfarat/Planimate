@@ -1,7 +1,9 @@
-import { instance } from '@/services/instance';
-import { LoginResponse } from '@/types/schemas/user';
+import auth from '@react-native-firebase/auth';
 
-export default async (formData: FormData) => {
-	const response = await instance.post('auth/token', { body: formData }).json();
-	return response as LoginResponse;
+export default async (email: string, password: string): Promise<string> => {
+	const userCredential = await auth().signInWithEmailAndPassword(
+		email,
+		password,
+	);
+	return userCredential.user.uid;
 };

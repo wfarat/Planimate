@@ -1,3 +1,5 @@
 {
-  "passwordMismatch": "Passwords not matching"
+  "passwordMismatch": "Passwords not matching",
+  "success": "User {{username}} account was created",
+  "error": "Error registering user {{username}}"
 }

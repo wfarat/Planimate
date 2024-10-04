@@ -5,7 +5,6 @@ import { FetchedGeneratedTask } from '@/types/schemas/generatedTask';
 
 export const generateTasks = async (
 	goal: Goal,
-	token: string,
 	language: string,
 	task?: Task,
 ) => {
@@ -14,10 +13,6 @@ export const generateTasks = async (
 			goal: objectToSnake(goal),
 			language,
 			task: task ? objectToSnake(task) : undefined,
-		},
-		headers: {
-			Authorization: `Bearer ${token}`,
-			'Content-Type': 'application/json',
 		},
 	});
 	const responseData = await response.json();

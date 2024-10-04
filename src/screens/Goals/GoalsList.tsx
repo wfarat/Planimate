@@ -10,15 +10,15 @@ import { useGoalActions } from '@/hooks/goals/useGoalActions';
 function GoalsList({ navigation }: RootScreenProps<'Goals'>) {
 	const [goals, setGoals] = useState<Goal[]>([]);
 	const isFocused = useIsFocused();
-	const { getGoals, data } = useGoalActions();
+	const { getGoals } = useGoalActions();
 	useEffect(() => {
 		setGoals(getGoals());
-	}, [isFocused, data]);
+	}, [isFocused]);
 
 	const renderItem: ListRenderItem<Goal> = ({ item }: { item: Goal }) => (
 		<TouchableOpacity
 			key={item.id}
-			onPress={() => navigation.navigate('GoalDetails', { goal: item })}
+			onPress={() => navigation.navigate('Tasks', { goal: item })}
 		>
 			<ItemCard
 				name={item.name}

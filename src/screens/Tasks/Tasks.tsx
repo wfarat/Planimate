@@ -9,7 +9,6 @@ import type { Task } from '@/types/schemas';
 import { useIsFocused } from '@react-navigation/native';
 import { GreenRoundedButton, TasksHeader } from '@/components/atoms';
 import { useTaskHandlers } from '@/hooks/tasks/useTaskHandlers';
-import { deleteTask, finishTask } from '@/api';
 
 function Tasks({ route, navigation }: RootScreenProps<'Tasks'>) {
 	const { goal, task } = route.params;
@@ -22,9 +21,6 @@ function Tasks({ route, navigation }: RootScreenProps<'Tasks'>) {
 		handleEditTask,
 		handleReorder,
 		handleGetTasks,
-		handleOfflineFinishTask,
-		handleOfflineDeleteTask,
-		handleOfflineReorder,
 	} = useTaskHandlers(goal, setTasks, task);
 	const isFocused = useIsFocused();
 	useEffect(() => {
@@ -60,20 +56,16 @@ function Tasks({ route, navigation }: RootScreenProps<'Tasks'>) {
 			props: {
 				visible: visible[1],
 				onCancel: () => handleCancel(1),
-				mutation: finishTask,
 				actionName: 'complete',
 				action: handleFinishTask,
-				offlineAction: handleOfflineFinishTask,
 			},
 		},
 		{
 			props: {
 				visible: visible[2],
 				onCancel: () => handleCancel(2),
-				mutation: deleteTask,
 				actionName: 'delete',
 				action: handleDeleteTask,
-				offlineAction: handleOfflineDeleteTask,
 			},
 		},
 	];
@@ -102,7 +94,6 @@ function Tasks({ route, navigation }: RootScreenProps<'Tasks'>) {
 						<ActionDialog
 							key={`action-${index}`}
 							name={task.name}
-							id={task.id}
 							{...config.props}
 						/>
 					))}
@@ -113,7 +104,6 @@ function Tasks({ route, navigation }: RootScreenProps<'Tasks'>) {
 				navigation={navigation}
 				route={route}
 				handleReorder={handleReorder}
-				handleOfflineReorder={handleOfflineReorder}
 				ListHeaderComponent={
 					<TasksHeader
 						goalName={goal.name}

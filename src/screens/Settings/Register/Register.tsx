@@ -15,7 +15,7 @@ function Register() {
 	const [password, setPassword] = useState<string>('');
 	const [repeat, setRepeat] = useState<string>('');
 	const [mismatch, setMismatch] = useState<boolean>(false);
-	const { mutate, isPending, isSuccess, error, data } = register();
+	const { mutate, isPending, isSuccess, error } = register();
 	const addUser = () => {
 		if (password !== repeat) {
 			setMismatch(true);
@@ -71,12 +71,12 @@ function Register() {
 				)}
 				{isSuccess && (
 					<View>
-						<Text>{data?.message}!</Text>
+						<Text>{t('register:success', { username })}</Text>
 					</View>
 				)}
 				{error && (
 					<View>
-						<Text>Error: {error.message}</Text>
+						<Text>{t('register:error', { username })}</Text>
 					</View>
 				)}
 			</View>

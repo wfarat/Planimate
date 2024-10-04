@@ -8,7 +8,6 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import { useTheme } from '@/theme';
 import { SetTimeDialog, ActionDialog } from '@/components/molecules';
 import { useTranslation } from 'react-i18next';
-import { finishAgendaItem, deleteAgendaItem } from '@/api';
 import { useAgendaItems } from '@/hooks/agenda/useAgendaItems';
 import { useAgendaHandlers } from '@/hooks/agenda/useAgendaHandlers';
 
@@ -41,7 +40,6 @@ function AgendaItem(props: ItemProps) {
 	const { backgrounds, fonts, layout, gutters, borders } = useTheme();
 	const { t } = useTranslation(['common']);
 	const [duration, setDuration] = useState(item.duration);
-	const { handleOfflineComplete, handleOfflineDelete } = useAgendaHandlers();
 	const [visible, setVisible] = useState([false, false]);
 	const [date, setDate] = useState<Date | undefined>(
 		item.time ? new Date(item.time) : undefined,
@@ -79,20 +77,16 @@ function AgendaItem(props: ItemProps) {
 			props: {
 				visible: visible[0],
 				onCancel: () => handleCancel(0),
-				mutation: finishAgendaItem,
 				actionName: 'complete',
 				action: handleComplete,
-				offlineAction: handleOfflineComplete,
 			},
 		},
 		{
 			props: {
 				visible: visible[1],
 				onCancel: () => handleCancel(1),
-				mutation: deleteAgendaItem,
 				actionName: 'delete',
 				action: handleDelete,
-				offlineAction: handleOfflineDelete,
 			},
 		},
 	];
@@ -135,9 +129,6 @@ function AgendaItem(props: ItemProps) {
 				<ActionDialog
 					key={`item-${item.id}-action-${index}`}
 					name={item.title}
-					id={agendaItemIdAndTitle?.id}
-					agendaDataId={item.id}
-					agendaItemTitle={agendaItemIdAndTitle.title}
 					{...config.props}
 				/>
 			))}

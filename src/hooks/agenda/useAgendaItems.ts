@@ -4,8 +4,6 @@ import { MarkedDates } from 'react-native-calendars/src/types';
 import isEmpty from 'lodash/isEmpty';
 import agendaItemType, { AgendaItemData } from '@/types/schemas/agendaItemType';
 import { useTaskFromAgenda } from '@/hooks/tasks/useTaskFromAgenda';
-import { fetchAgendaItems } from '@/api';
-import { getLastUpdate } from '@/utils/getLastUpdate';
 import { AgendaAction } from '@/types/offlineActions/agendaAction';
 import { useOfflineActions } from '@/hooks/useOfflineActions';
 
@@ -19,9 +17,6 @@ export const useAgendaItems = () => {
 		}
 		return [];
 	};
-	const lastUpdate = getLastUpdate(loadStoredItems());
-	const token = storage.getString('token');
-	const { data, dataUpdatedAt } = fetchAgendaItems(token, lastUpdate);
 	const updateItems = (updatedItems: AgendaItemType[]) => {
 		storage.set('agenda', JSON.stringify(updatedItems));
 	};
@@ -63,11 +58,6 @@ export const useAgendaItems = () => {
 		updateItems(agendaItems); // Persist changes once after all operations
 	};
 	const getItems = () => {
-		const storageUpdatedAt = storage.getNumber('agenda.updatedAt');
-		if (data && dataUpdatedAt !== storageUpdatedAt) {
-			addMultipleAgendaItems(data);
-			storage.set('agenda.updatedAt', dataUpdatedAt);
-		}
 		return loadStoredItems();
 	};
 	const createAgendaItem = (
@@ -194,7 +184,6 @@ export const useAgendaItems = () => {
 		updateItems,
 		replaceAgendaItem,
 		findAgendaItemIdAndTitle,
-		data,
 		addOfflineAction,
 		addMultipleAgendaItems,
 	};

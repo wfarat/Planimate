@@ -12,9 +12,6 @@ import { AgendaItemType, Goal } from '@/types/schemas';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useAgendaItems } from '@/hooks/agenda/useAgendaItems';
 import { RootScreenProps } from '@/types/navigation';
-import { storage } from '@/storage/storage';
-import { useNetInfo } from '@react-native-community/netinfo';
-import { saveAgendaItems } from '@/api';
 
 type DayOfWeek =
 	| 'Monday'
@@ -49,20 +46,12 @@ function FillAgendaWeek({ navigation }: RootScreenProps<'FillAgendaWeek'>) {
 	const [selectedGoalId, setSelectedGoalId] = useState(0);
 	const { findImportantTasks } = useTaskActions(selectedGoalId);
 	const { getGoals } = useGoalActions();
-	const { createAgendaItem, addMultipleAgendaItems, addOfflineAction } =
-		useAgendaItems();
-	const token = storage.getString('token');
-	const { isConnected } = useNetInfo();
-	const { mutate, isSuccess, isPending, data } = saveAgendaItems();
+	const { createAgendaItem, addMultipleAgendaItems } = useAgendaItems();
 
 	const addAgendaItems = (agendaItems: AgendaItemType[]) => {
 		addMultipleAgendaItems(agendaItems);
 		navigation.goBack();
 	};
-
-	useEffect(() => {
-		if (data) addAgendaItems(data);
-	}, [isSuccess]);
 
 	const updateDailyFreeTime = (index: number, duration: number) => {
 		const updatedDailyFreeTime = [...dailyFreeTime];
@@ -111,14 +100,7 @@ function FillAgendaWeek({ navigation }: RootScreenProps<'FillAgendaWeek'>) {
 			Alert.alert('No goal selected');
 		} else {
 			const agendaItems = generateAgendaItems();
-			if (token && isConnected) {
-				mutate({ agendaItems, token });
-			} else {
-				addAgendaItems(agendaItems);
-				agendaItems.forEach(agendaItem =>
-					addOfflineAction({ type: 'create', agendaItem }),
-				);
-			}
+			addAgendaItems(agendaItems);
 		}
 	};
 
@@ -164,14 +146,11 @@ function FillAgendaWeek({ navigation }: RootScreenProps<'FillAgendaWeek'>) {
 						</View>
 					)}
 				/>
-				{isPending ? (
-					<ActivityIndicator size="large" />
-				) : (
-					<GreenRoundedButton
-						handlePress={handleAddAgendaItems}
-						text="fillWeek"
-					/>
-				)}
+				<ActivityIndicator size="large" />
+				<GreenRoundedButton
+					handlePress={handleAddAgendaItems}
+					text="fillWeek"
+				/>
 			</View>
 		</SafeScreen>
 	);

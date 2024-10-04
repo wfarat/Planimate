@@ -4,7 +4,6 @@ import {
 	AddToAgenda,
 	Goals,
 	Tasks,
-	GoalDetails,
 	GenerateTasks,
 } from '@/screens';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -23,7 +22,6 @@ function GoalsStack() {
 			<Stack.Screen name="AddToAgenda" component={AddToAgenda} />
 			<Stack.Screen name="AddGoal" component={AddGoal} />
 			<Stack.Screen name="AddTask" component={AddTask} />
-			<Stack.Screen name="GoalDetails" component={GoalDetails} />
 			<Stack.Screen name="GenerateTasks" component={GenerateTasks} />
 		</Stack.Navigator>
 	);

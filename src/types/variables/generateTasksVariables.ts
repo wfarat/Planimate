@@ -4,7 +4,6 @@ type GenerateTasksVariables = {
 	goal: Goal;
 	language: string;
 	task?: Task;
-	token: string;
 };
 
 export default GenerateTasksVariables;

@@ -3,7 +3,6 @@ import type { Task } from '@/types/schemas';
 import { TaskListProps } from '@/types/navigation';
 import { ItemCard } from '@/components/molecules';
 import DragList, { DragListRenderItemInfo } from 'react-native-draglist';
-import { updateTaskOrder } from '@/api';
 import { storage } from '@/storage/storage';
 import { useEffect } from 'react';
 import { useNetInfo } from '@react-native-community/netinfo';
@@ -14,14 +13,12 @@ function TasksList({
 	route,
 	tasks,
 	handleReorder,
-	handleOfflineReorder,
 	ListHeaderComponent,
 	ListFooterComponent,
 }: TaskListProps<'Tasks'>) {
 	const { goal } = route.params;
 	const { components, layout } = useTheme();
 
-	const { isSuccess, mutate, data } = updateTaskOrder();
 	const { isConnected } = useNetInfo();
 	const token = storage.getString('token');
 	const renderItem = (info: DragListRenderItemInfo<Task>) => {
@@ -42,9 +39,7 @@ function TasksList({
 			</TouchableOpacity>
 		);
 	};
-	useEffect(() => {
-		if (isSuccess && data) handleReorder(data);
-	}, [isSuccess]);
+
 	const reorder = (fromIndex: number, toIndex: number) => {
 		const result = [...tasks];
 		const removed = result.splice(fromIndex, 1);
@@ -57,12 +52,7 @@ function TasksList({
 	};
 	const onReordered = (fromIndex: number, toIndex: number) => {
 		const reorderedTasks = reorder(fromIndex, toIndex);
-		if (token && isConnected) {
-			mutate({ tasks: reorderedTasks, token });
-		} else {
-			handleReorder(reorderedTasks);
-			handleOfflineReorder(reorderedTasks);
-		}
+		handleReorder(reorderedTasks);
 	};
 	return (
 		<DragList

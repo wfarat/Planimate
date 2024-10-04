@@ -2,29 +2,24 @@ import { View, Text, ActivityIndicator } from 'react-native';
 
 import { SafeScreen } from '@/components/template';
 import { useTheme } from '@/theme';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { InputDate, InputTime } from '@/components/molecules';
 import { RootScreenProps } from '@/types/navigation';
 import { useTaskActions } from '@/hooks/tasks/useTaskActions';
 import { GreenRoundedButton, TextInputRounded } from '@/components/atoms';
 import { useTranslation } from 'react-i18next';
-import { storage } from '@/storage/storage';
-import { saveTask } from '@/api';
 import { Task } from '@/types/schemas';
-import { useNetInfo } from '@react-native-community/netinfo';
 
 function AddTask({ navigation, route }: RootScreenProps<'AddTask'>) {
 	const { task, goal, tasks } = route.params;
 	const { components } = useTheme();
 	const { t } = useTranslation(['goals']);
 
-	const { isConnected } = useNetInfo();
 	const [name, setName] = useState<string>('');
 	const [description, setDescription] = useState<string>('');
 	const [dueDate, setDueDate] = useState<Date>();
 	const [duration, setDuration] = useState<number>();
-	const { mutate, data, isSuccess, isPending, isError, error } = saveTask();
-	const { createTask, updateTasks, addOfflineAction } = useTaskActions(
+	const { createTask, updateTasks } = useTaskActions(
 		goal.goalId,
 		task?.taskId,
 		task?.taskId,
@@ -34,11 +29,7 @@ function AddTask({ navigation, route }: RootScreenProps<'AddTask'>) {
 		updateTasks(updatedTasks, task?.taskId);
 		navigation.goBack();
 	};
-	useEffect(() => {
-		if (isSuccess) {
-			addTask(data);
-		}
-	}, [isSuccess]);
+
 	const handleAddTask = () => {
 		const newTask = createTask(
 			tasks.length,
@@ -48,13 +39,7 @@ function AddTask({ navigation, route }: RootScreenProps<'AddTask'>) {
 			duration,
 			dueDate,
 		);
-		const token = storage.getString('token');
-		if (token && isConnected) {
-			mutate({ task: newTask, token });
-		} else {
-			addOfflineAction({ type: 'create', task: newTask });
-			addTask(newTask);
-		}
+		addTask(newTask);
 	};
 	return (
 		<SafeScreen>
@@ -72,12 +57,8 @@ function AddTask({ navigation, route }: RootScreenProps<'AddTask'>) {
 				/>
 				<InputDate date={dueDate} setDate={setDueDate} message="endDate" />
 				<InputTime setDuration={setDuration} message="duration" />
-				{isPending ? (
-					<ActivityIndicator />
-				) : (
-					<GreenRoundedButton handlePress={handleAddTask} text="addTask" />
-				)}
-				{isError && <Text style={components.errorText}>{error?.message}</Text>}
+				<ActivityIndicator />
+				<GreenRoundedButton handlePress={handleAddTask} text="addTask" />
 			</View>
 		</SafeScreen>
 	);

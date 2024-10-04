@@ -1,14 +1,11 @@
 import { GeneratedTask, Task } from '@/types/schemas';
 import { storage } from '@/storage/storage';
-import { TaskAction } from '@/types/offlineActions/taskAction';
-import { useOfflineActions } from '@/hooks/useOfflineActions';
 
 export const useTaskActions = (
 	goalId: number,
 	parentId?: number,
 	taskId?: number,
 ) => {
-	const { addAction } = useOfflineActions();
 	const getStorageString = (target?: number) => {
 		return target ? `goals.${goalId}.${target}` : `goals.${goalId}`;
 	};
@@ -90,29 +87,6 @@ export const useTaskActions = (
 		storage.set(`goals.${goalId}.lastId`, lastId + 1);
 		return newTask;
 	};
-	const findMostImportantTask = (): Task | null => {
-		const tasks = getTasks(getStorageString());
-		const traverseTasks = (list: Task[]): Task | null => {
-			return list.reduce<Task | null>((result, task) => {
-				if (result) {
-					return result;
-				}
-				if (!task.completed) {
-					const tasksData = storage.getString(`goals.${goalId}.${task.taskId}`);
-					if (tasksData) {
-						const subTasks = JSON.parse(tasksData) as Task[];
-						if (subTasks.length === 0) {
-							return task;
-						}
-						return traverseTasks(subTasks) || task;
-					}
-					return task;
-				}
-				return null;
-			}, null);
-		};
-		return traverseTasks(tasks);
-	};
 	const findImportantTasks = (freeMinutes: number): Task[] => {
 		const tasks = getTasks(getStorageString());
 		const allocatedTaskIds = new Set<number>();
@@ -152,32 +126,6 @@ export const useTaskActions = (
 
 		return importantTasks;
 	};
-	interface TaskCount {
-		completed: number;
-		total: number;
-	}
-	const countTasks = (taskArray: Task[]) => {
-		const counts: TaskCount = { completed: 0, total: 0 };
-
-		taskArray.forEach(task => {
-			counts.total += 1;
-			if (task.completed) {
-				counts.completed += 1;
-			}
-			const tasksData = storage.getString(`goals.${goalId}.${task.taskId}`);
-			if (tasksData) {
-				const subTasks = JSON.parse(tasksData) as Task[];
-				const subtaskCounts = countTasks(subTasks);
-				counts.completed += subtaskCounts.completed;
-				counts.total += subtaskCounts.total;
-			}
-		});
-
-		return counts;
-	};
-	const addOfflineAction = (action: TaskAction) => {
-		addAction('task', action);
-	};
 	const saveGeneratedTasks = (generatedTasks: GeneratedTask[]) => {
 		storage.set(
 			`${getStorageString(taskId)}.generated`,
@@ -198,12 +146,9 @@ export const useTaskActions = (
 		finishTask,
 		editTask,
 		createTask,
-		countTasks,
 		cleanupTasks,
 		updateTasks,
-		findMostImportantTask,
 		findImportantTasks,
-		addOfflineAction,
 		saveGeneratedTasks,
 		getGeneratedTasks,
 	};

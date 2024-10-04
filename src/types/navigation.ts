@@ -41,7 +41,6 @@ export type TaskListProps<
 > = RootScreenProps<S> & {
 	tasks: Task[];
 	handleReorder: (tasks: Task[]) => void;
-	handleOfflineReorder: (tasks: Task[]) => void;
 	ListHeaderComponent: ReactElement;
 	ListFooterComponent: ReactElement;
 };

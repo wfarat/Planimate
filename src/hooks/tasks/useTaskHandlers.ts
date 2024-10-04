@@ -18,7 +18,6 @@ export const useTaskHandlers = (
 		updateTasks,
 		getTasks,
 		getStorageString,
-		addOfflineAction,
 	} = useTaskActions(goal.goalId, task?.parentId, task?.taskId);
 
 	const storageString = getStorageString(task?.taskId);
@@ -46,33 +45,11 @@ export const useTaskHandlers = (
 		updateTasks(reorderedTasks);
 	};
 
-	const handleOfflineDeleteTask = () => {
-		addOfflineAction({
-			type: 'delete',
-			id: task?.id,
-			taskId: task?.taskId,
-			goalId: goal.goalId,
-		});
-	};
-	const handleOfflineFinishTask = () => {
-		addOfflineAction({
-			type: 'complete',
-			id: task?.id,
-			taskId: task?.taskId,
-			goalId: goal.goalId,
-		});
-	};
-	const handleOfflineReorder = (tasks: Task[]) => {
-		addOfflineAction({ type: 'reorder', tasks });
-	};
 	return {
 		handleDeleteTask,
 		handleFinishTask,
 		handleEditTask,
 		handleReorder,
 		handleGetTasks,
-		handleOfflineDeleteTask,
-		handleOfflineFinishTask,
-		handleOfflineReorder,
 	};
 };

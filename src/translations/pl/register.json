@@ -1,3 +1,5 @@
 {
-  "passwordMismatch": "Hasła się nie zgadzają"
+  "passwordMismatch": "Hasła się nie zgadzają",
+  "success": "Konto użytkownika {{username}} zostało utworzone",
+  "error": "Błąd przy rejestracji użytkownika {{username}}"
 }
