@@ -9,6 +9,7 @@ export type QuoteKeys =
 	| 'quotes:MarcusAurelius.quotes.8'
 	| 'quotes:MarcusAurelius.quotes.9'
 	| 'quotes:MarcusAurelius.quotes.10'
+	| 'quotes:MarcusAurelius.quotes.11'
 	| 'quotes:WaltDisney.quotes.1'
 	| 'quotes:WaltDisney.quotes.2'
 	| 'quotes:WaltDisney.quotes.3'

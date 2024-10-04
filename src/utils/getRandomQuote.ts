@@ -46,6 +46,7 @@ export default function getRandomQuote() {
 		['quotes:MarcusAurelius.quotes.8', Aurelius],
 		['quotes:MarcusAurelius.quotes.9', Aurelius],
 		['quotes:MarcusAurelius.quotes.10', Aurelius],
+		['quotes:MarcusAurelius.quotes.11', Aurelius],
 		['quotes:WaltDisney.quotes.1', Disney],
 		['quotes:WaltDisney.quotes.2', Disney],
 		['quotes:WaltDisney.quotes.3', Disney],

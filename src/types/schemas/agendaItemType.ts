@@ -5,7 +5,7 @@ type AgendaItemType = Updatable & {
 	data: AgendaItemData[];
 };
 export type AgendaItemData = {
-	time?: Date;
+	time?: string;
 	duration: number;
 	title: string;
 	id: number;

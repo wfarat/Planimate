@@ -85,7 +85,7 @@ export const useAgendaItems = () => {
 			updatedAt: new Date().toISOString(),
 			data: [
 				{
-					time,
+					time: time?.toISOString(),
 					duration,
 					title: task.name,
 					id: id + 1,

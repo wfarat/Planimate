@@ -1,7 +1,7 @@
 import { Text, View, TouchableOpacity } from 'react-native';
 import { SafeScreen } from '@/components/template';
 import { useTheme } from '@/theme';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { RootScreenProps } from '@/types/navigation';
 import {
 	ActionDialog,
@@ -9,20 +9,16 @@ import {
 	ItemCard,
 	TaskTopBar,
 } from '@/components/molecules';
-import type { Task } from '@/types/schemas';
 import { useGoalActions } from '@/hooks/goals/useGoalActions';
-import { useIsFocused } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import { useTaskActions } from '@/hooks/tasks/useTaskActions';
 import { GreenRoundedButton } from '@/components/atoms';
 import { deleteGoalMutation } from '@/api';
-import { useTaskHandlers } from '@/hooks/tasks/useTaskHandlers';
 
 function GoalDetails({ route, navigation }: RootScreenProps<'GoalDetails'>) {
 	const { goal } = route.params;
 	const { t } = useTranslation(['goals']);
 	const { layout, fonts, gutters, components } = useTheme();
-	const [tasks, setTasks] = useState<Task[]>([]);
 	const [visible, setVisible] = useState([false, false]);
 	const [goalName, setGoalName] = useState(goal.name);
 	const [goalDescription, setGoalDescription] = useState(goal.description);
@@ -30,14 +26,10 @@ function GoalDetails({ route, navigation }: RootScreenProps<'GoalDetails'>) {
 		goal.id,
 		goal.goalId,
 	);
-	const { findMostImportantTask, countTasks } = useTaskActions(goal.goalId);
-	const { handleGetTasks, data } = useTaskHandlers(goal);
-	const isFocused = useIsFocused();
+	const { findMostImportantTask, countTasks, getTasks, getStorageString } =
+		useTaskActions(goal.goalId);
 	const mostImportantTask = findMostImportantTask();
-	const taskCount = countTasks(tasks);
-	useEffect(() => {
-		setTasks(handleGetTasks());
-	}, [isFocused, data]);
+	const taskCount = countTasks(getTasks(getStorageString()));
 
 	const handleDelete = () => {
 		deleteGoal();

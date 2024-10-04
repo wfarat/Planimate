@@ -25,11 +25,13 @@ function SetTimeDialog({
 	const storage = useStorage();
 	const [time, setTime] = useState(agendaItem.time);
 	const [duration, setDuration] = useState(agendaItem.duration);
-	const { updateAgendaItem, replaceAgendaItem, updateItems } = useAgendaItems();
+	const { updateAgendaItem, replaceAgendaItem, updateItems, getItems } =
+		useAgendaItems();
 	const { isSuccess, isPending, mutate } = editAgendaItem();
 	const token = storage.getString('token');
 	const saveEditedItems = (newItem: agendaItemType) => {
-		const editedItems = replaceAgendaItem(newItem);
+		const agendaItems = getItems();
+		const editedItems = replaceAgendaItem(agendaItems, newItem);
 		updateItems(editedItems);
 		updateState(duration, time);
 	};
