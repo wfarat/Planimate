@@ -5,10 +5,8 @@ import isEmpty from 'lodash/isEmpty';
 import agendaItemType, { AgendaItemData } from '@/types/schemas/agendaItemType';
 import { useTaskFromAgenda } from '@/hooks/tasks/useTaskFromAgenda';
 import { AgendaAction } from '@/types/offlineActions/agendaAction';
-import { useOfflineActions } from '@/hooks/useOfflineActions';
 
 export const useAgendaItems = () => {
-	const { addAction } = useOfflineActions();
 	const { updateStoredTaskDuration, getTaskStorageKey } = useTaskFromAgenda();
 	const loadStoredItems = () => {
 		const storedItems = storage.getString('agenda');
@@ -170,9 +168,7 @@ export const useAgendaItems = () => {
 			? { id: agendaItem.id, title: agendaItem.title }
 			: { id: '', title: '' };
 	};
-	const addOfflineAction = (action: AgendaAction) => {
-		addAction('agenda', action);
-	};
+
 	return {
 		getItems,
 		getMarkedDates,
@@ -184,7 +180,6 @@ export const useAgendaItems = () => {
 		updateItems,
 		replaceAgendaItem,
 		findAgendaItemIdAndTitle,
-		addOfflineAction,
 		addMultipleAgendaItems,
 	};
 };

@@ -7,12 +7,8 @@ export const useAgendaHandlers = (
 	setAgendaItems?: (newItems: AgendaItemType[]) => void,
 	setMarkedDates?: (markedDates: MarkedDates) => void,
 ) => {
-	const {
-		deleteAgendaItem,
-		completeAgendaItem,
-		getMarkedDates,
-		addOfflineAction,
-	} = useAgendaItems();
+	const { deleteAgendaItem, completeAgendaItem, getMarkedDates } =
+		useAgendaItems();
 	const handleDelete = (item: AgendaItemData) => {
 		const newItems = deleteAgendaItem(item);
 		if (setAgendaItems && setMarkedDates) {
@@ -24,36 +20,8 @@ export const useAgendaHandlers = (
 		const newItems = completeAgendaItem(item);
 		if (setAgendaItems) setAgendaItems(newItems);
 	};
-	const handleOfflineDelete = (data?: {
-		id?: string;
-		agendaDataId?: number;
-		agendaItemTitle?: string;
-	}) => {
-		if (data)
-			addOfflineAction({
-				type: 'delete',
-				id: data.id,
-				agendaDataId: data.agendaDataId,
-				agendaItemTitle: data.agendaItemTitle,
-			});
-	};
-	const handleOfflineComplete = (data?: {
-		id?: string;
-		agendaDataId?: number;
-		agendaItemTitle?: string;
-	}) => {
-		if (data)
-			addOfflineAction({
-				type: 'complete',
-				id: data.id,
-				agendaDataId: data.agendaDataId,
-				agendaItemTitle: data.agendaItemTitle,
-			});
-	};
 	return {
 		handleComplete,
 		handleDelete,
-		handleOfflineComplete,
-		handleOfflineDelete,
 	};
 };

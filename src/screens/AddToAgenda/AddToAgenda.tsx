@@ -1,6 +1,6 @@
 import { RootScreenProps } from '@/types/navigation';
 import { SafeScreen } from '@/components/template';
-import { ActivityIndicator, Text, View } from 'react-native';
+import { Text, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@/theme';
 import { useState } from 'react';
@@ -17,8 +17,7 @@ function AddToAgenda({ route, navigation }: RootScreenProps<'AddToAgenda'>) {
 	const [date, setDate] = useState(new Date());
 	const [time, setTime] = useState<Date>();
 	const [duration, setDuration] = useState(0);
-	const { createAgendaItem, addSingleAgendaItem, addOfflineAction } =
-		useAgendaItems();
+	const { createAgendaItem, addSingleAgendaItem } = useAgendaItems();
 	const addToAgenda = (agendaItem: AgendaItemType) => {
 		addSingleAgendaItem(agendaItem);
 		navigation.goBack();

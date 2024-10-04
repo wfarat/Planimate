@@ -2,10 +2,8 @@ import { Goal } from '@/types/schemas';
 import { storage } from '@/storage/storage';
 import { useTaskActions } from '@/hooks/tasks/useTaskActions';
 import { GoalAction } from '@/types/offlineActions/goalAction';
-import { useOfflineActions } from '@/hooks/useOfflineActions';
 
 export const useGoalActions = (id?: string, goalId?: number) => {
-	const { addAction } = useOfflineActions();
 	const { cleanupTasks } = useTaskActions(goalId || 0);
 	const updateGoals = (updatedGoals: Goal[]) => {
 		storage.set('goals', JSON.stringify(updatedGoals));
@@ -54,19 +52,12 @@ export const useGoalActions = (id?: string, goalId?: number) => {
 		storage.set('goals.lastId', lastId + 1);
 		return goal;
 	};
-	const addOfflineAction = (action: GoalAction) => {
-		addAction('goal', action);
-	};
-	const handleOfflineDeleteGoal = () => {
-		addOfflineAction({ type: 'delete', id, goalId });
-	};
+
 	return {
 		editGoal,
 		getGoals,
 		createGoal,
 		deleteGoal,
 		updateGoals,
-		addOfflineAction,
-		handleOfflineDeleteGoal,
 	};
 };
