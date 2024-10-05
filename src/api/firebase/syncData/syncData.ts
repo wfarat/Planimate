@@ -1,16 +1,10 @@
 import { storage } from '@/storage/storage';
 import { syncTasks, syncGoals, syncAgenda } from '@/services/firebase';
 import { AgendaItemType, Goal } from '@/types/schemas';
-import firestore, { Timestamp } from '@react-native-firebase/firestore';
+import firestore from '@react-native-firebase/firestore';
 import { updateSyncDoc } from '@/api/firebase/syncData/updateSyncDoc';
+import { FireBaseSyncDoc } from '@/types/schemas/FireBaseSyncDoc';
 
-export type FireBaseSyncDoc = {
-	goalsUpdated: boolean;
-	tasksUpdated: boolean;
-	agendaUpdated: boolean;
-	lastSyncTime: Timestamp;
-	tasksKeys: string[];
-};
 export const syncData = async () => {
 	const userId = storage.getString('userId');
 

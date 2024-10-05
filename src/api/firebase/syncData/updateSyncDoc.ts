@@ -1,8 +1,8 @@
 import firestore from '@react-native-firebase/firestore';
-import { FireBaseSyncDoc } from '@/api/firebase/syncData/syncData';
 import isEmpty from 'lodash/isEmpty';
+import { FireBaseSyncDoc } from '@/types/schemas/FireBaseSyncDoc';
 
-type userData = {
+type UserData = {
 	syncDoc: FireBaseSyncDoc;
 };
 export const updateSyncDoc = async (
@@ -14,7 +14,7 @@ export const updateSyncDoc = async (
 		const userDoc = await userDocRef.get();
 
 		if (userDoc.exists) {
-			const { syncDoc } = userDoc.data() as userData;
+			const { syncDoc } = userDoc.data() as UserData;
 
 			if (!isEmpty(syncDoc)) {
 				// If syncDoc exists, update the existing one
