@@ -4,16 +4,16 @@ import { useTheme } from '@/theme';
 import { GreenRoundedButton, TextInputRounded } from '@/components/atoms';
 import { useEffect, useState } from 'react';
 import { storage } from '@/storage/storage';
-import { login } from '../../../api/users';
+import { login } from '../../../api/firebase/users';
 
 function Login() {
 	const { components, layout, gutters } = useTheme();
-	const [username, setUsername] = useState<string>('');
+	const [email, setEmail] = useState<string>('');
 	const [password, setPassword] = useState<string>('');
 	const { mutate, isSuccess, isPending, error, data } = login();
 	const loginUser = () => {
-		if (username.trim()) {
-			mutate({ username, password });
+		if (email.trim()) {
+			mutate({ email, password });
 		}
 	};
 	useEffect(() => {
@@ -28,9 +28,9 @@ function Login() {
 				{!isSuccess && (
 					<View style={[layout.fullWidth, gutters.marginTop_120]}>
 						<TextInputRounded
-							onChangeText={setUsername}
-							value={username}
-							text="username"
+							onChangeText={setEmail}
+							value={email}
+							text="email"
 						/>
 						<TextInputRounded
 							onChangeText={setPassword}

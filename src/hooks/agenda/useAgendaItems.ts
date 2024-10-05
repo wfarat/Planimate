@@ -4,7 +4,6 @@ import { MarkedDates } from 'react-native-calendars/src/types';
 import isEmpty from 'lodash/isEmpty';
 import agendaItemType, { AgendaItemData } from '@/types/schemas/agendaItemType';
 import { useTaskFromAgenda } from '@/hooks/tasks/useTaskFromAgenda';
-import { AgendaAction } from '@/types/offlineActions/agendaAction';
 
 export const useAgendaItems = () => {
 	const { updateStoredTaskDuration, getTaskStorageKey } = useTaskFromAgenda();
@@ -17,6 +16,7 @@ export const useAgendaItems = () => {
 	};
 	const updateItems = (updatedItems: AgendaItemType[]) => {
 		storage.set('agenda', JSON.stringify(updatedItems));
+		storage.set('agendaUpdated', true);
 	};
 	const replaceAgendaItem = (
 		oldItems: AgendaItemType[],
@@ -65,7 +65,7 @@ export const useAgendaItems = () => {
 		time?: Date,
 	) => {
 		const title = date.toISOString().split('T')[0];
-		const storedId = storage.getNumber('agenda.id');
+		const storedId = storage.getNumber('agenda_id');
 		const id = storedId || 0;
 		const newItem: AgendaItemType = {
 			title,
@@ -83,7 +83,7 @@ export const useAgendaItems = () => {
 				},
 			],
 		};
-		storage.set('agenda.id', id + 1);
+		storage.set('agenda_id', id + 1);
 		const oldItems = loadStoredItems();
 		const oldItem = oldItems.find(item => item.title === newItem.title);
 		if (!oldItem) return newItem;

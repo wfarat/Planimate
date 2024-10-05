@@ -1,10 +1,4 @@
-import { ActivityIndicator } from 'react-native';
-import { UseMutationResult } from '@tanstack/react-query';
-import { MutationVariables } from '@/types/variables';
-import { storage } from '@/storage/storage';
-import { useEffect } from 'react';
 import Dialog from 'react-native-dialog';
-import { useNetInfo } from '@react-native-community/netinfo';
 
 export type ActionDialogProps = {
 	actionName: string;

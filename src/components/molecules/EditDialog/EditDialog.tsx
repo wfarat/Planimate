@@ -8,10 +8,10 @@ type EditDialogProps = {
 	onEdit: (name: string, description: string) => void;
 	onCancel: () => void;
 	visible: boolean;
-	item: Task | Goal;
+	itemName: string;
 };
 
-function EditDialog({ onEdit, onCancel, visible, item }: EditDialogProps) {
+function EditDialog({ onEdit, onCancel, visible, itemName }: EditDialogProps) {
 	const [name, setName] = useState<string>('');
 	const [description, setDescription] = useState<string>('');
 	const { t } = useTranslation(['common']);
@@ -23,9 +23,8 @@ function EditDialog({ onEdit, onCancel, visible, item }: EditDialogProps) {
 	return (
 		<Dialog.Container visible={visible}>
 			<Dialog.Title>
-				{t('common:edit.edit')} {item.name}
+				{t('common:edit.edit')} {itemName}
 			</Dialog.Title>
-			<ActivityIndicator size="large" />
 			<View>
 				<Dialog.Input
 					placeholder={t('common:edit.name')}

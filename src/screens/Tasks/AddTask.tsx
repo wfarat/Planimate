@@ -57,7 +57,6 @@ function AddTask({ navigation, route }: RootScreenProps<'AddTask'>) {
 				/>
 				<InputDate date={dueDate} setDate={setDueDate} message="endDate" />
 				<InputTime setDuration={setDuration} message="duration" />
-				<ActivityIndicator />
 				<GreenRoundedButton handlePress={handleAddTask} text="addTask" />
 			</View>
 		</SafeScreen>

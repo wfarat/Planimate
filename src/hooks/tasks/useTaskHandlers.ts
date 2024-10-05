@@ -34,7 +34,7 @@ export const useTaskHandlers = (
 		finishTask();
 		navigation.goBack();
 	};
-	const handleEditTask = (newName: string, newDescription: string) => {
+	const handleEdit = (newName: string, newDescription: string) => {
 		if (task) {
 			editTask(newName, newDescription);
 		}
@@ -48,7 +48,7 @@ export const useTaskHandlers = (
 	return {
 		handleDeleteTask,
 		handleFinishTask,
-		handleEditTask,
+		handleEdit,
 		handleReorder,
 		handleGetTasks,
 	};

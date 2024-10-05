@@ -39,7 +39,7 @@ function Calendar({ navigation }: RootScreenProps<'Calendar'>) {
 		setAgendaItems,
 		setMarkedDates,
 	);
-	const { components, layout, gutters } = useTheme();
+	const { components, layout, gutters, backgrounds } = useTheme();
 	const isFocused = useIsFocused();
 	useEffect(() => {
 		const newItems = getItems();
@@ -114,8 +114,11 @@ function Calendar({ navigation }: RootScreenProps<'Calendar'>) {
 				style={[
 					layout.absolute,
 					layout.bottom0,
-					gutters.marginLeft_32,
-					gutters.marginRight_32,
+					layout.itemsCenter,
+					layout.fullWidth,
+					gutters.paddingRight_32,
+					gutters.paddingLeft_32,
+					backgrounds.purple100,
 				]}
 			>
 				<GreenRoundedButton handlePress={handlePress} text="fillWeek" />

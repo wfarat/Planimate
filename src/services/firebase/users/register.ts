@@ -12,7 +12,7 @@ const register = async (
 	);
 	const userId = userCredential.user.uid; // This is the unique user ID
 
-	await firestore().collection('users').doc(userId).set({ email, displayName }); // Store additional user info here
+	await firestore().collection('users').doc(userId).set({ email, displayName });
 };
 
 export default register;

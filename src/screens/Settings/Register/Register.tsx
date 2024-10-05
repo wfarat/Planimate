@@ -5,7 +5,7 @@ import { useTheme } from '@/theme';
 import { useEffect, useState } from 'react';
 import { resetStates } from '@/utils/resetStates';
 import { GreenRoundedButton, TextInputRounded } from '@/components/atoms';
-import { register } from '../../../api/users';
+import { register } from '../../../api/firebase/users';
 
 function Register() {
 	const { t } = useTranslation(['register']);

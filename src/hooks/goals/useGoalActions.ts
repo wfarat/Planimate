@@ -1,12 +1,12 @@
 import { Goal } from '@/types/schemas';
 import { storage } from '@/storage/storage';
 import { useTaskActions } from '@/hooks/tasks/useTaskActions';
-import { GoalAction } from '@/types/offlineActions/goalAction';
 
-export const useGoalActions = (id?: string, goalId?: number) => {
+export const useGoalActions = (goalId?: number) => {
 	const { cleanupTasks } = useTaskActions(goalId || 0);
 	const updateGoals = (updatedGoals: Goal[]) => {
 		storage.set('goals', JSON.stringify(updatedGoals));
+		storage.set('goalsUpdated', true);
 	};
 	const getGoalsFromStorage = () => {
 		const storedGoals = storage.getString('goals');
@@ -38,10 +38,10 @@ export const useGoalActions = (id?: string, goalId?: number) => {
 		const updatedGoals = goals.filter(g => g.goalId !== goalId);
 		updateGoals(updatedGoals);
 		cleanupTasks();
-		storage.delete(`goals.${goalId}.lastId`);
+		storage.delete(`tasks_${goalId}_lastId`);
 	};
 	const createGoal = (name: string, description: string, dueDate?: Date) => {
-		const lastId = storage.getNumber('goals.lastId') || 0;
+		const lastId = storage.getNumber('goals_lastId') || 0;
 		const goal = {
 			name,
 			description,
@@ -49,7 +49,7 @@ export const useGoalActions = (id?: string, goalId?: number) => {
 			goalId: lastId + 1,
 			updatedAt: new Date().toISOString(),
 		};
-		storage.set('goals.lastId', lastId + 1);
+		storage.set('goals_lastId', lastId + 1);
 		return goal;
 	};
 

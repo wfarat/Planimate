@@ -1,6 +1,6 @@
 import { useMutation, UseMutationResult } from '@tanstack/react-query';
-import { register } from '@/services/users';
 import { RegisterVariables } from '@/types/schemas/user';
+import { register } from '../../../services/firebase/users';
 
 export default (): UseMutationResult<void, Error, RegisterVariables> => {
 	return useMutation({

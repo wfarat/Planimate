@@ -7,7 +7,7 @@ export const useTaskActions = (
 	taskId?: number,
 ) => {
 	const getStorageString = (target?: number) => {
-		return target ? `goals.${goalId}.${target}` : `goals.${goalId}`;
+		return target ? `tasks_${goalId}_${target}` : `tasks_${goalId}`;
 	};
 	const getTasks = (storageString: string) => {
 		const storedTasks = storage.getString(storageString);
@@ -18,6 +18,10 @@ export const useTaskActions = (
 	};
 	const updateTasks = (updatedTasks: Task[], target?: number) => {
 		storage.set(getStorageString(target), JSON.stringify(updatedTasks));
+		storage.set('tasksUpdated', true);
+		const keys = JSON.parse(storage.getString('tasksKeys') || '[]') as string[];
+		keys.push(getStorageString(target));
+		storage.set('tasksKeys', JSON.stringify(keys));
 	};
 	const cleanupTasks = (id?: number) => {
 		const subtasks = getTasks(getStorageString(id));
@@ -69,7 +73,7 @@ export const useTaskActions = (
 		const duration = durationTime
 			? { base: durationTime, elapsed: 0 }
 			: undefined;
-		const storedId = storage.getNumber(`goals.${goalId}.lastId`);
+		const storedId = storage.getNumber(`tasks_${goalId}_lastId`);
 		const lastId = storedId || 0;
 		const newTask = {
 			name,
@@ -84,7 +88,7 @@ export const useTaskActions = (
 			completed: false,
 			order,
 		};
-		storage.set(`goals.${goalId}.lastId`, lastId + 1);
+		storage.set(`tasks_${goalId}_lastId`, lastId + 1);
 		return newTask;
 	};
 	const findImportantTasks = (freeMinutes: number): Task[] => {
@@ -96,7 +100,7 @@ export const useTaskActions = (
 
 				if (!task.completed && !allocatedTaskIds.has(task.taskId)) {
 					const tasksData = storage.getString(
-						`goals.${task.goalId}.${task.taskId}`,
+						`tasks_${task.goalId}_${task.taskId}`,
 					);
 					if (tasksData) {
 						const subTasks = JSON.parse(tasksData) as Task[];
@@ -128,13 +132,13 @@ export const useTaskActions = (
 	};
 	const saveGeneratedTasks = (generatedTasks: GeneratedTask[]) => {
 		storage.set(
-			`${getStorageString(taskId)}.generated`,
+			`${getStorageString(taskId)}_generated`,
 			JSON.stringify(generatedTasks),
 		);
 	};
 	const getGeneratedTasks = () => {
 		const storedTasks = storage.getString(
-			`${getStorageString(taskId)}.generated`,
+			`${getStorageString(taskId)}_generated`,
 		);
 		if (storedTasks) return JSON.parse(storedTasks) as GeneratedTask[];
 		return [];

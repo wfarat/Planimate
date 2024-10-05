@@ -5,8 +5,8 @@ import { storage } from '@/storage/storage';
 export const useTaskFromAgenda = () => {
 	const getTaskStorageKey = (item: AgendaItemData): string =>
 		item.parentId
-			? `goals.${item.goalId}.${item.parentId}`
-			: `goals.${item.goalId}`;
+			? `tasks_${item.goalId}_${item.parentId}`
+			: `tasks_${item.goalId}`;
 
 	function updateTaskDuration(
 		tasks: Task[],

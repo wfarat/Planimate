@@ -8,8 +8,6 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import { useTheme } from '@/theme';
 import { SetTimeDialog, ActionDialog } from '@/components/molecules';
 import { useTranslation } from 'react-i18next';
-import { useAgendaItems } from '@/hooks/agenda/useAgendaItems';
-import { useAgendaHandlers } from '@/hooks/agenda/useAgendaHandlers';
 
 const styles = StyleSheet.create({
 	itemButtonContainer: {

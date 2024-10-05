@@ -1,5 +1,3 @@
-import { View } from 'react-native';
-
 import { SafeScreen } from '@/components/template';
 import { useEffect, useState } from 'react';
 import TasksList from '@/screens/Tasks/TasksList';
@@ -9,19 +7,22 @@ import type { Task } from '@/types/schemas';
 import { useIsFocused } from '@react-navigation/native';
 import { GreenRoundedButton, TasksHeader } from '@/components/atoms';
 import { useTaskHandlers } from '@/hooks/tasks/useTaskHandlers';
+import { useGoalActions } from '@/hooks/goals/useGoalActions';
 
 function Tasks({ route, navigation }: RootScreenProps<'Tasks'>) {
 	const { goal, task } = route.params;
 	const [tasks, setTasks] = useState<Task[]>([]);
 	const [visible, setVisible] = useState([false, false, false]);
+	const [goalName, setGoalName] = useState(goal.name);
 	const [taskName, setTaskName] = useState(task?.name || '');
 	const {
 		handleDeleteTask,
 		handleFinishTask,
-		handleEditTask,
+		handleEdit,
 		handleReorder,
 		handleGetTasks,
 	} = useTaskHandlers(goal, setTasks, task);
+	const { editGoal, deleteGoal } = useGoalActions(goal.goalId);
 	const isFocused = useIsFocused();
 	useEffect(() => {
 		setTasks(handleGetTasks().sort((a, b) => a.order - b.order));
@@ -41,8 +42,8 @@ function Tasks({ route, navigation }: RootScreenProps<'Tasks'>) {
 	const handleCancel = (index: number) => {
 		handleSetVisible(index);
 	};
-	const handleEdit = (newName: string, newDescription: string) => {
-		handleEditTask(newName, newDescription);
+	const handleEditTask = (newName: string, newDescription: string) => {
+		handleEdit(newName, newDescription);
 		setTaskName(newName);
 		if (task) {
 			navigation.setParams({
@@ -51,53 +52,59 @@ function Tasks({ route, navigation }: RootScreenProps<'Tasks'>) {
 		}
 		handleSetVisible(0);
 	};
-	const actionDialogConfig = [
-		{
-			props: {
-				visible: visible[1],
-				onCancel: () => handleCancel(1),
-				actionName: 'complete',
-				action: handleFinishTask,
-			},
-		},
-		{
-			props: {
-				visible: visible[2],
-				onCancel: () => handleCancel(2),
-				actionName: 'delete',
-				action: handleDeleteTask,
-			},
-		},
-	];
+	const handleDeleteGoal = () => {
+		deleteGoal();
+		navigation.goBack();
+	};
+	const handleEditGoal = (newName: string, newDescription: string) => {
+		editGoal(newName, newDescription);
+		setGoalName(newName);
+		navigation.setParams({
+			goal: { ...goal, name: newName, description: newDescription },
+		});
+		handleSetVisible(0);
+	};
 	const handleGenerate = () => {
 		navigation.push('GenerateTasks', { goal, task, tasks });
 	};
 
 	return (
 		<SafeScreen>
+			{task ? (
+				<TaskTopBar
+					isCompletionPossible={tasks.every(item => item.completed)}
+					onDelete={() => handleSetVisible(2)}
+					onFinish={() => handleSetVisible(1)}
+					onEdit={() => handleSetVisible(0)}
+					addToAgenda={handleAddToAgenda}
+				/>
+			) : (
+				<TaskTopBar
+					onDelete={() => handleSetVisible(2)}
+					onEdit={() => handleSetVisible(0)}
+				/>
+			)}
+			<ActionDialog
+				actionName="delete"
+				action={task ? handleDeleteTask : handleDeleteGoal}
+				name={task ? taskName : goalName}
+				visible={visible[2]}
+				onCancel={() => handleCancel(2)}
+			/>
+			<EditDialog
+				onEdit={task ? handleEditTask : handleEditGoal}
+				onCancel={() => handleCancel(0)}
+				visible={visible[0]}
+				itemName={task ? task.name : goal.name}
+			/>
 			{task && (
-				<View>
-					<TaskTopBar
-						isCompletionPossible={tasks.every(item => item.completed)}
-						onDelete={() => handleSetVisible(2)}
-						onFinish={() => handleSetVisible(1)}
-						onEdit={() => handleSetVisible(0)}
-						addToAgenda={handleAddToAgenda}
-					/>
-					<EditDialog
-						onEdit={handleEdit}
-						onCancel={() => handleCancel(0)}
-						visible={visible[0]}
-						item={task}
-					/>
-					{actionDialogConfig.map((config, index) => (
-						<ActionDialog
-							key={`action-${index}`}
-							name={task.name}
-							{...config.props}
-						/>
-					))}
-				</View>
+				<ActionDialog
+					name={task.name}
+					visible={visible[1]}
+					onCancel={() => handleCancel(1)}
+					actionName="complete"
+					action={handleFinishTask}
+				/>
 			)}
 			<TasksList
 				tasks={tasks}
@@ -106,7 +113,7 @@ function Tasks({ route, navigation }: RootScreenProps<'Tasks'>) {
 				handleReorder={handleReorder}
 				ListHeaderComponent={
 					<TasksHeader
-						goalName={goal.name}
+						goalName={goalName}
 						taskName={taskName}
 						handlePress={handlePress}
 					/>
