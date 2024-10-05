@@ -16,7 +16,6 @@ function App() {
 		const appStateListener = AppState.addEventListener(
 			'change',
 			nextAppState => {
-				console.log('AppState changed to: ', nextAppState);
 				if (nextAppState === 'background' || nextAppState === 'inactive') {
 					syncData().catch(error => console.error(error));
 				}
