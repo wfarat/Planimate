@@ -12,15 +12,6 @@ export default ({
 	gutters,
 }: ComponentTheme) => {
 	return {
-		buttonCircle: {
-			...layout.justifyCenter,
-			...layout.itemsCenter,
-			...backgrounds.purple100,
-			...fonts.gray400,
-			height: 70,
-			width: 70,
-			borderRadius: 35,
-		},
 		circle250: {
 			borderRadius: 140,
 			height: 250,
@@ -28,7 +19,7 @@ export default ({
 		},
 		textInputRounded: {
 			...fonts.size_16,
-			...fonts.gray200,
+			...fonts.gray100,
 			...fonts.bold,
 			...borders.gray400,
 			...borders.w_1,
@@ -40,9 +31,9 @@ export default ({
 		buttonRoundedGreen: {
 			...backgrounds.green500,
 			...layout.row,
-			...layout.fullWidth,
 			...layout.itemsCenter,
 			...layout.justifyCenter,
+			...layout.fullWidth,
 			...borders.w_1,
 			...borders.rounded_8,
 			...gutters.padding_12,
@@ -62,12 +53,21 @@ export default ({
 		},
 		header: {
 			...fonts.size_24,
-			...fonts.gray200,
+			...fonts.gray100,
 			...gutters.marginBottom_12,
 		},
 		section: {
 			...fonts.size_16,
-			...fonts.gray200,
+			...fonts.gray100,
+			...backgrounds.purple100,
+		},
+		bottomButtonContainer: {
+			...layout.absolute,
+			...layout.bottom0,
+			...layout.itemsCenter,
+			...layout.fullWidth,
+			...gutters.paddingRight_32,
+			...gutters.paddingLeft_32,
 			...backgrounds.purple100,
 		},
 	} as const satisfies AllStyle;

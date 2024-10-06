@@ -42,5 +42,4 @@ export type TaskListProps<
 	tasks: Task[];
 	handleReorder: (tasks: Task[]) => void;
 	ListHeaderComponent: ReactElement;
-	ListFooterComponent: ReactElement;
 };

@@ -32,32 +32,32 @@ function TaskTopBar({
 				<TouchableOpacity onPress={onDelete}>
 					<MaterialCommunityIcons
 						name="delete"
-						size={20}
-						color={colors.gray400}
+						size={28}
+						color={colors.red500}
 					/>
 				</TouchableOpacity>
 				<TouchableOpacity onPress={onEdit}>
 					<MaterialCommunityIcons
 						name="pencil-box"
-						size={20}
-						color={colors.gray400}
+						size={28}
+						color={colors.purple500}
 					/>
 				</TouchableOpacity>
 				{addToAgenda && (
 					<TouchableOpacity onPress={addToAgenda}>
 						<MaterialCommunityIcons
-							name="calendar-check"
-							size={20}
-							color={colors.gray400}
+							name="calendar-plus"
+							size={28}
+							color={colors.blue100}
 						/>
 					</TouchableOpacity>
 				)}
 				{onFinish && (
 					<TouchableOpacity onPress={onFinish} disabled={!isCompletionPossible}>
 						<MaterialCommunityIcons
-							name="check"
-							size={20}
-							color={isCompletionPossible ? 'green' : 'red'}
+							name="checkbox-marked"
+							size={28}
+							color={isCompletionPossible ? colors.green500 : colors.red500}
 						/>
 					</TouchableOpacity>
 				)}

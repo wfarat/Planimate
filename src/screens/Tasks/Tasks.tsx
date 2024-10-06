@@ -1,5 +1,6 @@
-import { SafeScreen } from '@/components/template';
 import { useState } from 'react';
+import { View } from 'react-native';
+import { SafeScreen } from '@/components/template';
 import TasksList from '@/screens/Tasks/TasksList';
 import { RootScreenProps } from '@/types/navigation';
 import { EditDialog, TaskTopBar, ActionDialog } from '@/components/molecules';
@@ -9,12 +10,14 @@ import { useTaskHandlers } from '@/hooks/tasks/useTaskHandlers';
 import { useGoalActions } from '@/hooks/goals/useGoalActions';
 import { useMMKVString } from 'react-native-mmkv';
 import { storage } from '@/storage/storage';
+import { useTheme } from '@/theme';
 
 function Tasks({ route, navigation }: RootScreenProps<'Tasks'>) {
 	const { goal, task } = route.params;
 	const [visible, setVisible] = useState([false, false, false]);
 	const [goalName, setGoalName] = useState(goal.name);
 	const [taskName, setTaskName] = useState(task?.name || '');
+	const { components } = useTheme();
 	const {
 		handleDeleteTask,
 		handleFinishTask,
@@ -118,13 +121,10 @@ function Tasks({ route, navigation }: RootScreenProps<'Tasks'>) {
 						handlePress={handlePress}
 					/>
 				}
-				ListFooterComponent={
-					<GreenRoundedButton
-						handlePress={handleGenerate}
-						text="generateTasks"
-					/>
-				}
 			/>
+			<View style={components.bottomButtonContainer}>
+				<GreenRoundedButton handlePress={handleGenerate} text="generateTasks" />
+			</View>
 		</SafeScreen>
 	);
 }

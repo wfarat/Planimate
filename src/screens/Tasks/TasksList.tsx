@@ -3,9 +3,6 @@ import type { Task } from '@/types/schemas';
 import { TaskListProps } from '@/types/navigation';
 import { ItemCard } from '@/components/molecules';
 import DragList, { DragListRenderItemInfo } from 'react-native-draglist';
-import { storage } from '@/storage/storage';
-import { useEffect } from 'react';
-import { useNetInfo } from '@react-native-community/netinfo';
 import { useTheme } from '@/theme';
 
 function TasksList({
@@ -14,13 +11,9 @@ function TasksList({
 	tasks,
 	handleReorder,
 	ListHeaderComponent,
-	ListFooterComponent,
 }: TaskListProps<'Tasks'>) {
 	const { goal } = route.params;
 	const { components, layout } = useTheme();
-
-	const { isConnected } = useNetInfo();
-	const token = storage.getString('token');
 	const renderItem = (info: DragListRenderItemInfo<Task>) => {
 		const { item, onDragStart, onDragEnd } = info;
 		return (
@@ -60,10 +53,9 @@ function TasksList({
 			keyExtractor={item => `${item.goalId}.${item.taskId}`}
 			renderItem={renderItem}
 			onReordered={onReordered}
+			style={layout.fullWidth}
 			containerStyle={components.mainContainer}
 			ListHeaderComponent={ListHeaderComponent}
-			ListFooterComponent={ListFooterComponent}
-			ListFooterComponentStyle={[layout.justifyCenter, layout.itemsCenter]}
 		/>
 	);
 }

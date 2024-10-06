@@ -22,6 +22,7 @@ import { View } from 'react-native';
 import { RootScreenProps } from '@/types/navigation';
 import { useMMKVString } from 'react-native-mmkv';
 import { storage } from '@/storage/storage';
+import { AgendaItemType } from '@/types/schemas';
 import testIDs from './testIDs';
 
 LocaleConfig.locales.pl = PL;
@@ -33,8 +34,10 @@ function Calendar({ navigation }: RootScreenProps<'Calendar'>) {
 		useAgendaItems();
 	const theme = useRef(getTheme());
 	const [agendaItemsString] = useMMKVString('agenda', storage);
-	const { components, layout, gutters, backgrounds } = useTheme();
-	const agendaItems = agendaItemsString ? JSON.parse(agendaItemsString) : [];
+	const { components } = useTheme();
+	const agendaItems = agendaItemsString
+		? (JSON.parse(agendaItemsString) as AgendaItemType[])
+		: [];
 	const markedDates = getMarkedDates(agendaItems);
 	const [languageKey, setLanguageKey] = useState(i18next.language);
 	const handleLanguageChange = (lng: string) => {
@@ -98,17 +101,7 @@ function Calendar({ navigation }: RootScreenProps<'Calendar'>) {
 				sectionStyle={components.section}
 				// dayFormat={'yyyy-MM-d'}
 			/>
-			<View
-				style={[
-					layout.absolute,
-					layout.bottom0,
-					layout.itemsCenter,
-					layout.fullWidth,
-					gutters.paddingRight_32,
-					gutters.paddingLeft_32,
-					backgrounds.purple100,
-				]}
-			>
+			<View style={components.bottomButtonContainer}>
 				<GreenRoundedButton handlePress={handlePress} text="fillWeek" />
 			</View>
 		</CalendarProvider>

@@ -55,15 +55,15 @@ function ItemCard({
 			]}
 		>
 			<View style={gutters.paddingRight_60}>
-				<Text style={[fonts.gray200, fonts.bold, fonts.size_16]}>{name}</Text>
-				<Text style={[fonts.gray200]}>{description}</Text>
+				<Text style={[fonts.gray100, fonts.bold, fonts.size_16]}>{name}</Text>
+				<Text style={[fonts.gray100]}>{description}</Text>
 
 				{dueDate && (
 					<View>
-						<Text style={fonts.gray200}>
+						<Text style={fonts.gray100}>
 							{t('goals:endDate')} {new Date(dueDate).toLocaleDateString()}
 						</Text>
-						<Text style={fonts.gray200}>
+						<Text style={fonts.gray100}>
 							{t('goals:daysLeft')} {daysBetween(new Date(dueDate))}
 						</Text>
 					</View>

@@ -16,7 +16,7 @@ function Goals({ navigation, route }: RootScreenProps<'Goals'>) {
 	return (
 		<SafeScreen>
 			<View style={components.mainContainer}>
-				<Text style={[fonts.gray400, fonts.size_24]}>{t('goals:header')}</Text>
+				<Text style={[fonts.gray100, fonts.size_24]}>{t('goals:header')}</Text>
 				<GreenRoundedButton handlePress={handlePress} text="addGoal" />
 				<View style={[gutters.marginTop_16, layout.fullWidth]}>
 					<GoalsList navigation={navigation} route={route} />

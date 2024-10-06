@@ -23,15 +23,15 @@ function QuoteTopBar({ onShare, onNext }: QuoteTopBarProps) {
 				<TouchableOpacity onPress={onShare}>
 					<MaterialCommunityIcons
 						name="share-variant"
-						size={20}
-						color={colors.gray400}
+						size={26}
+						color={colors.blue100}
 					/>
 				</TouchableOpacity>
 				<TouchableOpacity onPress={onNext}>
 					<MaterialCommunityIcons
-						name="page-next"
-						size={20}
-						color={colors.gray400}
+						name="arrow-right-bold-box"
+						size={32}
+						color={colors.green500}
 					/>
 				</TouchableOpacity>
 			</View>

@@ -6,9 +6,9 @@ const colorsLight = {
 	white: '#FFFFFF',
 	red500: '#C13333',
 	gray800: '#303030',
-	gray400: '#4D4D4D',
+	gray400: '#969696',
 	gray200: '#A1A1A1',
-	gray100: '#DFDFDF',
+	gray100: '#373D3F',
 	gray50: '#EFEFEF',
 	purple500: '#44427D',
 	purple100: '#E1E1EF',
@@ -16,7 +16,7 @@ const colorsLight = {
 	green400: '#2E8B57',
 	green500: '#9ACD32',
 	blue50: '#03A9F4',
-	blue100: '#00B7EB',
+	blue100: '#0056D2',
 } as const;
 
 const colorsDark = {
@@ -25,7 +25,7 @@ const colorsDark = {
 	gray800: '#E0E0E0',
 	gray400: '#969696',
 	gray200: '#BABABA',
-	gray100: '#DFDFDF',
+	gray100: '#D3D3D3',
 	gray50: '#EFEFEF',
 	purple500: '#A6A4F0',
 	purple100: '#252732',

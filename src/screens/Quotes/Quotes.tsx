@@ -69,7 +69,7 @@ function Quotes() {
 					<Text
 						style={[
 							translatedText.length < 200 ? fonts.size_24 : fonts.size_20,
-							fonts.gray200,
+							fonts.gray100,
 							gutters.marginBottom_40,
 						]}
 					>
