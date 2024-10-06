@@ -1,26 +1,23 @@
 import firestore from '@react-native-firebase/firestore';
-import { FireBaseSyncDoc } from '@/types/schemas/FireBaseSyncDoc';
+import { FirestoreSyncDoc } from '@/types/schemas/FirestoreSyncDoc';
+import { syncDocRef } from '@/api/firebase/syncData/syncDocRef';
 
 export const updateSyncDoc = async (
 	userId: string,
-	syncDocData: FireBaseSyncDoc,
+	syncDocData: FirestoreSyncDoc,
 ) => {
 	try {
-		const syncDocRef = firestore()
-			.collection('users')
-			.doc(userId)
-			.collection('sync')
-			.doc('syncDoc');
-		const syncDoc = await syncDocRef.get();
+		const ref = syncDocRef(userId);
+		const syncDoc = await ref.get();
 
 		if (syncDoc.exists) {
 			// If syncDoc exists, update the existing one
-			await syncDocRef.update({
+			await ref.update({
 				docs: firestore.FieldValue.arrayUnion(syncDocData),
 				lastSyncTime: syncDocData.timestamp,
 			});
 			// If syncDoc does not exist, create it
-			await syncDocRef.set(
+			await ref.set(
 				{
 					docs: [syncDocData],
 					lastSyncTime: syncDocData.timestamp,

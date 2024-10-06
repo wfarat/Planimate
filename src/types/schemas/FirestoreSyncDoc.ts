@@ -1,6 +1,6 @@
 import { Timestamp } from '@react-native-firebase/firestore';
 
-export type FireBaseSyncDoc = {
+export type FirestoreSyncDoc = {
 	goalsUpdated: boolean;
 	tasksUpdated: boolean;
 	agendaUpdated: boolean;

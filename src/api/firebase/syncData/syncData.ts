@@ -3,7 +3,7 @@ import { syncTasks, syncGoals, syncAgenda } from '@/services/firebase';
 import { AgendaItemType, Goal } from '@/types/schemas';
 import firestore from '@react-native-firebase/firestore';
 import { updateSyncDoc } from '@/api/firebase/syncData/updateSyncDoc';
-import { FireBaseSyncDoc } from '@/types/schemas/FireBaseSyncDoc';
+import { FirestoreSyncDoc } from '@/types/schemas/FirestoreSyncDoc';
 
 export const syncData = async () => {
 	const userId = storage.getString('userId');
@@ -34,7 +34,7 @@ export const syncData = async () => {
 				storage.set('agendaUpdated', false);
 			}
 			const lastSyncTime = firestore.Timestamp.now();
-			const fireBaseSyncDoc: FireBaseSyncDoc = {
+			const fireBaseSyncDoc: FirestoreSyncDoc = {
 				goalsUpdated,
 				tasksUpdated,
 				agendaUpdated,
@@ -42,7 +42,7 @@ export const syncData = async () => {
 				tasksKeys,
 			};
 			await updateSyncDoc(userId, fireBaseSyncDoc);
-			storage.set('lastSyncTime', JSON.stringify(lastSyncTime));
+			storage.set('lastLocalSync', JSON.stringify(lastSyncTime));
 		}
 	} catch (error) {
 		console.error('Error syncing data:', error);
