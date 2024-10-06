@@ -8,6 +8,7 @@ export const useGoalActions = (goalId?: number) => {
 		storage.set('goals', JSON.stringify(updatedGoals));
 		storage.set('goalsUpdated', true);
 	};
+
 	const getGoalsFromStorage = () => {
 		const storedGoals = storage.getString('goals');
 		if (storedGoals) {

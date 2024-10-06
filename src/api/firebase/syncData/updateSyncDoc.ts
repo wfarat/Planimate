@@ -16,6 +16,7 @@ export const updateSyncDoc = async (
 				docs: firestore.FieldValue.arrayUnion(syncDocData),
 				lastSyncTime: syncDocData.timestamp,
 			});
+		} else {
 			// If syncDoc does not exist, create it
 			await ref.set(
 				{

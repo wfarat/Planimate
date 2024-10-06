@@ -6,6 +6,7 @@ import './translations';
 import { AppState } from 'react-native';
 import { useEffect } from 'react';
 import { syncData } from '@/api/firebase/syncData/syncData';
+import { getSyncData } from '@/api/firebase/getData/getSyncData';
 import ApplicationNavigator from './navigators/Application';
 
 export const queryClient = new QueryClient();
@@ -18,6 +19,9 @@ function App() {
 			nextAppState => {
 				if (nextAppState === 'background' || nextAppState === 'inactive') {
 					syncData().catch(error => console.error(error));
+				}
+				if (nextAppState === 'active') {
+					getSyncData().catch(error => console.error(error));
 				}
 			},
 		);

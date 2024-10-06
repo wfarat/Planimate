@@ -5,7 +5,7 @@ import InputTime from '@/components/molecules/InputTime/InputTime';
 import { getMinutesAfterMidnight } from '@/utils/formatTime';
 import agendaItemType, { AgendaItemData } from '@/types/schemas/agendaItemType';
 import { useAgendaItems } from '@/hooks/agenda/useAgendaItems';
-import { ActivityIndicator, View } from 'react-native';
+import { View } from 'react-native';
 
 type EditDialogProps = {
 	updateState: (newDuration: number, newDate?: Date) => void;
@@ -56,7 +56,6 @@ function SetTimeDialog({
 				time={getMinutesAfterMidnight(duration)}
 				message="duration"
 			/>
-			<ActivityIndicator />
 			<View>
 				<Dialog.Button label="Cancel" onPress={onCancel} />
 				<Dialog.Button label="Edit" onPress={handleEdit} />

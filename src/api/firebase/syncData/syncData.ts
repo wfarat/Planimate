@@ -33,16 +33,18 @@ export const syncData = async () => {
 				await syncAgenda(agendaItems, userId);
 				storage.set('agendaUpdated', false);
 			}
-			const lastSyncTime = firestore.Timestamp.now();
-			const fireBaseSyncDoc: FirestoreSyncDoc = {
-				goalsUpdated,
-				tasksUpdated,
-				agendaUpdated,
-				timestamp: lastSyncTime,
-				tasksKeys,
-			};
-			await updateSyncDoc(userId, fireBaseSyncDoc);
-			storage.set('lastLocalSync', JSON.stringify(lastSyncTime));
+			if (agendaUpdated || goalsUpdated || tasksUpdated) {
+				const lastSyncTime = firestore.Timestamp.now();
+				const fireBaseSyncDoc: FirestoreSyncDoc = {
+					goalsUpdated,
+					tasksUpdated,
+					agendaUpdated,
+					timestamp: lastSyncTime,
+					tasksKeys,
+				};
+				await updateSyncDoc(userId, fireBaseSyncDoc);
+				storage.set('lastLocalSync', JSON.stringify(lastSyncTime));
+			}
 		}
 	} catch (error) {
 		console.error('Error syncing data:', error);
