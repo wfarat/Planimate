@@ -4,6 +4,6 @@ export type FireBaseSyncDoc = {
 	goalsUpdated: boolean;
 	tasksUpdated: boolean;
 	agendaUpdated: boolean;
-	lastSyncTime: Timestamp;
+	timestamp: Timestamp;
 	tasksKeys: string[];
 };

@@ -1,39 +1,32 @@
 import firestore from '@react-native-firebase/firestore';
-import isEmpty from 'lodash/isEmpty';
 import { FireBaseSyncDoc } from '@/types/schemas/FireBaseSyncDoc';
 
-type UserData = {
-	syncDoc: FireBaseSyncDoc;
-};
 export const updateSyncDoc = async (
 	userId: string,
 	syncDocData: FireBaseSyncDoc,
 ) => {
 	try {
-		const userDocRef = firestore().collection('users').doc(userId);
-		const userDoc = await userDocRef.get();
+		const syncDocRef = firestore()
+			.collection('users')
+			.doc(userId)
+			.collection('sync')
+			.doc('syncDoc');
+		const syncDoc = await syncDocRef.get();
 
-		if (userDoc.exists) {
-			const { syncDoc } = userDoc.data() as UserData;
-
-			if (!isEmpty(syncDoc)) {
-				// If syncDoc exists, update the existing one
-				await userDocRef.update({
-					'syncDoc.tasksKeys': firestore.FieldValue.arrayUnion(
-						...syncDocData.tasksKeys,
-					),
-					'syncDoc.lastSyncTime': syncDocData.lastSyncTime,
-				});
-				console.log('Updated existing syncDoc with new tasks keys.');
-			} else {
-				// If syncDoc does not exist, create it
-				await userDocRef.set({ syncDoc: syncDocData }, { merge: true });
-				console.log('Created new syncDoc with initial data.');
-			}
-		} else {
-			// If user document does not exist, create it with syncDoc
-			await userDocRef.set({ syncDoc: syncDocData }, { merge: true });
-			console.log('Created user document with new syncDoc.');
+		if (syncDoc.exists) {
+			// If syncDoc exists, update the existing one
+			await syncDocRef.update({
+				docs: firestore.FieldValue.arrayUnion(syncDocData),
+				lastSyncTime: syncDocData.timestamp,
+			});
+			// If syncDoc does not exist, create it
+			await syncDocRef.set(
+				{
+					docs: [syncDocData],
+					lastSyncTime: syncDocData.timestamp,
+				},
+				{ merge: true },
+			);
 		}
 	} catch (error) {
 		console.error('Error synchronizing data:', error);

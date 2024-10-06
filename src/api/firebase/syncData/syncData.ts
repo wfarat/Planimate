@@ -38,7 +38,7 @@ export const syncData = async () => {
 				goalsUpdated,
 				tasksUpdated,
 				agendaUpdated,
-				lastSyncTime,
+				timestamp: lastSyncTime,
 				tasksKeys,
 			};
 			await updateSyncDoc(userId, fireBaseSyncDoc);
