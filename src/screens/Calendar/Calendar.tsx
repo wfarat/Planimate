@@ -14,16 +14,14 @@ import NextArrow from '@/theme/assets/images/nextArrow.png';
 import PL from '@/translations/pl/calendar';
 import EN from '@/translations/en/calendar';
 import i18next from 'i18next';
-import { MarkedDates } from 'react-native-calendars/src/types';
-import { AgendaItemType } from '@/types/schemas';
-import { useIsFocused } from '@react-navigation/native';
 import { useTheme } from '@/theme';
 import { RenderAgendaItemProps } from '@/types/schemas/agendaItemType';
 import { isImageSourcePropType } from '@/types/guards/image';
 import { GreenRoundedButton } from '@/components/atoms';
 import { View } from 'react-native';
 import { RootScreenProps } from '@/types/navigation';
-import { useAgendaHandlers } from '@/hooks/agenda/useAgendaHandlers';
+import { useMMKVString } from 'react-native-mmkv';
+import { storage } from '@/storage/storage';
 import testIDs from './testIDs';
 
 LocaleConfig.locales.pl = PL;
@@ -31,23 +29,13 @@ LocaleConfig.locales.en = EN;
 LocaleConfig.defaultLocale = i18next.language;
 
 function Calendar({ navigation }: RootScreenProps<'Calendar'>) {
-	const { getMarkedDates, getItems } = useAgendaItems();
+	const { getMarkedDates, deleteAgendaItem, completeAgendaItem } =
+		useAgendaItems();
 	const theme = useRef(getTheme());
-	const [markedDates, setMarkedDates] = useState<MarkedDates>();
-	const [agendaItems, setAgendaItems] = useState<AgendaItemType[]>([]);
-	const { handleDelete, handleComplete } = useAgendaHandlers(
-		setAgendaItems,
-		setMarkedDates,
-	);
+	const [agendaItemsString] = useMMKVString('agenda', storage);
 	const { components, layout, gutters, backgrounds } = useTheme();
-	const isFocused = useIsFocused();
-	useEffect(() => {
-		const newItems = getItems();
-		if (newItems) {
-			setAgendaItems(newItems);
-			setMarkedDates(getMarkedDates(newItems));
-		}
-	}, [isFocused]);
+	const agendaItems = agendaItemsString ? JSON.parse(agendaItemsString) : [];
+	const markedDates = getMarkedDates(agendaItems);
 	const [languageKey, setLanguageKey] = useState(i18next.language);
 	const handleLanguageChange = (lng: string) => {
 		if (languageKey !== lng) {
@@ -66,8 +54,8 @@ function Calendar({ navigation }: RootScreenProps<'Calendar'>) {
 		return (
 			<AgendaItem
 				item={item}
-				onDelete={() => handleDelete(item)}
-				onComplete={() => handleComplete(item)}
+				onDelete={() => deleteAgendaItem(item)}
+				onComplete={() => completeAgendaItem(item)}
 			/>
 		);
 	}, []);

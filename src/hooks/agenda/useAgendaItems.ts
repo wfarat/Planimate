@@ -102,7 +102,7 @@ export const useAgendaItems = () => {
 		return marked;
 	};
 
-	const deleteAgendaItem = (item: AgendaItemData): AgendaItemType[] => {
+	const deleteAgendaItem = (item: AgendaItemData) => {
 		const agendaItems = loadStoredItems();
 		const updatedItems = agendaItems.map(agendaItem => {
 			if (agendaItem.title === item.key) {
@@ -119,7 +119,6 @@ export const useAgendaItems = () => {
 			agendaItem => agendaItem.data.length > 0,
 		);
 		updateItems(filteredItems);
-		return filteredItems;
 	};
 
 	/**
@@ -147,14 +146,13 @@ export const useAgendaItems = () => {
 		}
 		return updateAgendaItemData(itemToUpdate, agendaItem);
 	};
-	const completeAgendaItem = (item: AgendaItemData): AgendaItemType[] => {
+	const completeAgendaItem = (item: AgendaItemData) => {
 		const completedItem = updateAgendaItem({ ...item, completed: true });
 		const storedItems = loadStoredItems();
 		const updatedItems = replaceAgendaItem(storedItems, completedItem);
 		const taskStorageKey = getTaskStorageKey(item);
 		updateStoredTaskDuration(item, taskStorageKey);
 		updateItems(updatedItems);
-		return updatedItems;
 	};
 
 	return {

@@ -1,17 +1,17 @@
 import { SafeScreen } from '@/components/template';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import TasksList from '@/screens/Tasks/TasksList';
 import { RootScreenProps } from '@/types/navigation';
 import { EditDialog, TaskTopBar, ActionDialog } from '@/components/molecules';
 import type { Task } from '@/types/schemas';
-import { useIsFocused } from '@react-navigation/native';
 import { GreenRoundedButton, TasksHeader } from '@/components/atoms';
 import { useTaskHandlers } from '@/hooks/tasks/useTaskHandlers';
 import { useGoalActions } from '@/hooks/goals/useGoalActions';
+import { useMMKVString } from 'react-native-mmkv';
+import { storage } from '@/storage/storage';
 
 function Tasks({ route, navigation }: RootScreenProps<'Tasks'>) {
 	const { goal, task } = route.params;
-	const [tasks, setTasks] = useState<Task[]>([]);
 	const [visible, setVisible] = useState([false, false, false]);
 	const [goalName, setGoalName] = useState(goal.name);
 	const [taskName, setTaskName] = useState(task?.name || '');
@@ -20,13 +20,13 @@ function Tasks({ route, navigation }: RootScreenProps<'Tasks'>) {
 		handleFinishTask,
 		handleEdit,
 		handleReorder,
-		handleGetTasks,
-	} = useTaskHandlers(goal, setTasks, task);
+		storageString,
+	} = useTaskHandlers(goal, task);
+	const [tasksString] = useMMKVString(storageString, storage);
 	const { editGoal, deleteGoal } = useGoalActions(goal.goalId);
-	const isFocused = useIsFocused();
-	useEffect(() => {
-		setTasks(handleGetTasks().sort((a, b) => a.order - b.order));
-	}, [task?.taskId, isFocused]);
+	const tasks = (tasksString ? (JSON.parse(tasksString) as Task[]) : []).sort(
+		(a, b) => a.order - b.order,
+	);
 
 	const handleAddToAgenda = () => {
 		if (task) navigation.push('AddToAgenda', { task });
