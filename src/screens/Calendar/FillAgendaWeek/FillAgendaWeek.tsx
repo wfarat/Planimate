@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { SafeScreen } from '@/components/template';
 import { ActivityIndicator, Alert, Text, View } from 'react-native';
 import { useTranslation } from 'react-i18next';

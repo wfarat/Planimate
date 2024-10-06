@@ -1,20 +1,14 @@
 import { View, ListRenderItem, FlatList, TouchableOpacity } from 'react-native';
 
-import { useEffect, useState } from 'react';
 import { Goal } from '@/types/schemas';
 import { RootScreenProps } from '@/types/navigation';
 import { ItemCard } from '@/components/molecules';
-import { useIsFocused } from '@react-navigation/native';
-import { useGoalActions } from '@/hooks/goals/useGoalActions';
+import { useMMKVString } from 'react-native-mmkv';
+import { storage } from '@/storage/storage';
 
 function GoalsList({ navigation }: RootScreenProps<'Goals'>) {
-	const [goals, setGoals] = useState<Goal[]>([]);
-	const isFocused = useIsFocused();
-	const { getGoals } = useGoalActions();
-	useEffect(() => {
-		setGoals(getGoals());
-	}, [isFocused]);
-
+	const [goalsString] = useMMKVString('goals', storage);
+	const goals = goalsString ? (JSON.parse(goalsString) as Goal[]) : [];
 	const renderItem: ListRenderItem<Goal> = ({ item }: { item: Goal }) => (
 		<TouchableOpacity
 			key={item.goalId}
