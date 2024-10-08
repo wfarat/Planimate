@@ -1,6 +1,5 @@
-import isEmpty from 'lodash/isEmpty';
 import React, { useCallback, useState } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import testIDs from '@/screens/Calendar/testIDs';
 import type { AgendaItemData } from '@/types/schemas/agendaItemType';
 import { hoursAndMinutes } from '@/utils/formatTime';
@@ -8,24 +7,6 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import { useTheme } from '@/theme';
 import { SetTimeDialog, ActionDialog } from '@/components/molecules';
 import { useTranslation } from 'react-i18next';
-
-const styles = StyleSheet.create({
-	itemButtonContainer: {
-		flex: 1,
-		alignItems: 'flex-end',
-	},
-	emptyItem: {
-		paddingLeft: 20,
-		height: 52,
-		justifyContent: 'center',
-		borderBottomWidth: 1,
-		borderBottomColor: 'lightgrey',
-	},
-	emptyItemText: {
-		color: 'lightgrey',
-		fontSize: 14,
-	},
-});
 
 interface ItemProps {
 	item: AgendaItemData;
@@ -113,15 +94,9 @@ function AgendaItem(props: ItemProps) {
 			</Text>
 		);
 	};
-	if (isEmpty(item))
-		return (
-			<View style={styles.emptyItem}>
-				<Text style={styles.emptyItemText}>No Events Planned Today</Text>
-			</View>
-		);
 
 	return (
-		<View>
+		<View style={layout.fullWidth}>
 			{actionDialogConfig.map((config, index) => (
 				<ActionDialog
 					key={`item-${item.id}-action-${index}`}
@@ -153,18 +128,22 @@ function AgendaItem(props: ItemProps) {
 						fonts.size_16,
 						fonts.bold,
 						gutters.marginLeft_16,
+						layout.flex_1,
 					]}
 				>
 					{item.title}
 				</Text>
-				<View style={styles.itemButtonContainer}>
+				<View style={[layout.flex_1, layout.itemsEnd]}>
 					{!item.completed && (
-						<TouchableOpacity onPress={() => handleSetVisible(0)}>
-							<MaterialCommunityIcons name="check" size={20} color="green" />
+						<TouchableOpacity
+							onPress={() => handleSetVisible(0)}
+							style={gutters.marginBottom_12}
+						>
+							<MaterialCommunityIcons name="check" size={24} color="green" />
 						</TouchableOpacity>
 					)}
 					<TouchableOpacity onPress={() => handleSetVisible(1)}>
-						<MaterialCommunityIcons color="red" name="delete" size={20} />
+						<MaterialCommunityIcons color="red" name="delete" size={24} />
 					</TouchableOpacity>
 				</View>
 			</TouchableOpacity>

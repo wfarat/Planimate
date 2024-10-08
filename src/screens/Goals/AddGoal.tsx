@@ -1,4 +1,4 @@
-import { ActivityIndicator, View } from 'react-native';
+import { View } from 'react-native';
 import { SafeScreen } from '@/components/template';
 import { useTheme } from '@/theme';
 import { useState } from 'react';

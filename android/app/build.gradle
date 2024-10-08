@@ -80,8 +80,8 @@ android {
         applicationId "com.planimate"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 4
-        versionName "1.003"
+        versionCode 5
+        versionName "1.004"
     }
     signingConfigs {
         debug {
