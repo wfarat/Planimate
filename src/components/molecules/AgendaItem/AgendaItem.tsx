@@ -76,10 +76,10 @@ function AgendaItem(props: ItemProps) {
 			const newDate = new Date(newTimeInMillis);
 			const endTime = hoursAndMinutes(newDate);
 			return (
-				<View>
-					<Text style={fonts.gray200}>{startTime}</Text>
+				<View style={layout.justifyAround}>
+					<Text style={fonts.gray400}>{startTime}</Text>
 					{startTime !== endTime && (
-						<Text style={fonts.gray200}>{endTime}</Text>
+						<Text style={fonts.gray400}>{endTime}</Text>
 					)}
 				</View>
 			);
@@ -114,7 +114,7 @@ function AgendaItem(props: ItemProps) {
 				onPress={itemPressed}
 				style={[
 					layout.row,
-					gutters.padding_16,
+					gutters.padding_12,
 					borders.gray100,
 					borders.w_1,
 					item.completed ? backgrounds.green400 : backgrounds.purple100,
@@ -128,17 +128,14 @@ function AgendaItem(props: ItemProps) {
 						fonts.size_16,
 						fonts.bold,
 						gutters.marginLeft_16,
-						layout.flex_1,
+						layout.flex_4,
 					]}
 				>
 					{item.title}
 				</Text>
-				<View style={[layout.flex_1, layout.itemsEnd]}>
+				<View style={[layout.flex_1, layout.itemsEnd, layout.justifyAround]}>
 					{!item.completed && (
-						<TouchableOpacity
-							onPress={() => handleSetVisible(0)}
-							style={gutters.marginBottom_12}
-						>
+						<TouchableOpacity onPress={() => handleSetVisible(0)}>
 							<MaterialCommunityIcons name="check" size={24} color="green" />
 						</TouchableOpacity>
 					)}
