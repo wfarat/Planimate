@@ -34,7 +34,7 @@ function Calendar({ navigation }: RootScreenProps<'Calendar'>) {
 		useAgendaItems();
 	const theme = useRef(getTheme());
 	const [agendaItemsString] = useMMKVString('agenda', storage);
-	const { components } = useTheme();
+	const { components, gutters } = useTheme();
 	const agendaItems = agendaItemsString
 		? (JSON.parse(agendaItemsString) as AgendaItemType[])
 		: [];
@@ -98,6 +98,7 @@ function Calendar({ navigation }: RootScreenProps<'Calendar'>) {
 				sections={agendaItems}
 				renderItem={renderItem}
 				// scrollToNextEvent
+				contentContainerStyle={gutters.paddingBottom_120}
 				sectionStyle={components.section}
 				// dayFormat={'yyyy-MM-d'}
 			/>

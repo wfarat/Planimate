@@ -13,7 +13,7 @@ function TasksList({
 	ListHeaderComponent,
 }: TaskListProps<'Tasks'>) {
 	const { goal } = route.params;
-	const { components, layout } = useTheme();
+	const { components, layout, gutters } = useTheme();
 	const renderItem = (info: DragListRenderItemInfo<Task>) => {
 		const { item, onDragStart, onDragEnd } = info;
 		return (
@@ -54,7 +54,7 @@ function TasksList({
 			renderItem={renderItem}
 			onReordered={onReordered}
 			style={layout.fullWidth}
-			containerStyle={components.mainContainer}
+			containerStyle={[components.mainContainer, gutters.paddingBottom_120]}
 			ListHeaderComponent={ListHeaderComponent}
 		/>
 	);
