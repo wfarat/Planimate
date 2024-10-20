@@ -29,6 +29,11 @@ export const useTaskActions = (
 			cleanupTasks(subtask.taskId);
 		});
 		storage.delete(getStorageString(id));
+		const keysToDelete = JSON.parse(
+			storage.getString('keysToDelete') || '[]',
+		) as string[];
+		keysToDelete.push(getStorageString(id));
+		storage.set('keysToDelete', JSON.stringify(keysToDelete));
 	};
 	const deleteTask = () => {
 		const tasks = getTasks(getStorageString(parentId));
