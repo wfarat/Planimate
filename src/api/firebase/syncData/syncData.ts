@@ -51,7 +51,7 @@ export const syncData = async () => {
 					timestamp: lastSyncTime,
 					tasksKeys,
 				};
-				await updateSyncDoc(userId, fireBaseSyncDoc);
+				await updateSyncDoc(userId, fireBaseSyncDoc, keysToDelete);
 				storage.set('lastLocalSync', JSON.stringify(lastSyncTime));
 			}
 		}
