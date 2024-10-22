@@ -11,7 +11,8 @@ type Props = TextInputProps & {
 		| 'title'
 		| 'description'
 		| 'taskName'
-		| 'taskDescription';
+		| 'taskDescription'
+		| 'taskRepeats';
 };
 function TextInputRounded(props: Props) {
 	const { text } = props;

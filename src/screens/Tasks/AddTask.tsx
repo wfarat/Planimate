@@ -1,5 +1,5 @@
-import { View, Text, ActivityIndicator } from 'react-native';
-
+import { View, Text } from 'react-native';
+import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import { SafeScreen } from '@/components/template';
 import { useTheme } from '@/theme';
 import { useState } from 'react';
@@ -14,8 +14,9 @@ function AddTask({ navigation, route }: RootScreenProps<'AddTask'>) {
 	const { task, goal, tasks } = route.params;
 	const { components } = useTheme();
 	const { t } = useTranslation(['goals']);
-
+	const [repeatable, setRepeatable] = useState<boolean>(false);
 	const [name, setName] = useState<string>('');
+	const [repeats, setRepeats] = useState<string>('1');
 	const [description, setDescription] = useState<string>('');
 	const [dueDate, setDueDate] = useState<Date>();
 	const [duration, setDuration] = useState<number>();
@@ -57,6 +58,21 @@ function AddTask({ navigation, route }: RootScreenProps<'AddTask'>) {
 				/>
 				<InputDate date={dueDate} setDate={setDueDate} message="endDate" />
 				<InputTime setDuration={setDuration} message="duration" />
+				<BouncyCheckbox
+					onPress={() => {
+						setRepeatable(!repeatable);
+					}}
+					isChecked={repeatable}
+				/>{' '}
+				Repeatable
+				{repeatable && (
+					<TextInputRounded
+						text="taskRepeats"
+						keyboardType="numeric"
+						value={repeats}
+						onChangeText={setRepeats}
+					/>
+				)}
 				<GreenRoundedButton handlePress={handleAddTask} text="addTask" />
 			</View>
 		</SafeScreen>

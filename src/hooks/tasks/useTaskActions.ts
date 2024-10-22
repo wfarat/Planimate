@@ -74,6 +74,8 @@ export const useTaskActions = (
 		divisible: boolean,
 		durationTime?: number,
 		dueDate?: Date,
+		repeats?: number,
+		repeatDays?: boolean[],
 	) => {
 		const duration = durationTime
 			? { base: durationTime, elapsed: 0 }
@@ -92,6 +94,8 @@ export const useTaskActions = (
 			updatedAt: new Date().toISOString(),
 			completed: false,
 			order,
+			repeats,
+			repeatDays,
 		};
 		storage.set(`tasks_${goalId}_lastId`, lastId + 1);
 		return newTask;

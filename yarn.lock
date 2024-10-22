@@ -2537,6 +2537,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@freakycoder/react-native-bounceable@npm:^1.0.3":
+  version: 1.0.3
+  resolution: "@freakycoder/react-native-bounceable@npm:1.0.3"
+  checksum: d80e1297ddbde7348803007051e118ae1e380aeaf905785e6a73d302d45195d1efbe1293dd5ecee43157925373fa7d79a7f78fd057227fff7af38e58e91007ca
+  languageName: node
+  linkType: hard
+
 "@grpc/grpc-js@npm:~1.9.0":
   version: 1.9.15
   resolution: "@grpc/grpc-js@npm:1.9.15"
@@ -9908,6 +9915,7 @@ __metadata:
     react: 18.3.1
     react-i18next: ^15.0.0
     react-native: ^0.74.5
+    react-native-bouncy-checkbox: ^4.1.2
     react-native-calendars: ^1.1306.0
     react-native-dialog: ^9.3.0
     react-native-draglist: ^3.6.1
@@ -10189,6 +10197,15 @@ __metadata:
   version: 17.0.2
   resolution: "react-is@npm:17.0.2"
   checksum: 9d6d111d8990dc98bc5402c1266a808b0459b5d54830bbea24c12d908b536df7883f268a7868cfaedde3dd9d4e0d574db456f84d2e6df9c4526f99bb4b5344d8
+  languageName: node
+  linkType: hard
+
+"react-native-bouncy-checkbox@npm:^4.1.2":
+  version: 4.1.2
+  resolution: "react-native-bouncy-checkbox@npm:4.1.2"
+  dependencies:
+    "@freakycoder/react-native-bounceable": ^1.0.3
+  checksum: d197e60db0ee7909f62be963b36ca5e1fd7cc164367e00a43c57d11382dba3b8d728fcb20d805a4768c168167107135ec88559bc239553926947c9386f82b71f
   languageName: node
   linkType: hard
 
