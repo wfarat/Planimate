@@ -59,5 +59,14 @@
     "taskName": "What will you do to achieve it?",
     "taskDescription": "Describe in detail what action will you take",
     "taskRepeats": "How many times will you complete this task?"
+  },
+  "daysShort": {
+    "mon": "Mon",
+    "tue": "Tue",
+    "wed": "Wed",
+    "thu": "Thu",
+    "fri": "Fri",
+    "sat": "Sat",
+    "sun": "Sun"
   }
 }

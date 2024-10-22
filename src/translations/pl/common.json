@@ -59,5 +59,15 @@
     "taskName": "Co zrobisz by osiągnąć ten cel?",
     "taskDescription": "Opisz dokładniej jakie działania podejmiesz",
     "taskRepeats": "Ile razy wykonasz to zadanie?"
+  },
+  "daysShort": {
+    "mon": "Pn",
+    "tue":"Wt",
+    "wed": "Śr",
+    "thu": "Czw",
+    "fri": "Pt",
+    "sat": "Sob",
+    "sun": "Niedz"
+
   }
 }
