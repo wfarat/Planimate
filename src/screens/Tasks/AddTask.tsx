@@ -12,11 +12,11 @@ import { Task } from '@/types/schemas';
 
 function AddTask({ navigation, route }: RootScreenProps<'AddTask'>) {
 	const { task, goal, tasks } = route.params;
-	const { components } = useTheme();
+	const { components, layout, fonts, gutters } = useTheme();
 	const { t } = useTranslation(['goals']);
 	const [repeatable, setRepeatable] = useState<boolean>(false);
 	const [name, setName] = useState<string>('');
-	const [repeats, setRepeats] = useState<string>('1');
+	const [repeats, setRepeats] = useState<string>('');
 	const [description, setDescription] = useState<string>('');
 	const [dueDate, setDueDate] = useState<Date>();
 	const [duration, setDuration] = useState<number>();
@@ -58,13 +58,15 @@ function AddTask({ navigation, route }: RootScreenProps<'AddTask'>) {
 				/>
 				<InputDate date={dueDate} setDate={setDueDate} message="endDate" />
 				<InputTime setDuration={setDuration} message="duration" />
-				<BouncyCheckbox
-					onPress={() => {
-						setRepeatable(!repeatable);
-					}}
-					isChecked={repeatable}
-				/>{' '}
-				Repeatable
+				<View style={[layout.row, gutters.margin_12]}>
+					<BouncyCheckbox
+						onPress={() => {
+							setRepeatable(!repeatable);
+						}}
+						isChecked={repeatable}
+					/>
+					<Text style={fonts.gray400}>Repeatable</Text>
+				</View>
 				{repeatable && (
 					<TextInputRounded
 						text="taskRepeats"
