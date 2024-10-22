@@ -6,7 +6,11 @@ import { useState } from 'react';
 import { InputDate, InputTime } from '@/components/molecules';
 import { RootScreenProps } from '@/types/navigation';
 import { useTaskActions } from '@/hooks/tasks/useTaskActions';
-import { GreenRoundedButton, TextInputRounded } from '@/components/atoms';
+import {
+	DaysPicker,
+	GreenRoundedButton,
+	TextInputRounded,
+} from '@/components/atoms';
 import { useTranslation } from 'react-i18next';
 import { Task } from '@/types/schemas';
 
@@ -15,6 +19,15 @@ function AddTask({ navigation, route }: RootScreenProps<'AddTask'>) {
 	const { components, layout, fonts, gutters } = useTheme();
 	const { t } = useTranslation(['goals']);
 	const [repeatable, setRepeatable] = useState<boolean>(false);
+	const [repeatDays, setRepeatDays] = useState([
+		false,
+		false,
+		false,
+		false,
+		false,
+		false,
+		false,
+	]);
 	const [name, setName] = useState<string>('');
 	const [repeats, setRepeats] = useState<string>('');
 	const [description, setDescription] = useState<string>('');
@@ -68,12 +81,15 @@ function AddTask({ navigation, route }: RootScreenProps<'AddTask'>) {
 					<Text style={fonts.gray400}>Repeatable</Text>
 				</View>
 				{repeatable && (
-					<TextInputRounded
-						text="taskRepeats"
-						keyboardType="numeric"
-						value={repeats}
-						onChangeText={setRepeats}
-					/>
+					<View>
+						<TextInputRounded
+							text="taskRepeats"
+							keyboardType="numeric"
+							value={repeats}
+							onChangeText={setRepeats}
+						/>
+						<DaysPicker pickedDays={repeatDays} setPickedDays={setRepeatDays} />
+					</View>
 				)}
 				<GreenRoundedButton handlePress={handleAddTask} text="addTask" />
 			</View>
