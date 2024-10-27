@@ -52,6 +52,8 @@ function AddTask({ navigation, route }: RootScreenProps<'AddTask'>) {
 			false,
 			duration,
 			dueDate,
+			Number(repeats),
+			repeatDays,
 		);
 		addTask(newTask);
 	};

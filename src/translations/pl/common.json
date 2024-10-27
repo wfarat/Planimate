@@ -67,7 +67,7 @@
     "thu": "Czw",
     "fri": "Pt",
     "sat": "Sob",
-    "sun": "Niedz"
-
+    "sun": "Niedz",
+    "undefined": "NN"
   }
 }

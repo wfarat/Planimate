@@ -36,7 +36,7 @@ const colorsDark = {
 	blue100: '#007FFF',
 } as const;
 
-const sizes = [12, 16, 20, 24, 32, 40, 60, 80, 120] as const;
+const sizes = [8, 12, 16, 20, 24, 32, 40, 60, 80, 120] as const;
 
 export const config = {
 	colors: colorsLight,
@@ -48,7 +48,7 @@ export const config = {
 	backgrounds: colorsLight,
 	borders: {
 		widths: [1, 2],
-		radius: [4, 8, 16],
+		radius: [4, 8, 16, 50],
 		colors: colorsLight,
 	},
 	navigationColors: {

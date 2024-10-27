@@ -2,6 +2,7 @@ import { Text, View } from 'react-native';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import { useTheme } from '@/theme';
 import { useTranslation } from 'react-i18next';
+import { dayString } from '@/utils/dayString';
 
 type Props = {
 	pickedDays: boolean[];
@@ -25,15 +26,6 @@ function DaysPicker({ pickedDays, setPickedDays }: Props) {
 			]}
 		>
 			{pickedDays.map((day, index) => {
-				const days = ['mon, tue, wed, thu, fri, sat, sun'];
-				const dayString = days[index] as
-					| 'mon'
-					| 'tue'
-					| 'wed'
-					| 'thu'
-					| 'fri'
-					| 'sat'
-					| 'sun';
 				return (
 					<View key={index}>
 						<BouncyCheckbox
@@ -42,7 +34,7 @@ function DaysPicker({ pickedDays, setPickedDays }: Props) {
 							}
 						/>
 						<Text style={fonts.gray400}>
-							{t(`common:daysShort.${dayString}`)}
+							{t(`common:daysShort.${dayString(index)}`)}
 						</Text>
 					</View>
 				);

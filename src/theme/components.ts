@@ -70,5 +70,12 @@ export default ({
 			...gutters.paddingLeft_32,
 			...backgrounds.purple100,
 		},
+		dayIcon: {
+			...borders.rounded_50,
+			...backgrounds.green400,
+			...gutters.padding_8,
+			...gutters.marginRight_8,
+			...borders.w_1,
+		},
 	} as const satisfies AllStyle;
 };

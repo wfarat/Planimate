@@ -6,6 +6,7 @@ import * as Progress from 'react-native-progress';
 import isEmpty from 'lodash/isEmpty';
 import { useTranslation } from 'react-i18next';
 import { daysBetween } from '@/utils/formatTime';
+import { dayString } from '@/utils/dayString';
 
 function ItemCard({
 	name,
@@ -13,12 +14,13 @@ function ItemCard({
 	completed,
 	dueDate,
 	duration,
+	repeatDays,
 }: ItemCardProps) {
-	const { layout, gutters, borders, fonts, backgrounds } = useTheme();
-	const { t } = useTranslation(['goals']);
+	const { layout, gutters, borders, fonts, backgrounds, components } =
+		useTheme();
+	const { t } = useTranslation(['goals', 'common']);
 	const progress = useRef(new Animated.Value(0)).current;
 	const [progressValue, setProgressValue] = useState(0);
-
 	useEffect(() => {
 		if (duration) {
 			const animation = Animated.timing(progress, {
@@ -66,6 +68,20 @@ function ItemCard({
 						<Text style={fonts.gray100}>
 							{t('goals:daysLeft')} {daysBetween(new Date(dueDate))}
 						</Text>
+					</View>
+				)}
+				{repeatDays && (
+					<View style={layout.row}>
+						{repeatDays.map(
+							(isRepeat, index) =>
+								isRepeat && (
+									<View key={index} style={components.dayIcon}>
+										<Text style={[fonts.size_12, fonts.gray100, fonts.bold]}>
+											{t(`common:daysShort.${dayString(index)}`)}
+										</Text>
+									</View>
+								)
+						)}
 					</View>
 				)}
 			</View>
