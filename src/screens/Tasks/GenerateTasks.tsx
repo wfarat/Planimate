@@ -79,6 +79,7 @@ function GenerateTasks({
 				pickedTask.divisible,
 				pickedTask.duration,
 				pickedTask.dueDate,
+				pickedTask.repeats,
 			),
 		);
 		addTasks(newTasks);

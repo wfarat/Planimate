@@ -6,5 +6,6 @@
   "tasksCompleted": "Wykonano zadań",
   "newTask": "Nowe Zadanie:",
   "duration": "Przybliżony czas:",
-  "divisible": "Można podzielić na mniejsze zadania"
+  "divisible": "Można podzielić na mniejsze zadania",
+  "repeatable": "Powtarzalne"
 }

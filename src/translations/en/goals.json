@@ -6,5 +6,6 @@
   "tasksCompleted": "Tasks completed",
   "newTask": "New Task:",
   "duration": "Approx time to complete:",
-  "divisible": "Divisible"
+  "divisible": "Divisible",
+  "repeatable": "Repeatable"
 }

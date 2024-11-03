@@ -80,7 +80,7 @@ function AddTask({ navigation, route }: RootScreenProps<'AddTask'>) {
 						}}
 						isChecked={repeatable}
 					/>
-					<Text style={fonts.gray400}>Repeatable</Text>
+					<Text style={fonts.gray400}>{t('goals:repeatable')}</Text>
 				</View>
 				{repeatable && (
 					<View>

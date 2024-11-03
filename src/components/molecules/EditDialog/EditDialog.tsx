@@ -1,8 +1,7 @@
 import Dialog from 'react-native-dialog';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Goal, Task } from '@/types/schemas';
-import { ActivityIndicator, View } from 'react-native';
+import { View } from 'react-native';
 
 type EditDialogProps = {
 	onEdit: (name: string, description: string) => void;

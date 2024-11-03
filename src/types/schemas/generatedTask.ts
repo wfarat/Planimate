@@ -4,6 +4,7 @@ type GeneratedTask = {
 	divisible: boolean;
 	dueDate?: Date;
 	duration?: number;
+	repeats?: number;
 };
 
 export type FetchedGeneratedTask = {
@@ -12,6 +13,7 @@ export type FetchedGeneratedTask = {
 	divisible: boolean;
 	due_date: Date;
 	duration?: number;
+	repeats?: number;
 };
 
 export default GeneratedTask;
