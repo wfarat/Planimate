@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { Animated, Text, View } from 'react-native';
+import { Animated, Text, TouchableOpacity, View } from 'react-native';
 import { useTheme } from '@/theme';
 import type ItemCardProps from '@/types/props/itemCardProps';
 import * as Progress from 'react-native-progress';
@@ -7,17 +7,14 @@ import isEmpty from 'lodash/isEmpty';
 import { useTranslation } from 'react-i18next';
 import { daysBetween } from '@/utils/formatTime';
 import { dayString } from '@/utils/dayString';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import PickDaysDialog from '@/components/molecules/PickDaysDialog/PickDaysDialog';
+import { useTaskActions } from '@/hooks/tasks/useTaskActions';
 
-function ItemCard({
-	name,
-	description,
-	completed,
-	dueDate,
-	duration,
-	repeats,
-	repeatDays,
-}: ItemCardProps) {
-	const { layout, gutters, borders, fonts, backgrounds, components } =
+function ItemCard({ name, description, dueDate, task }: ItemCardProps) {
+	const { duration, repeats, repeatDays, completed } = task ?? {};
+	const [visible, setVisible] = useState(false);
+	const { layout, gutters, borders, fonts, backgrounds, components, colors } =
 		useTheme();
 	const { t } = useTranslation(['goals', 'common']);
 	const progress = useRef(new Animated.Value(0)).current;
@@ -43,7 +40,6 @@ function ItemCard({
 			};
 		}
 	}, [duration]);
-
 	return (
 		<View
 			style={[
@@ -56,6 +52,14 @@ function ItemCard({
 				completed ? backgrounds.green400 : backgrounds.purple100,
 			]}
 		>
+			{task && (
+				<PickDaysDialog
+					task={task}
+					onCancel={() => setVisible(false)}
+					visible={visible}
+					oldDays={repeatDays}
+				/>
+			)}
 			<View style={gutters.paddingRight_60}>
 				<Text style={[fonts.gray100, fonts.bold, fonts.size_16]}>{name}</Text>
 				<Text style={[fonts.gray100]}>{description}</Text>
@@ -82,6 +86,13 @@ function ItemCard({
 									</View>
 								),
 						)}
+						<TouchableOpacity onPress={() => setVisible(true)}>
+							<MaterialCommunityIcons
+								name="plus-circle"
+								size={30}
+								color={colors.green400}
+							/>
+						</TouchableOpacity>
 					</View>
 				)}
 			</View>

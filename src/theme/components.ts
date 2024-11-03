@@ -71,6 +71,7 @@ export default ({
 			...backgrounds.purple100,
 		},
 		dayIcon: {
+			width: 24,
 			...borders.rounded_50,
 			...backgrounds.green400,
 			...gutters.padding_8,

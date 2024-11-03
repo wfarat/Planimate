@@ -25,11 +25,8 @@ function TasksList({
 				<ItemCard
 					name={item.name}
 					description={item.description}
-					completed={item.completed}
 					dueDate={item.dueDate}
-					duration={item.duration}
-					repeatDays={item.repeatDays}
-					repeats={item.repeats}
+					task={item}
 				/>
 			</TouchableOpacity>
 		);

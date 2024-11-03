@@ -52,14 +52,12 @@ export const useTaskActions = (
 		updateTasks(updatedTasks, parentId);
 	};
 
-	const editTask = (newName: string, newDescription: string) => {
+	const editTask = (editedTask: Task) => {
 		const tasks = getTasks(getStorageString(parentId));
 		const updatedTasks = tasks.map(t =>
 			t.taskId === taskId
 				? {
-						...t,
-						name: newName,
-						description: newDescription,
+						...editedTask,
 						updatedAt: new Date().toISOString(),
 				  }
 				: t,

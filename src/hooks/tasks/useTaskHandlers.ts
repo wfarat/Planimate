@@ -22,7 +22,7 @@ export const useTaskHandlers = (goal: Goal, task?: Task) => {
 	};
 	const handleEdit = (newName: string, newDescription: string) => {
 		if (task) {
-			editTask(newName, newDescription);
+			editTask({ ...task, name: newName, description: newDescription });
 		}
 	};
 
