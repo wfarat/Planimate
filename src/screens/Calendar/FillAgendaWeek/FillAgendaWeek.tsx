@@ -75,19 +75,34 @@ function FillAgendaWeek({ navigation }: RootScreenProps<'FillAgendaWeek'>) {
 
 			while (freeHours > 0 && taskIndex < importantTasks.length) {
 				const task = importantTasks[taskIndex];
-				const taskDuration = task.duration
-					? task.duration.base - task.duration.elapsed
-					: 0;
-
-				if (taskDuration <= freeHours) {
-					freeHours -= taskDuration;
-					if (task.duration) task.duration.elapsed += taskDuration;
-					agendaItems.push(createAgendaItem(date, task, taskDuration));
-					taskIndex += 1;
-				} else {
-					if (task.duration) task.duration.elapsed += freeHours;
-					agendaItems.push(createAgendaItem(date, task, freeHours));
-					freeHours = 0;
+				if (task.duration) {
+					const calculateTaskDurationWithRepeats = (
+						base: number,
+						elapsed: number,
+						repeats: number,
+					) => {
+						const durationLeft = base * repeats - elapsed;
+						if (durationLeft <= 0) return 0;
+						if (durationLeft < base) return durationLeft;
+						return base;
+					};
+					const taskDuration = task.repeats
+						? calculateTaskDurationWithRepeats(
+								task.duration.base,
+								task.duration.elapsed,
+								task.repeats,
+						  )
+						: task.duration.base - task.duration.elapsed;
+					if (taskDuration <= freeHours) {
+						freeHours -= taskDuration;
+						task.duration.elapsed += taskDuration;
+						agendaItems.push(createAgendaItem(date, task, taskDuration));
+						taskIndex += 1;
+					} else {
+						task.duration.elapsed += freeHours;
+						agendaItems.push(createAgendaItem(date, task, freeHours));
+						freeHours = 0;
+					}
 				}
 			}
 		});
