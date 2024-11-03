@@ -29,6 +29,7 @@ function TasksList({
 					dueDate={item.dueDate}
 					duration={item.duration}
 					repeatDays={item.repeatDays}
+					repeats={item.repeats}
 				/>
 			</TouchableOpacity>
 		);

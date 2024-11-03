@@ -8,6 +8,7 @@ type ItemCardProps = {
 		elapsed: number;
 	};
 	repeatDays?: boolean[];
+	repeats?: number;
 };
 
 export default ItemCardProps;

@@ -14,6 +14,7 @@ function ItemCard({
 	completed,
 	dueDate,
 	duration,
+	repeats,
 	repeatDays,
 }: ItemCardProps) {
 	const { layout, gutters, borders, fonts, backgrounds, components } =
@@ -23,11 +24,10 @@ function ItemCard({
 	const [progressValue, setProgressValue] = useState(0);
 	useEffect(() => {
 		if (duration) {
+			const fullDuration = repeats ? repeats * duration.base : duration.base;
 			const animation = Animated.timing(progress, {
 				toValue:
-					duration.elapsed > duration.base
-						? 1
-						: duration.elapsed / duration.base,
+					duration.elapsed > fullDuration ? 1 : duration.elapsed / fullDuration,
 				duration: 1000,
 				useNativeDriver: false,
 			});
@@ -80,7 +80,7 @@ function ItemCard({
 											{t(`common:daysShort.${dayString(index)}`)}
 										</Text>
 									</View>
-								)
+								),
 						)}
 					</View>
 				)}

@@ -78,7 +78,7 @@ export const useTaskActions = (
 		repeatDays?: boolean[],
 	) => {
 		const duration = durationTime
-			? { base: repeats ? repeats * durationTime : durationTime, elapsed: 0 }
+			? { base: durationTime, elapsed: 0 }
 			: undefined;
 		const storedId = storage.getNumber(`tasks_${goalId}_lastId`);
 		const lastId = storedId || 0;
