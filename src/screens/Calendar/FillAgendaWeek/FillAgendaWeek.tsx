@@ -93,6 +93,9 @@ function FillAgendaWeek({ navigation }: RootScreenProps<'FillAgendaWeek'>) {
 								task.repeats,
 						  )
 						: task.duration.base - task.duration.elapsed;
+					const day = date.getDay();
+					if (taskDuration <= 0) taskIndex += 1;
+					if (task.repeatDays) if (!task.repeatDays[day]) taskIndex += 1;
 					if (taskDuration <= freeHours) {
 						freeHours -= taskDuration;
 						task.duration.elapsed += taskDuration;
