@@ -69,5 +69,15 @@
     "sat": "Sob",
     "sun": "Niedz",
     "undefined": "NN"
+  },
+  "daysAbv": {
+    "mon": "P",
+    "tue": "W",
+    "wed": "Ś",
+    "thu": "C",
+    "fri": "Pt",
+    "sat": "S",
+    "sun": "N",
+    "undefined": "NN"
   }
 }

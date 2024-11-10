@@ -32,6 +32,7 @@ function DaysPicker({ pickedDays, setPickedDays }: Props) {
 							onPress={(checked: boolean) =>
 								handleCheckboxPress(index, checked)
 							}
+							isChecked={day}
 						/>
 						<Text style={fonts.gray400}>
 							{t(`common:daysShort.${dayString(index)}`)}

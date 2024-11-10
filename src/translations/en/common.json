@@ -69,5 +69,15 @@
     "sat": "Sat",
     "sun": "Sun",
     "undefined": "NN"
+  },
+  "daysAbv": {
+    "mon": "M",
+    "tue": "T",
+    "wed": "W",
+    "thu": "Th",
+    "fri": "F",
+    "sat": "S",
+    "sun": "Su",
+    "undefined": "NN"
   }
 }

@@ -7,6 +7,7 @@ import { useTaskActions } from '@/hooks/tasks/useTaskActions';
 type PickDaysDialogProps = {
 	task: Task;
 	onCancel: () => void;
+	setVisible: (value: boolean) => void;
 	visible: boolean;
 	oldDays?: boolean[];
 };
@@ -15,12 +16,14 @@ function PickDaysDialog({
 	task,
 	onCancel,
 	visible,
+	setVisible,
 	oldDays = [],
 }: PickDaysDialogProps) {
 	const [pickedDays, setPickedDays] = useState(oldDays);
 	const { editTask } = useTaskActions(task.goalId, task.parentId, task.taskId);
 	const handleEdit = () => {
 		editTask({ ...task, repeatDays: pickedDays });
+		setVisible(false);
 	};
 
 	return (

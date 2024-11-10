@@ -17,6 +17,7 @@ const colorsLight = {
 	green500: '#9ACD32',
 	blue50: '#03A9F4',
 	blue100: '#0056D2',
+	orange100: '#FCAE1E',
 } as const;
 
 const colorsDark = {
@@ -34,9 +35,10 @@ const colorsDark = {
 	green500: '#32CD32',
 	blue50: '#8a2be2',
 	blue100: '#007FFF',
+	orange100: '#CC5801',
 } as const;
 
-const sizes = [8, 12, 16, 20, 24, 32, 40, 60, 80, 120] as const;
+const sizes = [4, 8, 12, 16, 20, 24, 32, 40, 60, 80, 120] as const;
 
 export const config = {
 	colors: colorsLight,

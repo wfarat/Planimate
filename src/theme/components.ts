@@ -71,11 +71,10 @@ export default ({
 			...backgrounds.purple100,
 		},
 		dayIcon: {
-			width: 24,
-			...borders.rounded_50,
-			...backgrounds.green400,
+			...borders.rounded_8,
+			...backgrounds.orange100,
 			...gutters.padding_8,
-			...gutters.marginRight_8,
+			...gutters.marginRight_4,
 			...borders.w_1,
 		},
 	} as const satisfies AllStyle;

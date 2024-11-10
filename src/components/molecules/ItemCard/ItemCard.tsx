@@ -9,7 +9,6 @@ import { daysBetween } from '@/utils/formatTime';
 import { dayString } from '@/utils/dayString';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import PickDaysDialog from '@/components/molecules/PickDaysDialog/PickDaysDialog';
-import { useTaskActions } from '@/hooks/tasks/useTaskActions';
 
 function ItemCard({ name, description, dueDate, task }: ItemCardProps) {
 	const { duration, repeats, repeatDays, completed } = task ?? {};
@@ -56,6 +55,7 @@ function ItemCard({ name, description, dueDate, task }: ItemCardProps) {
 				<PickDaysDialog
 					task={task}
 					onCancel={() => setVisible(false)}
+					setVisible={setVisible}
 					visible={visible}
 					oldDays={repeatDays}
 				/>
@@ -81,7 +81,7 @@ function ItemCard({ name, description, dueDate, task }: ItemCardProps) {
 								isRepeat && (
 									<View key={index} style={components.dayIcon}>
 										<Text style={[fonts.size_12, fonts.gray100, fonts.bold]}>
-											{t(`common:daysShort.${dayString(index)}`)}
+											{t(`common:daysAbv.${dayString(index)}`)}
 										</Text>
 									</View>
 								),
