@@ -1,5 +1,4 @@
-import { View, Text } from 'react-native';
-import BouncyCheckbox from 'react-native-bouncy-checkbox';
+import { View, Text, TouchableOpacity } from 'react-native';
 import { SafeScreen } from '@/components/template';
 import { useTheme } from '@/theme';
 import { useState } from 'react';
@@ -16,7 +15,8 @@ import { Task } from '@/types/schemas';
 
 function AddTask({ navigation, route }: RootScreenProps<'AddTask'>) {
 	const { task, goal, tasks } = route.params;
-	const { components, layout, fonts, gutters } = useTheme();
+	const { components, layout, gutters, fonts, borders, backgrounds } =
+		useTheme();
 	const { t } = useTranslation(['goals']);
 	const [repeatable, setRepeatable] = useState<boolean>(false);
 	const [repeatDays, setRepeatDays] = useState([
@@ -72,15 +72,35 @@ function AddTask({ navigation, route }: RootScreenProps<'AddTask'>) {
 					text="taskDescription"
 				/>
 				<InputDate date={dueDate} setDate={setDueDate} message="endDate" />
-				<InputTime setDuration={setDuration} message="duration" />
-				<View style={[layout.row, gutters.margin_12]}>
-					<BouncyCheckbox
-						onPress={() => {
-							setRepeatable(!repeatable);
-						}}
-						isChecked={repeatable}
-					/>
-					<Text style={fonts.gray400}>{t('goals:repeatable')}</Text>
+				<View style={[layout.row, gutters.margin_12, layout.fullWidth]}>
+					<TouchableOpacity
+						style={[
+							borders.w_1,
+							layout.flex_1,
+							gutters.padding_12,
+							layout.itemsCenter,
+							repeatable ? backgrounds.purple100 : backgrounds.purple500,
+						]}
+						onPress={() => setRepeatable(false)}
+					>
+						<Text style={[fonts.gray100, fonts.size_16]}>
+							{t('goals:single')}
+						</Text>
+					</TouchableOpacity>
+					<TouchableOpacity
+						style={[
+							borders.w_1,
+							layout.flex_1,
+							gutters.padding_12,
+							layout.itemsCenter,
+							repeatable ? backgrounds.purple500 : backgrounds.purple100,
+						]}
+						onPress={() => setRepeatable(true)}
+					>
+						<Text style={[fonts.gray100, fonts.size_16]}>
+							{t('goals:repeatable')}
+						</Text>
+					</TouchableOpacity>
 				</View>
 				{repeatable && (
 					<View>
@@ -93,6 +113,12 @@ function AddTask({ navigation, route }: RootScreenProps<'AddTask'>) {
 						<DaysPicker pickedDays={repeatDays} setPickedDays={setRepeatDays} />
 					</View>
 				)}
+				{repeatable ? (
+					<InputTime setDuration={setDuration} message="singleDuration" />
+				) : (
+					<InputTime setDuration={setDuration} message="duration" />
+				)}
+
 				<GreenRoundedButton handlePress={handleAddTask} text="addTask" />
 			</View>
 		</SafeScreen>

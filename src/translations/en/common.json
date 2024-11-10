@@ -28,6 +28,7 @@
     "enterDate": "Press to pick",
     "agendaDate": "Day in the agenda:",
     "duration": "Total time to complete:",
+    "singleDuration" : "Time per repeat:",
     "enterTime": "Press to set",
     "time": "Time of the day:",
     "Monday": "Monday:" ,

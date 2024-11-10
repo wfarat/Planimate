@@ -4,6 +4,7 @@ export type InputTimeProps = {
 	setDuration?: (number: number) => void;
 	message:
 		| 'duration'
+		| 'singleDuration'
 		| 'time'
 		| 'Monday'
 		| 'Tuesday'

@@ -7,5 +7,6 @@
   "newTask": "New Task:",
   "duration": "Approx time to complete:",
   "divisible": "Divisible",
-  "repeatable": "Repeatable"
+  "repeatable": "Repeatable",
+  "single": "One-time"
 }
