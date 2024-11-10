@@ -43,7 +43,20 @@ function AddTask({ navigation, route }: RootScreenProps<'AddTask'>) {
 		updateTasks(updatedTasks, task?.taskId);
 		navigation.goBack();
 	};
-
+	const countRepeats = () => {
+		const currentDay = new Date();
+		if (dueDate) {
+			const milliseconds =
+				dueDate.getMilliseconds() - currentDay.getMilliseconds();
+			const weeks = milliseconds / 1000 / 60 / 60 / 24 / 7;
+			let totalRepeatDays = 0;
+			repeatDays.forEach(day => {
+				if (day) totalRepeatDays += 1;
+			});
+			return Math.floor(weeks * totalRepeatDays);
+		}
+		return 0;
+	};
 	const handleAddTask = () => {
 		const newTask = createTask(
 			tasks.length,
@@ -52,7 +65,7 @@ function AddTask({ navigation, route }: RootScreenProps<'AddTask'>) {
 			false,
 			duration,
 			dueDate,
-			Number(repeats),
+			repeats ? Number(repeats) : countRepeats(),
 			repeatDays,
 		);
 		addTask(newTask);
