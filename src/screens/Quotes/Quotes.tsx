@@ -104,6 +104,7 @@ function Quotes() {
 			}
 			translateX.value = withTiming(0, { duration: 300 });
 		})
+		.activeOffsetX([-10, 10])
 		.runOnJS(true);
 
 	// Get the current quote, name, and image from history
