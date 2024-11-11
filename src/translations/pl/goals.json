@@ -8,5 +8,6 @@
   "duration": "Przybliżony czas:",
   "divisible": "Można podzielić na mniejsze zadania",
   "repeatable": "Powtarzalne",
-  "single": "Jednorazowe"
+  "single": "Jednorazowe",
+  "repeats": "Powtórzenia"
 }

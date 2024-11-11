@@ -8,7 +8,8 @@ type Props = {
 	picked: boolean;
 };
 function GeneratedTaskCard({ generatedTask, picked = false }: Props) {
-	const { name, description, dueDate, divisible, duration } = generatedTask;
+	const { name, description, dueDate, divisible, duration, repeats } =
+		generatedTask;
 	const { gutters, borders, layout, fonts, backgrounds } = useTheme();
 	const { t } = useTranslation(['goals']);
 	return (
@@ -37,6 +38,11 @@ function GeneratedTaskCard({ generatedTask, picked = false }: Props) {
 					</Text>
 				)}
 			</View>
+			{repeats && (
+				<Text style={fonts.gray200}>
+					{t('goals:repeats')} {repeats}
+				</Text>
+			)}
 			{divisible && (
 				<Text style={picked ? fonts.blue100 : fonts.green400}>
 					{t('goals:divisible')}

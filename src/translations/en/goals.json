@@ -8,5 +8,6 @@
   "duration": "Approx time to complete:",
   "divisible": "Divisible",
   "repeatable": "Repeatable",
-  "single": "One-time"
+  "single": "One-time",
+  "repeats": "Repeats:"
 }
