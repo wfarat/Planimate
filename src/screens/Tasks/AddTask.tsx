@@ -72,7 +72,12 @@ function AddTask({ navigation, route }: RootScreenProps<'AddTask'>) {
 	};
 	return (
 		<SafeScreen>
-			<ScrollView style={components.mainContainer}>
+			<ScrollView
+				contentContainerStyle={[
+					components.mainContainer,
+					gutters.paddingBottom_80,
+				]}
+			>
 				<Text style={components.header}>{goal.name}</Text>
 				<Text style={components.header}>{task?.name}</Text>
 				<Text style={components.header}>{t('goals:newTask')}</Text>
@@ -116,15 +121,15 @@ function AddTask({ navigation, route }: RootScreenProps<'AddTask'>) {
 					</TouchableOpacity>
 				</View>
 				{repeatable && (
-					<View>
-						<TextInputRounded
-							text="taskRepeats"
-							keyboardType="numeric"
-							value={repeats}
-							onChangeText={setRepeats}
-						/>
-						<DaysPicker pickedDays={repeatDays} setPickedDays={setRepeatDays} />
-					</View>
+					<TextInputRounded
+						text="taskRepeats"
+						keyboardType="numeric"
+						value={repeats}
+						onChangeText={setRepeats}
+					/>
+				)}
+				{repeatable && (
+					<DaysPicker pickedDays={repeatDays} setPickedDays={setRepeatDays} />
 				)}
 				{repeatable ? (
 					<InputTime setDuration={setDuration} message="singleDuration" />

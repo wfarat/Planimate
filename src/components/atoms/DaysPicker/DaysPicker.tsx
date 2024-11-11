@@ -9,7 +9,7 @@ type Props = {
 	setPickedDays: (days: boolean[]) => void;
 };
 function DaysPicker({ pickedDays, setPickedDays }: Props) {
-	const { layout, fonts } = useTheme();
+	const { layout, fonts, gutters } = useTheme();
 	const { t } = useTranslation(['common']);
 	const handleCheckboxPress = (index: number, checked: boolean) => {
 		const updatedDays = [...pickedDays];
@@ -21,6 +21,7 @@ function DaysPicker({ pickedDays, setPickedDays }: Props) {
 			style={[
 				layout.row,
 				layout.wrap,
+				gutters.marginBottom_12,
 				layout.justifyCenter,
 				layout.itemsCenter,
 			]}
