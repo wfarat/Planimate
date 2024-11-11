@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
 import { SafeScreen } from '@/components/template';
 import { useTheme } from '@/theme';
 import { useState } from 'react';
@@ -72,7 +72,7 @@ function AddTask({ navigation, route }: RootScreenProps<'AddTask'>) {
 	};
 	return (
 		<SafeScreen>
-			<View style={components.mainContainer}>
+			<ScrollView style={components.mainContainer}>
 				<Text style={components.header}>{goal.name}</Text>
 				<Text style={components.header}>{task?.name}</Text>
 				<Text style={components.header}>{t('goals:newTask')}</Text>
@@ -133,7 +133,7 @@ function AddTask({ navigation, route }: RootScreenProps<'AddTask'>) {
 				)}
 
 				<GreenRoundedButton handlePress={handleAddTask} text="addTask" />
-			</View>
+			</ScrollView>
 		</SafeScreen>
 	);
 }
