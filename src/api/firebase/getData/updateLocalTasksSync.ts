@@ -8,7 +8,10 @@ type TasksData = {
 	lastUpdated: Timestamp;
 };
 
-export const updateLocalTasks = async (tasksKeys: string[], userId: string) => {
+export const updateLocalTasksSync = async (
+	tasksKeys: string[],
+	userId: string,
+) => {
 	await Promise.all(
 		tasksKeys.map(async (key: string) => {
 			const tasksData = await getTasks(userId, key);

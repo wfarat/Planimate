@@ -4,6 +4,7 @@ import { useTheme } from '@/theme';
 import { GreenRoundedButton, TextInputRounded } from '@/components/atoms';
 import { useEffect, useState } from 'react';
 import { storage } from '@/storage/storage';
+import { getAllData } from '@/api/firebase/getData/getAllData';
 import { login } from '../../../api/firebase/users';
 
 function Login() {
@@ -19,6 +20,9 @@ function Login() {
 	useEffect(() => {
 		if (data) {
 			storage.set('userId', data);
+			getAllData()
+				.then()
+				.catch(error => console.error(error));
 		}
 	}, [isSuccess]);
 

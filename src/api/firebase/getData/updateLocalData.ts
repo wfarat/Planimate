@@ -1,7 +1,7 @@
 import { FirestoreSyncDoc } from '@/types/schemas/FirestoreSyncDoc';
 import { updateLocalGoals } from '@/api/firebase/getData/updateLocalGoals';
 import { updateLocalAgenda } from '@/api/firebase/getData/updateLocalAgenda';
-import { updateLocalTasks } from '@/api/firebase/getData/updateLocalTasks';
+import { updateLocalTasksSync } from '@/api/firebase/getData/updateLocalTasksSync';
 
 export const updateLocalData = async (
 	syncDoc: FirestoreSyncDoc,
@@ -14,6 +14,6 @@ export const updateLocalData = async (
 		await updateLocalAgenda(userId);
 	}
 	if (syncDoc.tasksUpdated) {
-		await updateLocalTasks(syncDoc.tasksKeys, userId);
+		await updateLocalTasksSync(syncDoc.tasksKeys, userId);
 	}
 };
