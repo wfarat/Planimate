@@ -3,6 +3,38 @@
 
 Planimate is a React Native application designed to help users plan their goals and break them down into smaller, manageable tasks. The app features a goal planner, a quote section for daily inspiration, and a calendar view for easy scheduling. Future plans include expanding the app with social features and AI assistance.
 
+## Information on Firebase Firestore integration:
+
+Application is using the Firebase Firestore to store user data externally, also the registration is using the Firebase Authentication   
+In order to use those, you need to register with Google Firebase and set up your app
+https://firebase.google.com/docs/android/setup  
+Please follow these instructions and put the google-services.json in android/app folder
+In order to deactivate firestore from app, please remove this line from android/build.gradle
+```
+        classpath("com.google.gms:google-services:4.4.2")
+```
+You may also need to remove/comment these lines in App.tsx
+```
+useEffect(() => {
+		// Add event listener for AppState changes
+		const appStateListener = AppState.addEventListener(
+			'change',
+			nextAppState => {
+				if (nextAppState === 'background' || nextAppState === 'inactive') {
+					syncData().catch(error => console.error(error));
+				}
+				if (nextAppState === 'active') {
+					getSyncData().catch(error => console.error(error));
+				}
+			},
+		);
+
+		return () => {
+			appStateListener.remove();
+		};
+	}, []);
+```
+
 ## Features
 
 - **Goal Planning:** Create and manage goals, breaking them down into smaller tasks.
