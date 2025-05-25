@@ -7,11 +7,11 @@
 #define TIMEOUT_SECONDS 600
 #define TEXT_TO_LOOK_FOR @"Welcome to React"
 
-@interface PlannerAppTests : XCTestCase
+@interface PlanimateTests : XCTestCase
 
 @end
 
-@implementation PlannerAppTests
+@implementation PlanimateTests
 
 - (BOOL)findSubviewInView:(UIView *)view matching:(BOOL (^)(UIView *view))test
 {
