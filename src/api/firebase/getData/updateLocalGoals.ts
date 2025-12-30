@@ -1,14 +1,15 @@
 import { getGoals } from '@/services/firebase/goals/getGoals';
-import { storage } from '@/storage/storage';
 import { Goal } from '@/types/schemas';
 import { Timestamp } from '@react-native-firebase/firestore';
+import {MMKV} from "react-native-mmkv";
 
 type GoalsData = {
 	goals: Goal[];
 	lastUpdated: Timestamp;
 };
 
-export const updateLocalGoals = async (userId: string) => {
+export const updateLocalGoals = async (userId: string,     storage: MMKV
+) => {
 	const goalData = await getGoals(userId);
 	const goalArray = (goalData.data() as GoalsData).goals;
 	const lastId = storage.getNumber('goals_lastId') || 0;

@@ -1,4 +1,3 @@
-import { storage } from '@/storage/storage';
 import { syncTasks, syncGoals, syncAgenda } from '@/services/firebase';
 import { AgendaItemType, Goal } from '@/types/schemas';
 import firestore from '@react-native-firebase/firestore';
@@ -6,10 +5,11 @@ import { updateSyncDoc } from '@/api/firebase/syncData/updateSyncDoc';
 import { FirestoreSyncDoc } from '@/types/schemas/FirestoreSyncDoc';
 import isEmpty from 'lodash/isEmpty';
 import { deleteTasks } from '@/services/firebase/tasks/deleteTasks';
+import {MMKV} from "react-native-mmkv";
 
-export const syncData = async () => {
+export const syncData = async (    storage: MMKV
+) => {
 	const userId = storage.getString('userId');
-
 	try {
 		if (userId) {
 			const goalsUpdated = storage.getBoolean('goalsUpdated') || false;
@@ -24,10 +24,10 @@ export const syncData = async () => {
 			if (tasksUpdated) {
 				await syncTasks(tasksKeys, userId);
 				storage.set('tasksUpdated', false);
-				storage.delete('tasksKeys');
+				storage.remove('tasksKeys');
 				if (!isEmpty(keysToDelete)) {
 					await deleteTasks(keysToDelete, userId);
-					storage.delete('keysToDelete');
+					storage.remove('keysToDelete');
 				}
 			}
 			if (goalsUpdated) {

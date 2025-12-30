@@ -6,7 +6,6 @@ import {
 	useState,
 } from 'react';
 
-import { config } from '@/theme/_config';
 import {
 	generateFontSizes,
 	generateFontColors,
@@ -28,7 +27,7 @@ import type {
 	FulfilledThemeConfiguration,
 	Variant,
 } from '@/types/theme/config';
-import { storage } from '@/storage/storage';
+import { useStorage } from '@/storage/useStorage';
 // Types
 
 type Context = Theme & {
@@ -37,20 +36,21 @@ type Context = Theme & {
 
 export const ThemeContext = createContext<Context | undefined>(undefined);
 
-function ThemeProvider({ children = false }: PropsWithChildren) {
+function ThemeProvider({ children }: PropsWithChildren) {
 	// Current theme variant
 
-	const [variant, setVariant] = useState(
-		(storage.getString('theme') as Variant) || 'default',
-	);
-
+	const [variant, setVariant] = useState('default' as Variant);
+    const storage = useStorage();
 	// Initialize theme at default if not defined
 	useEffect(() => {
 		const appHasThemeDefined = storage.contains('theme');
 		if (!appHasThemeDefined) {
 			storage.set('theme', 'default');
 			setVariant('default');
-		}
+		} else {
+            const variant = storage.getString('theme') as Variant;
+            setVariant(variant);
+        }
 	}, []);
 
 	const changeTheme = (nextVariant: Variant) => {
@@ -61,7 +61,7 @@ function ThemeProvider({ children = false }: PropsWithChildren) {
 	// Flatten config with current variant
 	const fullConfig = useMemo(() => {
 		return generateConfig(variant) satisfies FulfilledThemeConfiguration;
-	}, [variant, config]);
+	}, [variant]);
 
 	const fonts = useMemo(() => {
 		return {
@@ -87,6 +87,7 @@ function ThemeProvider({ children = false }: PropsWithChildren) {
 		return {
 			dark: variant === 'dark',
 			colors: fullConfig.navigationColors,
+            fonts: fullConfig.fonts.styles
 		};
 	}, [variant, fullConfig.navigationColors]);
 

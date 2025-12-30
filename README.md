@@ -87,21 +87,30 @@ useEffect(() => {
    yarn android
    ```
 
-### On iOS (Optional)
+### iOS
 
-If you plan to run the app on iOS, ensure you have Xcode installed.
+For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
 
-1. **Install CocoaPods dependencies:**
-   ```sh
-   cd ios
-   pod install
-   cd ..
-   ```
+The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
 
-2. **Run the app on an iOS device/emulator:**
-   ```sh
-   yarn ios
-   ```
+```sh
+bundle install
+```
+
+Then, and every time you update your native dependencies, run:
+
+```sh
+bundle exec pod install
+```
+
+For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
+
+```sh
+# Using npm
+npm run ios
+ 
+# OR using Yarn
+yarn ios
 
 ## Testing
 

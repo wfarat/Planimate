@@ -1,9 +1,10 @@
 import { Goal } from '@/types/schemas';
-import { storage } from '@/storage/storage';
+import { useStorage } from '@/storage/useStorage';
 import { useTaskActions } from '@/hooks/tasks/useTaskActions';
 
 export const useGoalActions = (goalId?: number) => {
-	const { cleanupTasks } = useTaskActions(goalId || 0);
+	const storage = useStorage();
+    const { cleanupTasks } = useTaskActions(goalId || 0);
 	const updateGoals = (updatedGoals: Goal[]) => {
 		storage.set('goals', JSON.stringify(updatedGoals));
 		storage.set('goalsUpdated', true);
@@ -39,7 +40,7 @@ export const useGoalActions = (goalId?: number) => {
 		const updatedGoals = goals.filter(g => g.goalId !== goalId);
 		updateGoals(updatedGoals);
 		cleanupTasks();
-		storage.delete(`tasks_${goalId}_lastId`);
+		storage.remove(`tasks_${goalId}_lastId`);
 	};
 	const createGoal = (name: string, description: string, dueDate?: Date) => {
 		const lastId = storage.getNumber('goals_lastId') || 0;

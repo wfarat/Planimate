@@ -45,7 +45,25 @@ export const config = {
 	fonts: {
 		sizes,
 		colors: colorsLight,
-	},
+        styles: {
+            regular: {
+                fontFamily: 'Inter-Regular',
+                fontWeight: '400',
+            },
+            medium: {
+                fontFamily: 'Inter-Medium',
+                fontWeight: '500',
+            },
+            bold: {
+                fontFamily: 'Inter-Bold',
+                fontWeight: '700',
+            },
+            heavy: {
+                fontFamily: 'Inter-Black',
+                fontWeight: '900',
+            },
+        }
+        },
 	gutters: sizes,
 	backgrounds: colorsLight,
 	borders: {

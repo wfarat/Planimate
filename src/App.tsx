@@ -8,20 +8,22 @@ import { useEffect } from 'react';
 import { syncData } from '@/api/firebase/syncData/syncData';
 import { getSyncData } from '@/api/firebase/getData/getSyncData';
 import ApplicationNavigator from './navigators/Application';
+import {useStorage} from "@/storage/useStorage";
 
 export const queryClient = new QueryClient();
 
 function App() {
+    const storage = useStorage();
 	useEffect(() => {
 		// Add event listener for AppState changes
 		const appStateListener = AppState.addEventListener(
 			'change',
 			nextAppState => {
 				if (nextAppState === 'background' || nextAppState === 'inactive') {
-					syncData().catch(error => console.error(error));
+					syncData(storage).catch(error => console.error(error));
 				}
 				if (nextAppState === 'active') {
-					getSyncData().catch(error => console.error(error));
+					getSyncData(storage).catch(error => console.error(error));
 				}
 			},
 		);

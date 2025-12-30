@@ -9,10 +9,11 @@ import { GreenRoundedButton, TasksHeader } from '@/components/atoms';
 import { useTaskHandlers } from '@/hooks/tasks/useTaskHandlers';
 import { useGoalActions } from '@/hooks/goals/useGoalActions';
 import { useMMKVString } from 'react-native-mmkv';
-import { storage } from '@/storage/storage';
+import { useStorage } from '@/storage/useStorage';
 import { useTheme } from '@/theme';
 
 function Tasks({ route, navigation }: RootScreenProps<'Tasks'>) {
+    const storage = useStorage();
 	const { goal, task } = route.params;
 	const [visible, setVisible] = useState([false, false, false]);
 	const [goalName, setGoalName] = useState(goal.name);

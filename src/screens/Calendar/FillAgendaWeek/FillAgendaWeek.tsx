@@ -164,7 +164,6 @@ function FillAgendaWeek({ navigation }: RootScreenProps<'FillAgendaWeek'>) {
 						</View>
 					)}
 				/>
-				<ActivityIndicator size="large" />
 				<GreenRoundedButton
 					handlePress={handleAddAgendaItems}
 					text="fillWeek"

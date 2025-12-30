@@ -1,7 +1,7 @@
 import { getTasks } from '@/services/firebase/tasks/getTasks';
-import { storage } from '@/storage/storage';
 import { Task } from '@/types/schemas';
 import { Timestamp } from '@react-native-firebase/firestore';
+import {MMKV} from "react-native-mmkv";
 
 type TasksData = {
 	tasks: Task[];
@@ -11,11 +11,12 @@ type TasksData = {
 export const updateLocalTasksSync = async (
 	tasksKeys: string[],
 	userId: string,
+    storage: MMKV
 ) => {
 	await Promise.all(
 		tasksKeys.map(async (key: string) => {
 			const tasksData = await getTasks(userId, key);
-			if (tasksData.exists) {
+			if (tasksData.exists()) {
 				const tasksArray = (tasksData.data() as TasksData).tasks;
 				const lastId =
 					storage.getNumber(`tasks_${tasksArray[0].goalId}_lastId`) || 0;

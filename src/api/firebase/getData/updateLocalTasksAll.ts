@@ -1,14 +1,16 @@
-import { storage } from '@/storage/storage';
+import { useStorage } from '@/storage/useStorage';
 import { Task } from '@/types/schemas';
 import firestore, { Timestamp } from '@react-native-firebase/firestore';
+import {MMKV} from "react-native-mmkv";
 
 type TasksData = {
 	tasks: Task[];
 	lastUpdated: Timestamp;
 };
 
-export const updateLocalTasksAll = async (userId: string) => {
-	const userTasksCollection = firestore()
+export const updateLocalTasksAll = async (userId: string,     storage: MMKV
+) => {
+    const userTasksCollection = firestore()
 		.collection('users')
 		.doc(userId)
 		.collection('tasks');

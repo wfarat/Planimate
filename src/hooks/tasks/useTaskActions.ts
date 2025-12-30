@@ -1,11 +1,12 @@
 import { GeneratedTask, Task } from '@/types/schemas';
-import { storage } from '@/storage/storage';
+import { useStorage } from '@/storage/useStorage';
 
 export const useTaskActions = (
 	goalId: number,
 	parentId?: number,
 	taskId?: number,
 ) => {
+    const storage = useStorage();
 	const getStorageString = (target?: number) => {
 		return target ? `tasks_${goalId}_${target}` : `tasks_${goalId}`;
 	};
@@ -28,7 +29,7 @@ export const useTaskActions = (
 		subtasks.forEach(subtask => {
 			cleanupTasks(subtask.taskId);
 		});
-		storage.delete(getStorageString(id));
+		storage.remove(getStorageString(id));
 		const keysToDelete = JSON.parse(
 			storage.getString('keysToDelete') || '[]',
 		) as string[];

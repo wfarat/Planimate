@@ -3,7 +3,17 @@ import generateConfig from '@/theme/ThemeProvider/generateConfig';
 
 import type { Theme as NavigationTheme } from '@react-navigation/native';
 import type { AllPartial } from './common';
+export type FontStyle = {
+    fontFamily: string;
+    fontWeight?: string;
+};
 
+export type FontStyles = {
+    regular: FontStyle;
+    medium: FontStyle;
+    bold: FontStyle;
+    heavy: FontStyle;
+};
 export type Variant = keyof typeof config.variants | 'default';
 
 export type ThemeState = {
@@ -15,6 +25,7 @@ export type FulfilledThemeConfiguration = {
 	fonts: {
 		sizes: readonly number[];
 		readonly colors: Record<string, string>;
+        styles: FontStyles;
 	};
 	gutters: readonly number[];
 	readonly backgrounds: Record<string, string>;

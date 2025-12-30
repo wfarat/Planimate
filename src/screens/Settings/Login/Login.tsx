@@ -3,11 +3,12 @@ import { SafeScreen } from '@/components/template';
 import { useTheme } from '@/theme';
 import { GreenRoundedButton, TextInputRounded } from '@/components/atoms';
 import { useEffect, useState } from 'react';
-import { storage } from '@/storage/storage';
+import { useStorage } from '@/storage/useStorage';
 import { getAllData } from '@/api/firebase/getData/getAllData';
 import { login } from '../../../api/firebase/users';
 
 function Login() {
+    const storage = useStorage();
 	const { components, layout, gutters } = useTheme();
 	const [email, setEmail] = useState<string>('');
 	const [password, setPassword] = useState<string>('');
@@ -20,7 +21,7 @@ function Login() {
 	useEffect(() => {
 		if (data) {
 			storage.set('userId', data);
-			getAllData()
+			getAllData(storage)
 				.then()
 				.catch(error => console.error(error));
 		}

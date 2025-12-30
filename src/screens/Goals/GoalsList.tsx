@@ -4,9 +4,10 @@ import { Goal } from '@/types/schemas';
 import { RootScreenProps } from '@/types/navigation';
 import { ItemCard } from '@/components/molecules';
 import { useMMKVString } from 'react-native-mmkv';
-import { storage } from '@/storage/storage';
+import { useStorage } from '@/storage/useStorage';
 
 function GoalsList({ navigation }: RootScreenProps<'Goals'>) {
+    const storage = useStorage();
 	const [goalsString] = useMMKVString('goals', storage);
 	const goals = goalsString ? (JSON.parse(goalsString) as Goal[]) : [];
 	const renderItem: ListRenderItem<Goal> = ({ item }: { item: Goal }) => (

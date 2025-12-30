@@ -1,4 +1,4 @@
-import { storage } from '@/storage/storage';
+import { useStorage } from '@/storage/useStorage';
 import { AgendaItemType, Task } from '@/types/schemas';
 import { MarkedDates } from 'react-native-calendars/src/types';
 import isEmpty from 'lodash/isEmpty';
@@ -6,7 +6,8 @@ import agendaItemType, { AgendaItemData } from '@/types/schemas/agendaItemType';
 import { useTaskFromAgenda } from '@/hooks/tasks/useTaskFromAgenda';
 
 export const useAgendaItems = () => {
-	const { updateStoredTaskDuration, getTaskStorageKey } = useTaskFromAgenda();
+	const storage = useStorage();
+    const { updateStoredTaskDuration, getTaskStorageKey } = useTaskFromAgenda();
 	const loadStoredItems = () => {
 		const storedItems = storage.getString('agenda');
 		if (storedItems) {

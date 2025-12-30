@@ -1,14 +1,15 @@
 import { getAgenda } from '@/services/firebase/agenda/getAgenda';
-import { storage } from '@/storage/storage';
 import { AgendaItemType } from '@/types/schemas';
 import { Timestamp } from '@react-native-firebase/firestore';
+import {MMKV} from "react-native-mmkv";
 
 type AgendaData = {
 	agenda: AgendaItemType[];
 	lastUpdated: Timestamp;
 };
 
-export const updateLocalAgenda = async (userId: string) => {
+export const updateLocalAgenda = async (userId: string,     storage: MMKV
+) => {
 	const agendaData = await getAgenda(userId);
 	const lastId = storage.getNumber('agenda_id') || 0;
 	const agendaItems = (agendaData.data() as AgendaData).agenda;

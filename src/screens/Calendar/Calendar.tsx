@@ -21,7 +21,7 @@ import { GreenRoundedButton } from '@/components/atoms';
 import { View } from 'react-native';
 import { RootScreenProps } from '@/types/navigation';
 import { useMMKVString } from 'react-native-mmkv';
-import { storage } from '@/storage/storage';
+import { useStorage } from '@/storage/useStorage';
 import { AgendaItemType } from '@/types/schemas';
 import testIDs from './testIDs';
 
@@ -30,6 +30,7 @@ LocaleConfig.locales.en = EN;
 LocaleConfig.defaultLocale = i18next.language;
 
 function Calendar({ navigation }: RootScreenProps<'Calendar'>) {
+    const storage = useStorage();
 	const { getMarkedDates, deleteAgendaItem, completeAgendaItem } =
 		useAgendaItems();
 	const theme = useRef(getTheme());
